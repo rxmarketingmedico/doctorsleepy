@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar } from "@/components/Avatar";
 import { cn } from "@/lib/utils";
+import ReactMarkdown from "react-markdown";
 
 interface Message {
   id: string;
@@ -34,6 +35,201 @@ const quickReplies: Record<string, string[]> = {
   discomfort: ["Fralda limpa", "Roupas confortáveis", "Ambiente agradável"],
   inconsolable: ["Sim, está alimentado", "Sim, fralda limpa", "Preciso de ajuda urgente"],
   "night-waking": ["Dormiu às 19h", "Dormiu às 20h-21h", "Dormiu depois das 22h"],
+};
+
+// Respostas contextuais baseadas na entrada do usuário
+const getContextualResponse = (context: string, userMessage: string): string => {
+  const lowerMessage = userMessage.toLowerCase();
+  
+  if (context === "inconsolable") {
+    if (lowerMessage.includes("alimentado") || lowerMessage.includes("sim")) {
+      return `Ótimo que o bebê está alimentado! Aqui estão algumas técnicas que podem ajudar a acalmar um choro inconsolável:
+
+**🤱 Técnica dos 5 S's (Dr. Harvey Karp):**
+1. **Swaddle (Enrolar)** - Enrole o bebê firme em uma manta
+2. **Side/Stomach (Lado)** - Segure deitado de lado ou de bruços no seu colo
+3. **Shush (Shhhh)** - Faça sons de "shhhh" perto do ouvido
+4. **Swing (Balançar)** - Balance suavemente
+5. **Suck (Sugar)** - Ofereça chupeta ou o dedo limpo
+
+**🌡️ Verifique também:**
+- Temperatura do ambiente (ideal: 20-22°C)
+- Roupas muito quentes ou muito frias
+- Gases - tente massagem na barriguinha em círculos
+
+**⚠️ Se o choro persistir por mais de 2 horas ou notar febre, procure atendimento médico.**
+
+O que você gostaria de tentar primeiro?`;
+    }
+    if (lowerMessage.includes("fralda")) {
+      return `Perfeito, fralda limpa! Agora vamos verificar outras possibilidades:
+
+**🤔 Possíveis causas:**
+- **Cólicas** - Comum em bebês até 3-4 meses
+- **Gases** - Tente a posição de "bicicleta" com as perninhas
+- **Superestimulação** - Ambiente muito barulhento ou iluminado
+- **Necessidade de colo** - Bebês precisam de contato físico
+
+**💆 Técnicas calmantes:**
+1. Coloque o bebê pele a pele no seu peito
+2. Caminhe balançando suavemente
+3. Use ruído branco (secador de cabelo, aspirador, app)
+4. Banho morno pode ajudar a relaxar
+
+Seu bebê tem menos de 3 meses?`;
+    }
+    if (lowerMessage.includes("ajuda") || lowerMessage.includes("urgente")) {
+      return `Entendo sua preocupação. Vou te ajudar a avaliar:
+
+**🚨 Procure atendimento médico se:**
+- Choro agudo e diferente do normal
+- Febre acima de 37.5°C
+- Recusa alimentação por mais de 6 horas
+- Vômitos repetidos
+- Pele com manchas ou muito pálida
+- Dificuldade para respirar
+- Moleira afundada ou muito saliente
+
+**📞 Se nenhum sinal de alerta:**
+Respire fundo. Bebês choram, e às vezes sem motivo aparente. Você está fazendo um ótimo trabalho ao buscar ajuda.
+
+Está observando algum desses sinais de alerta?`;
+    }
+  }
+  
+  if (context === "hunger") {
+    if (lowerMessage.includes("menos de 1 hora") || lowerMessage.includes("1 hora")) {
+      return `Se mamou há menos de 1 hora, provavelmente não é fome. Bebês podem querer mamar por conforto, não só por fome.
+
+**🔍 Outros sinais a observar:**
+- Está levando a mão à boca?
+- Fazendo movimentos de sucção?
+- Virando a cabeça procurando o peito?
+
+**💡 Pode ser:**
+- Necessidade de sucção (ofereça chupeta)
+- Cólica ou gases
+- Sono (verifique há quanto tempo está acordado)
+
+Quer que eu ajude a identificar outros sinais?`;
+    }
+    if (lowerMessage.includes("2") || lowerMessage.includes("3 horas")) {
+      return `Mamou há 2-3 horas - pode sim ser fome, especialmente se o bebê tem menos de 3 meses.
+
+**🍼 Sinais claros de fome:**
+- Leva as mãos à boca
+- Faz movimentos de sucção
+- Vira a cabeça procurando o peito
+- Fica agitado e inquieto
+- Choro que aumenta gradualmente
+
+**💡 Dica:** O choro é o último sinal de fome. Tente oferecer antes do choro intenso para uma mamada mais tranquila.
+
+Seu bebê está mostrando esses sinais?`;
+    }
+  }
+  
+  if (context === "sleep") {
+    if (lowerMessage.includes("menos de 1") || lowerMessage.includes("1 hora")) {
+      return `Acordado há menos de 1 hora - para a maioria das idades, ainda não é hora de dormir.
+
+**⏰ Janelas de sono por idade:**
+- 0-6 semanas: 45-60 min acordado
+- 6-12 semanas: 1-1.5 horas
+- 3-4 meses: 1.5-2 horas
+- 5-6 meses: 2-2.5 horas
+
+Qual a idade do seu bebê para eu te dar orientações mais específicas?`;
+    }
+    if (lowerMessage.includes("2 horas") || lowerMessage.includes("mais de 2")) {
+      return `Acordado há mais de 2 horas - dependendo da idade, pode estar cansado demais!
+
+**😴 Sinais de sono:**
+- Bocejos
+- Esfregar os olhos
+- Olhar fixo/vidrado
+- Movimentos descoordenados
+- Ficar "grudento"
+- Perder interesse em brincar
+
+**💡 Dica importante:** Bebê muito cansado tem mais dificuldade para dormir. Coloque para dormir ao primeiro sinal.
+
+**🌙 Rotina de sono:**
+1. Diminua estímulos (luz, som)
+2. Troque fralda
+3. Enrole em manta (se bebê pequeno)
+4. Balance suavemente
+5. Use ruído branco
+
+Quer que eu te guie em uma rotina de sono?`;
+    }
+  }
+  
+  if (context === "discomfort") {
+    if (lowerMessage.includes("fralda") && lowerMessage.includes("limp")) {
+      return `Fralda limpa ✓ Ótimo! Vamos verificar outras causas de desconforto:
+
+**👕 Roupas:**
+- Etiquetas que podem incomodar?
+- Elásticos muito apertados?
+- Tecido áspero?
+
+**🌡️ Temperatura:**
+- Toque a nuca do bebê (não mãos/pés)
+- Deve estar morninha, não quente nem fria
+- Ideal: 1 camada a mais que você
+
+**💨 Gases:**
+- Massagem na barriga em sentido horário
+- Posição de "bicicleta" com as pernas
+- Deite de bruços no seu antebraço
+
+**🔍 Outros:**
+- Cabelo enrolado no dedo (síndrome do torniquete)
+- Picada de inseto
+- Assadura começando
+
+Verificou as roupas e temperatura?`;
+    }
+  }
+  
+  if (context === "night-waking") {
+    if (lowerMessage.includes("19") || lowerMessage.includes("20") || lowerMessage.includes("21")) {
+      return `Dormiu entre 19h-21h - esse é um bom horário!
+
+**🌙 Por que acordou?**
+Despertar noturno é normal. Bebês têm ciclos de sono de 45-60 min.
+
+**💡 Dicas para ajudar a voltar a dormir:**
+1. Espere alguns minutos antes de intervir
+2. Mantenha o ambiente escuro
+3. Fale baixinho ou não fale
+4. Evite trocar fralda se não estiver suja
+5. Ofereça mama/mamadeira se for horário
+
+**⏰ Número de despertares por idade:**
+- 0-3 meses: 2-4 vezes (normal)
+- 3-6 meses: 1-3 vezes
+- 6-12 meses: 0-2 vezes
+
+Quantas vezes seu bebê acorda normalmente?`;
+    }
+  }
+  
+  // Resposta padrão mais útil
+  return `Obrigado por compartilhar! Baseado no que você me disse, aqui estão algumas orientações:
+
+**🔍 Próximos passos:**
+1. Observe o comportamento do bebê nos próximos minutos
+2. Tente uma técnica calmante (colo, balanço, ruído branco)
+3. Verifique necessidades básicas (fome, fralda, temperatura)
+
+**💡 Lembre-se:**
+- Você conhece seu bebê melhor que ninguém
+- Chorar é a forma do bebê se comunicar
+- É normal não saber a causa imediatamente
+
+Quer que eu te ajude com algo mais específico?`;
 };
 
 export default function Chat() {
@@ -72,12 +268,13 @@ export default function Chat() {
     setInput("");
     setIsTyping(true);
 
-    // Simulate AI response (will be replaced with real AI later)
+    // Get contextual response based on user input
     setTimeout(() => {
+      const responseContent = getContextualResponse(context, content);
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: "Obrigado por compartilhar. Baseado no que você me disse, aqui estão algumas sugestões que podem ajudar. Lembre-se: cada bebê é único e você conhece seu filho melhor do que ninguém. Se o choro persistir ou você estiver preocupado(a), não hesite em consultar o pediatra.",
+        content: responseContent,
       };
       setMessages((prev) => [...prev, assistantMessage]);
       setIsTyping(false);
@@ -136,7 +333,13 @@ export default function Chat() {
                     : "bg-card border border-border rounded-bl-md"
                 )}
               >
-                <p className="text-sm leading-relaxed">{message.content}</p>
+                {message.role === "assistant" ? (
+                  <div className="text-sm leading-relaxed prose prose-sm max-w-none dark:prose-invert prose-p:my-2 prose-ul:my-2 prose-li:my-0.5 prose-strong:text-foreground">
+                    <ReactMarkdown>{message.content}</ReactMarkdown>
+                  </div>
+                ) : (
+                  <p className="text-sm leading-relaxed">{message.content}</p>
+                )}
               </div>
             </div>
           ))}
