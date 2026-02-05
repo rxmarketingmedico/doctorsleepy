@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuthContext } from "@/contexts/AuthContext";
+import { useProfile } from "@/hooks/useProfile";
 
 // Pages
 import Home from "./pages/Home";
@@ -18,19 +19,52 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { user, loading } = useAuthContext();
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="animate-pulse text-muted-foreground">Carregando...</div>
+function LoadingScreen() {
+  return (
+    <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-pulse text-2xl mb-2">🌙</div>
+        <p className="text-muted-foreground">Carregando...</p>
       </div>
-    );
+    </div>
+  );
+}
+
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const { user, loading: authLoading } = useAuthContext();
+  const { profile, loading: profileLoading } = useProfile();
+
+  if (authLoading || profileLoading) {
+    return <LoadingScreen />;
   }
 
   if (!user) {
     return <Navigate to="/auth" replace />;
+  }
+
+  // Redirect to onboarding if not completed
+  if (profile && !profile.onboarding_completed) {
+    return <Navigate to="/onboarding" replace />;
+  }
+
+  return <>{children}</>;
+}
+
+function OnboardingRoute({ children }: { children: React.ReactNode }) {
+  const { user, loading: authLoading } = useAuthContext();
+  const { profile, loading: profileLoading } = useProfile();
+
+  if (authLoading || profileLoading) {
+    return <LoadingScreen />;
+  }
+
+  if (!user) {
+    return <Navigate to="/auth" replace />;
+  }
+
+  // If already completed onboarding, go to home
+  if (profile && profile.onboarding_completed) {
+    return <Navigate to="/" replace />;
   }
 
   return <>{children}</>;
@@ -40,11 +74,7 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuthContext();
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="animate-pulse text-muted-foreground">Carregando...</div>
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   if (user) {
@@ -60,9 +90,11 @@ function AppRoutes() {
       {/* Public routes */}
       <Route path="/auth" element={<PublicRoute><Auth /></PublicRoute>} />
 
+      {/* Onboarding route */}
+      <Route path="/onboarding" element={<OnboardingRoute><Onboarding /></OnboardingRoute>} />
+
       {/* Protected routes */}
       <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-      <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
       <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
       <Route path="/routine" element={<ProtectedRoute><Routine /></ProtectedRoute>} />
       <Route path="/cry-translator" element={<ProtectedRoute><CryTranslator /></ProtectedRoute>} />
