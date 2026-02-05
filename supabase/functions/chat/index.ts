@@ -57,6 +57,45 @@ serve(async (req) => {
       .order("created_at", { ascending: false })
       .limit(20);
 
+    // Get sleep logs for routine context (last 7 days)
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    
+    const { data: sleepLogs } = await supabase
+      .from("sleep_logs")
+      .select("log_type, started_at, ended_at, notes, created_at")
+      .eq("user_id", user.id)
+      .gte("created_at", sevenDaysAgo.toISOString())
+      .order("created_at", { ascending: false })
+      .limit(50);
+
+    // Format sleep logs for context
+    const formatDuration = (start: string, end: string | null) => {
+      if (!end) return "em andamento";
+      const diffMs = new Date(end).getTime() - new Date(start).getTime();
+      const hours = Math.floor(diffMs / (1000 * 60 * 60));
+      const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+      return hours > 0 ? `${hours}h ${minutes}min` : `${minutes}min`;
+    };
+
+    const logTypeNames: Record<string, string> = {
+      sleep: "Sono noturno",
+      nap: "Soneca",
+      feeding: "Mamada",
+      diaper: "Troca de fralda",
+      crying: "Choro",
+      play: "Brincadeira",
+      bath: "Banho",
+    };
+
+    const routineContext = sleepLogs?.length ? sleepLogs.map(log => {
+      const date = new Date(log.started_at).toLocaleDateString('pt-BR');
+      const time = new Date(log.started_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+      const duration = formatDuration(log.started_at, log.ended_at);
+      const type = logTypeNames[log.log_type] || log.log_type;
+      return `- ${date} ${time}: ${type} (${duration})${log.notes ? ` - ${log.notes}` : ''}`;
+    }).join('\n') : 'Nenhum registro de rotina disponível';
+
     // Calculate baby age if birth date exists
     let babyAge = "";
     if (profile?.baby_birth_date) {
@@ -90,6 +129,9 @@ ${profile ? `
 - Mamadas noturnas: ${profile.night_feedings || 'Não informado'} vezes por noite
 ` : 'Perfil não disponível - pergunte informações básicas sobre o bebê.'}
 
+ROTINA DOS ÚLTIMOS 7 DIAS:
+${routineContext}
+
 CONTEXTO DA CONVERSA ATUAL: ${context || 'Conversa geral'}
 
 HISTÓRICO RECENTE (últimas interações):
@@ -105,6 +147,8 @@ DIRETRIZES:
 7. Mantenha respostas concisas mas completas (máximo 400 palavras)
 8. Use emojis moderadamente para tornar a conversa mais acolhedora
 9. Lembre-se do histórico da conversa para dar continuidade natural
+10. **IMPORTANTE**: Use os dados de rotina para personalizar suas respostas. Analise padrões de sono, alimentação e identifique possíveis problemas ou melhorias baseados nos registros.
+11. Se notar padrões preocupantes na rotina (pouco sono, muitas mamadas noturnas, etc.), mencione isso proativamente com sugestões.
 
 AVISO IMPORTANTE: Você oferece orientações gerais e NÃO substitui aconselhamento médico profissional.`;
 
