@@ -11,9 +11,13 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
-interface Profile {
+interface ProfileData {
   baby_name: string | null;
   baby_birth_date: string | null;
+  parent_name: string | null;
+  sleep_location: string | null;
+  uses_pacifier: boolean | null;
+  night_feedings: number | null;
   subscription_status: string | null;
 }
 
@@ -21,7 +25,7 @@ export default function Profile() {
   const { user, signOut } = useAuthContext();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const [profile, setProfile] = useState<ProfileData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -31,9 +35,9 @@ export default function Profile() {
       try {
         const { data, error } = await supabase
           .from("profiles")
-          .select("baby_name, baby_birth_date, subscription_status")
+          .select("baby_name, baby_birth_date, parent_name, sleep_location, uses_pacifier, night_feedings, subscription_status")
           .eq("user_id", user.id)
-          .single();
+          .maybeSingle();
 
         if (error) throw error;
         setProfile(data);
@@ -111,14 +115,38 @@ export default function Profile() {
               Dados do bebê
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-3">
+            {profile?.parent_name && (
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Responsável</span>
+                <span className="text-foreground">{profile.parent_name}</span>
+              </div>
+            )}
+            {profile?.sleep_location && (
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Local de sono</span>
+                <span className="text-foreground">
+                  {profile.sleep_location === "crib" && "Berço próprio"}
+                  {profile.sleep_location === "parents-room" && "Quarto dos pais"}
+                  {profile.sleep_location === "co-sleeping" && "Cama compartilhada"}
+                  {profile.sleep_location === "bassinet" && "Moisés"}
+                </span>
+              </div>
+            )}
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Usa chupeta</span>
+              <span className="text-foreground">{profile?.uses_pacifier ? "Sim" : "Não"}</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Mamadas noturnas</span>
+              <span className="text-foreground">{profile?.night_feedings || 0}x por noite</span>
+            </div>
             <Button 
-              variant="ghost" 
-              className="w-full justify-between h-auto py-3"
-              onClick={() => navigate("/onboarding")}
+              variant="outline" 
+              className="w-full mt-4 rounded-xl"
+              onClick={() => navigate("/profile/edit")}
             >
-              <span>Editar informações</span>
-              <ChevronRight className="w-5 h-5" />
+              Editar informações
             </Button>
           </CardContent>
         </Card>
