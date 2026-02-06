@@ -36,7 +36,7 @@ serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-3-pro-image-preview",
+        model: "google/gemini-2.5-flash-image",
         messages: [
           {
             role: "user",
@@ -62,9 +62,24 @@ serve(async (req) => {
     }
 
     const data = await response.json();
-    const imageUrl = data.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+    console.log("AI response structure:", JSON.stringify(data, null, 2));
+    
+    // Try multiple paths to find the image
+    let imageUrl = data.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+    
+    // Alternative path if images is at content level
+    if (!imageUrl && data.choices?.[0]?.message?.content) {
+      const content = data.choices[0].message.content;
+      if (Array.isArray(content)) {
+        const imageContent = content.find((c: any) => c.type === 'image_url' || c.image_url);
+        if (imageContent) {
+          imageUrl = imageContent.image_url?.url || imageContent.url;
+        }
+      }
+    }
 
     if (!imageUrl) {
+      console.error("No image found in response. Full data:", JSON.stringify(data));
       throw new Error("No image generated");
     }
 
