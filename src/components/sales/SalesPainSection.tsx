@@ -1,5 +1,6 @@
 import { Heart } from "lucide-react";
 import tiredParentImg from "@/assets/sales/tired-parent.jpg";
+import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const painPoints = [
   "Seu bebê acorda várias vezes durante a noite",
@@ -13,9 +14,11 @@ export default function SalesPainSection() {
   return (
     <section className="px-4 py-16 md:py-20 bg-muted/30">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 text-foreground">
-          Você se identifica com isso?
-        </h2>
+        <ScrollReveal>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 text-foreground">
+            Você se identifica com isso?
+          </h2>
+        </ScrollReveal>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="order-2 md:order-1 space-y-4">
             {painPoints.map((item, i) => (

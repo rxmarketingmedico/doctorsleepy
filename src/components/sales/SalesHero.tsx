@@ -1,4 +1,4 @@
-import { Moon, ArrowRight } from "lucide-react";
+import { Moon, ArrowRight, Users, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo-doutor-soneca.png";
 import heroImg from "@/assets/sales/hero-sleeping-baby.jpg";
@@ -45,6 +45,18 @@ export default function SalesHero() {
               Quero noites melhores
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
+
+            {/* Social proof bar */}
+            <div className="flex flex-wrap items-center justify-center gap-4 mt-10 text-xs text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5 bg-card/60 backdrop-blur-sm rounded-full px-3 py-1.5 border border-border/30">
+                <Users className="w-3.5 h-3.5 text-primary" />
+                +2.300 famílias confiam
+              </span>
+              <span className="inline-flex items-center gap-1.5 bg-card/60 backdrop-blur-sm rounded-full px-3 py-1.5 border border-border/30">
+                <Shield className="w-3.5 h-3.5 text-primary" />
+                Baseado em evidências
+              </span>
+            </div>
           </div>
         </div>
       </section>
