@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Utensils, Moon, Thermometer, Baby, Clock, Music, BookOpen } from "lucide-react";
+import { Utensils, Moon, Thermometer, Baby, Clock, Music, BookOpen, MessageCircle } from "lucide-react";
 import { Avatar } from "@/components/Avatar";
 import { EmergencyButton } from "@/components/EmergencyButton";
 import { BottomNav } from "@/components/BottomNav";
@@ -65,9 +65,29 @@ export default function Home() {
           />
         </div>
 
+        {/* Free Chat Card */}
+        <Card 
+          className="mt-6 cursor-pointer hover:shadow-lg transition-all bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 border-emerald-200 dark:border-emerald-800"
+          onClick={() => navigate("/chat?context=general")}
+        >
+          <CardContent className="p-4">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-lg">
+                <MessageCircle className="w-7 h-7 text-white" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-foreground">Conversar com o Doutor</h3>
+                <p className="text-sm text-muted-foreground">
+                  Tire suas dúvidas sobre sono, alimentação e cuidados
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Audio Library Card */}
         <Card 
-          className="mt-6 cursor-pointer hover:shadow-lg transition-all bg-gradient-to-br from-violet-50 to-indigo-50 dark:from-violet-950/30 dark:to-indigo-950/30 border-violet-200 dark:border-violet-800"
+          className="mt-4 cursor-pointer hover:shadow-lg transition-all bg-gradient-to-br from-violet-50 to-indigo-50 dark:from-violet-950/30 dark:to-indigo-950/30 border-violet-200 dark:border-violet-800"
           onClick={() => navigate("/audio-library")}
         >
           <CardContent className="p-4">
