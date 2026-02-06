@@ -22,7 +22,7 @@ export default function SalesHero() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
           <img src={heroImg} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/85 to-background" />
         </div>
         <div className="relative px-4 pt-20 pb-24 md:pt-32 md:pb-36">
           <div className="max-w-2xl mx-auto text-center">
