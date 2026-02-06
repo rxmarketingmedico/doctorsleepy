@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuthContext } from "@/contexts/AuthContext";
 import { useProfile } from "@/hooks/useProfile";
+import { SubscriptionGate } from "@/components/SubscriptionGate";
 
 // Pages
 import Home from "./pages/Home";
@@ -53,7 +54,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
     return <Navigate to="/onboarding" replace />;
   }
 
-  return <>{children}</>;
+  return <SubscriptionGate>{children}</SubscriptionGate>;
 }
 
 function OnboardingRoute({ children }: { children: React.ReactNode }) {
