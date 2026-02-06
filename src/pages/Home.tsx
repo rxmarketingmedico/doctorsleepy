@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Utensils, Moon, Thermometer, Baby, Clock, Music, BookOpen, MessageCircle } from "lucide-react";
-import { Avatar } from "@/components/Avatar";
+import { AvatarAI } from "@/components/AvatarAI";
 import { EmergencyButton } from "@/components/EmergencyButton";
 import { BottomNav } from "@/components/BottomNav";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -35,7 +35,7 @@ export default function Home() {
       <main className="px-4 py-6 max-w-lg mx-auto">
         {/* Avatar Section */}
         <div className="flex flex-col items-center mb-8">
-          <Avatar size="xl" state="idle" />
+          <AvatarAI size="xl" state="idle" />
           <h2 className="mt-4 text-2xl font-bold text-foreground">Modo Emergência</h2>
           <p className="text-muted-foreground text-center mt-2">
             Seu bebê está chorando? Escolha a opção que melhor descreve a situação.

@@ -3,7 +3,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Send, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Avatar } from "@/components/Avatar";
+import { AvatarAI } from "@/components/AvatarAI";
 import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import { supabase } from "@/integrations/supabase/client";
@@ -264,7 +264,7 @@ export default function Chat() {
             </h1>
             <p className="text-xs text-muted-foreground">Doutor Soneca</p>
           </div>
-          <Avatar size="sm" state={isTyping ? "thinking" : "idle"} />
+          <AvatarAI size="sm" state={isTyping ? "thinking" : "idle"} />
         </div>
       </header>
 
@@ -292,7 +292,7 @@ export default function Chat() {
             >
               {message.role === "assistant" && (
                 <div className="mr-2 flex-shrink-0">
-                  <Avatar size="sm" state={isTyping && message.id !== "initial" ? "thinking" : "idle"} />
+                  <AvatarAI size="sm" state={isTyping && message.id !== "initial" ? "thinking" : "idle"} />
                 </div>
               )}
               <div
@@ -317,7 +317,7 @@ export default function Chat() {
           {isTyping && messages[messages.length - 1]?.role === "user" && (
             <div className="flex justify-start">
               <div className="mr-2 flex-shrink-0">
-                <Avatar size="sm" state="thinking" />
+                <AvatarAI size="sm" state="thinking" />
               </div>
               <div className="bg-card border border-border rounded-2xl rounded-bl-md px-4 py-3">
                 <div className="flex gap-1">

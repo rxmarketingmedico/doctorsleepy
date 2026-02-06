@@ -8,7 +8,7 @@ import { Slider } from "@/components/ui/slider";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
-import { Avatar } from "@/components/Avatar";
+import { AvatarAI } from "@/components/AvatarAI";
 
 interface AudioItem {
   id: string;
@@ -248,7 +248,7 @@ export default function AudioLibrary() {
               Histórias e músicas para ninar
             </p>
           </div>
-          <Avatar size="sm" state={isPlaying ? "speaking" : "idle"} />
+          <AvatarAI size="sm" state={isPlaying ? "speaking" : "idle"} />
         </div>
       </header>
 
