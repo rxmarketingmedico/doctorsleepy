@@ -139,6 +139,7 @@ export type Database = {
           baby_name: string | null
           created_at: string
           has_support_network: boolean | null
+          hotmart_transaction_id: string | null
           id: string
           is_first_child: boolean | null
           main_concerns: string[] | null
@@ -147,7 +148,9 @@ export type Database = {
           parent_experience: string | null
           parent_name: string | null
           sleep_location: string | null
+          subscription_expires_at: string | null
           subscription_id: string | null
+          subscription_plan: string | null
           subscription_status: string | null
           updated_at: string
           user_id: string
@@ -158,6 +161,7 @@ export type Database = {
           baby_name?: string | null
           created_at?: string
           has_support_network?: boolean | null
+          hotmart_transaction_id?: string | null
           id?: string
           is_first_child?: boolean | null
           main_concerns?: string[] | null
@@ -166,7 +170,9 @@ export type Database = {
           parent_experience?: string | null
           parent_name?: string | null
           sleep_location?: string | null
+          subscription_expires_at?: string | null
           subscription_id?: string | null
+          subscription_plan?: string | null
           subscription_status?: string | null
           updated_at?: string
           user_id: string
@@ -177,6 +183,7 @@ export type Database = {
           baby_name?: string | null
           created_at?: string
           has_support_network?: boolean | null
+          hotmart_transaction_id?: string | null
           id?: string
           is_first_child?: boolean | null
           main_concerns?: string[] | null
@@ -185,7 +192,9 @@ export type Database = {
           parent_experience?: string | null
           parent_name?: string | null
           sleep_location?: string | null
+          subscription_expires_at?: string | null
           subscription_id?: string | null
+          subscription_plan?: string | null
           subscription_status?: string | null
           updated_at?: string
           user_id?: string
