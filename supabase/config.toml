@@ -2,3 +2,12 @@ project_id = "imgixemgfijmpyaumxas"
 
 [functions.generate-avatar]
 verify_jwt = false
+
+[functions.chat]
+verify_jwt = false
+
+[functions.save-assistant-message]
+verify_jwt = false
+
+[functions.analyze-cry]
+verify_jwt = false
