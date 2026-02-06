@@ -44,11 +44,11 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Extract buyer email
-    const buyerEmail = data.buyer?.email?.toLowerCase();
+    // Extract buyer email (buyer for purchases, subscriber for subscription events)
+    const buyerEmail = (data.buyer?.email || data.subscriber?.email)?.toLowerCase();
     if (!buyerEmail) {
-      console.error("No buyer email in webhook payload");
-      return new Response(JSON.stringify({ error: "No buyer email" }), {
+      console.error("No buyer/subscriber email in webhook payload");
+      return new Response(JSON.stringify({ error: "No email found" }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
