@@ -4,6 +4,8 @@ import { ArrowLeft, Send, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AvatarAI } from "@/components/AvatarAI";
+import { QuickReplies } from "@/components/chat/QuickReplies";
+import { useDynamicSuggestions } from "@/hooks/useDynamicSuggestions";
 import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import { supabase } from "@/integrations/supabase/client";
@@ -33,14 +35,7 @@ const initialMessages: Record<string, string> = {
   general: "Olá! 👋 Sou o Doutor Soneca, seu assistente especializado em sono infantil e cuidados com bebês. Como posso te ajudar hoje? Pode me perguntar sobre sono, alimentação, choro, rotinas ou qualquer dúvida sobre o seu pequeno!",
 };
 
-const quickReplies: Record<string, string[]> = {
-  hunger: ["Mamou há menos de 1 hora", "Mamou há 2-3 horas", "Mamou há mais de 3 horas"],
-  sleep: ["Acordado há menos de 1 hora", "Acordado há 1-2 horas", "Acordado há mais de 2 horas"],
-  discomfort: ["Fralda limpa", "Roupas confortáveis", "Ambiente agradável"],
-  inconsolable: ["Sim, está alimentado", "Sim, fralda limpa", "Preciso de ajuda urgente"],
-  "night-waking": ["Dormiu às 19h", "Dormiu às 20h-21h", "Dormiu depois das 22h"],
-  general: ["Como criar uma rotina de sono?", "Quantas horas meu bebê deve dormir?", "Dicas para acalmar o bebê"],
-};
+// Quick replies moved to useDynamicSuggestions hook
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
 const SAVE_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/save-assistant-message`;
@@ -53,6 +48,7 @@ export default function Chat() {
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const suggestions = useDynamicSuggestions(messages, context);
 
   useEffect(() => {
     const initialMessage: Message = {
@@ -334,22 +330,12 @@ export default function Chat() {
       </main>
 
       {/* Quick Replies */}
-      {messages.length === 1 && (
-        <div className="px-4 pb-2">
-          <div className="max-w-lg mx-auto flex flex-wrap gap-2">
-            {quickReplies[context]?.map((reply) => (
-              <Button
-                key={reply}
-                variant="outline"
-                size="sm"
-                onClick={() => handleSend(reply)}
-                className="rounded-full text-xs"
-              >
-                {reply}
-              </Button>
-            ))}
-          </div>
-        </div>
+      {!isTyping && (
+        <QuickReplies
+          suggestions={suggestions}
+          onSelect={handleSend}
+          disabled={isTyping}
+        />
       )}
 
       {/* Input */}
