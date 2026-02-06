@@ -18,6 +18,10 @@ import AudioLibrary from "./pages/AudioLibrary";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import NotFound from "./pages/NotFound";
+import AdminLayout from "./pages/admin/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminUsers from "./pages/admin/AdminUsers";
+import AdminAudios from "./pages/admin/AdminAudios";
 
 const queryClient = new QueryClient();
 
@@ -104,6 +108,13 @@ function AppRoutes() {
       <Route path="/audio-library" element={<ProtectedRoute><AudioLibrary /></ProtectedRoute>} />
       <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       <Route path="/profile/edit" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
+
+      {/* Admin routes */}
+      <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
+        <Route index element={<AdminDashboard />} />
+        <Route path="users" element={<AdminUsers />} />
+        <Route path="audios" element={<AdminAudios />} />
+      </Route>
 
       {/* Catch-all */}
       <Route path="*" element={<NotFound />} />
