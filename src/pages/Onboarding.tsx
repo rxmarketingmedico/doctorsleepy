@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronRight, ChevronLeft, Check, Moon, Star, Brain, Clock, Shield, Heart } from "lucide-react";
+import { ChevronRight, ChevronLeft, Check, Moon, Star, Brain, Clock, Shield, Heart, Users, Baby } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,6 +14,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuthContext } from "@/contexts/AuthContext";
 
 interface OnboardingData {
+  // Parent info
+  parentName: string;
+  isFirstChild: string;
+  parentExperience: string;
+  hasSupportNetwork: string;
+  mainConcerns: string[];
+  // Baby info
   babyName: string;
   babyBirthDate: string;
   sleepLocation: string;
@@ -22,13 +29,28 @@ interface OnboardingData {
   acceptedTerms: boolean;
 }
 
-const totalSteps = 8;
+const totalSteps = 11;
 
 const benefits = [
   { icon: Brain, title: "IA Especializada", description: "Orientações personalizadas baseadas na idade e hábitos do seu bebê" },
   { icon: Moon, title: "Tradutor de Choro", description: "Entenda o que seu bebê está tentando comunicar" },
   { icon: Clock, title: "Rotina Inteligente", description: "Acompanhe padrões de sono e receba previsões" },
   { icon: Star, title: "Modo Emergência", description: "Ajuda rápida quando você mais precisa, 24h" },
+];
+
+const experienceOptions = [
+  { value: "none", label: "Nenhuma experiência", description: "É minha primeira vez cuidando de um bebê" },
+  { value: "some", label: "Alguma experiência", description: "Já ajudei com sobrinhos, afilhados ou trabalho" },
+  { value: "experienced", label: "Experiência com outros filhos", description: "Já tenho outros filhos" },
+];
+
+const concernOptions = [
+  { value: "sleep", label: "Sono do bebê" },
+  { value: "feeding", label: "Alimentação" },
+  { value: "crying", label: "Choro excessivo" },
+  { value: "development", label: "Desenvolvimento" },
+  { value: "routine", label: "Criar rotina" },
+  { value: "health", label: "Saúde geral" },
 ];
 
 const sleepLocations = [
@@ -49,6 +71,11 @@ export default function Onboarding() {
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<OnboardingData>({
+    parentName: "",
+    isFirstChild: "",
+    parentExperience: "",
+    hasSupportNetwork: "",
+    mainConcerns: [],
     babyName: "",
     babyBirthDate: "",
     sleepLocation: "",
@@ -75,12 +102,20 @@ export default function Onboarding() {
   };
 
   const handlePayment = () => {
-    // Placeholder - será substituído pela integração com Hotmart/Stripe
     toast({
       title: "Pagamento",
       description: "Integração com pagamento será configurada em breve.",
     });
     handleNext();
+  };
+
+  const toggleConcern = (value: string) => {
+    setData(prev => ({
+      ...prev,
+      mainConcerns: prev.mainConcerns.includes(value)
+        ? prev.mainConcerns.filter(c => c !== value)
+        : [...prev.mainConcerns, value]
+    }));
   };
 
   const handleComplete = async () => {
@@ -91,13 +126,18 @@ export default function Onboarding() {
       const { error } = await supabase
         .from("profiles")
         .update({
+          parent_name: data.parentName,
+          is_first_child: data.isFirstChild === "yes",
+          parent_experience: data.parentExperience,
+          has_support_network: data.hasSupportNetwork === "yes",
+          main_concerns: data.mainConcerns,
           baby_name: data.babyName,
           baby_birth_date: data.babyBirthDate || null,
           sleep_location: data.sleepLocation,
           uses_pacifier: data.usesPacifier === "yes",
           night_feedings: parseInt(data.nightFeedings.split("-")[0]) || 0,
           onboarding_completed: true,
-          subscription_status: "active", // Temporário até integrar pagamento
+          subscription_status: "active",
         })
         .eq("user_id", user.id);
 
@@ -121,24 +161,18 @@ export default function Onboarding() {
 
   const isStepValid = () => {
     switch (currentStep) {
-      case 1: // Boas-vindas
-        return true;
-      case 2: // Benefícios
-        return true;
-      case 3: // Pagamento
-        return true;
-      case 4: // Nome do bebê
-        return data.babyName.trim().length > 0;
-      case 5: // Data de nascimento
-        return true; // Optional
-      case 6: // Local de sono
-        return data.sleepLocation !== "";
-      case 7: // Chupeta
-        return data.usesPacifier !== "";
-      case 8: // Mamadas + Termos
-        return data.nightFeedings !== "" && data.acceptedTerms;
-      default:
-        return false;
+      case 1: return true; // Boas-vindas
+      case 2: return true; // Benefícios
+      case 3: return true; // Pagamento
+      case 4: return data.parentName.trim().length > 0; // Nome do responsável
+      case 5: return data.isFirstChild !== ""; // Primeiro filho
+      case 6: return data.parentExperience !== ""; // Experiência
+      case 7: return data.babyName.trim().length > 0; // Nome do bebê
+      case 8: return true; // Data de nascimento (opcional)
+      case 9: return data.sleepLocation !== ""; // Local de sono
+      case 10: return data.usesPacifier !== ""; // Chupeta
+      case 11: return data.nightFeedings !== "" && data.acceptedTerms; // Mamadas + Termos
+      default: return false;
     }
   };
 
@@ -223,30 +257,12 @@ export default function Onboarding() {
                 </div>
 
                 <div className="space-y-3 pt-4 border-t border-border">
-                  <div className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-primary" />
-                    <span className="text-foreground">Chat ilimitado com IA</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-primary" />
-                    <span className="text-foreground">Tradutor de choro ilimitado</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-primary" />
-                    <span className="text-foreground">Rotina inteligente completa</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-primary" />
-                    <span className="text-foreground">Alertas personalizados</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-primary" />
-                    <span className="text-foreground">Biblioteca de conteúdos</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-primary" />
-                    <span className="text-foreground">Suporte prioritário</span>
-                  </div>
+                  {["Chat ilimitado com IA", "Tradutor de choro ilimitado", "Rotina inteligente completa", "Alertas personalizados", "Biblioteca de conteúdos", "Suporte prioritário"].map((item) => (
+                    <div key={item} className="flex items-center gap-3">
+                      <Check className="w-5 h-5 text-primary" />
+                      <span className="text-foreground">{item}</span>
+                    </div>
+                  ))}
                 </div>
 
                 <Button
@@ -269,8 +285,167 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 4: Nome do bebê
+      // Step 4: Nome do responsável
       case 4:
+        return (
+          <div className="space-y-6">
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
+                <Users className="w-8 h-8 text-primary" />
+              </div>
+              <h2 className="text-2xl font-bold text-foreground">
+                Vamos nos conhecer melhor
+              </h2>
+              <p className="text-muted-foreground mt-2">
+                Como posso te chamar?
+              </p>
+            </div>
+            <div className="space-y-4">
+              <Label htmlFor="parentName" className="text-lg">Seu nome</Label>
+              <Input
+                id="parentName"
+                placeholder="Ex: Maria, João..."
+                value={data.parentName}
+                onChange={(e) => setData({ ...data, parentName: e.target.value })}
+                className="h-14 rounded-2xl text-lg"
+              />
+            </div>
+          </div>
+        );
+
+      // Step 5: Primeiro filho
+      case 5:
+        return (
+          <div className="space-y-6">
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
+                <Baby className="w-8 h-8 text-primary" />
+              </div>
+              <h2 className="text-2xl font-bold text-foreground">
+                {data.parentName ? `${data.parentName}, ` : ""}Este é seu primeiro filho(a)?
+              </h2>
+              <p className="text-muted-foreground mt-2">
+                Isso me ajuda a personalizar as orientações
+              </p>
+            </div>
+            <RadioGroup
+              value={data.isFirstChild}
+              onValueChange={(value) => setData({ ...data, isFirstChild: value })}
+              className="space-y-3"
+            >
+              <div
+                className="flex items-center space-x-3 p-4 rounded-2xl border-2 border-border hover:border-primary transition-colors cursor-pointer"
+                onClick={() => setData({ ...data, isFirstChild: "yes" })}
+              >
+                <RadioGroupItem value="yes" id="first-yes" />
+                <Label htmlFor="first-yes" className="text-base cursor-pointer flex-1">
+                  Sim, é meu primeiro filho(a)
+                </Label>
+              </div>
+              <div
+                className="flex items-center space-x-3 p-4 rounded-2xl border-2 border-border hover:border-primary transition-colors cursor-pointer"
+                onClick={() => setData({ ...data, isFirstChild: "no" })}
+              >
+                <RadioGroupItem value="no" id="first-no" />
+                <Label htmlFor="first-no" className="text-base cursor-pointer flex-1">
+                  Não, já tenho outros filhos
+                </Label>
+              </div>
+            </RadioGroup>
+          </div>
+        );
+
+      // Step 6: Experiência
+      case 6:
+        return (
+          <div className="space-y-6">
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-foreground">
+                Qual sua experiência com bebês?
+              </h2>
+              <p className="text-muted-foreground mt-2">
+                Assim posso adaptar a linguagem das orientações
+              </p>
+            </div>
+            <RadioGroup
+              value={data.parentExperience}
+              onValueChange={(value) => setData({ ...data, parentExperience: value })}
+              className="space-y-3"
+            >
+              {experienceOptions.map((option) => (
+                <div
+                  key={option.value}
+                  className="flex items-start space-x-3 p-4 rounded-2xl border-2 border-border hover:border-primary transition-colors cursor-pointer"
+                  onClick={() => setData({ ...data, parentExperience: option.value })}
+                >
+                  <RadioGroupItem value={option.value} id={`exp-${option.value}`} className="mt-1" />
+                  <div className="flex-1">
+                    <Label htmlFor={`exp-${option.value}`} className="text-base cursor-pointer font-medium">
+                      {option.label}
+                    </Label>
+                    <p className="text-sm text-muted-foreground mt-1">{option.description}</p>
+                  </div>
+                </div>
+              ))}
+            </RadioGroup>
+
+            {/* Rede de apoio */}
+            <div className="pt-4 border-t border-border">
+              <p className="text-base font-medium text-foreground mb-3">
+                Você tem uma rede de apoio?
+              </p>
+              <RadioGroup
+                value={data.hasSupportNetwork}
+                onValueChange={(value) => setData({ ...data, hasSupportNetwork: value })}
+                className="flex gap-4"
+              >
+                <div
+                  className="flex-1 flex items-center justify-center space-x-2 p-3 rounded-xl border-2 border-border hover:border-primary transition-colors cursor-pointer"
+                  onClick={() => setData({ ...data, hasSupportNetwork: "yes" })}
+                >
+                  <RadioGroupItem value="yes" id="support-yes" />
+                  <Label htmlFor="support-yes" className="cursor-pointer">Sim</Label>
+                </div>
+                <div
+                  className="flex-1 flex items-center justify-center space-x-2 p-3 rounded-xl border-2 border-border hover:border-primary transition-colors cursor-pointer"
+                  onClick={() => setData({ ...data, hasSupportNetwork: "no" })}
+                >
+                  <RadioGroupItem value="no" id="support-no" />
+                  <Label htmlFor="support-no" className="cursor-pointer">Não</Label>
+                </div>
+              </RadioGroup>
+              <p className="text-xs text-muted-foreground mt-2 text-center">
+                Família, amigos ou profissionais que ajudam nos cuidados
+              </p>
+            </div>
+
+            {/* Principais preocupações */}
+            <div className="pt-4 border-t border-border">
+              <p className="text-base font-medium text-foreground mb-3">
+                Quais suas principais preocupações? (opcional)
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {concernOptions.map((concern) => (
+                  <button
+                    key={concern.value}
+                    type="button"
+                    onClick={() => toggleConcern(concern.value)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                      data.mainConcerns.includes(concern.value)
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-muted text-muted-foreground hover:bg-muted/80"
+                    }`}
+                  >
+                    {concern.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+
+      // Step 7: Nome do bebê
+      case 7:
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -294,8 +469,8 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 5: Data de nascimento
-      case 5:
+      // Step 8: Data de nascimento
+      case 8:
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -322,8 +497,8 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 6: Local de sono
-      case 6:
+      // Step 9: Local de sono
+      case 9:
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -355,8 +530,8 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 7: Chupeta
-      case 7:
+      // Step 10: Chupeta
+      case 10:
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -394,8 +569,8 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 8: Mamadas + Termos
-      case 8:
+      // Step 11: Mamadas + Termos
+      case 11:
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -468,7 +643,7 @@ export default function Onboarding() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col px-4 py-6 max-w-lg mx-auto w-full">
+      <main className="flex-1 flex flex-col px-4 py-6 max-w-lg mx-auto w-full overflow-y-auto">
         {/* Step Content */}
         <div className="flex-1">{renderStep()}</div>
 
@@ -486,7 +661,6 @@ export default function Onboarding() {
           )}
           {currentStep < totalSteps ? (
             currentStep === 3 ? (
-              // O botão de pagamento já está no card
               <Button
                 variant="ghost"
                 onClick={handleNext}
