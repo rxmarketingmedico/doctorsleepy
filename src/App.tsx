@@ -14,6 +14,7 @@ import Chat from "./pages/Chat";
 import Routine from "./pages/Routine";
 import CryTranslator from "./pages/CryTranslator";
 import Library from "./pages/Library";
+import AudioLibrary from "./pages/AudioLibrary";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import NotFound from "./pages/NotFound";
@@ -100,6 +101,7 @@ function AppRoutes() {
       <Route path="/routine" element={<ProtectedRoute><Routine /></ProtectedRoute>} />
       <Route path="/cry-translator" element={<ProtectedRoute><CryTranslator /></ProtectedRoute>} />
       <Route path="/library" element={<ProtectedRoute><Library /></ProtectedRoute>} />
+      <Route path="/audio-library" element={<ProtectedRoute><AudioLibrary /></ProtectedRoute>} />
       <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       <Route path="/profile/edit" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
 

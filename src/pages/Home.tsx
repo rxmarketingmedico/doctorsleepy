@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { Utensils, Moon, Thermometer, Baby, Clock } from "lucide-react";
+import { Utensils, Moon, Thermometer, Baby, Clock, Music, BookOpen } from "lucide-react";
 import { Avatar } from "@/components/Avatar";
 import { EmergencyButton } from "@/components/EmergencyButton";
 import { BottomNav } from "@/components/BottomNav";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { Card, CardContent } from "@/components/ui/card";
 
 const emergencyOptions = [
   { icon: Utensils, label: "Pode ser fome?", variant: "hunger" as const, context: "hunger" },
@@ -63,6 +64,30 @@ export default function Home() {
             onClick={() => handleEmergencyClick(emergencyOptions[4].context)}
           />
         </div>
+
+        {/* Audio Library Card */}
+        <Card 
+          className="mt-6 cursor-pointer hover:shadow-lg transition-all bg-gradient-to-br from-violet-50 to-indigo-50 dark:from-violet-950/30 dark:to-indigo-950/30 border-violet-200 dark:border-violet-800"
+          onClick={() => navigate("/audio-library")}
+        >
+          <CardContent className="p-4">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-400 to-indigo-500 flex items-center justify-center shadow-lg">
+                <Music className="w-7 h-7 text-white" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-foreground">Hora de Ninar</h3>
+                <p className="text-sm text-muted-foreground">
+                  Músicas e histórias para ajudar seu bebê a dormir
+                </p>
+              </div>
+              <div className="flex flex-col items-center gap-1">
+                <BookOpen className="w-5 h-5 text-violet-500" />
+                <span className="text-xs text-muted-foreground">10+</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </main>
 
       <BottomNav />

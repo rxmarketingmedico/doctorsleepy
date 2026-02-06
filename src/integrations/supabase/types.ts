@@ -14,6 +14,77 @@ export type Database = {
   }
   public: {
     Tables: {
+      audio_library: {
+        Row: {
+          audio_url: string
+          author: string | null
+          category: string
+          created_at: string
+          description: string | null
+          duration_seconds: number | null
+          id: string
+          is_premium: boolean | null
+          play_count: number | null
+          thumbnail_url: string | null
+          title: string
+        }
+        Insert: {
+          audio_url: string
+          author?: string | null
+          category: string
+          created_at?: string
+          description?: string | null
+          duration_seconds?: number | null
+          id?: string
+          is_premium?: boolean | null
+          play_count?: number | null
+          thumbnail_url?: string | null
+          title: string
+        }
+        Update: {
+          audio_url?: string
+          author?: string | null
+          category?: string
+          created_at?: string
+          description?: string | null
+          duration_seconds?: number | null
+          id?: string
+          is_premium?: boolean | null
+          play_count?: number | null
+          thumbnail_url?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      audio_plays: {
+        Row: {
+          audio_id: string
+          id: string
+          played_at: string
+          user_id: string
+        }
+        Insert: {
+          audio_id: string
+          id?: string
+          played_at?: string
+          user_id: string
+        }
+        Update: {
+          audio_id?: string
+          id?: string
+          played_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audio_plays_audio_id_fkey"
+            columns: ["audio_id"]
+            isOneToOne: false
+            referencedRelation: "audio_library"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       chat_messages: {
         Row: {
           content: string
