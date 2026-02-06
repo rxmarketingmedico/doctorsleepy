@@ -21,6 +21,7 @@ const contextTitles: Record<string, string> = {
   discomfort: "Pode ser desconforto?",
   inconsolable: "Choro inconsolável",
   "night-waking": "Acordou de madrugada",
+  general: "Chat com Doutor Soneca",
 };
 
 const initialMessages: Record<string, string> = {
@@ -29,6 +30,7 @@ const initialMessages: Record<string, string> = {
   discomfort: "Olá! Vejo que você acha que pode ser desconforto. Vamos investigar juntos. O bebê está com a fralda limpa? Verificou se há algo incomodando?",
   inconsolable: "Olá! Sei que é muito difícil quando o choro não para. Respire fundo, você está fazendo o seu melhor. O bebê está alimentado e com a fralda limpa?",
   "night-waking": "Olá! Acordar de madrugada pode ser desafiador. Vamos tentar entender o que está acontecendo. A que horas seu bebê dormiu ontem?",
+  general: "Olá! 👋 Sou o Doutor Soneca, seu assistente especializado em sono infantil e cuidados com bebês. Como posso te ajudar hoje? Pode me perguntar sobre sono, alimentação, choro, rotinas ou qualquer dúvida sobre o seu pequeno!",
 };
 
 const quickReplies: Record<string, string[]> = {
@@ -37,6 +39,7 @@ const quickReplies: Record<string, string[]> = {
   discomfort: ["Fralda limpa", "Roupas confortáveis", "Ambiente agradável"],
   inconsolable: ["Sim, está alimentado", "Sim, fralda limpa", "Preciso de ajuda urgente"],
   "night-waking": ["Dormiu às 19h", "Dormiu às 20h-21h", "Dormiu depois das 22h"],
+  general: ["Como criar uma rotina de sono?", "Quantas horas meu bebê deve dormir?", "Dicas para acalmar o bebê"],
 };
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
