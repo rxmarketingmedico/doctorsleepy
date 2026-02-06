@@ -14,6 +14,9 @@ export interface Profile {
   onboarding_completed: boolean;
   subscription_status: string | null;
   subscription_id: string | null;
+  subscription_plan: string | null;
+  subscription_expires_at: string | null;
+  hotmart_transaction_id: string | null;
   created_at: string;
   updated_at: string;
 }
