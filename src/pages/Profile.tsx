@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Baby, Mail, LogOut, CreditCard, Bell, Moon, ChevronRight } from "lucide-react";
+import { Baby, Mail, LogOut, CreditCard, Bell, Moon, ChevronRight, Shield } from "lucide-react";
+import { useAdminRole } from "@/hooks/useAdminRole";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
@@ -27,6 +28,7 @@ export default function Profile() {
   const { toast } = useToast();
   const [profile, setProfile] = useState<ProfileData | null>(null);
   const [loading, setLoading] = useState(true);
+  const { isAdmin } = useAdminRole();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -223,6 +225,18 @@ export default function Profile() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Admin Link */}
+        {isAdmin && (
+          <Button
+            variant="outline"
+            className="w-full h-14 rounded-2xl text-lg"
+            onClick={() => navigate("/admin")}
+          >
+            <Shield className="w-5 h-5 mr-2" />
+            Painel Administrativo
+          </Button>
+        )}
 
         {/* Sign Out */}
         <Button
