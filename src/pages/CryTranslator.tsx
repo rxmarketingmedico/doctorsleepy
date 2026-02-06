@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BottomNav } from "@/components/BottomNav";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { Avatar } from "@/components/Avatar";
+import { AvatarAI } from "@/components/AvatarAI";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -242,7 +242,7 @@ export default function CryTranslator() {
       <main className="px-4 py-6 max-w-lg mx-auto space-y-6">
         {/* Avatar */}
         <div className="flex justify-center">
-          <Avatar 
+          <AvatarAI 
             size="lg" 
             state={
               isRecording ? "listening" : 
