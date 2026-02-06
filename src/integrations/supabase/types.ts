@@ -138,9 +138,13 @@ export type Database = {
           baby_birth_date: string | null
           baby_name: string | null
           created_at: string
+          has_support_network: boolean | null
           id: string
+          is_first_child: boolean | null
+          main_concerns: string[] | null
           night_feedings: number | null
           onboarding_completed: boolean | null
+          parent_experience: string | null
           parent_name: string | null
           sleep_location: string | null
           subscription_id: string | null
@@ -153,9 +157,13 @@ export type Database = {
           baby_birth_date?: string | null
           baby_name?: string | null
           created_at?: string
+          has_support_network?: boolean | null
           id?: string
+          is_first_child?: boolean | null
+          main_concerns?: string[] | null
           night_feedings?: number | null
           onboarding_completed?: boolean | null
+          parent_experience?: string | null
           parent_name?: string | null
           sleep_location?: string | null
           subscription_id?: string | null
@@ -168,9 +176,13 @@ export type Database = {
           baby_birth_date?: string | null
           baby_name?: string | null
           created_at?: string
+          has_support_network?: boolean | null
           id?: string
+          is_first_child?: boolean | null
+          main_concerns?: string[] | null
           night_feedings?: number | null
           onboarding_completed?: boolean | null
+          parent_experience?: string | null
           parent_name?: string | null
           sleep_location?: string | null
           subscription_id?: string | null
