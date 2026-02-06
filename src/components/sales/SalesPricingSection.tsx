@@ -1,5 +1,6 @@
 import { Star, Crown, Sparkles, Shield, Clock, Heart, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { trackMetaEvent } from "@/components/MetaPixel";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const plans = [
@@ -41,7 +42,14 @@ function PricingCard({ plan }: { plan: typeof plans[0] }) {
           ? "bg-primary text-primary-foreground shadow-2xl shadow-primary/20 scale-[1.02] ring-2 ring-primary/30"
           : "bg-card border border-border/60 hover:shadow-lg hover:border-primary/30"
       }`}
-      onClick={() => window.open(plan.url, "_blank")}
+      onClick={() => {
+        trackMetaEvent("InitiateCheckout", {
+          content_name: plan.name,
+          currency: "BRL",
+          value: parseFloat(plan.price.replace(/[^\d]/g, "")),
+        });
+        window.open(plan.url, "_blank");
+      }}
     >
       {plan.highlight && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground text-xs font-bold px-4 py-1 rounded-full">
