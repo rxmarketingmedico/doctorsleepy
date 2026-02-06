@@ -86,11 +86,41 @@ Deno.serve(async (req) => {
     );
 
     if (!matchedUser) {
-      console.log(`No user found with email: ${buyerEmail}. Will be activated on signup.`);
-      // Store pending activation - we'll check on login
-      // For now just acknowledge
+      console.log(`No user found with email: ${buyerEmail}. Saving pending activation.`);
+      
+      // Determine subscription data before saving
+      let pendingStatus = "pending";
+      let pendingPlan: string | null = null;
+      let pendingExpires: string | null = null;
+
+      if (["PURCHASE_APPROVED", "PURCHASE_COMPLETE", "SUBSCRIPTION_REACTIVATION"].includes(event)) {
+        pendingStatus = "active";
+        pendingPlan = plan;
+        const now = new Date();
+        if (plan === "anual") now.setFullYear(now.getFullYear() + 1);
+        else if (plan === "semestral") now.setMonth(now.getMonth() + 6);
+        else now.setMonth(now.getMonth() + 1);
+        pendingExpires = now.toISOString();
+      }
+
+      const { error: insertError } = await supabaseAdmin
+        .from("pending_activations")
+        .insert({
+          email: buyerEmail,
+          subscription_status: pendingStatus,
+          subscription_plan: pendingPlan,
+          subscription_expires_at: pendingExpires,
+          hotmart_transaction_id: transactionId,
+          event: event,
+          raw_payload: body,
+        });
+
+      if (insertError) {
+        console.error("Error saving pending activation:", insertError);
+      }
+
       return new Response(
-        JSON.stringify({ status: "pending", message: "User not found yet, will activate on signup" }),
+        JSON.stringify({ status: "pending", message: "Saved for activation on signup" }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }

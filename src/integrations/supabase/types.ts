@@ -133,6 +133,45 @@ export type Database = {
         }
         Relationships: []
       }
+      pending_activations: {
+        Row: {
+          created_at: string
+          email: string
+          event: string
+          hotmart_transaction_id: string | null
+          id: string
+          processed: boolean
+          raw_payload: Json | null
+          subscription_expires_at: string | null
+          subscription_plan: string | null
+          subscription_status: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          event: string
+          hotmart_transaction_id?: string | null
+          id?: string
+          processed?: boolean
+          raw_payload?: Json | null
+          subscription_expires_at?: string | null
+          subscription_plan?: string | null
+          subscription_status?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          event?: string
+          hotmart_transaction_id?: string | null
+          id?: string
+          processed?: boolean
+          raw_payload?: Json | null
+          subscription_expires_at?: string | null
+          subscription_plan?: string | null
+          subscription_status?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           baby_birth_date: string | null
