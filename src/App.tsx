@@ -23,6 +23,7 @@ import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminAudios from "./pages/admin/AdminAudios";
+import SalesPage from "./pages/SalesPage";
 
 const queryClient = new QueryClient();
 
@@ -95,6 +96,7 @@ function AppRoutes() {
   return (
     <Routes>
       {/* Public routes */}
+      <Route path="/vendas" element={<SalesPage />} />
       <Route path="/auth" element={<PublicRoute><Auth /></PublicRoute>} />
 
       {/* Onboarding route */}
