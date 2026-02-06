@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const qualifications = [
   "Seu bebê tem entre 0 e 3 anos",
@@ -11,9 +12,11 @@ export default function SalesQualificationSection() {
   return (
     <section className="px-4 py-16 md:py-20">
       <div className="max-w-2xl mx-auto text-center">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
-          O Doutor Soneca é para você se…
-        </h2>
+        <ScrollReveal>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
+            O Doutor Soneca é para você se…
+          </h2>
+        </ScrollReveal>
         <div className="space-y-3 mt-8">
           {qualifications.map((item, i) => (
             <div key={i} className="flex items-center gap-3 text-left">

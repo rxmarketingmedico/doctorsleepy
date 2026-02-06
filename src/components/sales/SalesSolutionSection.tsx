@@ -1,5 +1,6 @@
 import { MessageCircle, Mic, BedDouble, BookOpen, Moon, Baby } from "lucide-react";
 import appMockupImg from "@/assets/sales/app-mockup.jpg";
+import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const benefits = [
   { icon: MessageCircle, title: "Chat com IA 24h", desc: "Orientações personalizadas a qualquer hora da noite." },
@@ -14,15 +15,17 @@ export default function SalesSolutionSection() {
   return (
     <section className="px-4 py-16 md:py-20 bg-muted/30">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
-            Conheça o <span className="text-primary">Doutor Soneca</span>
-          </h2>
-          <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-lg mx-auto">
-            Um assistente inteligente que ajuda pais a entenderem o sono do bebê e a encontrarem respostas
-            rápidas — sem precisar agendar consulta, sem esperar, sem julgamento.
-          </p>
-        </div>
+        <ScrollReveal>
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
+              Conheça o <span className="text-primary">Doutor Soneca</span>
+            </h2>
+            <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-lg mx-auto">
+              Um assistente inteligente que ajuda pais a entenderem o sono do bebê e a encontrarem respostas
+              rápidas — sem precisar agendar consulta, sem esperar, sem julgamento.
+            </p>
+          </div>
+        </ScrollReveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="flex justify-center">

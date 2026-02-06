@@ -1,10 +1,12 @@
 import { Shield } from "lucide-react";
 import peacefulImg from "@/assets/sales/peaceful-parent.jpg";
+import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 export default function SalesReliefSection() {
   return (
     <section className="px-4 py-16 md:py-20">
       <div className="max-w-4xl mx-auto">
+        <ScrollReveal>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div className="rounded-3xl overflow-hidden shadow-2xl shadow-black/10">
             <img
@@ -27,6 +29,7 @@ export default function SalesReliefSection() {
             </p>
           </div>
         </div>
+        </ScrollReveal>
       </div>
     </section>
   );

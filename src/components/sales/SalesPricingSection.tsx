@@ -1,5 +1,6 @@
 import { Star, Crown, Sparkles, Shield, Clock, Heart, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const plans = [
   {
@@ -91,12 +92,14 @@ export default function SalesPricingSection() {
   return (
     <section id="pricing" className="px-4 py-16 md:py-24 bg-muted/30">
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-3 text-foreground">
-          Escolha seu plano
-        </h2>
-        <p className="text-center text-muted-foreground mb-10 text-sm md:text-base">
-          Acesso completo a todas as ferramentas. Cancele quando quiser.
-        </p>
+        <ScrollReveal>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-3 text-foreground">
+            Escolha seu plano
+          </h2>
+          <p className="text-center text-muted-foreground mb-10 text-sm md:text-base">
+            Acesso completo a todas as ferramentas. Cancele quando quiser.
+          </p>
+        </ScrollReveal>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
           {plans.map((plan) => (
             <PricingCard key={plan.name} plan={plan} />
