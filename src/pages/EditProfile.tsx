@@ -46,21 +46,22 @@ export default function EditProfile() {
 
       try {
         const { data, error } = await supabase
-          .from("profiles")
+          .from("profiles_safe" as any)
           .select("baby_name, baby_birth_date, parent_name, sleep_location, uses_pacifier, night_feedings")
           .eq("user_id", user.id)
           .maybeSingle();
 
         if (error) throw error;
         
-        if (data) {
+        const profileData = data as unknown as Record<string, any> | null;
+        if (profileData) {
           setProfile({
-            baby_name: data.baby_name || "",
-            baby_birth_date: data.baby_birth_date || "",
-            parent_name: data.parent_name || "",
-            sleep_location: data.sleep_location || "",
-            uses_pacifier: data.uses_pacifier || false,
-            night_feedings: data.night_feedings || 0,
+            baby_name: profileData.baby_name || "",
+            baby_birth_date: profileData.baby_birth_date || "",
+            parent_name: profileData.parent_name || "",
+            sleep_location: profileData.sleep_location || "",
+            uses_pacifier: profileData.uses_pacifier || false,
+            night_feedings: profileData.night_feedings || 0,
           });
         }
       } catch (error) {

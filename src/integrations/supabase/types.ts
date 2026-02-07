@@ -356,7 +356,69 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      profiles_safe: {
+        Row: {
+          baby_birth_date: string | null
+          baby_name: string | null
+          created_at: string | null
+          has_support_network: boolean | null
+          id: string | null
+          is_first_child: boolean | null
+          main_concerns: string[] | null
+          night_feedings: number | null
+          onboarding_completed: boolean | null
+          parent_experience: string | null
+          parent_name: string | null
+          sleep_location: string | null
+          subscription_expires_at: string | null
+          subscription_plan: string | null
+          subscription_status: string | null
+          updated_at: string | null
+          user_id: string | null
+          uses_pacifier: boolean | null
+        }
+        Insert: {
+          baby_birth_date?: string | null
+          baby_name?: string | null
+          created_at?: string | null
+          has_support_network?: boolean | null
+          id?: string | null
+          is_first_child?: boolean | null
+          main_concerns?: string[] | null
+          night_feedings?: number | null
+          onboarding_completed?: boolean | null
+          parent_experience?: string | null
+          parent_name?: string | null
+          sleep_location?: string | null
+          subscription_expires_at?: string | null
+          subscription_plan?: string | null
+          subscription_status?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          uses_pacifier?: boolean | null
+        }
+        Update: {
+          baby_birth_date?: string | null
+          baby_name?: string | null
+          created_at?: string | null
+          has_support_network?: boolean | null
+          id?: string | null
+          is_first_child?: boolean | null
+          main_concerns?: string[] | null
+          night_feedings?: number | null
+          onboarding_completed?: boolean | null
+          parent_experience?: string | null
+          parent_name?: string | null
+          sleep_location?: string | null
+          subscription_expires_at?: string | null
+          subscription_plan?: string | null
+          subscription_status?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          uses_pacifier?: boolean | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
