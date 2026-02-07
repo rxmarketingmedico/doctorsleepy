@@ -72,7 +72,7 @@ export default function Chat() {
     
     if (!session) {
       toast.error("Você precisa estar logado para usar o chat");
-      return;
+      throw new Error("Não autenticado");
     }
 
     const response = await fetch(CHAT_URL, {
