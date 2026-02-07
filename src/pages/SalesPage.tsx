@@ -3,6 +3,7 @@ import SalesPainSection from "@/components/sales/SalesPainSection";
 import SalesReliefSection from "@/components/sales/SalesReliefSection";
 import SalesSolutionSection from "@/components/sales/SalesSolutionSection";
 import SalesEmergencySection from "@/components/sales/SalesEmergencySection";
+import SalesCryTranslatorSection from "@/components/sales/SalesCryTranslatorSection";
 import SalesBeforeAfterSection from "@/components/sales/SalesBeforeAfterSection";
 import SalesTrustSection from "@/components/sales/SalesTrustSection";
 import SalesTestimonialsSection from "@/components/sales/SalesTestimonialsSection";
@@ -20,6 +21,7 @@ export default function SalesPage() {
       <SalesReliefSection />
       <SalesSolutionSection />
       <SalesEmergencySection />
+      <SalesCryTranslatorSection />
       <SalesBeforeAfterSection />
       <SalesTrustSection />
       <SalesTestimonialsSection />
