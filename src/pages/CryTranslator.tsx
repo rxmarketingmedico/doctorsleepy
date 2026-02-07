@@ -29,6 +29,8 @@ interface AnalysisResult {
   };
   primaryCause: string;
   suggestion: string;
+  details?: string;
+  soothingTips?: string[];
   warning: string | null;
 }
 
@@ -388,6 +390,33 @@ export default function CryTranslator() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Details */}
+            {result.details && (
+              <Card className="card-soft">
+                <CardContent className="pt-6">
+                  <p className="text-sm font-medium text-foreground mb-2">Por que chegamos a essa conclusão</p>
+                  <p className="text-sm text-muted-foreground">{result.details}</p>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Soothing Tips */}
+            {result.soothingTips && result.soothingTips.length > 0 && (
+              <Card className="card-soft">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg">💡 Dicas para acalmar</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  {result.soothingTips.map((tip, index) => (
+                    <div key={index} className="flex items-start gap-2">
+                      <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-foreground">{tip}</p>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            )}
 
             {/* Warning */}
             {result.warning && (
