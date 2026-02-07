@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Baby, Mail, LogOut, CreditCard, Bell, Moon, ChevronRight, Shield, HelpCircle } from "lucide-react";
+import { Baby, Mail, LogOut, Bell, ChevronRight, Shield, HelpCircle } from "lucide-react";
 import { useAdminRole } from "@/hooks/useAdminRole";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,6 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { BottomNav } from "@/components/BottomNav";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Avatar } from "@/components/Avatar";
+import { SubscriptionManager } from "@/components/SubscriptionManager";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
@@ -169,36 +170,8 @@ export default function Profile() {
           </CardContent>
         </Card>
 
-        {/* Subscription Card */}
-        <Card className="card-soft">
-          <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
-              <CreditCard className="w-5 h-5" />
-              Assinatura
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-between py-3">
-              <div>
-                <p className="font-medium text-foreground">Plano Premium</p>
-                <p className="text-sm text-muted-foreground">R$ 49/mês</p>
-              </div>
-              <span className={`px-3 py-1 rounded-full text-sm ${
-                profile?.subscription_status === "active" 
-                  ? "bg-secondary text-secondary-foreground" 
-                  : "bg-muted text-muted-foreground"
-              }`}>
-                {profile?.subscription_status === "active" ? "Ativo" : "Pendente"}
-              </span>
-            </div>
-            <Button 
-              variant="outline" 
-              className="w-full mt-2 rounded-xl"
-            >
-              Gerenciar assinatura
-            </Button>
-          </CardContent>
-        </Card>
+        {/* Subscription Manager */}
+        <SubscriptionManager />
 
         {/* Settings Card */}
         <Card className="card-soft">
