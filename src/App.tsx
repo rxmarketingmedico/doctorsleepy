@@ -25,7 +25,10 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminAudios from "./pages/admin/AdminAudios";
 import AdminPurchaseLogs from "./pages/admin/AdminPurchaseLogs";
+import AdminTickets from "./pages/admin/AdminTickets";
 import SalesPage from "./pages/SalesPage";
+import Help from "./pages/Help";
+import TicketChat from "./pages/TicketChat";
 
 const queryClient = new QueryClient();
 
@@ -113,6 +116,8 @@ function AppRoutes() {
       <Route path="/audio-library" element={<ProtectedRoute><AudioLibrary /></ProtectedRoute>} />
       <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       <Route path="/profile/edit" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
+      <Route path="/help" element={<ProtectedRoute><Help /></ProtectedRoute>} />
+      <Route path="/help/:ticketId" element={<ProtectedRoute><TicketChat /></ProtectedRoute>} />
 
       {/* Admin routes */}
       <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
@@ -120,6 +125,7 @@ function AppRoutes() {
         <Route path="users" element={<AdminUsers />} />
         <Route path="audios" element={<AdminAudios />} />
         <Route path="purchases" element={<AdminPurchaseLogs />} />
+        <Route path="tickets" element={<AdminTickets />} />
       </Route>
 
       {/* Catch-all */}
