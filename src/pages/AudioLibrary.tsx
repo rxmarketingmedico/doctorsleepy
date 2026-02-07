@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Play, Pause, Music, BookOpen, Clock, SkipBack, SkipForward, Volume2, Search } from "lucide-react";
+import { ArrowLeft, Play, Pause, Music, Clock, SkipBack, SkipForward, Volume2, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -60,7 +60,6 @@ export default function AudioLibrary() {
   });
 
   const lullabies = audios?.filter((a) => a.category === "lullaby") || [];
-  const stories = audios?.filter((a) => a.category === "story") || [];
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -133,7 +132,7 @@ export default function AudioLibrary() {
   const skipTrack = (direction: "next" | "prev") => {
     if (!currentTrack || !audios) return;
 
-    const currentList = currentTrack.category === "lullaby" ? lullabies : stories;
+    const currentList = lullabies;
     const currentIndex = currentList.findIndex((a) => a.id === currentTrack.id);
     
     let newIndex;
@@ -161,12 +160,7 @@ export default function AudioLibrary() {
         <CardContent className="p-4">
           <div className="flex items-center gap-4">
             <div
-              className={cn(
-                "w-14 h-14 rounded-xl flex items-center justify-center transition-colors",
-                audio.category === "lullaby"
-                  ? "bg-violet-100 dark:bg-violet-900/30"
-                  : "bg-amber-100 dark:bg-amber-900/30"
-              )}
+              className="w-14 h-14 rounded-xl flex items-center justify-center transition-colors bg-violet-100 dark:bg-violet-900/30"
             >
               {isThisPlaying ? (
                 <div className="flex gap-0.5">
@@ -183,10 +177,8 @@ export default function AudioLibrary() {
                     />
                   ))}
                 </div>
-              ) : audio.category === "lullaby" ? (
-                <Music className="w-6 h-6 text-violet-600 dark:text-violet-400" />
               ) : (
-                <BookOpen className="w-6 h-6 text-amber-600 dark:text-amber-400" />
+                <Music className="w-6 h-6 text-violet-600 dark:text-violet-400" />
               )}
             </div>
 
@@ -256,17 +248,13 @@ export default function AudioLibrary() {
       {/* Content */}
       <main className="px-4 py-6 max-w-lg mx-auto">
         <Tabs defaultValue="lullabies" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-6">
-            <TabsTrigger value="lullabies" className="flex items-center gap-1 text-xs">
-              <Music className="w-3.5 h-3.5" />
-              Ninar
+          <TabsList className="grid w-full grid-cols-2 mb-6">
+            <TabsTrigger value="lullabies" className="flex items-center gap-2">
+              <Music className="w-4 h-4" />
+              Músicas de Ninar
             </TabsTrigger>
-            <TabsTrigger value="stories" className="flex items-center gap-1 text-xs">
-              <BookOpen className="w-3.5 h-3.5" />
-              Histórias
-            </TabsTrigger>
-            <TabsTrigger value="search" className="flex items-center gap-1 text-xs">
-              <Search className="w-3.5 h-3.5" />
+            <TabsTrigger value="search" className="flex items-center gap-2">
+              <Search className="w-4 h-4" />
               Buscar
             </TabsTrigger>
           </TabsList>
@@ -295,35 +283,6 @@ export default function AudioLibrary() {
               </div>
             ) : (
               lullabies.map((audio) => (
-                <AudioCard key={audio.id} audio={audio} />
-              ))
-            )}
-          </TabsContent>
-
-          <TabsContent value="stories" className="space-y-3">
-            {isLoading ? (
-              <div className="space-y-3">
-                {[1, 2, 3].map((i) => (
-                  <Card key={i} className="animate-pulse">
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 rounded-xl bg-muted" />
-                        <div className="flex-1 space-y-2">
-                          <div className="h-4 bg-muted rounded w-3/4" />
-                          <div className="h-3 bg-muted rounded w-1/2" />
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            ) : stories.length === 0 ? (
-              <div className="text-center py-12 text-muted-foreground">
-                <BookOpen className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                <p>Nenhuma história disponível</p>
-              </div>
-            ) : (
-              stories.map((audio) => (
                 <AudioCard key={audio.id} audio={audio} />
               ))
             )}
