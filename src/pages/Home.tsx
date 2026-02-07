@@ -28,7 +28,7 @@ export default function Home() {
       {/* Header */}
       <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-sm border-b border-border">
         <div className="flex items-center justify-between px-4 py-3 max-w-lg mx-auto">
-          <img src={logo} alt="Doutor Soneca" className="h-8" />
+          <img src={logo} alt="Doutor Soneca" className="h-10" />
           <ThemeToggle />
         </div>
       </header>
