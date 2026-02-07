@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Users, Music, Shield, BarChart3, MessageCircle, Moon } from "lucide-react";
+import { Users, Music, Shield, BarChart3, MessageCircle, Moon, CreditCard } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -9,21 +9,23 @@ interface Stats {
   totalAudios: number;
   totalMessages: number;
   totalSleepLogs: number;
+  totalPurchases: number;
 }
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
-  const [stats, setStats] = useState<Stats>({ totalUsers: 0, totalAudios: 0, totalMessages: 0, totalSleepLogs: 0 });
+  const [stats, setStats] = useState<Stats>({ totalUsers: 0, totalAudios: 0, totalMessages: 0, totalSleepLogs: 0, totalPurchases: 0 });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [profiles, audios, messages, sleepLogs] = await Promise.all([
+        const [profiles, audios, messages, sleepLogs, purchases] = await Promise.all([
           supabase.from("profiles").select("id", { count: "exact", head: true }),
           supabase.from("audio_library").select("id", { count: "exact", head: true }),
           supabase.from("chat_messages").select("id", { count: "exact", head: true }),
           supabase.from("sleep_logs").select("id", { count: "exact", head: true }),
+          supabase.from("pending_activations").select("id", { count: "exact", head: true }),
         ]);
 
         setStats({
@@ -31,6 +33,7 @@ export default function AdminDashboard() {
           totalAudios: audios.count || 0,
           totalMessages: messages.count || 0,
           totalSleepLogs: sleepLogs.count || 0,
+          totalPurchases: purchases.count || 0,
         });
       } catch (error) {
         console.error("Error fetching stats:", error);
@@ -47,6 +50,7 @@ export default function AdminDashboard() {
     { title: "Áudios", value: stats.totalAudios, icon: Music, route: "/admin/audios", color: "text-violet-500" },
     { title: "Mensagens", value: stats.totalMessages, icon: MessageCircle, route: null, color: "text-emerald-500" },
     { title: "Logs de Sono", value: stats.totalSleepLogs, icon: Moon, route: null, color: "text-indigo-500" },
+    { title: "Compras", value: stats.totalPurchases, icon: CreditCard, route: "/admin/purchases", color: "text-amber-500" },
   ];
 
   return (
