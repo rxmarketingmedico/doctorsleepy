@@ -17,3 +17,6 @@ verify_jwt = false
 
 [functions.meta-conversions]
 verify_jwt = false
+
+[functions.search-jamendo]
+verify_jwt = false
