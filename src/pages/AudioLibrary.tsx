@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Play, Pause, Music, BookOpen, Clock, SkipBack, SkipForward, Volume2 } from "lucide-react";
+import { ArrowLeft, Play, Pause, Music, BookOpen, Clock, SkipBack, SkipForward, Volume2, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { AvatarAI } from "@/components/AvatarAI";
+import { JamendoSearch } from "@/components/audio/JamendoSearch";
 
 interface AudioItem {
   id: string;
@@ -255,14 +256,18 @@ export default function AudioLibrary() {
       {/* Content */}
       <main className="px-4 py-6 max-w-lg mx-auto">
         <Tabs defaultValue="lullabies" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-6">
-            <TabsTrigger value="lullabies" className="flex items-center gap-2">
-              <Music className="w-4 h-4" />
-              Músicas de Ninar
+          <TabsList className="grid w-full grid-cols-3 mb-6">
+            <TabsTrigger value="lullabies" className="flex items-center gap-1 text-xs">
+              <Music className="w-3.5 h-3.5" />
+              Ninar
             </TabsTrigger>
-            <TabsTrigger value="stories" className="flex items-center gap-2">
-              <BookOpen className="w-4 h-4" />
+            <TabsTrigger value="stories" className="flex items-center gap-1 text-xs">
+              <BookOpen className="w-3.5 h-3.5" />
               Histórias
+            </TabsTrigger>
+            <TabsTrigger value="search" className="flex items-center gap-1 text-xs">
+              <Search className="w-3.5 h-3.5" />
+              Buscar
             </TabsTrigger>
           </TabsList>
 
@@ -322,6 +327,14 @@ export default function AudioLibrary() {
                 <AudioCard key={audio.id} audio={audio} />
               ))
             )}
+          </TabsContent>
+
+          <TabsContent value="search">
+            <JamendoSearch
+              onPlayTrack={(track) => playTrack(track as AudioItem)}
+              currentTrackId={currentTrack?.id || null}
+              isPlaying={isPlaying}
+            />
           </TabsContent>
         </Tabs>
       </main>
