@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { Utensils, Moon, Thermometer, Baby, Clock, Music, BookOpen, MessageCircle } from "lucide-react";
+import { Utensils, Moon, Thermometer, Baby, Clock, Music, BookOpen, MessageCircle, Sparkles, ArrowRight } from "lucide-react";
 import { AvatarAI } from "@/components/AvatarAI";
 import { EmergencyButton } from "@/components/EmergencyButton";
 import { BottomNav } from "@/components/BottomNav";
 import { GuidedTutorial } from "@/components/GuidedTutorial";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo-doutor-soneca.png";
 
 const emergencyOptions = [
@@ -107,6 +108,29 @@ export default function Home() {
                 <BookOpen className="w-5 h-5 text-violet-500" />
                 <span className="text-xs text-muted-foreground">10+</span>
               </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Routine Nudge Banner */}
+        <Card 
+          className="mt-4 cursor-pointer hover:shadow-lg transition-all border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20"
+          onClick={() => navigate("/routine")}
+        >
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0">
+                <Sparkles className="w-5 h-5 text-primary" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-foreground">
+                  Deixe o Doutor Soneca mais inteligente! 🧠
+                </p>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Registre a rotina do bebê para receber orientações mais precisas e personalizadas.
+                </p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
             </div>
           </CardContent>
         </Card>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Moon, Sun, Baby, Plus, Droplets, Clock, X } from "lucide-react";
+import { Moon, Sun, Baby, Plus, Droplets, Clock, X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BottomNav } from "@/components/BottomNav";
@@ -73,7 +73,7 @@ export default function Routine() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["sleep-logs"] });
-      toast.success("Evento registrado com sucesso!");
+      toast.success("Evento registrado! O Doutor Soneca já está mais inteligente 🧠");
       setDialogOpen(false);
       resetForm();
     },
@@ -155,6 +155,14 @@ export default function Routine() {
       </header>
 
       <main className="px-4 py-6 max-w-lg mx-auto space-y-6">
+        {/* AI Context Banner */}
+        <div className="flex items-center gap-3 rounded-xl bg-primary/5 border border-primary/20 p-3">
+          <Sparkles className="w-5 h-5 text-primary flex-shrink-0" />
+          <p className="text-xs text-muted-foreground">
+            <span className="font-semibold text-foreground">Quanto mais você registrar, melhor o Doutor Soneca te orienta!</span> Ele analisa os últimos 7 dias para dar conselhos personalizados.
+          </p>
+        </div>
+
         {/* Avatar Section */}
         <div className="flex justify-center">
           <Avatar size="lg" state="idle" />
