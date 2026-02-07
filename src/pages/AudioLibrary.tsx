@@ -1,15 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Play, Pause, Music, Clock, SkipBack, SkipForward, Volume2, Search } from "lucide-react";
+import { ArrowLeft, Play, Pause, Music, Clock, SkipBack, SkipForward, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { AvatarAI } from "@/components/AvatarAI";
-import { JamendoSearch } from "@/components/audio/JamendoSearch";
+
 
 interface AudioItem {
   id: string;
@@ -247,55 +246,34 @@ export default function AudioLibrary() {
 
       {/* Content */}
       <main className="px-4 py-6 max-w-lg mx-auto">
-        <Tabs defaultValue="lullabies" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-6">
-            <TabsTrigger value="lullabies" className="flex items-center gap-2">
-              <Music className="w-4 h-4" />
-              Músicas de Ninar
-            </TabsTrigger>
-            <TabsTrigger value="search" className="flex items-center gap-2">
-              <Search className="w-4 h-4" />
-              Buscar
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="lullabies" className="space-y-3">
-            {isLoading ? (
-              <div className="space-y-3">
-                {[1, 2, 3].map((i) => (
-                  <Card key={i} className="animate-pulse">
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 rounded-xl bg-muted" />
-                        <div className="flex-1 space-y-2">
-                          <div className="h-4 bg-muted rounded w-3/4" />
-                          <div className="h-3 bg-muted rounded w-1/2" />
-                        </div>
+        <div className="space-y-3">
+          {isLoading ? (
+            <div className="space-y-3">
+              {[1, 2, 3].map((i) => (
+                <Card key={i} className="animate-pulse">
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 rounded-xl bg-muted" />
+                      <div className="flex-1 space-y-2">
+                        <div className="h-4 bg-muted rounded w-3/4" />
+                        <div className="h-3 bg-muted rounded w-1/2" />
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            ) : lullabies.length === 0 ? (
-              <div className="text-center py-12 text-muted-foreground">
-                <Music className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                <p>Nenhuma música disponível</p>
-              </div>
-            ) : (
-              lullabies.map((audio) => (
-                <AudioCard key={audio.id} audio={audio} />
-              ))
-            )}
-          </TabsContent>
-
-          <TabsContent value="search">
-            <JamendoSearch
-              onPlayTrack={(track) => playTrack(track as AudioItem)}
-              currentTrackId={currentTrack?.id || null}
-              isPlaying={isPlaying}
-            />
-          </TabsContent>
-        </Tabs>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : lullabies.length === 0 ? (
+            <div className="text-center py-12 text-muted-foreground">
+              <Music className="w-12 h-12 mx-auto mb-4 opacity-50" />
+              <p>Nenhuma música disponível</p>
+            </div>
+          ) : (
+            lullabies.map((audio) => (
+              <AudioCard key={audio.id} audio={audio} />
+            ))
+          )}
+        </div>
       </main>
 
       {/* Player Bar */}
