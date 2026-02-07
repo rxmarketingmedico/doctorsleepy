@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Baby, Mail, LogOut, CreditCard, Bell, Moon, ChevronRight, Shield } from "lucide-react";
+import { Baby, Mail, LogOut, CreditCard, Bell, Moon, ChevronRight, Shield, HelpCircle } from "lucide-react";
 import { useAdminRole } from "@/hooks/useAdminRole";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -225,6 +225,16 @@ export default function Profile() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Help Link */}
+        <Button
+          variant="outline"
+          className="w-full h-14 rounded-2xl text-lg"
+          onClick={() => navigate("/help")}
+        >
+          <HelpCircle className="w-5 h-5 mr-2" />
+          Central de Ajuda
+        </Button>
 
         {/* Admin Link */}
         {isAdmin && (
