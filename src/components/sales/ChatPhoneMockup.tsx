@@ -23,7 +23,7 @@ const RESTART_DELAY = 4000;
 export function ChatPhoneMockup() {
   const [visibleMessages, setVisibleMessages] = useState<number>(0);
   const [isTyping, setIsTyping] = useState<"parent" | "doctor" | null>(null);
-  const chatEndRef = useRef<HTMLDivElement>(null);
+  
   const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => {
@@ -62,8 +62,12 @@ export function ChatPhoneMockup() {
     return clearAll;
   }, []);
 
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   }, [visibleMessages, isTyping]);
 
   return (
@@ -90,8 +94,7 @@ export function ChatPhoneMockup() {
           </div>
         </div>
 
-        {/* Chat messages */}
-        <div className="h-80 overflow-hidden px-3 py-3 space-y-2.5 bg-background">
+        <div ref={chatContainerRef} className="h-80 overflow-hidden px-3 py-3 space-y-2.5 bg-background">
           {conversation.slice(0, visibleMessages).map((msg, i) => (
             <div
               key={i}
@@ -138,7 +141,7 @@ export function ChatPhoneMockup() {
             </div>
           )}
 
-          <div ref={chatEndRef} />
+          
         </div>
 
         {/* Input bar */}
