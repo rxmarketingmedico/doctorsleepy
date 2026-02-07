@@ -41,11 +41,11 @@ const formatDuration = (seconds: number) => {
 };
 
 const quickSearches = [
-  { label: "🎵 Ninar", query: "lullaby baby" },
-  { label: "😴 Sono", query: "sleep relaxing" },
-  { label: "🎹 Piano", query: "piano calm" },
-  { label: "🌊 Natureza", query: "nature sounds rain" },
-  { label: "📖 Histórias", query: "children story" },
+  { label: "🎵 Ninar", query: "canção de ninar" },
+  { label: "😴 Sono", query: "sleep baby calm" },
+  { label: "🎹 Piano", query: "piano lullaby" },
+  { label: "🌊 Natureza", query: "nature rain ocean" },
+  { label: "🇧🇷 Português", query: "canção brasileira acalanto" },
   { label: "🎶 Caixinha", query: "music box melody" },
 ];
 
