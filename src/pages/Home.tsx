@@ -99,7 +99,7 @@ export default function Home() {
               <div className="flex-1">
                 <h3 className="font-bold text-foreground">Hora de Ninar</h3>
                 <p className="text-sm text-muted-foreground">
-                  Músicas e histórias para ajudar seu bebê a dormir
+                  Músicas de ninar para ajudar seu bebê a dormir
                 </p>
               </div>
               <div className="flex flex-col items-center gap-1">
