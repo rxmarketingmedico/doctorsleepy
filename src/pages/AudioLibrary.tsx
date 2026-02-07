@@ -182,7 +182,7 @@ export default function AudioLibrary() {
             </div>
 
             <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-foreground truncate">
+              <h3 className="font-semibold text-foreground">
                 {audio.title}
               </h3>
               <p className="text-xs text-muted-foreground truncate">
