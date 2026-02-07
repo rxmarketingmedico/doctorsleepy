@@ -132,7 +132,7 @@ export default function Help() {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <MessageCircle className="w-5 h-5 text-primary" />
-              <h2 className="text-lg font-semibold text-foreground">Meus tickets</h2>
+              <h2 className="text-lg font-semibold text-foreground">Meus tickets de suporte</h2>
             </div>
             <Button size="sm" onClick={() => setShowNewTicket(true)} className="gap-1">
               <Plus className="w-4 h-4" /> Novo
