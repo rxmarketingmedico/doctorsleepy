@@ -37,13 +37,13 @@ export function useProfile() {
 
       try {
         const { data, error } = await supabase
-          .from("profiles")
+          .from("profiles_safe" as any)
           .select("*")
           .eq("user_id", user.id)
           .single();
 
         if (error) throw error;
-        setProfile(data);
+        setProfile(data as unknown as Profile);
       } catch (err: any) {
         console.error("Error fetching profile:", err);
         setError(err.message);
@@ -61,13 +61,13 @@ export function useProfile() {
     setLoading(true);
     try {
       const { data, error } = await supabase
-        .from("profiles")
+        .from("profiles_safe" as any)
         .select("*")
         .eq("user_id", user.id)
         .single();
 
       if (error) throw error;
-      setProfile(data);
+      setProfile(data as unknown as Profile);
     } catch (err: any) {
       console.error("Error fetching profile:", err);
       setError(err.message);

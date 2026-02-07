@@ -36,13 +36,13 @@ export default function Profile() {
 
       try {
         const { data, error } = await supabase
-          .from("profiles")
+          .from("profiles_safe" as any)
           .select("baby_name, baby_birth_date, parent_name, sleep_location, uses_pacifier, night_feedings, subscription_status")
           .eq("user_id", user.id)
           .maybeSingle();
 
         if (error) throw error;
-        setProfile(data);
+        setProfile(data as unknown as ProfileData | null);
       } catch (error) {
         console.error("Error fetching profile:", error);
       } finally {
