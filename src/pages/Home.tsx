@@ -6,6 +6,7 @@ import { BottomNav } from "@/components/BottomNav";
 import { GuidedTutorial } from "@/components/GuidedTutorial";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Card, CardContent } from "@/components/ui/card";
+import logo from "@/assets/logo-doutor-soneca.png";
 
 const emergencyOptions = [
   { icon: Utensils, label: "Pode ser fome?", variant: "hunger" as const, context: "hunger" },
@@ -27,7 +28,7 @@ export default function Home() {
       {/* Header */}
       <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-sm border-b border-border">
         <div className="flex items-center justify-between px-4 py-3 max-w-lg mx-auto">
-          <h1 className="text-xl font-bold text-foreground">Doutor Soneca</h1>
+          <img src={logo} alt="Doutor Soneca" className="h-8" />
           <ThemeToggle />
         </div>
       </header>
