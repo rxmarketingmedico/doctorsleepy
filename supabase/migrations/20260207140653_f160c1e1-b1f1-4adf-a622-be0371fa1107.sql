@@ -1,0 +1,1 @@
+DROP POLICY "Admins can view pending activations" ON public.pending_activations;
