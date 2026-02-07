@@ -24,6 +24,7 @@ import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminAudios from "./pages/admin/AdminAudios";
+import AdminPurchaseLogs from "./pages/admin/AdminPurchaseLogs";
 import SalesPage from "./pages/SalesPage";
 
 const queryClient = new QueryClient();
@@ -118,6 +119,7 @@ function AppRoutes() {
         <Route index element={<AdminDashboard />} />
         <Route path="users" element={<AdminUsers />} />
         <Route path="audios" element={<AdminAudios />} />
+        <Route path="purchases" element={<AdminPurchaseLogs />} />
       </Route>
 
       {/* Catch-all */}
