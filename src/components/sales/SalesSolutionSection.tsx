@@ -1,5 +1,5 @@
 import { MessageCircle, Mic, BedDouble, BookOpen, Moon, Baby } from "lucide-react";
-import appMockupImg from "@/assets/sales/app-mockup.jpg";
+import { ChatPhoneMockup } from "./ChatPhoneMockup";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const benefits = [
@@ -28,16 +28,11 @@ export default function SalesSolutionSection() {
         </ScrollReveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div className="flex justify-center">
-            <div className="w-72 md:w-80 rounded-3xl overflow-hidden shadow-2xl shadow-primary/10">
-              <img
-                src={appMockupImg}
-                alt="Doutor Soneca app no celular"
-                className="w-full h-auto object-cover"
-                loading="lazy"
-              />
+          <ScrollReveal>
+            <div className="flex justify-center">
+              <ChatPhoneMockup />
             </div>
-          </div>
+          </ScrollReveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {benefits.map((b, i) => (
               <div
