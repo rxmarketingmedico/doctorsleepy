@@ -1,0 +1,189 @@
+import { useState, useEffect, useCallback } from "react";
+import { Home, Calendar, Mic, HelpCircle, User, MessageCircle, Music, X, ChevronRight, ChevronLeft, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+interface TutorialStep {
+  title: string;
+  description: string;
+  icon: React.ElementType;
+  position: "center" | "bottom-nav";
+  navIndex?: number;
+  color: string;
+}
+
+const steps: TutorialStep[] = [
+  {
+    title: "Bem-vindo ao Doutor Soneca! 👋",
+    description: "Vou te mostrar rapidinho como usar o app para cuidar do sono do seu bebê. São só 6 passos!",
+    icon: Sparkles,
+    position: "center",
+    color: "from-primary to-primary/80",
+  },
+  {
+    title: "Modo Emergência 🚨",
+    description: "Na tela inicial, toque no botão que descreve a situação do seu bebê para receber orientação imediata da IA.",
+    icon: Home,
+    position: "bottom-nav",
+    navIndex: 0,
+    color: "from-blue-500 to-blue-600",
+  },
+  {
+    title: "Rotina do Bebê 📋",
+    description: "Registre sono, mamadas e trocas de fralda. A IA analisa os padrões e sugere melhorias na rotina.",
+    icon: Calendar,
+    position: "bottom-nav",
+    navIndex: 1,
+    color: "from-indigo-500 to-indigo-600",
+  },
+  {
+    title: "Tradutor de Choro 🎤",
+    description: "Grave o choro do bebê e a IA identifica o possível motivo: fome, sono, desconforto ou cólica.",
+    icon: Mic,
+    position: "bottom-nav",
+    navIndex: 2,
+    color: "from-violet-500 to-violet-600",
+  },
+  {
+    title: "Central de Ajuda 💬",
+    description: "Abra tickets de suporte e converse diretamente com nossa equipe quando precisar de ajuda extra.",
+    icon: HelpCircle,
+    position: "bottom-nav",
+    navIndex: 3,
+    color: "from-emerald-500 to-emerald-600",
+  },
+  {
+    title: "Seu Perfil ⚙️",
+    description: "Gerencie seu plano, edite dados do bebê e ajuste as configurações do app.",
+    icon: User,
+    position: "bottom-nav",
+    navIndex: 4,
+    color: "from-amber-500 to-amber-600",
+  },
+];
+
+const TUTORIAL_KEY = "doutor_soneca_tutorial_completed";
+
+export function GuidedTutorial() {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [visible, setVisible] = useState(false);
+  const [exiting, setExiting] = useState(false);
+
+  useEffect(() => {
+    const completed = localStorage.getItem(TUTORIAL_KEY);
+    if (!completed) {
+      const timer = setTimeout(() => setVisible(true), 800);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  const completeTutorial = useCallback(() => {
+    setExiting(true);
+    setTimeout(() => {
+      localStorage.setItem(TUTORIAL_KEY, "true");
+      setVisible(false);
+    }, 300);
+  }, []);
+
+  const next = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep((s) => s + 1);
+    } else {
+      completeTutorial();
+    }
+  };
+
+  const prev = () => {
+    if (currentStep > 0) setCurrentStep((s) => s - 1);
+  };
+
+  if (!visible) return null;
+
+  const step = steps[currentStep];
+  const Icon = step.icon;
+  const isLast = currentStep === steps.length - 1;
+  const isFirst = currentStep === 0;
+
+  return (
+    <div
+      className={cn(
+        "fixed inset-0 z-[100] flex flex-col items-center justify-end transition-opacity duration-300",
+        exiting ? "opacity-0" : "opacity-100"
+      )}
+    >
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={completeTutorial} />
+
+      {/* Bottom nav highlight */}
+      {step.position === "bottom-nav" && step.navIndex !== undefined && (
+        <div className="absolute bottom-0 left-0 right-0 h-16 z-[101]">
+          <div className="max-w-lg mx-auto h-full flex justify-around items-center px-2 relative">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <div key={i} className="flex-1 flex justify-center">
+                {i === step.navIndex && (
+                  <div className="w-12 h-12 rounded-2xl bg-primary/20 border-2 border-primary animate-pulse" />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Card */}
+      <div
+        className={cn(
+          "relative z-[102] w-full max-w-sm mx-4 mb-24 rounded-3xl bg-card border border-border shadow-2xl overflow-hidden transition-all duration-300",
+          exiting ? "translate-y-8 scale-95" : "translate-y-0 scale-100"
+        )}
+      >
+        {/* Skip button */}
+        <button
+          onClick={completeTutorial}
+          className="absolute top-3 right-3 p-1.5 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors z-10"
+        >
+          <X className="w-4 h-4" />
+        </button>
+
+        {/* Icon header */}
+        <div className={cn("flex justify-center pt-6 pb-2")}>
+          <div className={cn("w-16 h-16 rounded-2xl bg-gradient-to-br flex items-center justify-center shadow-lg", step.color)}>
+            <Icon className="w-8 h-8 text-white" />
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="px-6 pb-2 text-center">
+          <h3 className="text-lg font-bold text-foreground mb-2">{step.title}</h3>
+          <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+        </div>
+
+        {/* Progress dots */}
+        <div className="flex justify-center gap-1.5 py-3">
+          {steps.map((_, i) => (
+            <div
+              key={i}
+              className={cn(
+                "h-1.5 rounded-full transition-all duration-300",
+                i === currentStep ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/30"
+              )}
+            />
+          ))}
+        </div>
+
+        {/* Actions */}
+        <div className="flex items-center gap-2 px-6 pb-6">
+          {!isFirst && (
+            <Button variant="ghost" size="sm" onClick={prev} className="rounded-xl">
+              <ChevronLeft className="w-4 h-4 mr-1" />
+              Voltar
+            </Button>
+          )}
+          <Button className="flex-1 rounded-xl" onClick={next}>
+            {isLast ? "Começar a usar!" : "Próximo"}
+            {!isLast && <ChevronRight className="w-4 h-4 ml-1" />}
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}

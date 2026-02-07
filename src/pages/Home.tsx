@@ -3,6 +3,7 @@ import { Utensils, Moon, Thermometer, Baby, Clock, Music, BookOpen, MessageCircl
 import { AvatarAI } from "@/components/AvatarAI";
 import { EmergencyButton } from "@/components/EmergencyButton";
 import { BottomNav } from "@/components/BottomNav";
+import { GuidedTutorial } from "@/components/GuidedTutorial";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -111,6 +112,7 @@ export default function Home() {
       </main>
 
       <BottomNav />
+      <GuidedTutorial />
     </div>
   );
 }
