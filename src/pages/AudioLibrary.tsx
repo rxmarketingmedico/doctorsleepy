@@ -189,7 +189,7 @@ export default function AudioLibrary() {
                 {audio.author}
               </p>
               {audio.description && (
-                <p className="text-xs text-muted-foreground/70 truncate mt-0.5">
+                <p className="text-xs text-muted-foreground/70 mt-0.5">
                   {audio.description}
                 </p>
               )}
