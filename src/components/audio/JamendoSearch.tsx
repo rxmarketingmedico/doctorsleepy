@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import { Search, Play, Pause, Loader2, Music, ExternalLink } from "lucide-react";
+import { useState } from "react";
+import { Search, Play, Pause, Loader2, Music, ExternalLink, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -40,11 +40,21 @@ const formatDuration = (seconds: number) => {
   return `${mins}:${secs.toString().padStart(2, "0")}`;
 };
 
+const quickSearches = [
+  { label: "🎵 Ninar", query: "lullaby baby" },
+  { label: "😴 Sono", query: "sleep relaxing" },
+  { label: "🎹 Piano", query: "piano calm" },
+  { label: "🌊 Natureza", query: "nature sounds rain" },
+  { label: "📖 Histórias", query: "children story" },
+  { label: "🎶 Caixinha", query: "music box melody" },
+];
+
 export function JamendoSearch({ onPlayTrack, currentTrackId, isPlaying }: JamendoSearchProps) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<JamendoTrack[]>([]);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
+  const [activeQuick, setActiveQuick] = useState<string | null>(null);
 
   const handleSearch = async () => {
     if (!query.trim()) return;
@@ -105,6 +115,34 @@ export function JamendoSearch({ onPlayTrack, currentTrackId, isPlaying }: Jamend
       <p className="text-xs text-muted-foreground">
         Powered by <a href="https://www.jamendo.com" target="_blank" rel="noopener noreferrer" className="underline inline-flex items-center gap-0.5">Jamendo <ExternalLink className="w-3 h-3" /></a> — música gratuita e licenciada
       </p>
+
+      {/* Quick search chips */}
+      <div className="flex flex-wrap gap-2">
+        {quickSearches.map((qs) => (
+          <Button
+            key={qs.query}
+            variant={activeQuick === qs.query ? "default" : "outline"}
+            size="sm"
+            className="rounded-full text-xs h-8"
+            onClick={() => {
+              setQuery(qs.query);
+              setActiveQuick(qs.query);
+              setLoading(true);
+              setSearched(true);
+              supabase.functions.invoke("search-jamendo", {
+                body: { query: qs.query, limit: 20 },
+              }).then(({ data, error }) => {
+                if (!error && data) setResults(data.tracks || []);
+                else setResults([]);
+                setLoading(false);
+              });
+            }}
+            disabled={loading}
+          >
+            {qs.label}
+          </Button>
+        ))}
+      </div>
 
       {/* Results */}
       {loading && (

@@ -27,14 +27,12 @@ serve(async (req) => {
     }
 
     // Search Jamendo for lullabies/children music
-    const searchQuery = `${query.trim()} lullaby children ninar`;
     const url = new URL("https://api.jamendo.com/v3.0/tracks/");
     url.searchParams.set("client_id", JAMENDO_CLIENT_ID);
     url.searchParams.set("format", "json");
     url.searchParams.set("limit", String(Math.min(limit, 50)));
-    url.searchParams.set("search", searchQuery);
+    url.searchParams.set("search", query.trim());
     url.searchParams.set("include", "musicinfo");
-    url.searchParams.set("tags", "lullaby children relaxation sleep");
     url.searchParams.set("boost", "popularity_total");
     url.searchParams.set("audioformat", "mp32");
 
