@@ -23,13 +23,17 @@ interface OnboardingData {
   // Baby info
   babyName: string;
   babyBirthDate: string;
+  feedingType: string;
   sleepLocation: string;
   usesPacifier: string;
   nightFeedings: string;
+  usualBedtime: string;
+  mainChallenge: string;
+  specialConditions: string[];
   acceptedTerms: boolean;
 }
 
-const totalSteps = 10;
+const totalSteps = 14;
 
 const benefits = [
   { icon: Brain, title: "IA Especializada", description: "Orientações personalizadas baseadas na idade e hábitos do seu bebê" },
@@ -67,6 +71,31 @@ const nightFeedingOptions = [
   { value: "5+", label: "5 ou mais vezes" },
 ];
 
+const feedingTypeOptions = [
+  { value: "breastfeeding", label: "Amamentação exclusiva", description: "Apenas leite materno" },
+  { value: "formula", label: "Fórmula", description: "Apenas fórmula infantil" },
+  { value: "mixed", label: "Misto", description: "Leite materno + fórmula" },
+  { value: "solids", label: "Já come sólidos", description: "Introdução alimentar iniciada" },
+];
+
+const bedtimeOptions = [
+  { value: "before-19", label: "Antes das 19h" },
+  { value: "19-20", label: "Entre 19h e 20h" },
+  { value: "20-21", label: "Entre 20h e 21h" },
+  { value: "21-22", label: "Entre 21h e 22h" },
+  { value: "after-22", label: "Depois das 22h" },
+  { value: "irregular", label: "Não tem horário fixo" },
+];
+
+const specialConditionOptions = [
+  { value: "reflux", label: "Refluxo" },
+  { value: "colic", label: "Cólicas intensas" },
+  { value: "premature", label: "Prematuro" },
+  { value: "allergy", label: "Alergia alimentar" },
+  { value: "dermatitis", label: "Dermatite" },
+  { value: "none", label: "Nenhuma" },
+];
+
 export default function Onboarding() {
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -78,9 +107,13 @@ export default function Onboarding() {
     mainConcerns: [],
     babyName: "",
     babyBirthDate: "",
+    feedingType: "",
     sleepLocation: "",
     usesPacifier: "",
     nightFeedings: "",
+    usualBedtime: "",
+    mainChallenge: "",
+    specialConditions: [],
     acceptedTerms: false,
   });
   const navigate = useNavigate();
@@ -103,12 +136,12 @@ export default function Onboarding() {
 
 
 
-  const toggleConcern = (value: string) => {
+  const toggleItems = (field: 'mainConcerns' | 'specialConditions', value: string) => {
     setData(prev => ({
       ...prev,
-      mainConcerns: prev.mainConcerns.includes(value)
-        ? prev.mainConcerns.filter(c => c !== value)
-        : [...prev.mainConcerns, value]
+      [field]: prev[field].includes(value)
+        ? prev[field].filter((c: string) => c !== value)
+        : [...prev[field], value]
     }));
   };
 
@@ -127,9 +160,13 @@ export default function Onboarding() {
           main_concerns: data.mainConcerns,
           baby_name: data.babyName,
           baby_birth_date: data.babyBirthDate || null,
+          feeding_type: data.feedingType,
           sleep_location: data.sleepLocation,
           uses_pacifier: data.usesPacifier === "yes",
           night_feedings: parseInt(data.nightFeedings.split("-")[0]) || 0,
+          usual_bedtime: data.usualBedtime,
+          main_challenge: data.mainChallenge || null,
+          special_conditions: data.specialConditions.filter(c => c !== "none"),
           onboarding_completed: true,
           subscription_status: "active",
         })
@@ -157,14 +194,18 @@ export default function Onboarding() {
     switch (currentStep) {
       case 1: return true; // Boas-vindas
       case 2: return true; // Benefícios
-      case 3: return data.parentName.trim().length > 0; // Nome do responsável
-      case 4: return data.isFirstChild !== ""; // Primeiro filho
-      case 5: return data.parentExperience !== ""; // Experiência
-      case 6: return data.babyName.trim().length > 0; // Nome do bebê
+      case 3: return data.parentName.trim().length > 0;
+      case 4: return data.isFirstChild !== "";
+      case 5: return data.parentExperience !== "";
+      case 6: return data.babyName.trim().length > 0;
       case 7: return true; // Data de nascimento (opcional)
-      case 8: return data.sleepLocation !== ""; // Local de sono
-      case 9: return data.usesPacifier !== ""; // Chupeta
-      case 10: return data.nightFeedings !== "" && data.acceptedTerms; // Mamadas + Termos
+      case 8: return data.feedingType !== ""; // Tipo de alimentação
+      case 9: return data.sleepLocation !== "";
+      case 10: return data.usesPacifier !== "";
+      case 11: return data.nightFeedings !== "";
+      case 12: return data.usualBedtime !== ""; // Horário de dormir
+      case 13: return true; // Desafio principal (opcional)
+      case 14: return data.acceptedTerms; // Condições especiais + Termos
       default: return false;
     }
   };
@@ -367,7 +408,7 @@ export default function Onboarding() {
                   <button
                     key={concern.value}
                     type="button"
-                    onClick={() => toggleConcern(concern.value)}
+                    onClick={() => toggleItems('mainConcerns', concern.value)}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                       data.mainConcerns.includes(concern.value)
                         ? "bg-primary text-primary-foreground"
@@ -435,8 +476,44 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 8: Local de sono
+      // Step 8: Tipo de alimentação (NEW)
       case 8:
+        return (
+          <div className="space-y-6">
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-foreground">
+                Como {data.babyName || "o bebê"} se alimenta?
+              </h2>
+              <p className="text-muted-foreground mt-2">
+                O tipo de alimentação influencia o sono e as orientações
+              </p>
+            </div>
+            <RadioGroup
+              value={data.feedingType}
+              onValueChange={(value) => setData({ ...data, feedingType: value })}
+              className="space-y-3"
+            >
+              {feedingTypeOptions.map((option) => (
+                <div
+                  key={option.value}
+                  className="flex items-start space-x-3 p-4 rounded-2xl border-2 border-border hover:border-primary transition-colors cursor-pointer"
+                  onClick={() => setData({ ...data, feedingType: option.value })}
+                >
+                  <RadioGroupItem value={option.value} id={`feed-${option.value}`} className="mt-1" />
+                  <div className="flex-1">
+                    <Label htmlFor={`feed-${option.value}`} className="text-base cursor-pointer font-medium">
+                      {option.label}
+                    </Label>
+                    <p className="text-sm text-muted-foreground mt-1">{option.description}</p>
+                  </div>
+                </div>
+              ))}
+            </RadioGroup>
+          </div>
+        );
+
+      // Step 9: Local de sono
+      case 9:
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -468,8 +545,8 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 9: Chupeta
-      case 9:
+      // Step 10: Chupeta
+      case 10:
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -507,8 +584,8 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 10: Mamadas + Termos
-      case 10:
+      // Step 11: Mamadas noturnas
+      case 11:
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -537,6 +614,113 @@ export default function Onboarding() {
                 </div>
               ))}
             </RadioGroup>
+          </div>
+        );
+
+      // Step 12: Horário habitual de dormir (NEW)
+      case 12:
+        return (
+          <div className="space-y-6">
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
+                <Clock className="w-8 h-8 text-primary" />
+              </div>
+              <h2 className="text-2xl font-bold text-foreground">
+                A que horas {data.babyName || "o bebê"} costuma dormir?
+              </h2>
+              <p className="text-muted-foreground mt-2">
+                Saber o horário me ajuda a calibrar as janelas de sono
+              </p>
+            </div>
+            <RadioGroup
+              value={data.usualBedtime}
+              onValueChange={(value) => setData({ ...data, usualBedtime: value })}
+              className="space-y-3"
+            >
+              {bedtimeOptions.map((option) => (
+                <div
+                  key={option.value}
+                  className="flex items-center space-x-3 p-4 rounded-2xl border-2 border-border hover:border-primary transition-colors cursor-pointer"
+                  onClick={() => setData({ ...data, usualBedtime: option.value })}
+                >
+                  <RadioGroupItem value={option.value} id={`bedtime-${option.value}`} />
+                  <Label htmlFor={`bedtime-${option.value}`} className="text-base cursor-pointer flex-1">
+                    {option.label}
+                  </Label>
+                </div>
+              ))}
+            </RadioGroup>
+          </div>
+        );
+
+      // Step 13: Principal desafio atual (NEW)
+      case 13:
+        return (
+          <div className="space-y-6">
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
+                <Heart className="w-8 h-8 text-primary" />
+              </div>
+              <h2 className="text-2xl font-bold text-foreground">
+                Qual o maior desafio hoje?
+              </h2>
+              <p className="text-muted-foreground mt-2">
+                Descreva em poucas palavras para eu priorizar o que é mais urgente
+              </p>
+            </div>
+            <div className="space-y-4">
+              <Input
+                id="mainChallenge"
+                placeholder="Ex: demora pra dormir, acorda 5x por noite..."
+                value={data.mainChallenge}
+                onChange={(e) => setData({ ...data, mainChallenge: e.target.value })}
+                className="h-14 rounded-2xl text-lg"
+              />
+              <p className="text-sm text-muted-foreground text-center">
+                Este campo é opcional
+              </p>
+            </div>
+          </div>
+        );
+
+      // Step 14: Condições especiais + Termos (NEW)
+      case 14:
+        return (
+          <div className="space-y-6">
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-foreground">
+                {data.babyName || "O bebê"} tem alguma condição especial?
+              </h2>
+              <p className="text-muted-foreground mt-2">
+                Isso muda as recomendações de sono e alimentação
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {specialConditionOptions.map((condition) => (
+                <button
+                  key={condition.value}
+                  type="button"
+                  onClick={() => {
+                    if (condition.value === "none") {
+                      setData(prev => ({ ...prev, specialConditions: ["none"] }));
+                    } else {
+                      const filtered = data.specialConditions.filter(c => c !== "none");
+                      const updated = filtered.includes(condition.value)
+                        ? filtered.filter(c => c !== condition.value)
+                        : [...filtered, condition.value];
+                      setData(prev => ({ ...prev, specialConditions: updated }));
+                    }
+                  }}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                    data.specialConditions.includes(condition.value)
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-muted text-muted-foreground hover:bg-muted/80"
+                  }`}
+                >
+                  {condition.label}
+                </button>
+              ))}
+            </div>
 
             {/* Termos de uso */}
             <div className="pt-4 border-t border-border">
