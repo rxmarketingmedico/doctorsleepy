@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { ArrowLeft, Search, Shield, ShieldOff, Trash2, UserCheck, UserX, Calendar, CreditCard, Baby, Phone, LogIn, CircleDot } from "lucide-react";
+import { ArrowLeft, Search, Shield, ShieldOff, Trash2, UserCheck, UserX, Calendar, CreditCard, Baby, Phone, LogIn, CircleDot, ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -153,13 +154,35 @@ export default function AdminUsers() {
             const isBlocked = user.subscription_status === "blocked";
             return (
               <Card key={user.id} className="overflow-hidden">
-                <CardContent className="p-4 space-y-3">
-                  <div className="flex items-start justify-between">
-                    <div className="space-y-1">
-                      <p className="font-semibold text-foreground">
-                        {user.parent_name || "Sem nome"}
-                      </p>
-                      <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                <Collapsible>
+                  <CollapsibleTrigger className="w-full">
+                    <CardContent className="p-4 flex items-center justify-between">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="text-left min-w-0">
+                          <p className="font-semibold text-foreground truncate">
+                            {user.parent_name || "Sem nome"}
+                          </p>
+                          <span className="text-xs text-muted-foreground">{user.baby_name || "—"}</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        {role === "admin" && <Badge variant="default" className="text-[10px]">Admin</Badge>}
+                        <Badge variant={isBlocked ? "destructive" : user.subscription_status === "active" ? "default" : "secondary"} className="text-[10px]">
+                          {isBlocked ? "Bloqueado" : user.subscription_status === "active" ? "Ativo" : user.subscription_status === "expired" ? "Expirado" : "Pendente"}
+                        </Badge>
+                        {user.last_access_at ? (
+                          <CircleDot className="w-3 h-3 text-green-500" />
+                        ) : (
+                          <CircleDot className="w-3 h-3 text-orange-400" />
+                        )}
+                        <ChevronDown className="w-4 h-4 text-muted-foreground transition-transform duration-200 [[data-state=open]>&]:rotate-180" />
+                      </div>
+                    </CardContent>
+                  </CollapsibleTrigger>
+
+                  <CollapsibleContent>
+                    <CardContent className="px-4 pb-4 pt-0 space-y-3 border-t">
+                      <div className="flex items-center gap-1 text-sm text-muted-foreground pt-2">
                         <Baby className="w-3 h-3" />
                         <span>{user.baby_name || "—"}</span>
                         {user.baby_birth_date && (
@@ -168,108 +191,89 @@ export default function AdminUsers() {
                           </span>
                         )}
                       </div>
-                    </div>
-                    <div className="flex flex-col items-end gap-1">
-                      {role === "admin" && <Badge variant="default">Admin</Badge>}
-                      <Badge variant={isBlocked ? "destructive" : user.subscription_status === "active" ? "default" : "secondary"}>
-                        {isBlocked ? "Bloqueado" : user.subscription_status === "active" ? "Ativo" : user.subscription_status === "expired" ? "Expirado" : "Pendente"}
-                      </Badge>
-                      {user.last_access_at ? (
-                        <Badge variant="outline" className="text-xs bg-green-500/10 text-green-600 border-green-200">
-                          <CircleDot className="w-2 h-2 mr-1" />
-                          Acessou
-                        </Badge>
-                      ) : (
-                        <Badge variant="outline" className="text-xs bg-orange-500/10 text-orange-600 border-orange-200">
-                          Nunca acessou
-                        </Badge>
-                      )}
-                      {user.onboarding_completed && (
-                        <Badge variant="outline" className="text-xs">Onboarding ✓</Badge>
-                      )}
-                    </div>
-                  </div>
 
-                  <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-muted-foreground border-t pt-2">
-                    <div className="flex items-center gap-1">
-                      <CreditCard className="w-3 h-3" />
-                      <span>Plano: <span className="text-foreground font-medium">{user.subscription_plan ? user.subscription_plan.charAt(0).toUpperCase() + user.subscription_plan.slice(1) : "—"}</span></span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Calendar className="w-3 h-3" />
-                      <span>Cadastro: <span className="text-foreground font-medium">{new Date(user.created_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" })}</span></span>
-                    </div>
-                    {user.subscription_expires_at && (
-                      <div className="flex items-center gap-1 col-span-2">
-                        <Calendar className="w-3 h-3" />
-                        <span>Expira: <span className="text-foreground font-medium">{new Date(user.subscription_expires_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" })}</span></span>
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                        <div className="flex items-center gap-1">
+                          <CreditCard className="w-3 h-3" />
+                          <span>Plano: <span className="text-foreground font-medium">{user.subscription_plan ? user.subscription_plan.charAt(0).toUpperCase() + user.subscription_plan.slice(1) : "—"}</span></span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Calendar className="w-3 h-3" />
+                          <span>Cadastro: <span className="text-foreground font-medium">{new Date(user.created_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" })}</span></span>
+                        </div>
+                        {user.subscription_expires_at && (
+                          <div className="flex items-center gap-1 col-span-2">
+                            <Calendar className="w-3 h-3" />
+                            <span>Expira: <span className="text-foreground font-medium">{new Date(user.subscription_expires_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" })}</span></span>
+                          </div>
+                        )}
+                        {user.buyer_phone && (
+                          <div className="flex items-center gap-1 col-span-2">
+                            <Phone className="w-3 h-3" />
+                            <span>Telefone: <span className="text-foreground font-medium">{user.buyer_phone}</span></span>
+                          </div>
+                        )}
+                        {user.last_access_at && (
+                          <div className="flex items-center gap-1 col-span-2">
+                            <LogIn className="w-3 h-3" />
+                            <span>Último acesso: <span className="text-foreground font-medium">{new Date(user.last_access_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" })}</span></span>
+                          </div>
+                        )}
+                        {user.hotmart_transaction_id && (
+                          <div className="flex items-center gap-1 col-span-2">
+                            <CreditCard className="w-3 h-3" />
+                            <span>Transação: <span className="text-foreground font-medium text-[10px]">{user.hotmart_transaction_id}</span></span>
+                          </div>
+                        )}
                       </div>
-                    )}
-                    {user.buyer_phone && (
-                      <div className="flex items-center gap-1 col-span-2">
-                        <Phone className="w-3 h-3" />
-                        <span>Telefone: <span className="text-foreground font-medium">{user.buyer_phone}</span></span>
-                      </div>
-                    )}
-                    {user.last_access_at && (
-                      <div className="flex items-center gap-1 col-span-2">
-                        <LogIn className="w-3 h-3" />
-                        <span>Último acesso: <span className="text-foreground font-medium">{new Date(user.last_access_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" })}</span></span>
-                      </div>
-                    )}
-                    {user.hotmart_transaction_id && (
-                      <div className="flex items-center gap-1 col-span-2">
-                        <CreditCard className="w-3 h-3" />
-                        <span>Transação: <span className="text-foreground font-medium text-[10px]">{user.hotmart_transaction_id}</span></span>
-                      </div>
-                    )}
-                  </div>
 
-                  <div className="flex gap-2 flex-wrap">
-                    <Button
-                      size="sm"
-                      variant={role === "admin" ? "destructive" : "outline"}
-                      onClick={() => toggleAdmin(user.user_id)}
-                      className="text-xs"
-                    >
-                      {role === "admin" ? <ShieldOff className="w-3 h-3 mr-1" /> : <Shield className="w-3 h-3 mr-1" />}
-                      {role === "admin" ? "Remover Admin" : "Tornar Admin"}
-                    </Button>
-
-                    <Button
-                      size="sm"
-                      variant={isBlocked ? "default" : "outline"}
-                      onClick={() => toggleAccess(user.user_id, user.subscription_status)}
-                      className="text-xs"
-                    >
-                      {isBlocked ? <UserCheck className="w-3 h-3 mr-1" /> : <UserX className="w-3 h-3 mr-1" />}
-                      {isBlocked ? "Liberar" : "Bloquear"}
-                    </Button>
-
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <Button size="sm" variant="destructive" className="text-xs">
-                          <Trash2 className="w-3 h-3 mr-1" />
-                          Excluir
+                      <div className="flex gap-2 flex-wrap">
+                        <Button
+                          size="sm"
+                          variant={role === "admin" ? "destructive" : "outline"}
+                          onClick={() => toggleAdmin(user.user_id)}
+                          className="text-xs"
+                        >
+                          {role === "admin" ? <ShieldOff className="w-3 h-3 mr-1" /> : <Shield className="w-3 h-3 mr-1" />}
+                          {role === "admin" ? "Remover Admin" : "Tornar Admin"}
                         </Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>Excluir usuário?</AlertDialogTitle>
-                          <AlertDialogDescription>
-                            Esta ação não pode ser desfeita. O perfil do usuário será removido permanentemente.
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                          <AlertDialogAction onClick={() => deleteUser(user.user_id)}>
-                            Excluir
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
-                  </div>
-                </CardContent>
+
+                        <Button
+                          size="sm"
+                          variant={isBlocked ? "default" : "outline"}
+                          onClick={() => toggleAccess(user.user_id, user.subscription_status)}
+                          className="text-xs"
+                        >
+                          {isBlocked ? <UserCheck className="w-3 h-3 mr-1" /> : <UserX className="w-3 h-3 mr-1" />}
+                          {isBlocked ? "Liberar" : "Bloquear"}
+                        </Button>
+
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button size="sm" variant="destructive" className="text-xs">
+                              <Trash2 className="w-3 h-3 mr-1" />
+                              Excluir
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>Excluir usuário?</AlertDialogTitle>
+                              <AlertDialogDescription>
+                                Esta ação não pode ser desfeita. O perfil do usuário será removido permanentemente.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                              <AlertDialogAction onClick={() => deleteUser(user.user_id)}>
+                                Excluir
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </div>
+                    </CardContent>
+                  </CollapsibleContent>
+                </Collapsible>
               </Card>
             );
           })}
