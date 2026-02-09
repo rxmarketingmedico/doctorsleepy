@@ -7,9 +7,10 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar } from "@/components/Avatar";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 export default function Auth() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [mode, setMode] = useState<"login" | "signup" | "forgot">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -22,7 +23,17 @@ export default function Auth() {
     setLoading(true);
 
     try {
-      if (isLogin) {
+      if (mode === "forgot") {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/auth`,
+        });
+        if (error) throw error;
+        toast({
+          title: "Email enviado! 📧",
+          description: "Verifique sua caixa de entrada para redefinir sua senha.",
+        });
+        setMode("login");
+      } else if (mode === "login") {
         const { error } = await signIn(email, password);
         if (error) throw error;
         navigate("/");
@@ -60,11 +71,15 @@ export default function Auth() {
         {/* Auth Card */}
         <Card className="border-2">
           <CardHeader className="text-center">
-            <CardTitle>{isLogin ? "Entrar" : "Criar conta"}</CardTitle>
+            <CardTitle>
+              {mode === "login" ? "Entrar" : mode === "signup" ? "Criar conta" : "Recuperar senha"}
+            </CardTitle>
             <CardDescription>
-              {isLogin
+              {mode === "login"
                 ? "Entre com seu email e senha"
-                : "Cadastre-se para começar a usar"}
+                : mode === "signup"
+                ? "Cadastre-se para começar a usar"
+                : "Informe seu email para receber um link de redefinição"}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -81,38 +96,68 @@ export default function Auth() {
                   className="h-12 rounded-xl"
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="password">Senha</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  minLength={6}
-                  className="h-12 rounded-xl"
-                />
-              </div>
+              {mode !== "forgot" && (
+                <div className="space-y-2">
+                  <Label htmlFor="password">Senha</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    minLength={6}
+                    className="h-12 rounded-xl"
+                  />
+                </div>
+              )}
               <Button
                 type="submit"
                 className="w-full h-12 rounded-xl text-lg font-semibold"
                 disabled={loading}
               >
-                {loading ? "Carregando..." : isLogin ? "Entrar" : "Criar conta"}
+                {loading
+                  ? "Carregando..."
+                  : mode === "login"
+                  ? "Entrar"
+                  : mode === "signup"
+                  ? "Criar conta"
+                  : "Enviar link de recuperação"}
               </Button>
             </form>
 
-            <div className="mt-6 text-center">
-              <button
-                type="button"
-                onClick={() => setIsLogin(!isLogin)}
-                className="text-primary hover:underline text-sm"
-              >
-                {isLogin
-                  ? "Não tem conta? Cadastre-se"
-                  : "Já tem conta? Entre aqui"}
-              </button>
+            {mode === "login" && (
+              <div className="mt-3 text-center">
+                <button
+                  type="button"
+                  onClick={() => setMode("forgot")}
+                  className="text-muted-foreground hover:text-primary hover:underline text-sm"
+                >
+                  Esqueci minha senha
+                </button>
+              </div>
+            )}
+
+            <div className="mt-4 text-center">
+              {mode === "forgot" ? (
+                <button
+                  type="button"
+                  onClick={() => setMode("login")}
+                  className="text-primary hover:underline text-sm"
+                >
+                  Voltar para o login
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setMode(mode === "login" ? "signup" : "login")}
+                  className="text-primary hover:underline text-sm"
+                >
+                  {mode === "login"
+                    ? "Não tem conta? Cadastre-se"
+                    : "Já tem conta? Entre aqui"}
+                </button>
+              )}
             </div>
           </CardContent>
         </Card>
