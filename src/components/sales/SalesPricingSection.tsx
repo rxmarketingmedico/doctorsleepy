@@ -1,118 +1,204 @@
-import { Star, Crown, Sparkles, Shield, Clock, Heart, ArrowRight } from "lucide-react";
+import { Star, Crown, Sparkles, Shield, Clock, Heart, ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
+
+const features = [
+  "Chat com IA 24 horas",
+  "Tradutor de choro",
+  "Rotina inteligente",
+  "Biblioteca de conteúdos",
+  "Modo emergência",
+  "Modo noturno automático",
+];
 
 const plans = [
   {
     name: "Mensal",
-    price: "R$ 47",
+    price: "47",
     period: "/mês",
     url: "https://pay.hotmart.com/G104310879F?off=a4i8bvbk&checkoutMode=10",
     icon: Star,
     highlight: false,
+    badge: null,
+    savings: null,
+    pricePerMonth: null,
   },
   {
     name: "Semestral",
-    price: "R$ 127",
+    price: "127",
     period: "/6 meses",
     pricePerMonth: "R$ 21/mês",
-    savings: "Economize 55%",
+    savings: "55% OFF",
     url: "https://pay.hotmart.com/G104310879F?off=bwvgswt4&checkoutMode=10",
     icon: Crown,
     highlight: true,
+    badge: "Mais popular",
   },
   {
     name: "Anual",
-    price: "R$ 197",
+    price: "197",
     period: "/ano",
     pricePerMonth: "R$ 16/mês",
-    savings: "Economize 65%",
+    savings: "65% OFF",
     url: "https://pay.hotmart.com/G104310879F?off=ca4ts232&checkoutMode=10",
     icon: Sparkles,
     highlight: false,
+    badge: "Melhor custo",
   },
 ];
 
-function PricingCard({ plan }: { plan: typeof plans[0] }) {
+function PricingCard({ plan }: { plan: (typeof plans)[0] }) {
+  const isHighlight = plan.highlight;
+
   return (
     <div
-      className={`relative rounded-3xl p-6 transition-all duration-300 cursor-pointer group ${
-        plan.highlight
-          ? "bg-primary text-primary-foreground shadow-2xl shadow-primary/20 scale-[1.02] ring-2 ring-primary/30"
-          : "bg-card border border-border/60 hover:shadow-lg hover:border-primary/30"
+      className={`relative rounded-3xl p-[1px] transition-all duration-500 cursor-pointer group ${
+        isHighlight
+          ? "bg-gradient-to-b from-primary via-primary/60 to-primary/20 scale-[1.03] md:scale-105"
+          : "bg-border/60 hover:bg-primary/30"
       }`}
       onClick={() => window.open(plan.url, "_blank")}
     >
-      {plan.highlight && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground text-xs font-bold px-4 py-1 rounded-full">
-          Mais popular
+      {/* Badge */}
+      {plan.badge && (
+        <div
+          className={`absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 text-xs font-bold px-5 py-1.5 rounded-full shadow-lg ${
+            isHighlight
+              ? "bg-primary text-primary-foreground shadow-primary/30"
+              : "bg-accent text-accent-foreground shadow-accent/20"
+          }`}
+        >
+          {plan.badge}
         </div>
       )}
-      <div className="flex items-center gap-3 mb-4">
-        <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-          plan.highlight ? "bg-primary-foreground/20" : "bg-primary/10"
-        }`}>
-          <plan.icon className={`w-5 h-5 ${plan.highlight ? "text-primary-foreground" : "text-primary"}`} />
+
+      {/* Card inner */}
+      <div
+        className={`relative rounded-[calc(1.5rem-1px)] p-6 md:p-7 h-full flex flex-col ${
+          isHighlight ? "bg-card" : "bg-card"
+        }`}
+      >
+        {/* Header */}
+        <div className="flex items-center gap-3 mb-5">
+          <div
+            className={`w-11 h-11 rounded-2xl flex items-center justify-center ${
+              isHighlight
+                ? "bg-gradient-to-br from-primary/20 to-primary/5"
+                : "bg-muted"
+            }`}
+          >
+            <plan.icon
+              className={`w-5 h-5 ${isHighlight ? "text-primary" : "text-muted-foreground"}`}
+            />
+          </div>
+          <div>
+            <h3 className="font-bold text-lg text-foreground">{plan.name}</h3>
+            {plan.savings && (
+              <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                {plan.savings}
+              </span>
+            )}
+          </div>
         </div>
-        <div>
-          <h3 className={`font-bold text-lg ${plan.highlight ? "" : "text-foreground"}`}>{plan.name}</h3>
-          {plan.savings && (
-            <span className={`text-xs font-medium ${plan.highlight ? "text-primary-foreground/80" : "text-primary"}`}>
-              {plan.savings}
+
+        {/* Price */}
+        <div className="mb-6">
+          <div className="flex items-baseline gap-1">
+            <span className="text-sm text-muted-foreground font-medium">R$</span>
+            <span className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
+              {plan.price}
             </span>
+            <span className="text-sm text-muted-foreground">{plan.period}</span>
+          </div>
+          {plan.pricePerMonth && (
+            <p className="text-xs text-muted-foreground mt-1.5">
+              equivale a <span className="font-semibold text-foreground">{plan.pricePerMonth}</span>
+            </p>
           )}
         </div>
+
+        {/* Features */}
+        <ul className="space-y-2.5 mb-6 flex-1">
+          {features.map((feature, i) => (
+            <li key={i} className="flex items-center gap-2.5 text-sm text-foreground">
+              <div
+                className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${
+                  isHighlight ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground"
+                }`}
+              >
+                <Check className="w-3 h-3" strokeWidth={3} />
+              </div>
+              {feature}
+            </li>
+          ))}
+        </ul>
+
+        {/* CTA */}
+        <Button
+          className={`w-full rounded-2xl font-bold h-12 text-sm transition-all duration-300 ${
+            isHighlight
+              ? "shadow-lg shadow-primary/25 group-hover:shadow-xl group-hover:shadow-primary/30 group-hover:scale-[1.02]"
+              : "group-hover:scale-[1.02]"
+          }`}
+          variant="default"
+          size="lg"
+        >
+          Assinar agora
+          <ArrowRight className="w-4 h-4 ml-1.5" />
+        </Button>
+
+        <p className="text-center text-[11px] mt-3 flex items-center justify-center gap-1 text-muted-foreground">
+          <Heart className="w-3 h-3" /> Cancele quando quiser
+        </p>
       </div>
-      <div className="mb-4">
-        <span className={`text-3xl font-extrabold ${plan.highlight ? "" : "text-foreground"}`}>{plan.price}</span>
-        <span className={`text-sm ${plan.highlight ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{plan.period}</span>
-        {plan.pricePerMonth && (
-          <p className={`text-xs mt-1 ${plan.highlight ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
-            equivale a {plan.pricePerMonth}
-          </p>
-        )}
-      </div>
-      <Button
-        className={`w-full rounded-xl font-bold group-hover:scale-[1.02] transition-transform ${
-          plan.highlight
-            ? "bg-primary-foreground text-primary hover:bg-primary-foreground/90"
-            : ""
-        }`}
-        variant={plan.highlight ? "secondary" : "default"}
-        size="lg"
-      >
-        Assinar agora
-        <ArrowRight className="w-4 h-4 ml-1" />
-      </Button>
-      <p className={`text-center text-xs mt-2 flex items-center justify-center gap-1 ${plan.highlight ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
-        <Heart className="w-3.5 h-3.5" /> Cancele quando quiser
-      </p>
     </div>
   );
 }
 
 export default function SalesPricingSection() {
   return (
-    <section id="pricing" className="px-4 py-16 md:py-24 bg-muted/30">
-      <div className="max-w-3xl mx-auto">
+    <section id="pricing" className="px-4 py-16 md:py-24 relative overflow-hidden">
+      {/* Subtle background glow */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-background" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" />
+
+      <div className="relative max-w-4xl mx-auto">
         <ScrollReveal>
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-3 text-foreground">
-            Escolha seu plano
-          </h2>
-          <p className="text-center text-muted-foreground mb-10 text-sm md:text-base">
-            Acesso completo a todas as ferramentas. Cancele quando quiser.
-          </p>
+          <div className="text-center mb-12">
+            <span className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-full px-4 py-1.5 text-sm font-medium mb-4">
+              <Sparkles className="w-4 h-4" />
+              Acesso completo
+            </span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-3">
+              Escolha seu plano
+            </h2>
+            <p className="text-muted-foreground text-base md:text-lg max-w-md mx-auto">
+              Todas as ferramentas incluídas. Sem pegadinhas.
+            </p>
+          </div>
         </ScrollReveal>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
-          {plans.map((plan) => (
-            <PricingCard key={plan.name} plan={plan} />
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 md:gap-6 items-start">
+          {plans.map((plan, i) => (
+            <ScrollReveal key={plan.name} delay={i * 100}>
+              <PricingCard plan={plan} />
+            </ScrollReveal>
           ))}
         </div>
-        <div className="flex flex-wrap items-center justify-center gap-4 mt-8 text-xs text-muted-foreground">
-          <span className="flex items-center gap-1"><Shield className="w-3.5 h-3.5" /> Pagamento seguro via Hotmart</span>
-          <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> Acesso imediato</span>
-          <span className="flex items-center gap-1"><Heart className="w-3.5 h-3.5" /> Cancele quando quiser</span>
-        </div>
+
+        <ScrollReveal>
+          <div className="flex flex-wrap items-center justify-center gap-5 mt-10 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1.5 bg-card/80 backdrop-blur-sm rounded-full px-4 py-2 border border-border/40 shadow-sm">
+              <Shield className="w-3.5 h-3.5 text-primary" /> Pagamento seguro via Hotmart
+            </span>
+            <span className="flex items-center gap-1.5 bg-card/80 backdrop-blur-sm rounded-full px-4 py-2 border border-border/40 shadow-sm">
+              <Clock className="w-3.5 h-3.5 text-primary" /> Acesso imediato
+            </span>
+            <span className="flex items-center gap-1.5 bg-card/80 backdrop-blur-sm rounded-full px-4 py-2 border border-border/40 shadow-sm">
+              <Heart className="w-3.5 h-3.5 text-primary" /> Garantia de 7 dias
+            </span>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
