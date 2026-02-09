@@ -366,7 +366,6 @@ export type Database = {
         Row: {
           baby_birth_date: string | null
           baby_name: string | null
-          buyer_phone: string | null
           created_at: string | null
           has_support_network: boolean | null
           id: string | null
@@ -388,7 +387,6 @@ export type Database = {
         Insert: {
           baby_birth_date?: string | null
           baby_name?: string | null
-          buyer_phone?: string | null
           created_at?: string | null
           has_support_network?: boolean | null
           id?: string | null
@@ -410,7 +408,6 @@ export type Database = {
         Update: {
           baby_birth_date?: string | null
           baby_name?: string | null
-          buyer_phone?: string | null
           created_at?: string | null
           has_support_network?: boolean | null
           id?: string | null
