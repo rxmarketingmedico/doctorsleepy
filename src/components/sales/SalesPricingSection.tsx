@@ -84,6 +84,9 @@ function PricingCard({ plan }: { plan: typeof plans[0] }) {
         Assinar agora
         <ArrowRight className="w-4 h-4 ml-1" />
       </Button>
+      <p className={`text-center text-xs mt-2 ${plan.highlight ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
+        Cancele quando quiser
+      </p>
     </div>
   );
 }
