@@ -99,14 +99,14 @@ Deno.serve(async (req) => {
     if (!matchedUser && isPurchaseEvent) {
       console.log(`No user found for ${buyerEmail}. Creating account automatically...`);
 
-      // Generate a random password (user will use magic link, never this password)
-      const randomPassword = crypto.randomUUID() + "Aa1!";
+      // Default temporary password
+      const defaultPassword = "Soneca2026!";
 
       // Create user via admin API
       const { data: newUserData, error: createError } =
         await supabaseAdmin.auth.admin.createUser({
           email: buyerEmail,
-          password: randomPassword,
+          password: defaultPassword,
           email_confirm: true, // auto-confirm email
           user_metadata: { full_name: buyerName },
         });
@@ -164,8 +164,8 @@ Deno.serve(async (req) => {
         const tokenHash = linkData.properties?.hashed_token;
         const magicLinkUrl = `${supabaseUrl}/auth/v1/verify?token=${tokenHash}&type=magiclink&redirect_to=https://doutorsoneca.lovable.app`;
 
-        // Send email via Resend
-        await sendMagicLinkEmail(buyerEmail, buyerName, magicLinkUrl);
+        // Send email via Resend with login credentials
+        await sendMagicLinkEmail(buyerEmail, buyerName, magicLinkUrl, defaultPassword);
       }
 
       return new Response(
@@ -280,7 +280,7 @@ async function savePendingActivation(
   }
 }
 
-async function sendMagicLinkEmail(email: string, name: string, magicLinkUrl: string) {
+async function sendMagicLinkEmail(email: string, name: string, magicLinkUrl: string, password: string) {
   try {
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
     if (!resendApiKey) {
@@ -319,7 +319,7 @@ async function sendMagicLinkEmail(email: string, name: string, magicLinkUrl: str
               </p>
               
               <p style="color:#333;font-size:16px;line-height:1.6;">
-                Clique no botão abaixo para acessar o Doutor Soneca e começar a transformar as noites do seu bebê:
+                Clique no botão abaixo para acessar o Doutor Soneca imediatamente:
               </p>
               
               <div style="text-align:center;margin:30px 0;">
@@ -327,9 +327,26 @@ async function sendMagicLinkEmail(email: string, name: string, magicLinkUrl: str
                   Acessar Doutor Soneca →
                 </a>
               </div>
+
+              <div style="background:#f8f4ff;border-radius:12px;padding:20px;margin:25px 0;">
+                <p style="color:#6c3fa0;font-size:14px;font-weight:bold;margin:0 0 12px 0;">🔐 Seus dados de acesso:</p>
+                <table style="width:100%;border-collapse:collapse;">
+                  <tr>
+                    <td style="color:#666;font-size:14px;padding:4px 0;">Login:</td>
+                    <td style="color:#333;font-size:14px;font-weight:bold;padding:4px 0;">${email}</td>
+                  </tr>
+                  <tr>
+                    <td style="color:#666;font-size:14px;padding:4px 0;">Senha temporária:</td>
+                    <td style="color:#333;font-size:14px;font-weight:bold;padding:4px 0;">${password}</td>
+                  </tr>
+                </table>
+                <p style="color:#888;font-size:12px;margin:10px 0 0 0;">
+                  ⚠️ Recomendamos alterar sua senha após o primeiro acesso, no menu Perfil.
+                </p>
+              </div>
               
               <p style="color:#888;font-size:13px;text-align:center;line-height:1.5;">
-                Este link expira em 24 horas. Se expirar, basta fazer login com seu email na página de acesso.
+                O link de acesso rápido expira em 24 horas. Após isso, use seu email e senha para entrar.
               </p>
               
               <hr style="border:none;border-top:1px solid #eee;margin:30px 0;">
