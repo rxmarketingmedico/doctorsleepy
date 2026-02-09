@@ -155,16 +155,16 @@ Deno.serve(async (req) => {
           type: "magiclink",
           email: buyerEmail,
           options: {
-            redirectTo: `${supabaseUrl.replace('.supabase.co', '')}.supabase.co/auth/v1/verify`,
+            redirectTo: "https://doutorsoneca.lovable.app",
           },
         });
 
       if (linkError) {
         console.error("Error generating magic link:", linkError);
       } else {
-        // Build the verification URL
+        // Build the verification URL using the correct parameter name
         const tokenHash = linkData.properties?.hashed_token;
-        const magicLinkUrl = `${supabaseUrl}/auth/v1/verify?token=${tokenHash}&type=magiclink&redirect_to=https://doutorsoneca.lovable.app`;
+        const magicLinkUrl = `${supabaseUrl}/auth/v1/verify?token_hash=${tokenHash}&type=magiclink&redirect_to=https://doutorsoneca.lovable.app`;
 
         // Send email via Resend with login credentials
         await sendMagicLinkEmail(buyerEmail, buyerName, magicLinkUrl, defaultPassword);
