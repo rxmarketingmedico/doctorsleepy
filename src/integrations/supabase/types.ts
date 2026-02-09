@@ -178,17 +178,20 @@ export type Database = {
           baby_name: string | null
           buyer_phone: string | null
           created_at: string
+          feeding_type: string | null
           has_support_network: boolean | null
           hotmart_transaction_id: string | null
           id: string
           is_first_child: boolean | null
           last_access_at: string | null
+          main_challenge: string | null
           main_concerns: string[] | null
           night_feedings: number | null
           onboarding_completed: boolean | null
           parent_experience: string | null
           parent_name: string | null
           sleep_location: string | null
+          special_conditions: string[] | null
           subscription_expires_at: string | null
           subscription_id: string | null
           subscription_plan: string | null
@@ -196,23 +199,27 @@ export type Database = {
           updated_at: string
           user_id: string
           uses_pacifier: boolean | null
+          usual_bedtime: string | null
         }
         Insert: {
           baby_birth_date?: string | null
           baby_name?: string | null
           buyer_phone?: string | null
           created_at?: string
+          feeding_type?: string | null
           has_support_network?: boolean | null
           hotmart_transaction_id?: string | null
           id?: string
           is_first_child?: boolean | null
           last_access_at?: string | null
+          main_challenge?: string | null
           main_concerns?: string[] | null
           night_feedings?: number | null
           onboarding_completed?: boolean | null
           parent_experience?: string | null
           parent_name?: string | null
           sleep_location?: string | null
+          special_conditions?: string[] | null
           subscription_expires_at?: string | null
           subscription_id?: string | null
           subscription_plan?: string | null
@@ -220,23 +227,27 @@ export type Database = {
           updated_at?: string
           user_id: string
           uses_pacifier?: boolean | null
+          usual_bedtime?: string | null
         }
         Update: {
           baby_birth_date?: string | null
           baby_name?: string | null
           buyer_phone?: string | null
           created_at?: string
+          feeding_type?: string | null
           has_support_network?: boolean | null
           hotmart_transaction_id?: string | null
           id?: string
           is_first_child?: boolean | null
           last_access_at?: string | null
+          main_challenge?: string | null
           main_concerns?: string[] | null
           night_feedings?: number | null
           onboarding_completed?: boolean | null
           parent_experience?: string | null
           parent_name?: string | null
           sleep_location?: string | null
+          special_conditions?: string[] | null
           subscription_expires_at?: string | null
           subscription_id?: string | null
           subscription_plan?: string | null
@@ -244,6 +255,7 @@ export type Database = {
           updated_at?: string
           user_id?: string
           uses_pacifier?: boolean | null
+          usual_bedtime?: string | null
         }
         Relationships: []
       }
@@ -367,64 +379,76 @@ export type Database = {
           baby_birth_date: string | null
           baby_name: string | null
           created_at: string | null
+          feeding_type: string | null
           has_support_network: boolean | null
           id: string | null
           is_first_child: boolean | null
           last_access_at: string | null
+          main_challenge: string | null
           main_concerns: string[] | null
           night_feedings: number | null
           onboarding_completed: boolean | null
           parent_experience: string | null
           parent_name: string | null
           sleep_location: string | null
+          special_conditions: string[] | null
           subscription_expires_at: string | null
           subscription_plan: string | null
           subscription_status: string | null
           updated_at: string | null
           user_id: string | null
           uses_pacifier: boolean | null
+          usual_bedtime: string | null
         }
         Insert: {
           baby_birth_date?: string | null
           baby_name?: string | null
           created_at?: string | null
+          feeding_type?: string | null
           has_support_network?: boolean | null
           id?: string | null
           is_first_child?: boolean | null
           last_access_at?: string | null
+          main_challenge?: string | null
           main_concerns?: string[] | null
           night_feedings?: number | null
           onboarding_completed?: boolean | null
           parent_experience?: string | null
           parent_name?: string | null
           sleep_location?: string | null
+          special_conditions?: string[] | null
           subscription_expires_at?: string | null
           subscription_plan?: string | null
           subscription_status?: string | null
           updated_at?: string | null
           user_id?: string | null
           uses_pacifier?: boolean | null
+          usual_bedtime?: string | null
         }
         Update: {
           baby_birth_date?: string | null
           baby_name?: string | null
           created_at?: string | null
+          feeding_type?: string | null
           has_support_network?: boolean | null
           id?: string | null
           is_first_child?: boolean | null
           last_access_at?: string | null
+          main_challenge?: string | null
           main_concerns?: string[] | null
           night_feedings?: number | null
           onboarding_completed?: boolean | null
           parent_experience?: string | null
           parent_name?: string | null
           sleep_location?: string | null
+          special_conditions?: string[] | null
           subscription_expires_at?: string | null
           subscription_plan?: string | null
           subscription_status?: string | null
           updated_at?: string | null
           user_id?: string | null
           uses_pacifier?: boolean | null
+          usual_bedtime?: string | null
         }
         Relationships: []
       }

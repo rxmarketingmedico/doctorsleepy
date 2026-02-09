@@ -17,6 +17,10 @@ export interface Profile {
   subscription_plan: string | null;
   subscription_expires_at: string | null;
   hotmart_transaction_id: string | null;
+  feeding_type: string | null;
+  usual_bedtime: string | null;
+  main_challenge: string | null;
+  special_conditions: string[] | null;
   created_at: string;
   updated_at: string;
 }

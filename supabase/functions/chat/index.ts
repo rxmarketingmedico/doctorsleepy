@@ -133,7 +133,32 @@ serve(async (req) => {
       health: "Saúde geral",
     };
 
+    const feedingLabels: Record<string, string> = {
+      breastfeeding: "Amamentação exclusiva",
+      formula: "Fórmula",
+      mixed: "Misto (peito + fórmula)",
+      solids: "Introdução alimentar",
+    };
+
+    const bedtimeLabels: Record<string, string> = {
+      "before-19": "Antes das 19h",
+      "19-20": "Entre 19h e 20h",
+      "20-21": "Entre 20h e 21h",
+      "21-22": "Entre 21h e 22h",
+      "after-22": "Depois das 22h",
+      "irregular": "Sem horário fixo",
+    };
+
+    const conditionLabels: Record<string, string> = {
+      reflux: "Refluxo",
+      colic: "Cólicas intensas",
+      premature: "Prematuro",
+      allergy: "Alergia alimentar",
+      dermatitis: "Dermatite",
+    };
+
     const mainConcerns = (profile?.main_concerns as string[] | null)?.map(c => concernLabels[c] || c).join(", ") || "Não informado";
+    const specialConditions = (profile?.special_conditions as string[] | null)?.filter(c => c !== "none").map(c => conditionLabels[c] || c).join(", ") || "Nenhuma";
 
     // Build system prompt with profile context
     const systemPrompt = `Você é o Doutor Soneca, um pediatra virtual carinhoso, empático e acolhedor, especializado em sono infantil e cuidados com bebês.
@@ -170,9 +195,13 @@ INFORMAÇÕES DO BEBÊ:
 ${profile ? `
 - Nome do bebê: ${profile.baby_name || 'Não informado'}
 - Idade do bebê: ${babyAge || 'Não informado'}
+- Tipo de alimentação: ${feedingLabels[profile.feeding_type as string] || 'Não informado'}
 - Local de sono: ${profile.sleep_location || 'Não informado'}
 - Usa chupeta: ${profile.uses_pacifier ? 'Sim' : 'Não'}
 - Mamadas noturnas: ${profile.night_feedings || 'Não informado'} vezes por noite
+- Horário habitual de dormir: ${bedtimeLabels[profile.usual_bedtime as string] || 'Não informado'}
+- Principal desafio: ${profile.main_challenge || 'Não informado'}
+- Condições especiais: ${specialConditions}
 ` : 'Dados do bebê não disponíveis.'}
 
 ROTINA DOS ÚLTIMOS 7 DIAS:
