@@ -1,5 +1,5 @@
 import { Shield } from "lucide-react";
-import peacefulImg from "@/assets/sales/peaceful-parent.jpg";
+import peacefulImg from "@/assets/sales/peaceful-parent.webp";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 export default function SalesReliefSection() {

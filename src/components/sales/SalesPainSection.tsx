@@ -1,5 +1,5 @@
 import { Heart } from "lucide-react";
-import tiredParentImg from "@/assets/sales/tired-parent.jpg";
+import tiredParentImg from "@/assets/sales/tired-parent.webp";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const painPoints = [
