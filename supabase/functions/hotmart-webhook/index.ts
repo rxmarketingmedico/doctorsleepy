@@ -363,9 +363,21 @@ async function sendMagicLinkEmail(email: string, name: string, magicLinkUrl: str
                   ⚠️ Recomendamos alterar sua senha após o primeiro acesso, no menu Perfil.
                 </p>
               </div>
+
+              <div style="background:#fff3cd;border-radius:12px;padding:16px;margin:20px 0;border:1px solid #ffc107;">
+                <p style="color:#856404;font-size:13px;font-weight:bold;margin:0 0 8px 0;">⚠️ Problemas para acessar?</p>
+                <p style="color:#856404;font-size:13px;line-height:1.5;margin:0;">
+                  Se o botão acima ou a senha temporária não funcionarem, use a opção <strong>"Esqueci minha senha"</strong> na tela de login para criar uma nova senha.
+                </p>
+                <div style="text-align:center;margin-top:12px;">
+                  <a href="https://doutorsoneca.lovable.app/auth" style="display:inline-block;background:#6c3fa0;color:white;text-decoration:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:bold;">
+                    Ir para a tela de Login
+                  </a>
+                </div>
+              </div>
               
               <p style="color:#888;font-size:13px;text-align:center;line-height:1.5;">
-                O link de acesso rápido expira em 24 horas. Após isso, use seu email e senha para entrar.
+                O link de acesso rápido expira em 24 horas.
               </p>
               
               <hr style="border:none;border-top:1px solid #eee;margin:30px 0;">
