@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowLeft, Search, Shield, ShieldOff, Trash2, UserCheck, UserX, Calendar, CreditCard, Baby } from "lucide-react";
+import { ArrowLeft, Search, Shield, ShieldOff, Trash2, UserCheck, UserX, Calendar, CreditCard, Baby, Phone, LogIn, CircleDot } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,6 +24,9 @@ interface UserProfile {
   sleep_location: string | null;
   uses_pacifier: boolean | null;
   night_feedings: number | null;
+  buyer_phone: string | null;
+  last_access_at: string | null;
+  hotmart_transaction_id: string | null;
 }
 
 interface UserRole {
@@ -171,6 +174,16 @@ export default function AdminUsers() {
                       <Badge variant={isBlocked ? "destructive" : user.subscription_status === "active" ? "default" : "secondary"}>
                         {isBlocked ? "Bloqueado" : user.subscription_status === "active" ? "Ativo" : user.subscription_status === "expired" ? "Expirado" : "Pendente"}
                       </Badge>
+                      {user.last_access_at ? (
+                        <Badge variant="outline" className="text-xs bg-green-500/10 text-green-600 border-green-200">
+                          <CircleDot className="w-2 h-2 mr-1" />
+                          Acessou
+                        </Badge>
+                      ) : (
+                        <Badge variant="outline" className="text-xs bg-orange-500/10 text-orange-600 border-orange-200">
+                          Nunca acessou
+                        </Badge>
+                      )}
                       {user.onboarding_completed && (
                         <Badge variant="outline" className="text-xs">Onboarding ✓</Badge>
                       )}
@@ -192,11 +205,23 @@ export default function AdminUsers() {
                         <span>Expira: <span className="text-foreground font-medium">{new Date(user.subscription_expires_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" })}</span></span>
                       </div>
                     )}
-                    {user.sleep_location && (
-                      <div className="col-span-2">Local de sono: <span className="text-foreground">{user.sleep_location}</span></div>
+                    {user.buyer_phone && (
+                      <div className="flex items-center gap-1 col-span-2">
+                        <Phone className="w-3 h-3" />
+                        <span>Telefone: <span className="text-foreground font-medium">{user.buyer_phone}</span></span>
+                      </div>
                     )}
-                    {user.night_feedings != null && user.night_feedings > 0 && (
-                      <div>Mamadas: <span className="text-foreground">{user.night_feedings}x/noite</span></div>
+                    {user.last_access_at && (
+                      <div className="flex items-center gap-1 col-span-2">
+                        <LogIn className="w-3 h-3" />
+                        <span>Último acesso: <span className="text-foreground font-medium">{new Date(user.last_access_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" })}</span></span>
+                      </div>
+                    )}
+                    {user.hotmart_transaction_id && (
+                      <div className="flex items-center gap-1 col-span-2">
+                        <CreditCard className="w-3 h-3" />
+                        <span>Transação: <span className="text-foreground font-medium text-[10px]">{user.hotmart_transaction_id}</span></span>
+                      </div>
                     )}
                   </div>
 
