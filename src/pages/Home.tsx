@@ -112,6 +112,27 @@ export default function Home() {
           </CardContent>
         </Card>
 
+        {/* Content Library Card */}
+        <Card 
+          className="mt-4 cursor-pointer hover:shadow-lg transition-all bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 border-amber-200 dark:border-amber-800"
+          onClick={() => navigate("/library")}
+        >
+          <CardContent className="p-4">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg">
+                <BookOpen className="w-7 h-7 text-white" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-foreground">Biblioteca de Conteúdos</h3>
+                <p className="text-sm text-muted-foreground">
+                  Artigos sobre sono, alimentação e rotina do bebê
+                </p>
+              </div>
+              <ArrowRight className="w-5 h-5 text-muted-foreground" />
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Routine Nudge Banner */}
         <Card 
           className="mt-4 cursor-pointer hover:shadow-lg transition-all border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20"
