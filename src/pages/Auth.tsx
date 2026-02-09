@@ -127,11 +127,11 @@ export default function Auth() {
             </form>
 
             {mode === "login" && (
-              <div className="mt-3 text-center">
+              <div className="mt-4 text-center">
                 <button
                   type="button"
                   onClick={() => setMode("forgot")}
-                  className="text-muted-foreground hover:text-primary hover:underline text-sm"
+                  className="text-primary hover:underline text-sm font-medium"
                 >
                   Esqueci minha senha
                 </button>
