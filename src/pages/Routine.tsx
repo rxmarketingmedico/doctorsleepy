@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Moon, Sun, Baby, Plus, Droplets, Clock, X, Sparkles } from "lucide-react";
+import { Moon, Sun, Baby, Plus, Droplets, Clock, X, Sparkles, CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BottomNav } from "@/components/BottomNav";
@@ -9,11 +9,14 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { cn } from "@/lib/utils";
 
 const logTypes = [
   { value: "sleep", label: "Sono noturno", icon: Moon, color: "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400" },
@@ -25,6 +28,7 @@ const logTypes = [
 export default function Routine() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedType, setSelectedType] = useState("");
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [startTime, setStartTime] = useState(format(new Date(), "HH:mm"));
   const [endTime, setEndTime] = useState("");
   const [notes, setNotes] = useState("");
@@ -57,9 +61,9 @@ export default function Routine() {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) throw new Error("Não autenticado");
 
-      const todayDate = format(new Date(), "yyyy-MM-dd");
-      const startedAt = new Date(`${todayDate}T${startTime}:00`);
-      const endedAt = endTime ? new Date(`${todayDate}T${endTime}:00`) : null;
+      const dateStr = format(selectedDate, "yyyy-MM-dd");
+      const startedAt = new Date(`${dateStr}T${startTime}:00`);
+      const endedAt = endTime ? new Date(`${dateStr}T${endTime}:00`) : null;
 
       const { error } = await supabase.from("sleep_logs").insert({
         user_id: session.user.id,
@@ -84,6 +88,7 @@ export default function Routine() {
 
   const resetForm = () => {
     setSelectedType("");
+    setSelectedDate(new Date());
     setStartTime(format(new Date(), "HH:mm"));
     setEndTime("");
     setNotes("");
@@ -254,6 +259,35 @@ export default function Routine() {
                     );
                   })}
                 </div>
+              </div>
+
+              {/* Date Picker */}
+              <div className="space-y-2">
+                <Label>Data</Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className={cn(
+                        "w-full h-12 justify-start text-left font-normal",
+                        !selectedDate && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {format(selectedDate, "dd 'de' MMMM, yyyy", { locale: ptBR })}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={selectedDate}
+                      onSelect={(date) => date && setSelectedDate(date)}
+                      disabled={(date) => date > new Date()}
+                      initialFocus
+                      className={cn("p-3 pointer-events-auto")}
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
 
               {/* Time Inputs */}
