@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowLeft, Search, Shield, ShieldOff, Trash2, UserCheck, UserX } from "lucide-react";
+import { ArrowLeft, Search, Shield, ShieldOff, Trash2, UserCheck, UserX, Calendar, CreditCard, Baby } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,8 +16,14 @@ interface UserProfile {
   baby_name: string | null;
   baby_birth_date: string | null;
   created_at: string;
+  updated_at: string;
   subscription_status: string | null;
+  subscription_plan: string | null;
+  subscription_expires_at: string | null;
   onboarding_completed: boolean | null;
+  sleep_location: string | null;
+  uses_pacifier: boolean | null;
+  night_feedings: number | null;
 }
 
 interface UserRole {
@@ -146,26 +152,52 @@ export default function AdminUsers() {
               <Card key={user.id} className="overflow-hidden">
                 <CardContent className="p-4 space-y-3">
                   <div className="flex items-start justify-between">
-                    <div>
+                    <div className="space-y-1">
                       <p className="font-semibold text-foreground">
                         {user.parent_name || "Sem nome"}
                       </p>
-                      <p className="text-sm text-muted-foreground">
-                        Bebê: {user.baby_name || "—"}
-                      </p>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        Cadastro: {new Date(user.created_at).toLocaleDateString("pt-BR")}
-                      </p>
+                      <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                        <Baby className="w-3 h-3" />
+                        <span>{user.baby_name || "—"}</span>
+                        {user.baby_birth_date && (
+                          <span className="text-xs">
+                            ({new Date(user.baby_birth_date).toLocaleDateString("pt-BR")})
+                          </span>
+                        )}
+                      </div>
                     </div>
                     <div className="flex flex-col items-end gap-1">
                       {role === "admin" && <Badge variant="default">Admin</Badge>}
                       <Badge variant={isBlocked ? "destructive" : user.subscription_status === "active" ? "default" : "secondary"}>
-                        {isBlocked ? "Bloqueado" : user.subscription_status === "active" ? "Ativo" : "Pendente"}
+                        {isBlocked ? "Bloqueado" : user.subscription_status === "active" ? "Ativo" : user.subscription_status === "expired" ? "Expirado" : "Pendente"}
                       </Badge>
                       {user.onboarding_completed && (
                         <Badge variant="outline" className="text-xs">Onboarding ✓</Badge>
                       )}
                     </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-muted-foreground border-t pt-2">
+                    <div className="flex items-center gap-1">
+                      <CreditCard className="w-3 h-3" />
+                      <span>Plano: <span className="text-foreground font-medium">{user.subscription_plan ? user.subscription_plan.charAt(0).toUpperCase() + user.subscription_plan.slice(1) : "—"}</span></span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Calendar className="w-3 h-3" />
+                      <span>Cadastro: <span className="text-foreground font-medium">{new Date(user.created_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" })}</span></span>
+                    </div>
+                    {user.subscription_expires_at && (
+                      <div className="flex items-center gap-1 col-span-2">
+                        <Calendar className="w-3 h-3" />
+                        <span>Expira: <span className="text-foreground font-medium">{new Date(user.subscription_expires_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" })}</span></span>
+                      </div>
+                    )}
+                    {user.sleep_location && (
+                      <div className="col-span-2">Local de sono: <span className="text-foreground">{user.sleep_location}</span></div>
+                    )}
+                    {user.night_feedings != null && user.night_feedings > 0 && (
+                      <div>Mamadas: <span className="text-foreground">{user.night_feedings}x/noite</span></div>
+                    )}
                   </div>
 
                   <div className="flex gap-2 flex-wrap">
