@@ -8,7 +8,7 @@ export default function SalesHero() {
     <>
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/40">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-          <img src={logo} alt="Doutor Soneca" className="h-10 md:h-12 object-contain" />
+          <img src={logo} alt="Doutor Soneca" className="h-14 md:h-16 object-contain" />
           <Button
             size="sm"
             className="rounded-xl font-bold"
