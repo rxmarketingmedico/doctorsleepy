@@ -23,6 +23,10 @@ interface ProfileData {
   uses_pacifier: boolean | null;
   night_feedings: number | null;
   subscription_status: string | null;
+  feeding_type: string | null;
+  usual_bedtime: string | null;
+  main_challenge: string | null;
+  special_conditions: string[] | null;
 }
 
 export default function Profile() {
@@ -44,7 +48,7 @@ export default function Profile() {
       try {
         const { data, error } = await supabase
           .from("profiles_safe" as any)
-          .select("baby_name, baby_birth_date, parent_name, sleep_location, uses_pacifier, night_feedings, subscription_status")
+          .select("baby_name, baby_birth_date, parent_name, sleep_location, uses_pacifier, night_feedings, subscription_status, feeding_type, usual_bedtime, main_challenge, special_conditions")
           .eq("user_id", user.id)
           .maybeSingle();
 
@@ -166,6 +170,17 @@ export default function Profile() {
                 </span>
               </div>
             )}
+            {profile?.feeding_type && (
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Alimentação</span>
+                <span className="text-foreground">
+                  {profile.feeding_type === "breastfeeding" && "Amamentação exclusiva"}
+                  {profile.feeding_type === "formula" && "Fórmula"}
+                  {profile.feeding_type === "mixed" && "Misto"}
+                  {profile.feeding_type === "solids" && "Introdução alimentar"}
+                </span>
+              </div>
+            )}
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Usa chupeta</span>
               <span className="text-foreground">{profile?.uses_pacifier ? "Sim" : "Não"}</span>
@@ -174,6 +189,36 @@ export default function Profile() {
               <span className="text-muted-foreground">Mamadas noturnas</span>
               <span className="text-foreground">{profile?.night_feedings || 0}x por noite</span>
             </div>
+            {profile?.usual_bedtime && (
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Horário de dormir</span>
+                <span className="text-foreground">
+                  {profile.usual_bedtime === "before-19" && "Antes das 19h"}
+                  {profile.usual_bedtime === "19-20" && "Entre 19h e 20h"}
+                  {profile.usual_bedtime === "20-21" && "Entre 20h e 21h"}
+                  {profile.usual_bedtime === "21-22" && "Entre 21h e 22h"}
+                  {profile.usual_bedtime === "after-22" && "Depois das 22h"}
+                  {profile.usual_bedtime === "irregular" && "Sem horário fixo"}
+                </span>
+              </div>
+            )}
+            {profile?.main_challenge && (
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Principal desafio</span>
+                <span className="text-foreground">{profile.main_challenge}</span>
+              </div>
+            )}
+            {profile?.special_conditions && profile.special_conditions.length > 0 && (
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Condições especiais</span>
+                <span className="text-foreground">
+                  {profile.special_conditions.map(c => {
+                    const labels: Record<string, string> = { reflux: "Refluxo", colic: "Cólicas", premature: "Prematuro", allergy: "Alergia", dermatitis: "Dermatite" };
+                    return labels[c] || c;
+                  }).join(", ")}
+                </span>
+              </div>
+            )}
             <Button 
               variant="outline" 
               className="w-full mt-4 rounded-xl"
