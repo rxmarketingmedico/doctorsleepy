@@ -162,9 +162,14 @@ Deno.serve(async (req) => {
       if (linkError) {
         console.error("Error generating magic link:", linkError);
       } else {
-        // Build the verification URL using the correct parameter name
-        const tokenHash = linkData.properties?.hashed_token;
-        const magicLinkUrl = `${supabaseUrl}/auth/v1/verify?token_hash=${tokenHash}&type=magiclink&redirect_to=https://doutorsoneca.lovable.app`;
+        // Use the action_link provided by generateLink which contains the full verified URL
+        const actionLink = linkData.properties?.action_link;
+        console.log("Generated action_link:", actionLink);
+        
+        // Replace the redirect in the action_link to point to our app
+        const magicLinkUrl = actionLink
+          ? actionLink.replace(/redirect_to=[^&]*/, 'redirect_to=' + encodeURIComponent('https://doutorsoneca.lovable.app'))
+          : `${supabaseUrl}/auth/v1/verify?token_hash=${linkData.properties?.hashed_token}&type=magiclink&redirect_to=${encodeURIComponent('https://doutorsoneca.lovable.app')}`;
 
         // Send email via Resend with login credentials
         await sendMagicLinkEmail(buyerEmail, buyerName, magicLinkUrl, defaultPassword);
