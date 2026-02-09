@@ -40,6 +40,9 @@ export default function SalesPainSection() {
                 alt="Mãe cansada com bebê chorando à noite"
                 className="w-full h-auto object-cover aspect-square"
                 loading="lazy"
+                decoding="async"
+                width={672}
+                height={672}
               />
             </div>
           </div>
