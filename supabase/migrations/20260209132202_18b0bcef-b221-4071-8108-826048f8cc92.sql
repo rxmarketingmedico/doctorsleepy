@@ -1,0 +1,2 @@
+ALTER TABLE public.sleep_logs DROP CONSTRAINT sleep_logs_log_type_check;
+ALTER TABLE public.sleep_logs ADD CONSTRAINT sleep_logs_log_type_check CHECK (log_type = ANY (ARRAY['sleep'::text, 'wake'::text, 'feeding'::text, 'diaper'::text, 'nap'::text]));
