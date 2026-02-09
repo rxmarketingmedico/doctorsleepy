@@ -100,8 +100,8 @@ Deno.serve(async (req) => {
     if (!matchedUser && isPurchaseEvent) {
       console.log(`No user found for ${buyerEmail}. Creating account automatically...`);
 
-      // Default temporary password
-      const defaultPassword = "Soneca2026!";
+      // Generate a unique random password for this account
+      const defaultPassword = generateSecurePassword();
 
       // Create user via admin API
       const { data: newUserData, error: createError } =
@@ -249,6 +249,13 @@ Deno.serve(async (req) => {
     });
   }
 });
+
+function generateSecurePassword(length = 20): string {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+  const array = new Uint8Array(length);
+  crypto.getRandomValues(array);
+  return Array.from(array, byte => chars[byte % chars.length]).join('');
+}
 
 function calculateExpiration(plan: string): string {
   const now = new Date();
