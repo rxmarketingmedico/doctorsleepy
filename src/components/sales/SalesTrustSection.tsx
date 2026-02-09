@@ -1,5 +1,5 @@
 import { Shield, Clock, Heart } from "lucide-react";
-import nurseryImg from "@/assets/sales/nursery-night.jpg";
+import nurseryImg from "@/assets/sales/nursery-night.webp";
 
 const trustItems = [
   { icon: Shield, title: "Sem promessas médicas", desc: "Orientações educacionais, nunca diagnósticos." },
