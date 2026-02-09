@@ -256,7 +256,8 @@ Deno.serve(async (req) => {
 });
 
 function generateSecurePassword(length = 20): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+  // Only use characters that are safe in HTML emails (no &, <, >, ", ')
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_+=!@#$';
   const array = new Uint8Array(length);
   crypto.getRandomValues(array);
   return Array.from(array, byte => chars[byte % chars.length]).join('');
@@ -305,6 +306,9 @@ async function sendMagicLinkEmail(email: string, name: string, magicLinkUrl: str
 
     const resend = new Resend(resendApiKey);
     const firstName = name ? name.split(" ")[0] : "mamãe/papai";
+    
+    // HTML-encode the password to prevent character corruption
+    const safePassword = password.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
     const { error } = await resend.emails.send({
       from: "Doutor Soneca <noreply@doutorsoneca.com>",
@@ -352,7 +356,7 @@ async function sendMagicLinkEmail(email: string, name: string, magicLinkUrl: str
                   </tr>
                   <tr>
                     <td style="color:#666;font-size:14px;padding:4px 0;">Senha temporária:</td>
-                    <td style="color:#333;font-size:14px;font-weight:bold;padding:4px 0;">${password}</td>
+                    <td style="color:#333;font-size:14px;font-weight:bold;padding:4px 0;">${safePassword}</td>
                   </tr>
                 </table>
                 <p style="color:#888;font-size:12px;margin:10px 0 0 0;">
