@@ -1,6 +1,6 @@
 import { Moon, ArrowRight, Users, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo-doutor-soneca.png";
+import logo from "@/assets/logo-doutor-soneca.webp";
 import heroImg from "@/assets/sales/hero-sleeping-baby.webp";
 
 export default function SalesHero() {

@@ -7,7 +7,7 @@ import { GuidedTutorial } from "@/components/GuidedTutorial";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo-doutor-soneca.png";
+import logo from "@/assets/logo-doutor-soneca.webp";
 
 const emergencyOptions = [
   { icon: Utensils, label: "Pode ser fome?", variant: "hunger" as const, context: "hunger" },
