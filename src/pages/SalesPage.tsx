@@ -1,37 +1,53 @@
+import { Suspense, lazy } from "react";
 import SalesHero from "@/components/sales/SalesHero";
-import SalesPainSection from "@/components/sales/SalesPainSection";
-import SalesReliefSection from "@/components/sales/SalesReliefSection";
-import SalesSolutionSection from "@/components/sales/SalesSolutionSection";
-import SalesEmergencySection from "@/components/sales/SalesEmergencySection";
-import SalesCryTranslatorSection from "@/components/sales/SalesCryTranslatorSection";
-import SalesRoutineSection from "@/components/sales/SalesRoutineSection";
-import SalesBeforeAfterSection from "@/components/sales/SalesBeforeAfterSection";
-import SalesTrustSection from "@/components/sales/SalesTrustSection";
-import SalesTestimonialsSection from "@/components/sales/SalesTestimonialsSection";
-import SalesBenefitsSection from "@/components/sales/SalesBenefitsSection";
-import SalesQualificationSection from "@/components/sales/SalesQualificationSection";
-import SalesPricingSection from "@/components/sales/SalesPricingSection";
-import SalesFAQSection from "@/components/sales/SalesFAQSection";
-import SalesCTASection from "@/components/sales/SalesCTASection";
+
+// Lazy-load below-the-fold sections
+const SalesPainSection = lazy(() => import("@/components/sales/SalesPainSection"));
+const SalesReliefSection = lazy(() => import("@/components/sales/SalesReliefSection"));
+const SalesSolutionSection = lazy(() => import("@/components/sales/SalesSolutionSection"));
+const SalesEmergencySection = lazy(() => import("@/components/sales/SalesEmergencySection"));
+const SalesCryTranslatorSection = lazy(() => import("@/components/sales/SalesCryTranslatorSection"));
+const SalesRoutineSection = lazy(() => import("@/components/sales/SalesRoutineSection"));
+const SalesBeforeAfterSection = lazy(() => import("@/components/sales/SalesBeforeAfterSection"));
+const SalesTrustSection = lazy(() => import("@/components/sales/SalesTrustSection"));
+const SalesTestimonialsSection = lazy(() => import("@/components/sales/SalesTestimonialsSection"));
+const SalesBenefitsSection = lazy(() => import("@/components/sales/SalesBenefitsSection"));
+const SalesQualificationSection = lazy(() => import("@/components/sales/SalesQualificationSection"));
+const SalesPricingSection = lazy(() => import("@/components/sales/SalesPricingSection"));
+const SalesFAQSection = lazy(() => import("@/components/sales/SalesFAQSection"));
+const SalesCTASection = lazy(() => import("@/components/sales/SalesCTASection"));
+
+function SectionsFallback() {
+  return (
+    <div className="flex items-center justify-center py-20">
+      <div className="animate-pulse text-2xl">🌙</div>
+    </div>
+  );
+}
 
 export default function SalesPage() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      {/* Hero loads immediately for fast first paint */}
       <SalesHero />
-      <SalesPainSection />
-      <SalesReliefSection />
-      <SalesSolutionSection />
-      <SalesEmergencySection />
-      <SalesCryTranslatorSection />
-      <SalesRoutineSection />
-      <SalesBeforeAfterSection />
-      <SalesTrustSection />
-      <SalesTestimonialsSection />
-      <SalesBenefitsSection />
-      <SalesQualificationSection />
-      <SalesPricingSection />
-      <SalesFAQSection />
-      <SalesCTASection />
+
+      {/* Below-the-fold sections load lazily */}
+      <Suspense fallback={<SectionsFallback />}>
+        <SalesPainSection />
+        <SalesReliefSection />
+        <SalesSolutionSection />
+        <SalesEmergencySection />
+        <SalesCryTranslatorSection />
+        <SalesRoutineSection />
+        <SalesBeforeAfterSection />
+        <SalesTrustSection />
+        <SalesTestimonialsSection />
+        <SalesBenefitsSection />
+        <SalesQualificationSection />
+        <SalesPricingSection />
+        <SalesFAQSection />
+        <SalesCTASection />
+      </Suspense>
     </div>
   );
 }

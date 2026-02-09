@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { MetaPixel } from "@/components/MetaPixel";
@@ -8,27 +9,27 @@ import { AuthProvider, useAuthContext } from "@/contexts/AuthContext";
 import { useProfile } from "@/hooks/useProfile";
 import { SubscriptionGate } from "@/components/SubscriptionGate";
 
-// Pages
-import Home from "./pages/Home";
-import Auth from "./pages/Auth";
-import Onboarding from "./pages/Onboarding";
-import Chat from "./pages/Chat";
-import Routine from "./pages/Routine";
-import CryTranslator from "./pages/CryTranslator";
-import Library from "./pages/Library";
-import AudioLibrary from "./pages/AudioLibrary";
-import Profile from "./pages/Profile";
-import EditProfile from "./pages/EditProfile";
-import NotFound from "./pages/NotFound";
-import AdminLayout from "./pages/admin/AdminLayout";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import AdminUsers from "./pages/admin/AdminUsers";
-import AdminAudios from "./pages/admin/AdminAudios";
-import AdminPurchaseLogs from "./pages/admin/AdminPurchaseLogs";
-import AdminTickets from "./pages/admin/AdminTickets";
-import SalesPage from "./pages/SalesPage";
-import Help from "./pages/Help";
-import TicketChat from "./pages/TicketChat";
+// Lazy-loaded pages
+const Home = lazy(() => import("./pages/Home"));
+const Auth = lazy(() => import("./pages/Auth"));
+const Onboarding = lazy(() => import("./pages/Onboarding"));
+const Chat = lazy(() => import("./pages/Chat"));
+const Routine = lazy(() => import("./pages/Routine"));
+const CryTranslator = lazy(() => import("./pages/CryTranslator"));
+const Library = lazy(() => import("./pages/Library"));
+const AudioLibrary = lazy(() => import("./pages/AudioLibrary"));
+const Profile = lazy(() => import("./pages/Profile"));
+const EditProfile = lazy(() => import("./pages/EditProfile"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
+const AdminUsers = lazy(() => import("./pages/admin/AdminUsers"));
+const AdminAudios = lazy(() => import("./pages/admin/AdminAudios"));
+const AdminPurchaseLogs = lazy(() => import("./pages/admin/AdminPurchaseLogs"));
+const AdminTickets = lazy(() => import("./pages/admin/AdminTickets"));
+const SalesPage = lazy(() => import("./pages/SalesPage"));
+const Help = lazy(() => import("./pages/Help"));
+const TicketChat = lazy(() => import("./pages/TicketChat"));
 
 const queryClient = new QueryClient();
 
@@ -99,38 +100,40 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
 
 function AppRoutes() {
   return (
-    <Routes>
-      {/* Public routes */}
-      <Route path="/vendas" element={<SalesPage />} />
-      <Route path="/auth" element={<PublicRoute><Auth /></PublicRoute>} />
+    <Suspense fallback={<LoadingScreen />}>
+      <Routes>
+        {/* Public routes */}
+        <Route path="/vendas" element={<SalesPage />} />
+        <Route path="/auth" element={<PublicRoute><Auth /></PublicRoute>} />
 
-      {/* Onboarding route */}
-      <Route path="/onboarding" element={<OnboardingRoute><Onboarding /></OnboardingRoute>} />
+        {/* Onboarding route */}
+        <Route path="/onboarding" element={<OnboardingRoute><Onboarding /></OnboardingRoute>} />
 
-      {/* Protected routes */}
-      <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-      <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
-      <Route path="/routine" element={<ProtectedRoute><Routine /></ProtectedRoute>} />
-      <Route path="/cry-translator" element={<ProtectedRoute><CryTranslator /></ProtectedRoute>} />
-      <Route path="/library" element={<ProtectedRoute><Library /></ProtectedRoute>} />
-      <Route path="/audio-library" element={<ProtectedRoute><AudioLibrary /></ProtectedRoute>} />
-      <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-      <Route path="/profile/edit" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
-      <Route path="/help" element={<ProtectedRoute><Help /></ProtectedRoute>} />
-      <Route path="/help/:ticketId" element={<ProtectedRoute><TicketChat /></ProtectedRoute>} />
+        {/* Protected routes */}
+        <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
+        <Route path="/routine" element={<ProtectedRoute><Routine /></ProtectedRoute>} />
+        <Route path="/cry-translator" element={<ProtectedRoute><CryTranslator /></ProtectedRoute>} />
+        <Route path="/library" element={<ProtectedRoute><Library /></ProtectedRoute>} />
+        <Route path="/audio-library" element={<ProtectedRoute><AudioLibrary /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/profile/edit" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
+        <Route path="/help" element={<ProtectedRoute><Help /></ProtectedRoute>} />
+        <Route path="/help/:ticketId" element={<ProtectedRoute><TicketChat /></ProtectedRoute>} />
 
-      {/* Admin routes */}
-      <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
-        <Route index element={<AdminDashboard />} />
-        <Route path="users" element={<AdminUsers />} />
-        <Route path="audios" element={<AdminAudios />} />
-        <Route path="purchases" element={<AdminPurchaseLogs />} />
-        <Route path="tickets" element={<AdminTickets />} />
-      </Route>
+        {/* Admin routes */}
+        <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="audios" element={<AdminAudios />} />
+          <Route path="purchases" element={<AdminPurchaseLogs />} />
+          <Route path="tickets" element={<AdminTickets />} />
+        </Route>
 
-      {/* Catch-all */}
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+        {/* Catch-all */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
   );
 }
 
