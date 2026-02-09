@@ -123,7 +123,7 @@ export default function Routine() {
     if (!end) return null;
     const startDate = new Date(start);
     const endDate = new Date(end);
-    const diffMs = endDate.getTime() - startDate.getTime();
+    const diffMs = Math.abs(endDate.getTime() - startDate.getTime());
     const hours = Math.floor(diffMs / (1000 * 60 * 60));
     const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
     if (hours > 0) return `${hours}h ${minutes}min`;
@@ -135,7 +135,7 @@ export default function Routine() {
     totalSleep: logs?.filter(l => l.log_type === "sleep" || l.log_type === "nap")
       .reduce((acc, l) => {
         if (!l.ended_at) return acc;
-        const diffMs = new Date(l.ended_at).getTime() - new Date(l.started_at).getTime();
+        const diffMs = Math.abs(new Date(l.ended_at).getTime() - new Date(l.started_at).getTime());
         return acc + diffMs;
       }, 0) || 0,
     feedings: logs?.filter(l => l.log_type === "feeding").length || 0,
