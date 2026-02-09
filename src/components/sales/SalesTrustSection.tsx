@@ -11,7 +11,7 @@ export default function SalesTrustSection() {
   return (
     <section className="relative px-4 py-16 md:py-20 overflow-hidden">
       <div className="absolute inset-0">
-        <img src={nurseryImg} alt="" className="w-full h-full object-cover" loading="lazy" />
+        <img src={nurseryImg} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" width={1920} height={1080} />
         <div className="absolute inset-0 bg-background/85 backdrop-blur-sm" />
       </div>
       <div className="relative max-w-2xl mx-auto">

@@ -62,6 +62,9 @@ export default function SalesTestimonialsSection() {
                     alt={t.name}
                     className="w-10 h-10 rounded-full object-cover ring-2 ring-primary/20"
                     loading="lazy"
+                    decoding="async"
+                    width={40}
+                    height={40}
                   />
                   <div>
                     <p className="font-semibold text-foreground text-sm">{t.name}</p>

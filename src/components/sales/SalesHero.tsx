@@ -8,7 +8,7 @@ export default function SalesHero() {
     <>
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/40">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-          <img src={logo} alt="Doutor Soneca" className="h-14 md:h-16 object-contain" />
+          <img src={logo} alt="Doutor Soneca" className="h-14 md:h-16 object-contain" width={160} height={64} fetchPriority="high" />
           <Button
             size="sm"
             className="rounded-xl font-bold"
@@ -21,7 +21,7 @@ export default function SalesHero() {
 
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImg} alt="" className="w-full h-full object-cover" />
+          <img src={heroImg} alt="" className="w-full h-full object-cover" width={1920} height={1080} fetchPriority="high" decoding="async" />
           <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/85 to-background" />
         </div>
         <div className="relative px-4 pt-20 pb-24 md:pt-32 md:pb-36">

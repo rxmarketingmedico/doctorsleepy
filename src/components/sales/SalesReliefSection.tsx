@@ -9,12 +9,15 @@ export default function SalesReliefSection() {
         <ScrollReveal>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div className="rounded-3xl overflow-hidden shadow-2xl shadow-black/10">
-            <img
-              src={peacefulImg}
-              alt="Mãe sorrindo com bebê dormindo nos braços"
-              className="w-full h-auto object-cover aspect-square"
-              loading="lazy"
-            />
+              <img
+                src={peacefulImg}
+                alt="Mãe sorrindo com bebê dormindo nos braços"
+                className="w-full h-auto object-cover aspect-square"
+                loading="lazy"
+                decoding="async"
+                width={600}
+                height={600}
+              />
           </div>
           <div className="text-center md:text-left">
             <div className="w-14 h-14 rounded-full bg-secondary/60 flex items-center justify-center mx-auto md:mx-0 mb-6">
