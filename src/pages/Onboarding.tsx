@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronRight, ChevronLeft, Check, Moon, Star, Brain, Clock, Shield, Heart, Users, Baby } from "lucide-react";
+import { ChevronRight, ChevronLeft, Moon, Star, Brain, Clock, Heart, Users, Baby } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,7 +29,7 @@ interface OnboardingData {
   acceptedTerms: boolean;
 }
 
-const totalSteps = 11;
+const totalSteps = 10;
 
 const benefits = [
   { icon: Brain, title: "IA Especializada", description: "Orientações personalizadas baseadas na idade e hábitos do seu bebê" },
@@ -101,13 +101,7 @@ export default function Onboarding() {
     }
   };
 
-  const handlePayment = () => {
-    toast({
-      title: "Pagamento",
-      description: "Integração com pagamento será configurada em breve.",
-    });
-    handleNext();
-  };
+
 
   const toggleConcern = (value: string) => {
     setData(prev => ({
@@ -163,15 +157,14 @@ export default function Onboarding() {
     switch (currentStep) {
       case 1: return true; // Boas-vindas
       case 2: return true; // Benefícios
-      case 3: return true; // Pagamento
-      case 4: return data.parentName.trim().length > 0; // Nome do responsável
-      case 5: return data.isFirstChild !== ""; // Primeiro filho
-      case 6: return data.parentExperience !== ""; // Experiência
-      case 7: return data.babyName.trim().length > 0; // Nome do bebê
-      case 8: return true; // Data de nascimento (opcional)
-      case 9: return data.sleepLocation !== ""; // Local de sono
-      case 10: return data.usesPacifier !== ""; // Chupeta
-      case 11: return data.nightFeedings !== "" && data.acceptedTerms; // Mamadas + Termos
+      case 3: return data.parentName.trim().length > 0; // Nome do responsável
+      case 4: return data.isFirstChild !== ""; // Primeiro filho
+      case 5: return data.parentExperience !== ""; // Experiência
+      case 6: return data.babyName.trim().length > 0; // Nome do bebê
+      case 7: return true; // Data de nascimento (opcional)
+      case 8: return data.sleepLocation !== ""; // Local de sono
+      case 9: return data.usesPacifier !== ""; // Chupeta
+      case 10: return data.nightFeedings !== "" && data.acceptedTerms; // Mamadas + Termos
       default: return false;
     }
   };
@@ -230,63 +223,8 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 3: Pagamento
+      // Step 3: Nome do responsável
       case 3:
-        return (
-          <div className="space-y-6">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold text-foreground">
-                Comece sua jornada
-              </h2>
-              <p className="text-muted-foreground mt-2">
-                Acesso completo a todos os recursos
-              </p>
-            </div>
-
-            <Card className="card-soft border-2 border-primary">
-              <CardContent className="p-6 space-y-4">
-                <div className="text-center">
-                  <div className="inline-flex items-center gap-1 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium mb-4">
-                    <Star className="w-4 h-4" />
-                    Plano Premium
-                  </div>
-                  <div className="flex items-baseline justify-center gap-1">
-                    <span className="text-4xl font-bold text-foreground">R$ 49</span>
-                    <span className="text-muted-foreground">/mês</span>
-                  </div>
-                </div>
-
-                <div className="space-y-3 pt-4 border-t border-border">
-                  {["Chat ilimitado com IA", "Tradutor de choro ilimitado", "Rotina inteligente completa", "Alertas personalizados", "Biblioteca de conteúdos", "Suporte prioritário"].map((item) => (
-                    <div key={item} className="flex items-center gap-3">
-                      <Check className="w-5 h-5 text-primary" />
-                      <span className="text-foreground">{item}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <Button
-                  onClick={handlePayment}
-                  className="w-full h-14 rounded-2xl text-lg font-semibold mt-4"
-                >
-                  Assinar agora
-                </Button>
-
-                <p className="text-xs text-center text-muted-foreground">
-                  Cancele quando quiser. Sem taxas de cancelamento.
-                </p>
-              </CardContent>
-            </Card>
-
-            <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-              <Shield className="w-4 h-4" />
-              <span>Pagamento seguro</span>
-            </div>
-          </div>
-        );
-
-      // Step 4: Nome do responsável
-      case 4:
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -313,8 +251,8 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 5: Primeiro filho
-      case 5:
+      // Step 4: Primeiro filho
+      case 4:
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -355,8 +293,8 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 6: Experiência
-      case 6:
+      // Step 5: Experiência
+      case 5:
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -444,8 +382,8 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 7: Nome do bebê
-      case 7:
+      // Step 6: Nome do bebê
+      case 6:
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -469,8 +407,8 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 8: Data de nascimento
-      case 8:
+      // Step 7: Data de nascimento
+      case 7:
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -497,8 +435,8 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 9: Local de sono
-      case 9:
+      // Step 8: Local de sono
+      case 8:
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -530,8 +468,8 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 10: Chupeta
-      case 10:
+      // Step 9: Chupeta
+      case 9:
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -569,8 +507,8 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 11: Mamadas + Termos
-      case 11:
+      // Step 10: Mamadas + Termos
+      case 10:
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -627,7 +565,6 @@ export default function Onboarding() {
   };
 
   const getButtonLabel = () => {
-    if (currentStep === 3) return "Continuar para configuração";
     if (currentStep === totalSteps) return loading ? "Salvando..." : "Começar a usar";
     return "Próximo";
   };
@@ -649,7 +586,7 @@ export default function Onboarding() {
 
         {/* Navigation Buttons */}
         <div className="flex gap-4 mt-8">
-          {currentStep > 1 && currentStep !== 3 && (
+          {currentStep > 1 && (
             <Button
               variant="outline"
               onClick={handleBack}
@@ -660,16 +597,6 @@ export default function Onboarding() {
             </Button>
           )}
           {currentStep < totalSteps ? (
-            currentStep === 3 ? (
-              <Button
-                variant="ghost"
-                onClick={handleNext}
-                className="flex-1 h-14 rounded-2xl text-lg text-muted-foreground"
-              >
-                Pular por enquanto
-                <ChevronRight className="w-5 h-5 ml-2" />
-              </Button>
-            ) : (
               <Button
                 onClick={handleNext}
                 disabled={!isStepValid()}
@@ -678,7 +605,6 @@ export default function Onboarding() {
                 {getButtonLabel()}
                 <ChevronRight className="w-5 h-5 ml-2" />
               </Button>
-            )
           ) : (
             <Button
               onClick={handleComplete}
