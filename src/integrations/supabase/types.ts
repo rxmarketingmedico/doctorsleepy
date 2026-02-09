@@ -176,11 +176,13 @@ export type Database = {
         Row: {
           baby_birth_date: string | null
           baby_name: string | null
+          buyer_phone: string | null
           created_at: string
           has_support_network: boolean | null
           hotmart_transaction_id: string | null
           id: string
           is_first_child: boolean | null
+          last_access_at: string | null
           main_concerns: string[] | null
           night_feedings: number | null
           onboarding_completed: boolean | null
@@ -198,11 +200,13 @@ export type Database = {
         Insert: {
           baby_birth_date?: string | null
           baby_name?: string | null
+          buyer_phone?: string | null
           created_at?: string
           has_support_network?: boolean | null
           hotmart_transaction_id?: string | null
           id?: string
           is_first_child?: boolean | null
+          last_access_at?: string | null
           main_concerns?: string[] | null
           night_feedings?: number | null
           onboarding_completed?: boolean | null
@@ -220,11 +224,13 @@ export type Database = {
         Update: {
           baby_birth_date?: string | null
           baby_name?: string | null
+          buyer_phone?: string | null
           created_at?: string
           has_support_network?: boolean | null
           hotmart_transaction_id?: string | null
           id?: string
           is_first_child?: boolean | null
+          last_access_at?: string | null
           main_concerns?: string[] | null
           night_feedings?: number | null
           onboarding_completed?: boolean | null
@@ -360,10 +366,12 @@ export type Database = {
         Row: {
           baby_birth_date: string | null
           baby_name: string | null
+          buyer_phone: string | null
           created_at: string | null
           has_support_network: boolean | null
           id: string | null
           is_first_child: boolean | null
+          last_access_at: string | null
           main_concerns: string[] | null
           night_feedings: number | null
           onboarding_completed: boolean | null
@@ -380,10 +388,12 @@ export type Database = {
         Insert: {
           baby_birth_date?: string | null
           baby_name?: string | null
+          buyer_phone?: string | null
           created_at?: string | null
           has_support_network?: boolean | null
           id?: string | null
           is_first_child?: boolean | null
+          last_access_at?: string | null
           main_concerns?: string[] | null
           night_feedings?: number | null
           onboarding_completed?: boolean | null
@@ -400,10 +410,12 @@ export type Database = {
         Update: {
           baby_birth_date?: string | null
           baby_name?: string | null
+          buyer_phone?: string | null
           created_at?: string | null
           has_support_network?: boolean | null
           id?: string | null
           is_first_child?: boolean | null
+          last_access_at?: string | null
           main_concerns?: string[] | null
           night_feedings?: number | null
           onboarding_completed?: boolean | null

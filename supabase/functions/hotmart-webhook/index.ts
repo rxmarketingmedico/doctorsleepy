@@ -56,6 +56,7 @@ Deno.serve(async (req) => {
     }
 
     const buyerName = data.buyer?.name || data.subscriber?.name || "";
+    const buyerPhone = data.buyer?.checkout_phone || data.buyer?.phone || null;
 
     // Determine plan from price
     const price = data.purchase?.price?.value;
@@ -140,6 +141,7 @@ Deno.serve(async (req) => {
           hotmart_transaction_id: transactionId,
           subscription_id: transactionId,
           parent_name: buyerName || null,
+          buyer_phone: buyerPhone,
         })
         .eq("user_id", newUserId);
 
@@ -221,6 +223,7 @@ Deno.serve(async (req) => {
         subscription_expires_at: subscriptionExpiresAt,
         hotmart_transaction_id: transactionId,
         subscription_id: transactionId,
+        buyer_phone: buyerPhone,
       })
       .eq("user_id", matchedUser.id);
 
