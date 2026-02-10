@@ -169,8 +169,21 @@ export default function Library() {
                 </div>
               </div>
             </SheetHeader>
-            <div className="flex-1 overflow-y-auto px-5 py-4">
-              <article className="prose prose-sm max-w-none text-foreground prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-li:text-muted-foreground prose-blockquote:text-primary prose-blockquote:border-primary/40 prose-a:text-primary">
+            <div className="flex-1 overflow-y-auto px-5 py-5">
+              <article className="prose prose-sm max-w-none
+                text-foreground
+                prose-headings:text-foreground prose-headings:font-bold prose-headings:tracking-tight
+                prose-h2:text-lg prose-h2:mt-6 prose-h2:mb-3 prose-h2:border-b prose-h2:border-border/40 prose-h2:pb-2
+                prose-h3:text-base prose-h3:mt-5 prose-h3:mb-2 prose-h3:text-primary
+                prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:mb-3
+                prose-strong:text-foreground prose-strong:font-semibold
+                prose-li:text-muted-foreground prose-li:leading-relaxed prose-li:my-1
+                prose-ul:my-2 prose-ol:my-2
+                prose-blockquote:text-primary prose-blockquote:border-primary/40 prose-blockquote:bg-primary/5 prose-blockquote:rounded-lg prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:not-italic
+                prose-a:text-primary prose-a:underline
+                prose-table:text-sm prose-th:text-left prose-th:text-foreground prose-th:font-semibold prose-th:pb-2 prose-td:py-1.5 prose-td:text-muted-foreground
+                prose-hr:border-border/40
+              ">
                 <ReactMarkdown>{selectedArticle?.content || ""}</ReactMarkdown>
               </article>
             </div>
