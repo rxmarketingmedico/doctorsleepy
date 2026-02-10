@@ -207,6 +207,15 @@
   }
 }
 
+@keyframes soft-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
 /* Safe area padding for mobile */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .safe-area-bottom {
