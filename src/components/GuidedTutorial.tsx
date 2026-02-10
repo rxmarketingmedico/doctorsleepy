@@ -126,7 +126,7 @@ export function GuidedTutorial() {
                   <div className={cn(
                     "flex flex-col items-center justify-center gap-1 rounded-xl px-3 py-2 transition-all",
                     isHighlighted 
-                      ? "text-primary bg-primary/15 ring-2 ring-primary ring-offset-2 ring-offset-card scale-110" 
+                      ? "text-primary bg-primary/15 ring-2 ring-primary ring-offset-2 ring-offset-card scale-110 animate-[soft-bounce_1.5s_ease-in-out_infinite]" 
                       : "text-muted-foreground/40"
                   )}>
                     <NavIcon className="w-5 h-5" />
