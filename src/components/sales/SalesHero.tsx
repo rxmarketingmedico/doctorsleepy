@@ -1,21 +1,35 @@
-import { Moon, ArrowRight, Users, Shield } from "lucide-react";
+import { Moon, ArrowRight, Users, Shield, LogIn } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo-doutor-soneca.webp";
 import heroImg from "@/assets/sales/hero-sleeping-baby.webp";
 
 export default function SalesHero() {
+  const navigate = useNavigate();
+
   return (
     <>
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/40">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
           <img src={logo} alt="Doutor Soneca" className="h-14 md:h-16 object-contain" width={160} height={64} fetchPriority="high" />
-          <Button
-            size="sm"
-            className="rounded-xl font-bold"
-            onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
-          >
-            Assinar
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="rounded-xl font-semibold"
+              onClick={() => navigate("/auth")}
+            >
+              <LogIn className="w-4 h-4 mr-1.5" />
+              Entrar
+            </Button>
+            <Button
+              size="sm"
+              className="rounded-xl font-bold"
+              onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
+            >
+              Assinar
+            </Button>
+          </div>
         </div>
       </header>
 
