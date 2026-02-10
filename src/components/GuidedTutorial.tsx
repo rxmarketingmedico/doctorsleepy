@@ -112,19 +112,29 @@ export function GuidedTutorial() {
       )}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={completeTutorial} />
+      <div className="absolute inset-0 bg-black/60" onClick={completeTutorial} />
 
       {/* Bottom nav highlight */}
       {step.position === "bottom-nav" && step.navIndex !== undefined && (
-        <div className="absolute bottom-0 left-0 right-0 h-16 z-[101]">
-          <div className="max-w-lg mx-auto h-full flex justify-around items-center px-2 relative">
-            {[0, 1, 2, 3, 4].map((i) => (
-              <div key={i} className="flex-1 flex justify-center">
-                {i === step.navIndex && (
-                  <div className="w-12 h-12 rounded-2xl bg-primary/20 border-2 border-primary animate-pulse" />
-                )}
-              </div>
-            ))}
+        <div className="absolute bottom-0 left-0 right-0 z-[101] safe-area-bottom">
+          <div className="max-w-lg mx-auto h-16 flex justify-around items-center px-2 bg-card border-t border-border">
+            {[Home, Calendar, Mic, HelpCircle, User].map((NavIcon, i) => {
+              const labels = ["Início", "Rotina", "Tradutor", "Ajuda", "Perfil"];
+              const isHighlighted = i === step.navIndex;
+              return (
+                <div key={i} className="flex flex-col items-center justify-center gap-1 py-2 px-3">
+                  <div className={cn(
+                    "flex flex-col items-center justify-center gap-1 rounded-xl px-3 py-2 transition-all",
+                    isHighlighted 
+                      ? "text-primary bg-primary/15 ring-2 ring-primary ring-offset-2 ring-offset-card scale-110" 
+                      : "text-muted-foreground/40"
+                  )}>
+                    <NavIcon className="w-5 h-5" />
+                    <span className="text-xs font-medium">{labels[i]}</span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
