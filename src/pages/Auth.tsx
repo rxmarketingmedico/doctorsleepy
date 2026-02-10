@@ -10,12 +10,12 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 export default function Auth() {
-  const [mode, setMode] = useState<"login" | "signup" | "forgot" | "reset">("login");
+  const [mode, setMode] = useState<"login" | "forgot" | "reset">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const { signIn, signUp } = useAuthContext();
+  const { signIn } = useAuthContext();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -58,17 +58,10 @@ export default function Auth() {
           description: "Verifique sua caixa de entrada para redefinir sua senha.",
         });
         setMode("login");
-      } else if (mode === "login") {
+      } else {
         const { error } = await signIn(email, password);
         if (error) throw error;
         navigate("/");
-      } else {
-        const { error } = await signUp(email, password);
-        if (error) throw error;
-        toast({
-          title: "Conta criada!",
-          description: "Verifique seu email para confirmar o cadastro.",
-        });
       }
     } catch (error: any) {
       toast({
@@ -84,7 +77,6 @@ export default function Auth() {
   const getTitle = () => {
     switch (mode) {
       case "login": return "Entrar";
-      case "signup": return "Criar conta";
       case "forgot": return "Recuperar senha";
       case "reset": return "Nova senha";
     }
@@ -93,7 +85,6 @@ export default function Auth() {
   const getDescription = () => {
     switch (mode) {
       case "login": return "Entre com seu email e senha";
-      case "signup": return "Cadastre-se para começar a usar";
       case "forgot": return "Informe seu email para receber um link de redefinição";
       case "reset": return "Digite sua nova senha abaixo";
     }
@@ -103,7 +94,6 @@ export default function Auth() {
     if (loading) return "Carregando...";
     switch (mode) {
       case "login": return "Entrar";
-      case "signup": return "Criar conta";
       case "forgot": return "Enviar link de recuperação";
       case "reset": return "Salvar nova senha";
     }
@@ -146,7 +136,7 @@ export default function Auth() {
               )}
 
               {/* Password field - shown for login, signup, reset */}
-              {(mode === "login" || mode === "signup" || mode === "reset") && (
+              {(mode === "login" || mode === "reset") && (
                 <div className="space-y-2">
                   <Label htmlFor="password">
                     {mode === "reset" ? "Nova senha" : "Senha"}
@@ -202,27 +192,30 @@ export default function Auth() {
               </div>
             )}
 
-            {mode !== "reset" && (
+            {mode !== "reset" && mode === "forgot" && (
               <div className="mt-4 text-center">
-                {mode === "forgot" ? (
-                  <button
-                    type="button"
-                    onClick={() => setMode("login")}
-                    className="text-primary hover:underline text-sm"
-                  >
-                    Voltar para o login
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => setMode(mode === "login" ? "signup" : "login")}
-                    className="text-primary hover:underline text-sm"
-                  >
-                    {mode === "login"
-                      ? "Não tem conta? Cadastre-se"
-                      : "Já tem conta? Entre aqui"}
-                  </button>
-                )}
+                <button
+                  type="button"
+                  onClick={() => setMode("login")}
+                  className="text-primary hover:underline text-sm"
+                >
+                  Voltar para o login
+                </button>
+              </div>
+            )}
+
+            {mode === "login" && (
+              <div className="mt-6 p-3 rounded-xl bg-muted/50 text-center">
+                <p className="text-xs text-muted-foreground">
+                  Ainda não tem conta? Assine um plano para ter acesso.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => navigate("/vendas")}
+                  className="text-primary hover:underline text-sm font-medium mt-1"
+                >
+                  Ver planos disponíveis
+                </button>
               </div>
             )}
           </CardContent>
