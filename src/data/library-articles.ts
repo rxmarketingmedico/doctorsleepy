@@ -778,4 +778,303 @@ Quando o bebê está aprendendo algo novo — rolar, sentar, engatinhar, andar �
 
 > **Use o Doutor Soneca:** Quando perceber um marco novo, mencione no chat. A IA vai adaptar as orientações de sono considerando essa fase do desenvolvimento.`,
   },
+  {
+    id: "16",
+    title: "Chupeta: usar ou não usar?",
+    description: "Prós, contras e orientações sobre o uso da chupeta",
+    type: "article",
+    duration: "5 min",
+    category: "Bem-estar",
+    ageRange: "0-12 meses",
+    content: `## O eterno debate da chupeta
+
+Poucos assuntos dividem tanto os pais quanto a chupeta. A verdade é que **não existe resposta certa universal** — depende do bebê, da família e do contexto.
+
+### Benefícios comprovados
+
+**Redução do risco de SMSI (Síndrome da Morte Súbita Infantil)** 🛡️
+Estudos mostram que o uso da chupeta durante o sono está associado a uma diminuição significativa do risco de SMSI, especialmente nos primeiros 6 meses.
+
+**Efeito calmante** 😌
+A sucção não nutritiva é um reflexo natural do bebê que traz conforto e ajuda na autorregulação emocional.
+
+**Auxílio no sono** 🌙
+A chupeta pode ajudar o bebê a adormecer e a transitar entre ciclos de sono com mais facilidade.
+
+### Possíveis desvantagens
+
+**Interferência na amamentação** 🤱
+A Sociedade Brasileira de Pediatria recomenda evitar a chupeta nas primeiras 3-4 semanas de vida para não atrapalhar a pega no peito.
+
+**Dependência** 🔄
+O bebê pode acordar chorando toda vez que a chupeta cai — o que significa mais despertares para os pais.
+
+**Problemas ortodônticos** 🦷
+O uso prolongado (além dos 2-3 anos) pode afetar a formação da arcada dentária e o palato.
+
+**Otites** 👂
+O uso contínuo pode aumentar levemente o risco de infecções de ouvido.
+
+### Se decidir usar
+
+- **Espere** a amamentação estar bem estabelecida (3-4 semanas)
+- **Não force** — ofereça, mas respeite se o bebê recusar
+- **Nunca** mergulhe em açúcar, mel ou qualquer substância
+- **Esterilize** regularmente nos primeiros 6 meses
+- **Planeje a retirada** gradual entre 1 e 2 anos
+
+### Se decidir não usar
+
+- Ofereça outras formas de sucção não nutritiva (dedo, mordedor)
+- Use técnicas de conforto alternativas (embalar, ruído branco, shushing)
+- Não se sinta culpado(a) — é uma decisão válida
+
+### Retirando a chupeta
+
+**Antes de 1 ano:** Reduza gradualmente o uso e ofereça apenas para dormir.
+
+**Após 1 ano:** Estratégias como a "fada da chupeta", troca por um presente ou reduzir progressivamente o tempo de uso podem ajudar.
+
+> **Dica:** Se a chupeta está causando despertares noturnos, converse com o Doutor Soneca no chat. A IA pode sugerir estratégias personalizadas para reduzir a dependência sem sofrimento.`,
+  },
+  {
+    id: "17",
+    title: "Amamentação noturna: guia completo",
+    description: "Quando alimentar à noite e quando começar a reduzir",
+    type: "article",
+    duration: "6 min",
+    category: "Alimentação",
+    ageRange: "0-12 meses",
+    content: `## Amamentar à noite é normal
+
+Nos primeiros meses, o bebê **precisa** mamar à noite. O estômago pequeno, o crescimento acelerado e a produção de leite dependem dessas mamadas noturnas. Não é um problema — é biologia.
+
+### Frequência esperada por idade
+
+| Idade | Mamadas noturnas esperadas |
+|-------|---------------------------|
+| 0-1 mês | 3-4 vezes (a cada 2-3h) |
+| 1-3 meses | 2-3 vezes |
+| 3-6 meses | 1-2 vezes |
+| 6-9 meses | 0-1 vez |
+| 9-12 meses | Geralmente desnecessária |
+
+*Valores aproximados — cada bebê tem seu próprio ritmo.*
+
+### Mamada noturna vs. mamada de conforto
+
+É importante distinguir:
+
+**Mamada de fome** 🍼
+- Bebê mama ativamente por 10-20 minutos
+- Suga com ritmo forte e constante
+- Volta a dormir após mamar
+- Fralda está molhada na manhã seguinte
+
+**Mamada de conforto** 😴
+- Suga por 2-5 minutos e para
+- Ritmo lento, mais "chupetando"
+- Acorda novamente pouco tempo depois
+- Usa o peito como chupeta para adormecer
+
+### Dicas para mamadas noturnas mais tranquilas
+
+**Mantenha o ambiente escuro** 🌑
+Use apenas uma luz noturna vermelha ou âmbar. Não acenda luzes brancas — isso inibe a melatonina.
+
+**Minimize a interação** 🤫
+Não fale, não brinque, não troque a fralda (a menos que esteja suja). O objetivo é manter o bebê no "modo sono".
+
+**Posição confortável** 🛋️
+Tenha uma poltrona ou almofada de amamentação pronta. Você também precisa de conforto às 3h da manhã.
+
+**Reveze com o parceiro** 🤝
+Se usar mamadeira ou leite ordenhado, o parceiro pode assumir uma das mamadas para você descansar.
+
+### Quando e como reduzir
+
+**A partir dos 6 meses** (com orientação pediátrica):
+1. Elimine uma mamada por vez, começando pela que o bebê menos precisa
+2. Aumente gradualmente o intervalo entre as mamadas
+3. Ofereça água em vez de leite (após 6 meses)
+4. Peça ao parceiro que acalme o bebê sem oferecer o peito
+
+**Importante:** Nunca elimine mamadas abruptamente se estiver amamentando — isso pode causar ingurgitamento e mastite.
+
+> **Lembre-se:** A OMS recomenda amamentação exclusiva até os 6 meses e complementar até os 2 anos ou mais. Respeite o seu ritmo e o do seu bebê.`,
+  },
+  {
+    id: "18",
+    title: "Sono compartilhado: riscos e alternativas",
+    description: "Entenda o cama compartilhada e como dormir perto do bebê com segurança",
+    type: "article",
+    duration: "6 min",
+    category: "Sono",
+    ageRange: "0-12 meses",
+    content: `## O que é o sono compartilhado?
+
+Sono compartilhado pode significar coisas diferentes:
+
+**Cama compartilhada (bed-sharing):** Bebê dorme na mesma cama que os pais.
+
+**Quarto compartilhado (room-sharing):** Bebê dorme no próprio berço, mas no quarto dos pais.
+
+A Sociedade Brasileira de Pediatria e a Academia Americana de Pediatria **recomendam o quarto compartilhado** e **não recomendam a cama compartilhada** nos primeiros 12 meses.
+
+### Riscos da cama compartilhada
+
+A cama compartilhada está associada a riscos aumentados de:
+
+- **Sufocamento** por travesseiros, cobertores ou corpo do adulto
+- **Queda** da cama
+- **Superaquecimento**
+- **SMSI** (Síndrome da Morte Súbita Infantil)
+
+### Fatores que aumentam o risco
+
+⚠️ Pais fumantes (mesmo que não fumem no quarto)
+⚠️ Uso de álcool, drogas ou medicamentos sedativos
+⚠️ Bebê prematuro ou com baixo peso
+⚠️ Superfície macia (sofá, poltrona, cama d'água)
+⚠️ Cobertores pesados ou muitos travesseiros
+
+### Alternativas seguras
+
+**Berço acoplado (side-car)** 🛏️
+O berço fica junto à cama dos pais, com uma lateral aberta. O bebê está perto, mas em superfície própria e segura. É a melhor alternativa para quem quer proximidade.
+
+**Moisés ou berço no quarto** 🌙
+Coloque o berço ao lado da sua cama. Você ouve o bebê respirar, pode acalmar com a mão e amamentar facilmente.
+
+**Mini-berço portátil** 🧳
+Prático para viagens ou quartos pequenos. Certifique-se de que atende às normas de segurança do INMETRO.
+
+### Se mesmo assim optar pela cama compartilhada
+
+Embora não seja recomendado, se você optar por essa prática:
+
+- Use colchão **firme** e reto (nunca sofá ou poltrona)
+- Remova **todos** os travesseiros e cobertores pesados
+- Bebê deve dormir de **barriga para cima**
+- Cabelo comprido deve ser **preso**
+- Nenhum outro filho ou animal na cama
+- Nunca se o adulto estiver sob efeito de álcool, drogas ou medicamentos
+
+### O quarto compartilhado funciona
+
+Estudos mostram que o quarto compartilhado (sem cama compartilhada) reduz o risco de SMSI em até **50%** e facilita a amamentação noturna.
+
+> **Recomendação:** A SBP recomenda que o bebê durma no quarto dos pais, em berço próprio, pelo menos até os 6 meses — idealmente até 1 ano.`,
+  },
+  {
+    id: "19",
+    title: "Desmame noturno: quando e como",
+    description: "Guia prático para eliminar mamadas da madrugada",
+    type: "article",
+    duration: "5 min",
+    category: "Alimentação",
+    ageRange: "6-12 meses",
+    content: `## O bebê realmente precisa mamar à noite?
+
+A partir dos **6 meses**, a maioria dos bebês saudáveis e com ganho de peso adequado consegue passar a noite sem mamar. Mas isso não significa que todos estejam prontos — e tudo bem.
+
+### Sinais de que o bebê está pronto
+
+- Tem mais de 6 meses e bom ganho de peso
+- Come bem durante o dia (leite + alimentação complementar)
+- As mamadas noturnas são curtas e mais por hábito que por fome
+- Consegue se acalmar sem o peito em outras situações
+
+### Quando NÃO fazer o desmame noturno
+
+❌ Bebê com menos de 6 meses
+❌ Bebê prematuro ou com baixo ganho de peso
+❌ Durante uma regressão de sono ou doença
+❌ Em momentos de grande mudança (mudança de casa, volta ao trabalho)
+❌ Sem orientação do pediatra
+
+### Método gradual (recomendado)
+
+**Semana 1-2: Reduza o tempo**
+Se o bebê mama por 15 minutos, reduza para 12, depois 10, depois 8... até chegar a 3-4 minutos.
+
+**Semana 2-3: Aumente o intervalo**
+Se o bebê acorda às 1h, 3h e 5h, comece eliminando a mamada do meio. Quando acordar, ofereça conforto sem o peito.
+
+**Semana 3-4: Substitua o conforto**
+No lugar do peito, ofereça:
+- Água no copinho
+- Carinho e shushing
+- Tapinhas no bumbum
+- Presença calma ao lado do berço
+
+### Método do parceiro
+
+Uma estratégia eficaz: por uma semana, o **parceiro** assume os despertares noturnos. Sem o cheiro do leite, o bebê tende a parar de pedir mais rapidamente.
+
+### O que esperar
+
+- **Dias 1-3:** Pode haver protesto. É normal.
+- **Dias 4-7:** O bebê começa a se adaptar.
+- **Dias 7-14:** A nova rotina se estabelece.
+
+Nem todas as noites serão lineares. Pode haver retrocessos, especialmente se o bebê ficar doente. Seja flexível, mas mantenha a direção.
+
+### Cuidados com a mãe
+
+Se estiver amamentando, a redução das mamadas noturnas pode causar:
+- Ingurgitamento nos primeiros dias (ordenhe o suficiente para aliviar)
+- Possível redução da produção de leite
+- Emoções intensas — é normal sentir culpa ou saudade
+
+> **Dica:** Registre o progresso na Rotina do Doutor Soneca. Ver a evolução em dados concretos ajuda a manter a motivação nos dias difíceis.`,
+  },
+  {
+    id: "20",
+    title: "Rituais de ninar pelo mundo",
+    description: "Como diferentes culturas colocam os bebês para dormir",
+    type: "article",
+    duration: "4 min",
+    category: "Rotina",
+    ageRange: "Todos",
+    content: `## Cada cultura tem sua sabedoria
+
+Não existe uma única forma "certa" de colocar um bebê para dormir. Ao redor do mundo, famílias usam rituais diferentes — e todos funcionam dentro do seu contexto. Conhecer essas tradições pode trazer novas ideias e, principalmente, **alívio** para quem acha que está fazendo errado.
+
+### Japão: o sono coletivo 🇯🇵
+
+No Japão, é comum a prática do **"kawanoji"** — a família inteira dorme junta no futón, no chão. O bebê fica entre os pais, formando o ideograma de "rio" (川). Dormir junto é visto como parte do vínculo familiar, e as crianças costumam dormir com os pais até os 6-7 anos.
+
+### Escandinávia: sono ao ar livre 🇸🇪🇳🇴🇫🇮
+
+Na Suécia, Noruega e Finlândia, os pais deixam os bebês cochilarem **ao ar livre** no carrinho, mesmo no inverno (com agasalho adequado). Acredita-se que o ar fresco melhora a qualidade do sono e fortalece o sistema imunológico. Os cochilos ao ar livre podem durar de 1 a 3 horas.
+
+### Bali: sem tocar o chão 🇮🇩
+
+Na cultura balinesa, o bebê **não toca o chão** nos primeiros 105 dias de vida. Ele é carregado o tempo todo — por pais, avós, tios. Dorme no colo, na tipoia, sempre em contato humano. A cerimônia de "tocar o chão" marca um rito de passagem importante.
+
+### Quênia: cantar e embalar 🇰🇪
+
+Em muitas comunidades do Quênia, as mães cantam canções específicas para ninar, passadas de geração em geração. O ritmo da canção é lento e repetitivo, similar a uma batida cardíaca. O bebê é embalado no colo ou nas costas com um tecido chamado **kanga**.
+
+### Brasil: a rede de dormir 🇧🇷
+
+No Norte e Nordeste do Brasil, a **rede** é o berço natural. O balanço suave e o "abraço" do tecido simulam a sensação do útero. Muitas mães relatam que o bebê dorme mais rápido e por mais tempo na rede do que no berço convencional.
+
+### O que podemos aprender
+
+| Cultura | Lição para nós |
+|---------|---------------|
+| Japão | Proximidade gera segurança |
+| Escandinávia | Ar fresco e natureza ajudam |
+| Bali | Contato humano é essencial |
+| Quênia | A voz da mãe/pai acalma |
+| Brasil | O balanço imita o útero |
+
+### O ponto em comum
+
+Apesar das diferenças enormes, **todos os rituais compartilham algo**: presença, repetição e afeto. Não importa se é no futón, na rede ou no berço — o que embala o bebê para dormir é o amor.
+
+> **Reflexão:** Não existe método perfeito. O melhor ritual é aquele que funciona para a **sua** família. Se precisar de ajuda para encontrar o seu, converse com o Doutor Soneca.`,
+  },
 ];
