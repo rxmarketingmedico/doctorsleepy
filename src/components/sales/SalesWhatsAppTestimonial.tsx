@@ -11,14 +11,14 @@ interface WaMessage {
 }
 
 const conversation: WaMessage[] = [
-  { role: "user", text: "Oi Camila! Tudo bem? Vi que vc começou a usar aquele app pro Bernardo dormir… funcionou mesmo?", time: "21:12", delay: 0 },
-  { role: "contact", text: "Menina, SIM! 😭🙌", time: "21:13", delay: 2000 },
-  { role: "contact", text: "Tô usando há 2 semanas e o Bernardo já tá dormindo 6h seguidas", time: "21:13", delay: 3500 },
-  { role: "user", text: "NÃO ACREDITO! Sério?? Como assim??", time: "21:14", delay: 5500 },
-  { role: "contact", text: "Juro! O Doutor Soneca me explicou a janela de sono dele e montou uma rotina certinha. Eu achava que era frescura mas funciona de vdd", time: "21:14", delay: 7500 },
-  { role: "user", text: "Ai preciso disso, o Theo acorda umas 5x por noite 😩", time: "21:15", delay: 10000 },
-  { role: "contact", text: "Era igualzinho aqui! E o tradutor de choro é surreal, ele identifica se é fome, sono ou cólica. Salvou minhas madrugadas 💙", time: "21:15", delay: 12000 },
-  { role: "user", text: "Vou assinar agora!! Me manda o link? 🙏", time: "21:16", delay: 14500 },
+  { role: "user", text: "Oi Camila! Aqui é da equipe do Doutor Soneca 😊 Tudo bem? Queria saber como está sendo sua experiência com o app!", time: "14:32", delay: 0 },
+  { role: "contact", text: "Oi! Nossa, que bom que perguntaram! 💙", time: "14:33", delay: 2000 },
+  { role: "contact", text: "Gente, mudou minha vida. O Bernardo acordava 5x por noite e eu tava no limite", time: "14:33", delay: 3500 },
+  { role: "user", text: "Imagino! E como está agora depois de usar?", time: "14:34", delay: 5500 },
+  { role: "contact", text: "Em 2 semanas ele já dormia 6h seguidas! O Doutor Soneca me explicou a janela de sono dele e montou uma rotina certinha", time: "14:34", delay: 7500 },
+  { role: "contact", text: "E o tradutor de choro?? Surreal! Às 3h da manhã eu não sabia se era fome ou cólica e ele acertava sempre 😭🙌", time: "14:35", delay: 10000 },
+  { role: "user", text: "Que lindo!! Fico muito feliz em ouvir isso! 🥰 Podemos usar seu depoimento?", time: "14:36", delay: 12500 },
+  { role: "contact", text: "Claro!! Podem usar sim! Toda mãe merece dormir em paz ❤️ Indico pra todo mundo", time: "14:36", delay: 14500 },
 ];
 
 const TYPING_DURATION = 1000;
@@ -71,10 +71,10 @@ export default function SalesWhatsAppTestimonial() {
         <ScrollReveal>
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
-              Conversa real entre mães 💬
+              Depoimento real de uma mãe 💬
             </h2>
             <p className="text-muted-foreground text-sm md:text-base max-w-lg mx-auto">
-              Veja o que as mães compartilham entre si sobre o Doutor Soneca
+              Conversa da nossa equipe com a Camila, mãe do Bernardo de 8 meses
             </p>
           </div>
         </ScrollReveal>
@@ -100,11 +100,11 @@ export default function SalesWhatsAppTestimonial() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                     </svg>
                     <div className="w-9 h-9 rounded-full bg-[#2a3942] flex items-center justify-center text-white/80 text-sm font-bold">
-                      C
+                      CR
                     </div>
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm font-semibold text-white leading-tight">Camila R.</p>
+                    <p className="text-sm font-semibold text-white leading-tight">Camila R. 🩵</p>
                     <p className="text-[10px] text-white/50">online</p>
                   </div>
                   <div className="flex gap-4">
