@@ -48,7 +48,7 @@ export default function SalesHero() {
               Seu bebê acorda <span className="text-primary">5x por noite</span> e você busca uma noite de sono tranquila?
             </h1>
             <p className="text-base md:text-lg text-foreground/80 font-semibold mb-2">
-              O método que ajudou +2.300 mães a fazerem seus bebês dormirem a noite toda.
+              Esse aplicativo ajudou +2.300 mães a fazerem seus bebês dormirem a noite toda.
             </p>
             <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-lg mx-auto mb-8">
               Assistente de sono com IA disponível 24h, tradutor de choro e rotinas personalizadas por idade. Sem deixar chorar, sem fórmulas mágicas.
