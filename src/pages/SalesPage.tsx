@@ -1,5 +1,6 @@
 import { Suspense, lazy } from "react";
 import SalesHero from "@/components/sales/SalesHero";
+import SalesNotifications from "@/components/sales/SalesNotifications";
 
 // Lazy-load below-the-fold sections
 const SalesPainSection = lazy(() => import("@/components/sales/SalesPainSection"));
@@ -32,6 +33,7 @@ export default function SalesPage() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Hero loads immediately for fast first paint */}
       <SalesHero />
+      <SalesNotifications />
 
       {/* Below-the-fold sections load lazily */}
       <Suspense fallback={<SectionsFallback />}>
