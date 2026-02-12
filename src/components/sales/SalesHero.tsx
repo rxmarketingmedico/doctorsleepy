@@ -45,7 +45,7 @@ export default function SalesHero() {
               +2.300 famílias já dormem melhor
             </div>
             <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4 text-foreground drop-shadow-sm">
-              Seu bebê acorda <span className="text-primary">5x por noite</span> e você que busca uma noite de sono tranquila?
+              Seu bebê acorda <span className="text-primary">5x por noite</span> e você busca uma noite de sono tranquila?
             </h1>
             <p className="text-base md:text-lg text-foreground/80 font-semibold mb-2">
               O método que ajudou +2.300 mães a fazerem seus bebês dormirem a noite toda — <span className="text-primary">em menos de 14 dias.</span>
