@@ -42,14 +42,16 @@ export default function SalesHero() {
           <div className="max-w-2xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-primary/15 backdrop-blur-sm text-primary rounded-full px-4 py-1.5 text-sm font-medium mb-6">
               <Moon className="w-4 h-4" />
-              Para pais que precisam dormir também
+              +2.300 famílias já dormem melhor
             </div>
-            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-6 text-foreground drop-shadow-sm">
-              Seu bebê não dorme{" "}
-              <span className="text-primary">e você também não.</span>
+            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4 text-foreground drop-shadow-sm">
+              Seu bebê acorda <span className="text-primary">5x por noite</span> e você já não aguenta mais?
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-lg mx-auto mb-8">
-              Você não está fazendo nada errado. Só precisa de uma ajuda que entenda o que você está vivendo.
+            <p className="text-base md:text-lg text-foreground/80 font-semibold mb-2">
+              O método que ajudou +2.300 mães a fazerem seus bebês dormirem a noite toda — <span className="text-primary">em menos de 14 dias.</span>
+            </p>
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-lg mx-auto mb-8">
+              Assistente de sono com IA disponível 24h, tradutor de choro e rotinas personalizadas por idade. Sem deixar chorar, sem fórmulas mágicas.
             </p>
             <Button
               size="lg"
