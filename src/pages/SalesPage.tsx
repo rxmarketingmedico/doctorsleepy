@@ -11,6 +11,7 @@ const SalesRoutineSection = lazy(() => import("@/components/sales/SalesRoutineSe
 const SalesBeforeAfterSection = lazy(() => import("@/components/sales/SalesBeforeAfterSection"));
 const SalesTrustSection = lazy(() => import("@/components/sales/SalesTrustSection"));
 const SalesTestimonialsSection = lazy(() => import("@/components/sales/SalesTestimonialsSection"));
+const SalesWhatsAppTestimonial = lazy(() => import("@/components/sales/SalesWhatsAppTestimonial"));
 const SalesBenefitsSection = lazy(() => import("@/components/sales/SalesBenefitsSection"));
 const SalesQualificationSection = lazy(() => import("@/components/sales/SalesQualificationSection"));
 const SalesPricingSection = lazy(() => import("@/components/sales/SalesPricingSection"));
@@ -42,6 +43,7 @@ export default function SalesPage() {
         <SalesBeforeAfterSection />
         <SalesTrustSection />
         <SalesTestimonialsSection />
+        <SalesWhatsAppTestimonial />
         <SalesBenefitsSection />
         <SalesQualificationSection />
         <SalesPricingSection />
