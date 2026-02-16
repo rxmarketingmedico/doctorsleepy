@@ -3,12 +3,12 @@ import { ChatPhoneMockup } from "./ChatPhoneMockup";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const benefits = [
-  { icon: MessageCircle, title: "Chat com IA 24h", desc: "Orientações personalizadas a qualquer hora da noite." },
-  { icon: Mic, title: "Tradutor de Choro", desc: "Entenda o que seu bebê está tentando dizer." },
-  { icon: BedDouble, title: "Rotina Inteligente", desc: "Registre e acompanhe o sono do seu bebê." },
-  { icon: BookOpen, title: "Biblioteca de Conteúdos", desc: "Artigos e áudios sobre sono infantil." },
-  { icon: Moon, title: "Modo Noturno Automático", desc: "Tela adaptada para uso de madrugada." },
-  { icon: Baby, title: "Modo Emergência", desc: "Ajuda rápida quando o bebê acorda chorando." },
+  { icon: MessageCircle, title: "24/7 AI Chat", desc: "Personalized guidance at any hour of the night." },
+  { icon: Mic, title: "Cry Translator", desc: "Understand what your baby is trying to tell you." },
+  { icon: BedDouble, title: "Smart Routine", desc: "Track and monitor your baby's sleep." },
+  { icon: BookOpen, title: "Content Library", desc: "Articles and audio about infant sleep." },
+  { icon: Moon, title: "Auto Night Mode", desc: "Screen adapted for middle-of-the-night use." },
+  { icon: Baby, title: "Emergency Mode", desc: "Quick help when your baby wakes up crying." },
 ];
 
 export default function SalesSolutionSection() {
@@ -18,11 +18,11 @@ export default function SalesSolutionSection() {
         <ScrollReveal>
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
-              Conheça o <span className="text-primary">Doutor Soneca</span>
+              Meet <span className="text-primary">Dr. Sleepy</span>
             </h2>
             <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-lg mx-auto">
-              Um assistente inteligente que ajuda pais a entenderem o sono do bebê e a encontrarem respostas
-              rápidas — sem precisar agendar consulta, sem esperar, sem julgamento.
+              An intelligent assistant that helps parents understand their baby's sleep and find quick answers
+              — no appointments needed, no waiting, no judgment.
             </p>
           </div>
         </ScrollReveal>

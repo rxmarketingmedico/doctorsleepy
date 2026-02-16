@@ -11,10 +11,10 @@ export default function SalesGuaranteeSection() {
               <ShieldCheck className="w-8 h-8 text-primary" />
             </div>
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
-              Garantia incondicional de 7 dias
+              Unconditional 7-day guarantee
             </h2>
             <p className="text-muted-foreground text-sm md:text-base max-w-lg mx-auto">
-              Se por qualquer motivo você sentir que o Doutor Soneca não é pra você, devolvemos 100% do seu dinheiro. Sem perguntas.
+              If for any reason you feel Dr. Sleepy isn't for you, we'll refund 100% of your money. No questions asked.
             </p>
           </div>
         </ScrollReveal>
@@ -27,9 +27,9 @@ export default function SalesGuaranteeSection() {
                   <RefreshCw className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-foreground text-sm mb-1">100% de reembolso</h3>
+                  <h3 className="font-bold text-foreground text-sm mb-1">100% refund</h3>
                   <p className="text-muted-foreground text-xs leading-relaxed">
-                    Não gostou? Devolvemos cada centavo em até 7 dias úteis. Simples assim.
+                    Not satisfied? We'll refund every penny within 7 business days. Simple as that.
                   </p>
                 </div>
               </div>
@@ -39,9 +39,9 @@ export default function SalesGuaranteeSection() {
                   <ShieldCheck className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-foreground text-sm mb-1">Sem burocracia</h3>
+                  <h3 className="font-bold text-foreground text-sm mb-1">No red tape</h3>
                   <p className="text-muted-foreground text-xs leading-relaxed">
-                    Basta solicitar o cancelamento e o reembolso é processado automaticamente.
+                    Just request cancellation and the refund is processed automatically.
                   </p>
                 </div>
               </div>
@@ -51,9 +51,9 @@ export default function SalesGuaranteeSection() {
                   <Heart className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-foreground text-sm mb-1">Risco zero</h3>
+                  <h3 className="font-bold text-foreground text-sm mb-1">Zero risk</h3>
                   <p className="text-muted-foreground text-xs leading-relaxed">
-                    Você testa com calma e só continua se realmente fizer sentido pra sua família.
+                    Try it at your own pace and only continue if it truly makes sense for your family.
                   </p>
                 </div>
               </div>
@@ -61,8 +61,8 @@ export default function SalesGuaranteeSection() {
 
             <div className="mt-6 pt-5 border-t border-border/40 text-center">
               <p className="text-muted-foreground text-xs leading-relaxed italic">
-                "Confiamos tanto no Doutor Soneca que oferecemos essa garantia com o coração tranquilo. 
-                Se não te ajudar, não queremos seu dinheiro." 💙
+                "We trust Dr. Sleepy so much that we offer this guarantee with a peaceful heart. 
+                If it doesn't help you, we don't want your money." 💙
               </p>
             </div>
           </div>

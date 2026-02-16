@@ -3,11 +3,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { icon: Home, label: "Início", path: "/" },
-  { icon: Calendar, label: "Rotina", path: "/routine" },
-  { icon: Mic, label: "Tradutor", path: "/cry-translator" },
-  { icon: HelpCircle, label: "Ajuda", path: "/help" },
-  { icon: User, label: "Perfil", path: "/profile" },
+  { icon: Home, label: "Home", path: "/" },
+  { icon: Calendar, label: "Routine", path: "/routine" },
+  { icon: Mic, label: "Translator", path: "/cry-translator" },
+  { icon: HelpCircle, label: "Help", path: "/help" },
+  { icon: User, label: "Profile", path: "/profile" },
 ];
 
 export function BottomNav() {

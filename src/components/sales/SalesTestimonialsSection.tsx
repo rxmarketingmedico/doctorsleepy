@@ -7,22 +7,22 @@ import anaImg from "@/assets/sales/testimonial-ana.webp";
 const testimonials = [
   {
     name: "Camila R.",
-    role: "Mãe do Bernardo, 8 meses",
-    text: "Eu achava que nunca mais ia dormir. O Doutor Soneca me ajudou a entender os sinais do meu bebê e em 2 semanas já estávamos dormindo melhor.",
+    role: "Mom of Bernardo, 8 months",
+    text: "I thought I'd never sleep again. Dr. Sleepy helped me understand my baby's cues and within 2 weeks we were sleeping much better.",
     stars: 5,
     avatar: camilaImg,
   },
   {
     name: "Lucas M.",
-    role: "Pai da Valentina, 1 ano",
-    text: "O tradutor de choro é surreal. Não acertava sempre, mas me dava uma direção quando eu estava perdido às 3h da manhã. Virou meu braço direito.",
+    role: "Dad of Valentina, 1 year",
+    text: "The cry translator is amazing. It didn't always get it right, but it gave me direction when I was lost at 3am. It became my right hand.",
     stars: 5,
     avatar: lucasImg,
   },
   {
     name: "Ana Paula S.",
-    role: "Mãe da Sofia, 4 meses",
-    text: "Finalmente algo que não me julga. Eu perguntava as mesmas coisas várias vezes e ele respondia com paciência. Foi como ter uma amiga pediatra 24h.",
+    role: "Mom of Sofia, 4 months",
+    text: "Finally something that doesn't judge me. I asked the same questions multiple times and it answered patiently. It was like having a pediatrician friend 24/7.",
     stars: 5,
     avatar: anaImg,
   },
@@ -36,10 +36,10 @@ export default function SalesTestimonialsSection() {
           <div className="text-center mb-10">
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-full px-4 py-1.5 text-sm font-medium mb-4">
               <Users className="w-4 h-4" />
-              +2.300 famílias já usam
+              +2,300 families already use it
             </div>
             <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-              O que dizem os pais que usam
+              What parents are saying
             </h2>
           </div>
         </ScrollReveal>

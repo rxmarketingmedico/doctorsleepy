@@ -3,11 +3,11 @@ import tiredParentImg from "@/assets/sales/tired-parent.webp";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const painPoints = [
-  "Seu bebê acorda várias vezes durante a noite",
-  "Você não sabe se é fome, dor ou só hábito",
-  "Está exausta(o) e ninguém parece entender",
-  "Já pesquisou tudo no Google e cada site diz algo diferente",
-  "Sente culpa por não conseguir resolver sozinha(o)",
+  "Your baby wakes up multiple times during the night",
+  "You don't know if it's hunger, pain, or just a habit",
+  "You're exhausted and nobody seems to understand",
+  "You've Googled everything and every site says something different",
+  "You feel guilty for not being able to figure it out alone",
 ];
 
 export default function SalesPainSection() {
@@ -16,7 +16,7 @@ export default function SalesPainSection() {
       <div className="max-w-4xl mx-auto">
         <ScrollReveal>
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 text-foreground">
-            Você se identifica com isso?
+            Does this sound like you?
           </h2>
         </ScrollReveal>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -37,7 +37,7 @@ export default function SalesPainSection() {
             <div className="rounded-3xl overflow-hidden shadow-2xl shadow-black/10">
               <img
                 src={tiredParentImg}
-                alt="Mãe cansada com bebê chorando à noite"
+                alt="Tired parent with crying baby at night"
                 className="w-full h-auto object-cover aspect-square"
                 loading="lazy"
                 decoding="async"
@@ -48,7 +48,7 @@ export default function SalesPainSection() {
           </div>
         </div>
         <p className="text-center text-muted-foreground mt-8 text-sm">
-          Se você marcou ao menos um, o Doutor Soneca foi feito para você.
+          If you checked at least one, Dr. Sleepy was made for you.
         </p>
       </div>
     </section>

@@ -11,7 +11,7 @@ export default function SalesHero() {
     <>
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/40">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-          <img src={logo} alt="Doutor Soneca" className="h-14 md:h-16 object-contain" width={160} height={64} fetchPriority="high" />
+          <img src={logo} alt="Dr. Sleepy" className="h-14 md:h-16 object-contain" width={160} height={64} fetchPriority="high" />
           <div className="flex items-center gap-2">
             <Button
               variant="ghost"
@@ -20,14 +20,14 @@ export default function SalesHero() {
               onClick={() => navigate("/auth")}
             >
               <LogIn className="w-4 h-4 mr-1.5" />
-              Entrar
+              Sign In
             </Button>
             <Button
               size="sm"
               className="rounded-xl font-bold"
               onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
             >
-              Assinar
+              Subscribe
             </Button>
           </div>
         </div>
@@ -42,35 +42,34 @@ export default function SalesHero() {
           <div className="max-w-2xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-primary/15 backdrop-blur-sm text-primary rounded-full px-4 py-1.5 text-sm font-medium mb-6">
               <Moon className="w-4 h-4" />
-              +2.300 famílias já dormem melhor
+              +2,300 families already sleep better
             </div>
             <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4 text-foreground drop-shadow-sm">
-              Seu bebê acorda <span className="text-primary">5x por noite</span> e você busca noites de sono mais tranquilas?
+              Your baby wakes up <span className="text-primary">5x per night</span> and you're looking for more peaceful sleep?
             </h1>
             <p className="text-base md:text-lg text-foreground/80 font-semibold mb-2">
-              Esse aplicativo ajudou +2.300 mães a fazerem seus bebês dormirem a noite toda.
+              This app helped +2,300 moms get their babies sleeping through the night.
             </p>
             <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-lg mx-auto mb-8">
-              Assistente de sono com IA disponível 24h, tradutor de choro e rotinas personalizadas por idade. Sem deixar chorar, sem fórmulas mágicas.
+              AI sleep assistant available 24/7, cry translator, and personalized routines by age. No cry-it-out, no magic formulas.
             </p>
             <Button
               size="lg"
               className="rounded-2xl px-8 py-6 text-base font-bold shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all"
               onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
             >
-              Quero noites melhores
+              I want better nights
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
 
-            {/* Social proof bar */}
             <div className="flex flex-wrap items-center justify-center gap-4 mt-10 text-xs text-muted-foreground">
               <span className="inline-flex items-center gap-1.5 bg-card/60 backdrop-blur-sm rounded-full px-3 py-1.5 border border-border/30">
                 <Users className="w-3.5 h-3.5 text-primary" />
-                +2.300 famílias confiam
+                +2,300 families trust us
               </span>
               <span className="inline-flex items-center gap-1.5 bg-card/60 backdrop-blur-sm rounded-full px-3 py-1.5 border border-border/30">
                 <Shield className="w-3.5 h-3.5 text-primary" />
-                Baseado em evidências
+                Evidence-based
               </span>
             </div>
           </div>

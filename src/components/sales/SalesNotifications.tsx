@@ -2,19 +2,19 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const names = [
-  "Maria", "Ana", "Juliana", "Camila", "Fernanda", "Patrícia", "Luciana",
-  "Bruna", "Carolina", "Beatriz", "Rafaela", "Larissa", "Gabriela",
-  "Tatiana", "Renata", "Amanda", "Daniela", "Vanessa", "Priscila", "Natália",
+  "Sarah", "Emma", "Jessica", "Camila", "Rachel", "Patricia", "Lauren",
+  "Amanda", "Caroline", "Beatrice", "Rebecca", "Lisa", "Gabriella",
+  "Tanya", "Renee", "Michelle", "Daniela", "Vanessa", "Priscilla", "Natalie",
 ];
 
 const cities = [
-  "São Paulo", "Rio de Janeiro", "Belo Horizonte", "Curitiba", "Porto Alegre",
-  "Salvador", "Brasília", "Fortaleza", "Recife", "Goiânia", "Campinas",
-  "Florianópolis", "Manaus", "Vitória", "Belém", "Natal", "João Pessoa",
+  "New York", "Los Angeles", "Chicago", "Houston", "Miami",
+  "San Francisco", "Boston", "Denver", "Seattle", "Austin", "Dallas",
+  "Portland", "Atlanta", "Phoenix", "San Diego", "Nashville", "Charlotte",
 ];
 
-const plans = ["Mensal", "Semestral", "Anual"];
-const times = ["agora", "há 2 min", "há 5 min", "há 8 min", "há 12 min", "há 15 min"];
+const plans = ["Monthly", "Semi-Annual", "Annual"];
+const times = ["just now", "2 min ago", "5 min ago", "8 min ago", "12 min ago", "15 min ago"];
 
 function getRandomItem<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -38,15 +38,11 @@ export default function SalesNotifications() {
       id: Date.now(),
     });
 
-    // Hide after 4 seconds
     setTimeout(() => setNotification(null), 4000);
   }, []);
 
   useEffect(() => {
-    // First notification after 8 seconds
     const initial = setTimeout(showNotification, 8000);
-
-    // Then every 15-25 seconds
     const interval = setInterval(() => {
       showNotification();
     }, 15000 + Math.random() * 10000);
@@ -74,10 +70,10 @@ export default function SalesNotifications() {
             </div>
             <div className="min-w-0">
               <p className="text-sm font-semibold text-foreground leading-tight">
-                {notification.name} de {notification.city}
+                {notification.name} from {notification.city}
               </p>
               <p className="text-xs text-muted-foreground mt-0.5">
-                Assinou o plano <span className="font-bold text-primary">{notification.plan}</span> · {notification.time}
+                Subscribed to <span className="font-bold text-primary">{notification.plan}</span> · {notification.time}
               </p>
             </div>
           </motion.div>

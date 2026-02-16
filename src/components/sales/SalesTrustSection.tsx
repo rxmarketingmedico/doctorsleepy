@@ -2,9 +2,9 @@ import { Shield, Clock, Heart } from "lucide-react";
 import nurseryImg from "@/assets/sales/nursery-night.webp";
 
 const trustItems = [
-  { icon: Shield, title: "Sem promessas médicas", desc: "Orientações educacionais, nunca diagnósticos." },
-  { icon: Clock, title: "Disponível 24h", desc: "Sempre pronto quando você mais precisa." },
-  { icon: Heart, title: "Sem julgamento", desc: "Um espaço seguro para tirar suas dúvidas." },
+  { icon: Shield, title: "No medical claims", desc: "Educational guidance, never diagnoses." },
+  { icon: Clock, title: "Available 24/7", desc: "Always ready when you need it most." },
+  { icon: Heart, title: "No judgment", desc: "A safe space to ask your questions." },
 ];
 
 export default function SalesTrustSection() {
@@ -16,7 +16,7 @@ export default function SalesTrustSection() {
       </div>
       <div className="relative max-w-2xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 text-foreground">
-          Feito com responsabilidade
+          Made with responsibility
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {trustItems.map((item, i) => (

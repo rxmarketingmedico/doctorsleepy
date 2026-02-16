@@ -3,19 +3,19 @@ import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const features = [
-  "Chat com IA 24 horas",
-  "Tradutor de choro",
-  "Rotina inteligente",
-  "Biblioteca de conteúdos",
-  "Modo emergência",
-  "Modo noturno automático",
+  "24/7 AI Chat",
+  "Cry Translator",
+  "Smart Routine",
+  "Content Library",
+  "Emergency Mode",
+  "Auto Night Mode",
 ];
 
 const plans = [
   {
-    name: "Mensal",
+    name: "Monthly",
     price: "47",
-    period: "/mês",
+    period: "/mo",
     url: "https://pay.hotmart.com/G104310879F?off=a4i8bvbk&checkoutMode=10",
     icon: Star,
     highlight: false,
@@ -24,26 +24,26 @@ const plans = [
     pricePerMonth: null,
   },
   {
-    name: "Semestral",
+    name: "Semi-Annual",
     price: "127",
-    period: "/6 meses",
-    pricePerMonth: "R$ 21/mês",
+    period: "/6 months",
+    pricePerMonth: "$21/mo",
     savings: "55% OFF",
     url: "https://pay.hotmart.com/G104310879F?off=bwvgswt4&checkoutMode=10",
     icon: Crown,
     highlight: true,
-    badge: "Mais popular",
+    badge: "Most popular",
   },
   {
-    name: "Anual",
+    name: "Annual",
     price: "197",
-    period: "/ano",
-    pricePerMonth: "R$ 16/mês",
+    period: "/year",
+    pricePerMonth: "$16/mo",
     savings: "65% OFF",
     url: "https://pay.hotmart.com/G104310879F?off=ca4ts232&checkoutMode=10",
     icon: Sparkles,
     highlight: false,
-    badge: "Melhor custo",
+    badge: "Best value",
   },
 ];
 
@@ -59,7 +59,6 @@ function PricingCard({ plan }: { plan: (typeof plans)[0] }) {
       }`}
       onClick={() => window.open(plan.url, "_blank")}
     >
-      {/* Badge */}
       {plan.badge && (
         <div
           className={`absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 text-xs font-bold px-5 py-1.5 rounded-full shadow-lg ${
@@ -72,13 +71,11 @@ function PricingCard({ plan }: { plan: (typeof plans)[0] }) {
         </div>
       )}
 
-      {/* Card inner */}
       <div
         className={`relative rounded-[calc(1.5rem-1px)] p-6 md:p-7 h-full flex flex-col ${
           isHighlight ? "bg-card" : "bg-card"
         }`}
       >
-        {/* Header */}
         <div className="flex items-center gap-3 mb-5">
           <div
             className={`w-11 h-11 rounded-2xl flex items-center justify-center ${
@@ -101,10 +98,9 @@ function PricingCard({ plan }: { plan: (typeof plans)[0] }) {
           </div>
         </div>
 
-        {/* Price */}
         <div className="mb-6">
           <div className="flex items-baseline gap-1">
-            <span className="text-sm text-muted-foreground font-medium">R$</span>
+            <span className="text-sm text-muted-foreground font-medium">$</span>
             <span className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
               {plan.price}
             </span>
@@ -112,12 +108,11 @@ function PricingCard({ plan }: { plan: (typeof plans)[0] }) {
           </div>
           {plan.pricePerMonth && (
             <p className="text-xs text-muted-foreground mt-1.5">
-              equivale a <span className="font-semibold text-foreground">{plan.pricePerMonth}</span>
+              equals <span className="font-semibold text-foreground">{plan.pricePerMonth}</span>
             </p>
           )}
         </div>
 
-        {/* Features */}
         <ul className="space-y-2.5 mb-6 flex-1">
           {features.map((feature, i) => (
             <li key={i} className="flex items-center gap-2.5 text-sm text-foreground">
@@ -133,7 +128,6 @@ function PricingCard({ plan }: { plan: (typeof plans)[0] }) {
           ))}
         </ul>
 
-        {/* CTA */}
         <Button
           className={`w-full rounded-2xl font-bold h-12 text-sm transition-all duration-300 ${
             isHighlight
@@ -143,12 +137,12 @@ function PricingCard({ plan }: { plan: (typeof plans)[0] }) {
           variant="default"
           size="lg"
         >
-          Assinar agora
+          Subscribe now
           <ArrowRight className="w-4 h-4 ml-1.5" />
         </Button>
 
         <p className="text-center text-[11px] mt-3 flex items-center justify-center gap-1 text-muted-foreground">
-          <Heart className="w-3 h-3" /> Cancele quando quiser
+          <Heart className="w-3 h-3" /> Cancel anytime
         </p>
       </div>
     </div>
@@ -158,7 +152,6 @@ function PricingCard({ plan }: { plan: (typeof plans)[0] }) {
 export default function SalesPricingSection() {
   return (
     <section id="pricing" className="px-4 py-16 md:py-24 relative overflow-hidden">
-      {/* Subtle background glow */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-background" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" />
 
@@ -167,13 +160,13 @@ export default function SalesPricingSection() {
           <div className="text-center mb-12">
             <span className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-full px-4 py-1.5 text-sm font-medium mb-4">
               <Sparkles className="w-4 h-4" />
-              Acesso completo
+              Full access
             </span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-3">
-              Escolha seu plano
+              Choose your plan
             </h2>
             <p className="text-muted-foreground text-base md:text-lg max-w-md mx-auto">
-              Todas as ferramentas incluídas. Sem pegadinhas.
+              All tools included. No hidden fees.
             </p>
           </div>
         </ScrollReveal>
@@ -189,13 +182,13 @@ export default function SalesPricingSection() {
         <ScrollReveal>
           <div className="flex flex-wrap items-center justify-center gap-5 mt-10 text-xs text-muted-foreground">
             <span className="flex items-center gap-1.5 bg-card/80 backdrop-blur-sm rounded-full px-4 py-2 border border-border/40 shadow-sm">
-              <Shield className="w-3.5 h-3.5 text-primary" /> Pagamento seguro via Hotmart
+              <Shield className="w-3.5 h-3.5 text-primary" /> Secure payment via Hotmart
             </span>
             <span className="flex items-center gap-1.5 bg-card/80 backdrop-blur-sm rounded-full px-4 py-2 border border-border/40 shadow-sm">
-              <Clock className="w-3.5 h-3.5 text-primary" /> Acesso imediato
+              <Clock className="w-3.5 h-3.5 text-primary" /> Instant access
             </span>
             <span className="flex items-center gap-1.5 bg-card/80 backdrop-blur-sm rounded-full px-4 py-2 border border-border/40 shadow-sm">
-              <Heart className="w-3.5 h-3.5 text-primary" /> Garantia de 7 dias
+              <Heart className="w-3.5 h-3.5 text-primary" /> 7-day guarantee
             </span>
           </div>
         </ScrollReveal>
