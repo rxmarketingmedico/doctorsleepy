@@ -18,24 +18,22 @@ interface Message {
 }
 
 const contextTitles: Record<string, string> = {
-  hunger: "Pode ser fome?",
-  sleep: "Pode ser sono?",
-  discomfort: "Pode ser desconforto?",
-  inconsolable: "Choro inconsolável",
-  "night-waking": "Acordou de madrugada",
-  general: "Chat com Doutor Soneca",
+  hunger: "Could it be hunger?",
+  sleep: "Could it be sleep?",
+  discomfort: "Could it be discomfort?",
+  inconsolable: "Inconsolable crying",
+  "night-waking": "Woke up at night",
+  general: "Chat with Dr. Sleepy",
 };
 
 const initialMessages: Record<string, string> = {
-  hunger: "Olá! Vejo que você está preocupado(a) com a possibilidade de fome. Vou te ajudar a identificar os sinais. Há quanto tempo seu bebê mamou pela última vez?",
-  sleep: "Olá! Parece que você suspeita que seu bebê está com sono. Vou te ajudar a entender os sinais. Há quanto tempo ele está acordado?",
-  discomfort: "Olá! Vejo que você acha que pode ser desconforto. Vamos investigar juntos. O bebê está com a fralda limpa? Verificou se há algo incomodando?",
-  inconsolable: "Olá! Sei que é muito difícil quando o choro não para. Respire fundo, você está fazendo o seu melhor. O bebê está alimentado e com a fralda limpa?",
-  "night-waking": "Olá! Acordar de madrugada pode ser desafiador. Vamos tentar entender o que está acontecendo. A que horas seu bebê dormiu ontem?",
-  general: "Olá! 👋 Sou o Doutor Soneca, seu assistente especializado em sono infantil e cuidados com bebês. Como posso te ajudar hoje? Pode me perguntar sobre sono, alimentação, choro, rotinas ou qualquer dúvida sobre o seu pequeno!",
+  hunger: "Hello! I see you're worried about possible hunger. Let me help you identify the signs. How long ago did your baby last feed?",
+  sleep: "Hello! It seems you suspect your baby is sleepy. Let me help you understand the signs. How long has your baby been awake?",
+  discomfort: "Hello! I see you think it might be discomfort. Let's investigate together. Is the diaper clean? Have you checked if something is bothering your baby?",
+  inconsolable: "Hello! I know it's very hard when the crying won't stop. Take a deep breath, you're doing your best. Has the baby been fed and has a clean diaper?",
+  "night-waking": "Hello! Waking up at night can be challenging. Let's try to understand what's happening. What time did your baby go to sleep last night?",
+  general: "Hello! 👋 I'm Dr. Sleepy, your assistant specializing in infant sleep and baby care. How can I help you today? You can ask me about sleep, feeding, crying, routines, or any questions about your little one!",
 };
-
-// Quick replies moved to useDynamicSuggestions hook
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
 const SAVE_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/save-assistant-message`;
@@ -71,8 +69,8 @@ export default function Chat() {
     const { data: { session } } = await supabase.auth.getSession();
     
     if (!session) {
-      toast.error("Você precisa estar logado para usar o chat");
-      throw new Error("Não autenticado");
+      toast.error("You need to be logged in to use the chat");
+      throw new Error("Not authenticated");
     }
 
     const response = await fetch(CHAT_URL, {
@@ -90,11 +88,11 @@ export default function Chat() {
     if (!response.ok) {
       const error = await response.json();
       if (response.status === 429) {
-        toast.error("Muitas mensagens. Aguarde alguns segundos.");
+        toast.error("Too many messages. Please wait a few seconds.");
       } else if (response.status === 402) {
-        toast.error("Créditos de IA esgotados.");
+        toast.error("AI credits exhausted.");
       } else {
-        toast.error(error.error || "Erro ao processar mensagem");
+        toast.error(error.error || "Error processing message");
       }
       throw new Error(error.error || "Failed to start stream");
     }
@@ -232,11 +230,10 @@ export default function Chat() {
       console.error("Chat error:", error);
       setIsTyping(false);
       
-      // Fallback message
       setMessages((prev) => [...prev, {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: "Desculpe, estou com dificuldades no momento. Por favor, tente novamente em alguns segundos. 💙"
+        content: "Sorry, I'm having difficulties right now. Please try again in a few seconds. 💙"
       }]);
     }
   };
@@ -258,7 +255,7 @@ export default function Chat() {
             <h1 className="text-lg font-bold text-foreground">
               {contextTitles[context] || "Chat"}
             </h1>
-            <p className="text-xs text-muted-foreground">Doutor Soneca</p>
+            <p className="text-xs text-muted-foreground">Dr. Sleepy</p>
           </div>
           <AvatarAI size="sm" state={isTyping ? "thinking" : "idle"} />
         </div>
@@ -269,8 +266,8 @@ export default function Chat() {
         <div className="flex items-start gap-2 max-w-lg mx-auto">
           <AlertTriangle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
           <p className="text-xs text-destructive">
-            Este app oferece orientações gerais e não substitui aconselhamento médico. 
-            Em caso de emergência, procure atendimento profissional.
+            This app provides general guidance and does not replace medical advice. 
+            In case of emergency, seek professional care.
           </p>
         </div>
       </div>
@@ -345,7 +342,7 @@ export default function Chat() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend(input)}
-            placeholder="Digite sua mensagem..."
+            placeholder="Type your message..."
             className="flex-1 h-12 rounded-2xl"
             disabled={isTyping}
           />

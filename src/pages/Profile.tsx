@@ -44,14 +44,12 @@ export default function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       if (!user) return;
-
       try {
         const { data, error } = await supabase
           .from("profiles_safe" as any)
           .select("baby_name, baby_birth_date, parent_name, sleep_location, uses_pacifier, night_feedings, subscription_status, feeding_type, usual_bedtime, main_challenge, special_conditions")
           .eq("user_id", user.id)
           .maybeSingle();
-
         if (error) throw error;
         setProfile(data as unknown as ProfileData | null);
       } catch (error) {
@@ -60,18 +58,13 @@ export default function Profile() {
         setLoading(false);
       }
     };
-
     fetchProfile();
   }, [user]);
 
   const handleSignOut = async () => {
     const { error } = await signOut();
     if (error) {
-      toast({
-        title: "Erro ao sair",
-        description: error.message,
-        variant: "destructive",
-      });
+      toast({ title: "Error signing out", description: error.message, variant: "destructive" });
     } else {
       navigate("/auth");
     }
@@ -79,23 +72,22 @@ export default function Profile() {
 
   const handleChangePassword = async () => {
     if (!newPassword || newPassword.length < 6) {
-      toast({ title: "Senha muito curta", description: "A senha deve ter pelo menos 6 caracteres.", variant: "destructive" });
+      toast({ title: "Password too short", description: "Password must be at least 6 characters.", variant: "destructive" });
       return;
     }
     if (newPassword !== confirmPassword) {
-      toast({ title: "Senhas não coincidem", description: "A confirmação de senha não confere.", variant: "destructive" });
+      toast({ title: "Passwords don't match", description: "Password confirmation doesn't match.", variant: "destructive" });
       return;
     }
-
     setChangingPassword(true);
     try {
       const { error } = await supabase.auth.updateUser({ password: newPassword });
       if (error) throw error;
-      toast({ title: "Senha alterada!", description: "Sua senha foi atualizada com sucesso." });
+      toast({ title: "Password changed!", description: "Your password has been updated successfully." });
       setNewPassword("");
       setConfirmPassword("");
     } catch (error: any) {
-      toast({ title: "Erro", description: error.message, variant: "destructive" });
+      toast({ title: "Error", description: error.message, variant: "destructive" });
     } finally {
       setChangingPassword(false);
     }
@@ -105,137 +97,118 @@ export default function Profile() {
     const birth = new Date(birthDate);
     const now = new Date();
     const months = (now.getFullYear() - birth.getFullYear()) * 12 + now.getMonth() - birth.getMonth();
-    
     if (months < 1) {
       const days = Math.floor((now.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
-      return `${days} dias`;
+      return `${days} days`;
     } else if (months < 12) {
-      return `${months} ${months === 1 ? "mês" : "meses"}`;
+      return `${months} ${months === 1 ? "month" : "months"}`;
     } else {
       const years = Math.floor(months / 12);
       const remainingMonths = months % 12;
       return remainingMonths > 0 
-        ? `${years} ${years === 1 ? "ano" : "anos"} e ${remainingMonths} ${remainingMonths === 1 ? "mês" : "meses"}`
-        : `${years} ${years === 1 ? "ano" : "anos"}`;
+        ? `${years} ${years === 1 ? "year" : "years"} and ${remainingMonths} ${remainingMonths === 1 ? "month" : "months"}`
+        : `${years} ${years === 1 ? "year" : "years"}`;
     }
   };
 
   return (
     <div className="min-h-screen bg-background pb-20">
-      {/* Header */}
       <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-sm border-b border-border">
         <div className="flex items-center justify-between px-4 py-3 max-w-lg mx-auto">
-          <h1 className="text-xl font-bold text-foreground">Perfil</h1>
+          <h1 className="text-xl font-bold text-foreground">Profile</h1>
           <ThemeToggle />
         </div>
       </header>
 
       <main className="px-4 py-6 max-w-lg mx-auto space-y-6">
-        {/* Avatar and User Info */}
         <div className="flex flex-col items-center">
           <Avatar size="xl" state="idle" />
-          <h2 className="mt-4 text-xl font-bold text-foreground">
-            {profile?.baby_name || "Seu bebê"}
-          </h2>
+          <h2 className="mt-4 text-xl font-bold text-foreground">{profile?.baby_name || "Your baby"}</h2>
           {profile?.baby_birth_date && (
-            <p className="text-muted-foreground">
-              {calculateAge(profile.baby_birth_date)}
-            </p>
+            <p className="text-muted-foreground">{calculateAge(profile.baby_birth_date)}</p>
           )}
         </div>
 
-        {/* Baby Info Card */}
         <Card className="card-soft">
           <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
-              <Baby className="w-5 h-5" />
-              Dados do bebê
-            </CardTitle>
+            <CardTitle className="text-lg flex items-center gap-2"><Baby className="w-5 h-5" />Baby info</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {profile?.parent_name && (
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Responsável</span>
+                <span className="text-muted-foreground">Parent</span>
                 <span className="text-foreground">{profile.parent_name}</span>
               </div>
             )}
             {profile?.sleep_location && (
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Local de sono</span>
+                <span className="text-muted-foreground">Sleep location</span>
                 <span className="text-foreground">
-                  {profile.sleep_location === "crib" && "Berço próprio"}
-                  {profile.sleep_location === "parents-room" && "Quarto dos pais"}
-                  {profile.sleep_location === "co-sleeping" && "Cama compartilhada"}
-                  {profile.sleep_location === "bassinet" && "Moisés"}
+                  {profile.sleep_location === "crib" && "Own crib"}
+                  {profile.sleep_location === "parents-room" && "Parents' room"}
+                  {profile.sleep_location === "co-sleeping" && "Co-sleeping"}
+                  {profile.sleep_location === "bassinet" && "Bassinet"}
                 </span>
               </div>
             )}
             {profile?.feeding_type && (
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Alimentação</span>
+                <span className="text-muted-foreground">Feeding</span>
                 <span className="text-foreground">
-                  {profile.feeding_type === "breastfeeding" && "Amamentação exclusiva"}
-                  {profile.feeding_type === "formula" && "Fórmula"}
-                  {profile.feeding_type === "mixed" && "Misto"}
-                  {profile.feeding_type === "solids" && "Introdução alimentar"}
+                  {profile.feeding_type === "breastfeeding" && "Exclusive breastfeeding"}
+                  {profile.feeding_type === "formula" && "Formula"}
+                  {profile.feeding_type === "mixed" && "Mixed"}
+                  {profile.feeding_type === "solids" && "Solids introduced"}
                 </span>
               </div>
             )}
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Usa chupeta</span>
-              <span className="text-foreground">{profile?.uses_pacifier ? "Sim" : "Não"}</span>
+              <span className="text-muted-foreground">Uses pacifier</span>
+              <span className="text-foreground">{profile?.uses_pacifier ? "Yes" : "No"}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Mamadas noturnas</span>
-              <span className="text-foreground">{profile?.night_feedings || 0}x por noite</span>
+              <span className="text-muted-foreground">Night feedings</span>
+              <span className="text-foreground">{profile?.night_feedings || 0}x per night</span>
             </div>
             {profile?.usual_bedtime && (
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Horário de dormir</span>
+                <span className="text-muted-foreground">Usual bedtime</span>
                 <span className="text-foreground">
-                  {profile.usual_bedtime === "before-19" && "Antes das 19h"}
-                  {profile.usual_bedtime === "19-20" && "Entre 19h e 20h"}
-                  {profile.usual_bedtime === "20-21" && "Entre 20h e 21h"}
-                  {profile.usual_bedtime === "21-22" && "Entre 21h e 22h"}
-                  {profile.usual_bedtime === "after-22" && "Depois das 22h"}
-                  {profile.usual_bedtime === "irregular" && "Sem horário fixo"}
+                  {profile.usual_bedtime === "before-19" && "Before 7 PM"}
+                  {profile.usual_bedtime === "19-20" && "7–8 PM"}
+                  {profile.usual_bedtime === "20-21" && "8–9 PM"}
+                  {profile.usual_bedtime === "21-22" && "9–10 PM"}
+                  {profile.usual_bedtime === "after-22" && "After 10 PM"}
+                  {profile.usual_bedtime === "irregular" && "No fixed schedule"}
                 </span>
               </div>
             )}
             {profile?.main_challenge && (
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Principal desafio</span>
+                <span className="text-muted-foreground">Main challenge</span>
                 <span className="text-foreground">{profile.main_challenge}</span>
               </div>
             )}
             {profile?.special_conditions && profile.special_conditions.length > 0 && (
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Condições especiais</span>
+                <span className="text-muted-foreground">Special conditions</span>
                 <span className="text-foreground">
                   {profile.special_conditions.map(c => {
-                    const labels: Record<string, string> = { reflux: "Refluxo", colic: "Cólicas", premature: "Prematuro", allergy: "Alergia", dermatitis: "Dermatite" };
+                    const labels: Record<string, string> = { reflux: "Reflux", colic: "Colic", premature: "Premature", allergy: "Food allergy", dermatitis: "Dermatitis" };
                     return labels[c] || c;
                   }).join(", ")}
                 </span>
               </div>
             )}
-            <Button 
-              variant="outline" 
-              className="w-full mt-4 rounded-xl"
-              onClick={() => navigate("/profile/edit")}
-            >
-              Editar informações
+            <Button variant="outline" className="w-full mt-4 rounded-xl" onClick={() => navigate("/profile/edit")}>
+              Edit information
             </Button>
           </CardContent>
         </Card>
 
-        {/* Account Card */}
         <Card className="card-soft">
           <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
-              <Mail className="w-5 h-5" />
-              Conta
-            </CardTitle>
+            <CardTitle className="text-lg flex items-center gap-2"><Mail className="w-5 h-5" />Account</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="flex items-center justify-between py-3">
@@ -245,117 +218,66 @@ export default function Profile() {
           </CardContent>
         </Card>
 
-        {/* Change Password Card */}
         <Card className="card-soft">
           <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
-              <Lock className="w-5 h-5" />
-              Alterar Senha
-            </CardTitle>
+            <CardTitle className="text-lg flex items-center gap-2"><Lock className="w-5 h-5" />Change Password</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="new-password">Nova senha</Label>
+              <Label htmlFor="new-password">New password</Label>
               <div className="relative">
-                <Input
-                  id="new-password"
-                  type={showPassword ? "text" : "password"}
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  placeholder="Mínimo 6 caracteres"
-                  className="h-12 rounded-xl pr-10"
-                />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon"
-                  className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
+                <Input id="new-password" type={showPassword ? "text" : "password"} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="Minimum 6 characters" className="h-12 rounded-xl pr-10" />
+                <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8" onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </Button>
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="confirm-password">Confirmar nova senha</Label>
-              <Input
-                id="confirm-password"
-                type={showPassword ? "text" : "password"}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Repita a nova senha"
-                className="h-12 rounded-xl"
-              />
+              <Label htmlFor="confirm-password">Confirm new password</Label>
+              <Input id="confirm-password" type={showPassword ? "text" : "password"} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Repeat new password" className="h-12 rounded-xl" />
             </div>
-            <Button
-              onClick={handleChangePassword}
-              disabled={changingPassword || !newPassword || !confirmPassword}
-              className="w-full h-12 rounded-xl"
-            >
-              {changingPassword ? "Alterando..." : "Alterar senha"}
+            <Button onClick={handleChangePassword} disabled={changingPassword || !newPassword || !confirmPassword} className="w-full h-12 rounded-xl">
+              {changingPassword ? "Changing..." : "Change password"}
             </Button>
           </CardContent>
         </Card>
 
-        {/* Subscription Manager */}
         <SubscriptionManager />
 
-        {/* Settings Card */}
         <Card className="card-soft">
           <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
-              <Bell className="w-5 h-5" />
-              Configurações
-            </CardTitle>
+            <CardTitle className="text-lg flex items-center gap-2"><Bell className="w-5 h-5" />Settings</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-medium text-foreground">Notificações</p>
-                <p className="text-sm text-muted-foreground">Receber lembretes</p>
+                <p className="font-medium text-foreground">Notifications</p>
+                <p className="text-sm text-muted-foreground">Receive reminders</p>
               </div>
               <Switch />
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-medium text-foreground">Modo noturno</p>
-                <p className="text-sm text-muted-foreground">Ativar automaticamente</p>
+                <p className="font-medium text-foreground">Night mode</p>
+                <p className="text-sm text-muted-foreground">Activate automatically</p>
               </div>
               <Switch />
             </div>
           </CardContent>
         </Card>
 
-        {/* Help Link */}
-        <Button
-          variant="outline"
-          className="w-full h-14 rounded-2xl text-lg"
-          onClick={() => navigate("/help")}
-        >
-          <HelpCircle className="w-5 h-5 mr-2" />
-          Central de Ajuda
+        <Button variant="outline" className="w-full h-14 rounded-2xl text-lg" onClick={() => navigate("/help")}>
+          <HelpCircle className="w-5 h-5 mr-2" />Help Center
         </Button>
 
-        {/* Admin Link */}
         {isAdmin && (
-          <Button
-            variant="outline"
-            className="w-full h-14 rounded-2xl text-lg"
-            onClick={() => navigate("/admin")}
-          >
-            <Shield className="w-5 h-5 mr-2" />
-            Painel Administrativo
+          <Button variant="outline" className="w-full h-14 rounded-2xl text-lg" onClick={() => navigate("/admin")}>
+            <Shield className="w-5 h-5 mr-2" />Admin Panel
           </Button>
         )}
 
-        {/* Sign Out */}
-        <Button
-          variant="outline"
-          className="w-full h-14 rounded-2xl text-lg text-destructive hover:text-destructive hover:bg-destructive/10"
-          onClick={handleSignOut}
-        >
-          <LogOut className="w-5 h-5 mr-2" />
-          Sair da conta
+        <Button variant="outline" className="w-full h-14 rounded-2xl text-lg text-destructive hover:text-destructive hover:bg-destructive/10" onClick={handleSignOut}>
+          <LogOut className="w-5 h-5 mr-2" />Sign out
         </Button>
       </main>
 

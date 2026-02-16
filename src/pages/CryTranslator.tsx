@@ -38,34 +38,34 @@ type Step = "record" | "characteristics" | "analyzing" | "result";
 
 const characteristicOptions = {
   intensity: [
-    { value: "low", label: "Baixa", description: "Choro suave, quase um gemido" },
-    { value: "medium", label: "Média", description: "Choro normal, audível claramente" },
-    { value: "high", label: "Alta", description: "Choro forte e intenso" },
+    { value: "low", label: "Low", description: "Soft cry, almost a whimper" },
+    { value: "medium", label: "Medium", description: "Normal cry, clearly audible" },
+    { value: "high", label: "High", description: "Strong and intense cry" },
   ],
   pattern: [
-    { value: "continuous", label: "Contínuo", description: "Choro sem pausas" },
-    { value: "intermittent", label: "Intermitente", description: "Choro com pausas" },
-    { value: "rhythmic", label: "Rítmico", description: "Choro com padrão repetitivo" },
+    { value: "continuous", label: "Continuous", description: "Crying without pauses" },
+    { value: "intermittent", label: "Intermittent", description: "Crying with pauses" },
+    { value: "rhythmic", label: "Rhythmic", description: "Repetitive pattern" },
   ],
   pitch: [
-    { value: "low", label: "Grave", description: "Tom mais baixo" },
-    { value: "medium", label: "Médio", description: "Tom normal" },
-    { value: "high", label: "Agudo", description: "Tom alto, estridente" },
+    { value: "low", label: "Low", description: "Lower tone" },
+    { value: "medium", label: "Medium", description: "Normal tone" },
+    { value: "high", label: "High", description: "High-pitched, shrill" },
   ],
   duration: [
-    { value: "short", label: "Curta", description: "Poucos segundos" },
-    { value: "medium", label: "Média", description: "Alguns minutos" },
-    { value: "long", label: "Longa", description: "Mais de 5 minutos" },
+    { value: "short", label: "Short", description: "A few seconds" },
+    { value: "medium", label: "Medium", description: "A few minutes" },
+    { value: "long", label: "Long", description: "More than 5 minutes" },
   ],
 };
 
 const categoryLabels: Record<string, string> = {
-  hunger: "Fome",
-  discomfort: "Desconforto",
-  sleep: "Sono",
-  colic: "Cólica/Gases",
-  pain: "Dor",
-  emotional: "Emocional",
+  hunger: "Hunger",
+  discomfort: "Discomfort",
+  sleep: "Sleep",
+  colic: "Colic/Gas",
+  pain: "Pain",
+  emotional: "Emotional",
 };
 
 const categoryColors: Record<string, string> = {
@@ -115,7 +115,7 @@ export default function CryTranslator() {
       }, 1000);
     } catch (error) {
       console.error("Error accessing microphone:", error);
-      toast.error("Não foi possível acessar o microfone. Verifique as permissões.");
+      toast.error("Could not access the microphone. Check permissions.");
     }
   }, []);
 
@@ -148,7 +148,7 @@ export default function CryTranslator() {
       const { data: { session } } = await supabase.auth.getSession();
       
       if (!session) {
-        toast.error("Você precisa estar logado para usar esta funcionalidade");
+        toast.error("You need to be logged in to use this feature");
         setStep("record");
         return;
       }
@@ -167,7 +167,7 @@ export default function CryTranslator() {
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || "Erro ao analisar");
+        throw new Error(error.error || "Analysis error");
       }
 
       const analysisResult = await response.json();
@@ -175,7 +175,7 @@ export default function CryTranslator() {
       setStep("result");
     } catch (error) {
       console.error("Analysis error:", error);
-      toast.error(error instanceof Error ? error.message : "Erro ao analisar o choro");
+      toast.error(error instanceof Error ? error.message : "Error analyzing the cry");
       setStep("characteristics");
     }
   };
@@ -233,16 +233,14 @@ export default function CryTranslator() {
 
   return (
     <div className="min-h-screen bg-background pb-20">
-      {/* Header */}
       <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-sm border-b border-border">
         <div className="flex items-center justify-between px-4 py-3 max-w-lg mx-auto">
-          <h1 className="text-xl font-bold text-foreground">Tradutor de Choro</h1>
+          <h1 className="text-xl font-bold text-foreground">Cry Translator</h1>
           <ThemeToggle />
         </div>
       </header>
 
       <main className="px-4 py-6 max-w-lg mx-auto space-y-6">
-        {/* Avatar */}
         <div className="flex justify-center">
           <AvatarAI 
             size="lg" 
@@ -254,17 +252,16 @@ export default function CryTranslator() {
           />
         </div>
 
-        {/* Step: Record */}
         {step === "record" && (
           <>
             <div className="text-center">
               <h2 className="text-xl font-bold text-foreground">
-                {isRecording ? "Gravando..." : "Grave o choro do bebê"}
+                {isRecording ? "Recording..." : "Record your baby's cry"}
               </h2>
               <p className="text-muted-foreground mt-2">
                 {isRecording 
-                  ? `${formatTime(recordingTime)} - Aproxime o microfone do bebê` 
-                  : "Pressione o botão para iniciar a gravação"}
+                  ? `${formatTime(recordingTime)} — Hold the microphone close to the baby` 
+                  : "Press the button to start recording"}
               </p>
             </div>
 
@@ -288,34 +285,33 @@ export default function CryTranslator() {
 
             {isRecording && (
               <p className="text-center text-sm text-muted-foreground">
-                Grave por pelo menos 5 segundos para melhor análise
+                Record for at least 5 seconds for better analysis
               </p>
             )}
           </>
         )}
 
-        {/* Step: Characteristics */}
         {step === "characteristics" && (
           <>
             <div className="text-center">
               <h2 className="text-xl font-bold text-foreground">
-                Descreva o choro
+                Describe the cry
               </h2>
               <p className="text-muted-foreground mt-2">
-                Selecione as características que você observou
+                Select the characteristics you observed
               </p>
             </div>
 
             <Card className="card-soft">
               <CardContent className="pt-6 space-y-6">
-                {renderCharacteristicSelector("intensity", "Intensidade do choro")}
-                {renderCharacteristicSelector("pattern", "Padrão do choro")}
-                {renderCharacteristicSelector("pitch", "Tom do choro")}
-                {renderCharacteristicSelector("duration", "Duração")}
+                {renderCharacteristicSelector("intensity", "Cry intensity")}
+                {renderCharacteristicSelector("pattern", "Cry pattern")}
+                {renderCharacteristicSelector("pitch", "Cry pitch")}
+                {renderCharacteristicSelector("duration", "Duration")}
 
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-foreground">
-                    Observações adicionais (opcional)
+                    Additional notes (optional)
                   </label>
                   <Textarea
                     value={characteristics.additionalNotes || ""}
@@ -325,7 +321,7 @@ export default function CryTranslator() {
                         additionalNotes: e.target.value,
                       }))
                     }
-                    placeholder="Ex: bebê está esfregando os olhos, acabou de mamar..."
+                    placeholder="E.g.: baby is rubbing eyes, just finished feeding..."
                     className="rounded-xl"
                   />
                 </div>
@@ -338,27 +334,26 @@ export default function CryTranslator() {
                 onClick={resetAnalysis}
                 className="flex-1 h-14 rounded-2xl"
               >
-                Gravar novamente
+                Record again
               </Button>
               <Button
                 onClick={analyzeWithAI}
                 className="flex-1 h-14 rounded-2xl"
               >
-                Analisar com IA
+                Analyze with AI
                 <ChevronRight className="w-5 h-5 ml-2" />
               </Button>
             </div>
           </>
         )}
 
-        {/* Step: Analyzing */}
         {step === "analyzing" && (
           <div className="text-center space-y-4">
             <h2 className="text-xl font-bold text-foreground">
-              Analisando o choro...
+              Analyzing the cry...
             </h2>
             <p className="text-muted-foreground">
-              A IA está processando as informações
+              AI is processing the information
             </p>
             <div className="flex justify-center">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
@@ -366,23 +361,21 @@ export default function CryTranslator() {
           </div>
         )}
 
-        {/* Step: Result */}
         {step === "result" && result && (
           <>
             <div className="text-center">
               <h2 className="text-xl font-bold text-foreground">
-                Análise concluída
+                Analysis complete
               </h2>
               <p className="text-muted-foreground mt-2">
-                Baseado nas características observadas
+                Based on the observed characteristics
               </p>
             </div>
 
-            {/* Primary Cause */}
             <Card className="card-soft bg-primary/5 border-primary/20">
               <CardContent className="pt-6">
                 <div className="text-center">
-                  <p className="text-sm text-muted-foreground">Causa mais provável</p>
+                  <p className="text-sm text-muted-foreground">Most likely cause</p>
                   <h3 className="text-2xl font-bold text-primary mt-1">
                     {result.primaryCause}
                   </h3>
@@ -391,21 +384,19 @@ export default function CryTranslator() {
               </CardContent>
             </Card>
 
-            {/* Details */}
             {result.details && (
               <Card className="card-soft">
                 <CardContent className="pt-6">
-                  <p className="text-sm font-medium text-foreground mb-2">Por que chegamos a essa conclusão</p>
+                  <p className="text-sm font-medium text-foreground mb-2">Why we reached this conclusion</p>
                   <p className="text-sm text-muted-foreground">{result.details}</p>
                 </CardContent>
               </Card>
             )}
 
-            {/* Soothing Tips */}
             {result.soothingTips && result.soothingTips.length > 0 && (
               <Card className="card-soft">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-lg">💡 Dicas para acalmar</CardTitle>
+                  <CardTitle className="text-lg">💡 Soothing tips</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
                   {result.soothingTips.map((tip, index) => (
@@ -418,7 +409,6 @@ export default function CryTranslator() {
               </Card>
             )}
 
-            {/* Warning */}
             {result.warning && (
               <Card className="bg-destructive/10 border-destructive/20">
                 <CardContent className="pt-4">
@@ -430,10 +420,9 @@ export default function CryTranslator() {
               </Card>
             )}
 
-            {/* Detailed Analysis */}
             <Card className="card-soft">
               <CardHeader>
-                <CardTitle className="text-lg">Análise detalhada</CardTitle>
+                <CardTitle className="text-lg">Detailed analysis</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {Object.entries(result.analysis)
@@ -464,22 +453,21 @@ export default function CryTranslator() {
               onClick={resetAnalysis}
               className="w-full h-14 rounded-2xl"
             >
-              Nova análise
+              New analysis
             </Button>
           </>
         )}
 
-        {/* Medical Disclaimer */}
         <Card className="bg-destructive/10 border-destructive/20">
           <CardContent className="pt-4">
             <div className="flex items-start gap-3">
               <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
               <div>
-                <p className="text-sm font-medium text-destructive">Aviso importante</p>
+                <p className="text-sm font-medium text-destructive">Important notice</p>
                 <p className="text-xs text-destructive/80 mt-1">
-                  Esta análise é apenas uma orientação baseada em padrões comuns. 
-                  Se você suspeitar que seu bebê está com dor ou desconforto significativo, 
-                  procure atendimento médico imediatamente.
+                  This analysis is only guidance based on common patterns. 
+                  If you suspect your baby is in pain or significant discomfort, 
+                  seek medical attention immediately.
                 </p>
               </div>
             </div>

@@ -15,14 +15,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 
 const logTypes = [
-  { value: "sleep", label: "Sono noturno", icon: Moon, color: "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400" },
-  { value: "nap", label: "Soneca", icon: Sun, color: "bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400" },
-  { value: "feeding", label: "Mamada", icon: Baby, color: "bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400" },
-  { value: "diaper", label: "Troca de fralda", icon: Droplets, color: "bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400" },
+  { value: "sleep", label: "Night sleep", icon: Moon, color: "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400" },
+  { value: "nap", label: "Nap", icon: Sun, color: "bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400" },
+  { value: "feeding", label: "Feeding", icon: Baby, color: "bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400" },
+  { value: "diaper", label: "Diaper change", icon: Droplets, color: "bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400" },
 ];
 
 export default function Routine() {
@@ -34,7 +34,6 @@ export default function Routine() {
   const [notes, setNotes] = useState("");
   const queryClient = useQueryClient();
 
-  // Fetch today's logs
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -59,7 +58,7 @@ export default function Routine() {
   const createLog = useMutation({
     mutationFn: async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) throw new Error("Não autenticado");
+      if (!session) throw new Error("Not authenticated");
 
       const dateStr = format(selectedDate, "yyyy-MM-dd");
       const startedAt = new Date(`${dateStr}T${startTime}:00`);
@@ -77,12 +76,12 @@ export default function Routine() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["sleep-logs"] });
-      toast.success("Evento registrado! O Doutor Soneca já está mais inteligente 🧠");
+      toast.success("Event logged! Dr. Sleepy just got smarter 🧠");
       setDialogOpen(false);
       resetForm();
     },
     onError: (error: Error) => {
-      toast.error(error.message || "Erro ao registrar evento");
+      toast.error(error.message || "Error logging event");
     },
   });
 
@@ -96,7 +95,7 @@ export default function Routine() {
 
   const handleSubmit = () => {
     if (!selectedType) {
-      toast.error("Selecione o tipo de evento");
+      toast.error("Select the event type");
       return;
     }
     createLog.mutate();
@@ -130,7 +129,6 @@ export default function Routine() {
     return `${minutes}min`;
   };
 
-  // Calculate stats from logs
   const stats = {
     totalSleep: logs?.filter(l => l.log_type === "sleep" || l.log_type === "nap")
       .reduce((acc, l) => {
@@ -151,68 +149,53 @@ export default function Routine() {
 
   return (
     <div className="min-h-screen bg-background pb-20">
-      {/* Header */}
       <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-sm border-b border-border">
         <div className="flex items-center justify-between px-4 py-3 max-w-lg mx-auto">
-          <h1 className="text-xl font-bold text-foreground">Rotina</h1>
+          <h1 className="text-xl font-bold text-foreground">Routine</h1>
           <ThemeToggle />
         </div>
       </header>
 
       <main className="px-4 py-6 max-w-lg mx-auto space-y-6">
-        {/* AI Context Banner */}
         <div className="flex items-center gap-3 rounded-xl bg-primary/5 border border-primary/20 p-3">
           <Sparkles className="w-5 h-5 text-primary flex-shrink-0" />
           <p className="text-xs text-muted-foreground">
-            <span className="font-semibold text-foreground">Quanto mais você registrar, melhor o Doutor Soneca te orienta!</span> Ele analisa os últimos 7 dias para dar conselhos personalizados.
+            <span className="font-semibold text-foreground">The more you log, the better Dr. Sleepy guides you!</span> It analyzes the last 7 days to give personalized advice.
           </p>
         </div>
 
-        {/* Avatar Section */}
         <div className="flex justify-center">
           <Avatar size="lg" state="idle" />
         </div>
 
-        {/* Stats Cards */}
         <div className="grid grid-cols-2 gap-4">
           <Card className="card-soft">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                Sono total
-              </CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">Total sleep</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-2xl font-bold text-foreground">{formatTotalSleep(stats.totalSleep)}</p>
             </CardContent>
           </Card>
-
           <Card className="card-soft">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                Eventos
-              </CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">Events</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-2xl font-bold text-foreground">{stats.events}</p>
             </CardContent>
           </Card>
-
           <Card className="card-soft">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                Mamadas
-              </CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">Feedings</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-2xl font-bold text-foreground">{stats.feedings}</p>
             </CardContent>
           </Card>
-
           <Card className="card-soft">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                Trocas
-              </CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">Changes</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-2xl font-bold text-foreground">{stats.diapers}</p>
@@ -220,23 +203,21 @@ export default function Routine() {
           </Card>
         </div>
 
-        {/* Add Log Button */}
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button className="w-full h-14 rounded-2xl text-lg font-semibold">
               <Plus className="w-5 h-5 mr-2" />
-              Registrar evento
+              Log event
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-md mx-auto">
             <DialogHeader>
-              <DialogTitle>Novo registro</DialogTitle>
+              <DialogTitle>New log</DialogTitle>
             </DialogHeader>
             
             <div className="space-y-6 py-4">
-              {/* Type Selection */}
               <div className="space-y-3">
-                <Label>Tipo de evento</Label>
+                <Label>Event type</Label>
                 <div className="grid grid-cols-2 gap-3">
                   {logTypes.map((type) => {
                     const Icon = type.icon;
@@ -261,9 +242,8 @@ export default function Routine() {
                 </div>
               </div>
 
-              {/* Date Picker */}
               <div className="space-y-2">
-                <Label>Data</Label>
+                <Label>Date</Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
@@ -274,7 +254,7 @@ export default function Routine() {
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
-                      {format(selectedDate, "dd 'de' MMMM, yyyy", { locale: ptBR })}
+                      {format(selectedDate, "MMMM dd, yyyy", { locale: enUS })}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
@@ -290,59 +270,33 @@ export default function Routine() {
                 </Popover>
               </div>
 
-              {/* Time Inputs */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="startTime">Início</Label>
-                  <Input
-                    id="startTime"
-                    type="time"
-                    value={startTime}
-                    onChange={(e) => setStartTime(e.target.value)}
-                    className="h-12"
-                  />
+                  <Label htmlFor="startTime">Start</Label>
+                  <Input id="startTime" type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} className="h-12" />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="endTime">Fim (opcional)</Label>
-                  <Input
-                    id="endTime"
-                    type="time"
-                    value={endTime}
-                    onChange={(e) => setEndTime(e.target.value)}
-                    className="h-12"
-                  />
+                  <Label htmlFor="endTime">End (optional)</Label>
+                  <Input id="endTime" type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} className="h-12" />
                 </div>
               </div>
 
-              {/* Notes */}
               <div className="space-y-2">
-                <Label htmlFor="notes">Observações (opcional)</Label>
-                <Textarea
-                  id="notes"
-                  placeholder="Alguma observação sobre este evento..."
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  rows={3}
-                />
+                <Label htmlFor="notes">Notes (optional)</Label>
+                <Textarea id="notes" placeholder="Any notes about this event..." value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} />
               </div>
 
-              {/* Submit Button */}
-              <Button
-                onClick={handleSubmit}
-                disabled={!selectedType || createLog.isPending}
-                className="w-full h-12 rounded-xl"
-              >
-                {createLog.isPending ? "Salvando..." : "Salvar registro"}
+              <Button onClick={handleSubmit} disabled={!selectedType || createLog.isPending} className="w-full h-12 rounded-xl">
+                {createLog.isPending ? "Saving..." : "Save log"}
               </Button>
             </div>
           </DialogContent>
         </Dialog>
 
-        {/* Timeline */}
         <Card className="card-soft">
           <CardHeader>
             <CardTitle className="text-lg">
-              Histórico de {format(today, "dd 'de' MMMM", { locale: ptBR })}
+              History for {format(today, "MMMM dd", { locale: enUS })}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -361,26 +315,19 @@ export default function Routine() {
             ) : logs && logs.length > 0 ? (
               <div className="space-y-3">
                 {logs.map((log) => (
-                  <div
-                    key={log.id}
-                    className="flex items-center gap-3 p-3 rounded-xl bg-muted/50"
-                  >
+                  <div key={log.id} className="flex items-center gap-3 p-3 rounded-xl bg-muted/50">
                     <div className={`p-2 rounded-full ${getLogColor(log.log_type)}`}>
                       {getLogIcon(log.log_type)}
                     </div>
                     <div className="flex-1">
-                      <p className="font-medium text-foreground">
-                        {getLogLabel(log.log_type)}
-                      </p>
+                      <p className="font-medium text-foreground">{getLogLabel(log.log_type)}</p>
                       <p className="text-sm text-muted-foreground">
                         {format(new Date(log.started_at), "HH:mm")}
                         {log.ended_at && ` - ${format(new Date(log.ended_at), "HH:mm")}`}
                         {log.ended_at && ` • ${formatDuration(log.started_at, log.ended_at)}`}
                       </p>
                       {log.notes && (
-                        <p className="text-xs text-muted-foreground mt-1 italic">
-                          {log.notes}
-                        </p>
+                        <p className="text-xs text-muted-foreground mt-1 italic">{log.notes}</p>
                       )}
                     </div>
                   </div>
@@ -389,8 +336,8 @@ export default function Routine() {
             ) : (
               <div className="text-center py-8 text-muted-foreground">
                 <Clock className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                <p>Nenhum registro hoje</p>
-                <p className="text-sm mt-1">Comece registrando o primeiro evento!</p>
+                <p>No logs today</p>
+                <p className="text-sm mt-1">Start by logging the first event!</p>
               </div>
             )}
           </CardContent>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Users, Music, Shield, BarChart3, MessageCircle, Moon, CreditCard, LifeBuoy } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Users, Music, Shield, MessageCircle, Moon, CreditCard, LifeBuoy } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 
 interface Stats {
@@ -49,19 +49,19 @@ export default function AdminDashboard() {
   }, []);
 
   const cards = [
-    { title: "Usuários", value: stats.totalUsers, icon: Users, route: "/admin/users", color: "text-blue-500" },
-    { title: "Áudios", value: stats.totalAudios, icon: Music, route: "/admin/audios", color: "text-violet-500" },
-    { title: "Mensagens", value: stats.totalMessages, icon: MessageCircle, route: null, color: "text-emerald-500" },
-    { title: "Logs de Sono", value: stats.totalSleepLogs, icon: Moon, route: null, color: "text-indigo-500" },
-    { title: "Compras", value: stats.totalPurchases, icon: CreditCard, route: "/admin/purchases", color: "text-amber-500" },
+    { title: "Users", value: stats.totalUsers, icon: Users, route: "/admin/users", color: "text-blue-500" },
+    { title: "Audios", value: stats.totalAudios, icon: Music, route: "/admin/audios", color: "text-violet-500" },
+    { title: "Messages", value: stats.totalMessages, icon: MessageCircle, route: null, color: "text-emerald-500" },
+    { title: "Sleep Logs", value: stats.totalSleepLogs, icon: Moon, route: null, color: "text-indigo-500" },
+    { title: "Purchases", value: stats.totalPurchases, icon: CreditCard, route: "/admin/purchases", color: "text-amber-500" },
     { title: "Tickets", value: stats.totalTickets, icon: LifeBuoy, route: "/admin/tickets", color: "text-rose-500" },
   ];
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-foreground">Painel Administrativo</h1>
-        <p className="text-muted-foreground">Visão geral do sistema</p>
+        <h1 className="text-2xl font-bold text-foreground">Admin Dashboard</h1>
+        <p className="text-muted-foreground">System overview</p>
       </div>
 
       <div className="grid grid-cols-2 gap-4">

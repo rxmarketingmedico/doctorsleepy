@@ -7,125 +7,71 @@ interface Message {
 }
 
 const initialSuggestions: Record<string, string[]> = {
-  hunger: ["Mamou há menos de 1 hora", "Mamou há 2-3 horas", "Mamou há mais de 3 horas"],
-  sleep: ["Acordado há menos de 1 hora", "Acordado há 1-2 horas", "Acordado há mais de 2 horas"],
-  discomfort: ["Fralda limpa", "Roupas confortáveis", "Ambiente agradável"],
-  inconsolable: ["Sim, está alimentado", "Sim, fralda limpa", "Preciso de ajuda urgente"],
-  "night-waking": ["Dormiu às 19h", "Dormiu às 20h-21h", "Dormiu depois das 22h"],
-  general: ["Como criar uma rotina de sono?", "Quantas horas meu bebê deve dormir?", "Dicas para acalmar o bebê"],
+  hunger: ["Fed less than 1 hour ago", "Fed 2-3 hours ago", "Fed more than 3 hours ago"],
+  sleep: ["Awake less than 1 hour", "Awake 1-2 hours", "Awake more than 2 hours"],
+  discomfort: ["Clean diaper", "Comfortable clothes", "Pleasant environment"],
+  inconsolable: ["Yes, baby is fed", "Yes, clean diaper", "I need urgent help"],
+  "night-waking": ["Slept at 7 PM", "Slept at 8-9 PM", "Slept after 10 PM"],
+  general: ["How to create a sleep routine?", "How many hours should my baby sleep?", "Tips to calm the baby"],
 };
 
 const topicSuggestions: { keywords: RegExp; replies: string[] }[] = [
   {
-    keywords: /sono|dormir|acordar|madrugada|noite|soneca/i,
-    replies: [
-      "Qual o melhor horário para ele dormir?",
-      "Ele acorda muitas vezes à noite",
-      "Como fazer ele dormir sozinho?",
-      "Quanto tempo de soneca é ideal?",
-    ],
+    keywords: /sleep|nap|wake|night|bedtime/i,
+    replies: ["What's the best bedtime?", "Baby wakes up many times at night", "How to get baby to sleep alone?", "How long should naps be?"],
   },
   {
-    keywords: /mamad|amament|fome|alimenta|comer|leite|fórmula/i,
-    replies: [
-      "Quanto leite ele deve tomar por mamada?",
-      "Quando introduzir alimentos sólidos?",
-      "Ele regurgita muito, é normal?",
-      "Quantas mamadas por dia são ideais?",
-    ],
+    keywords: /feed|breast|hunger|eat|milk|formula/i,
+    replies: ["How much milk per feeding?", "When to introduce solid foods?", "Baby spits up a lot, is that normal?", "How many feedings per day?"],
   },
   {
-    keywords: /choro|chorar|inconsolável|irritado|inquieto|cólica/i,
-    replies: [
-      "Como saber se é cólica?",
-      "Técnicas para acalmar o bebê",
-      "Quanto tempo de choro é normal?",
-      "Devo me preocupar com esse choro?",
-    ],
+    keywords: /cry|crying|inconsolable|fussy|colic/i,
+    replies: ["How to tell if it's colic?", "Techniques to calm the baby", "How much crying is normal?", "Should I be worried about this crying?"],
   },
   {
-    keywords: /fralda|cocô|xixi|troca|assadura/i,
-    replies: [
-      "Quantas trocas por dia são normais?",
-      "Como tratar assadura?",
-      "A cor do cocô está normal?",
-      "Quando devo me preocupar?",
-    ],
+    keywords: /diaper|poop|pee|change|rash/i,
+    replies: ["How many changes per day is normal?", "How to treat diaper rash?", "Is the poop color normal?", "When should I worry?"],
   },
   {
-    keywords: /rotina|horário|agenda|organiz/i,
-    replies: [
-      "Monte uma rotina para meu bebê",
-      "Como ajustar a rotina de sonecas?",
-      "Qual a janela de sono ideal?",
-      "Como lidar com mudanças na rotina?",
-    ],
+    keywords: /routine|schedule|organize/i,
+    replies: ["Create a routine for my baby", "How to adjust nap schedule?", "What's the ideal wake window?", "How to handle routine changes?"],
   },
   {
-    keywords: /febre|doente|gripe|tosse|resfriado|médico|emergência/i,
-    replies: [
-      "Quando devo levar ao médico?",
-      "Como medir a temperatura corretamente?",
-      "O que fazer enquanto espero a consulta?",
-      "Isso é motivo de emergência?",
-    ],
+    keywords: /fever|sick|cold|cough|doctor|emergency/i,
+    replies: ["When should I go to the doctor?", "How to take temperature correctly?", "What to do while waiting for the appointment?", "Is this an emergency?"],
   },
   {
-    keywords: /desenvolvimento|crescimento|peso|altura|marco|engatinhar|andar|falar/i,
-    replies: [
-      "Ele está se desenvolvendo bem?",
-      "Quando ele deveria engatinhar?",
-      "Marcos de desenvolvimento para a idade",
-      "Como estimular o desenvolvimento?",
-    ],
+    keywords: /development|growth|weight|height|milestone|crawl|walk|talk/i,
+    replies: ["Is baby developing well?", "When should baby crawl?", "Development milestones for this age", "How to stimulate development?"],
   },
   {
-    keywords: /banho|higiene|limpeza|umbigo|unha/i,
-    replies: [
-      "Qual a temperatura ideal do banho?",
-      "Quantos banhos por dia?",
-      "Como cuidar do umbigo?",
-      "Quando posso cortar as unhas?",
-    ],
+    keywords: /bath|hygiene|clean|navel|nail/i,
+    replies: ["What's the ideal bath temperature?", "How many baths per day?", "How to care for the umbilical cord?", "When can I cut the nails?"],
   },
   {
-    keywords: /dúvida|pergunt|ajud|mais alguma/i,
-    replies: [
-      "Sim, tenho outra dúvida",
-      "Como melhorar a rotina de sono?",
-      "Dicas para o dia a dia",
-      "Obrigado, era só isso! 😊",
-    ],
+    keywords: /question|ask|help|anything else/i,
+    replies: ["Yes, I have another question", "How to improve sleep routine?", "Tips for daily care", "Thank you, that's all! 😊"],
   },
 ];
 
 export function useDynamicSuggestions(messages: Message[], context: string): string[] {
   return useMemo(() => {
-    // Show initial context-based suggestions for first message
     if (messages.length <= 1) {
       return initialSuggestions[context] || initialSuggestions.general;
     }
 
-    // Get last assistant message
     const lastAssistant = [...messages].reverse().find((m) => m.role === "assistant");
     if (!lastAssistant) return [];
 
     const content = lastAssistant.content;
 
-    // Find matching topic and return its suggestions
     for (const topic of topicSuggestions) {
       if (topic.keywords.test(content)) {
-        // Return 3 suggestions, shuffled a bit based on content length for variety
         const start = content.length % 2;
         return topic.replies.slice(start, start + 3);
       }
     }
 
-    // Fallback general suggestions
-    return [
-      "Tenho outra dúvida",
-      "Pode explicar melhor?",
-      "Obrigado! 😊",
-    ];
+    return ["I have another question", "Can you explain more?", "Thank you! 😊"];
   }, [messages, context]);
 }

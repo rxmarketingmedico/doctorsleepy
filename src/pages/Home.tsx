@@ -10,11 +10,11 @@ import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo-doutor-soneca.webp";
 
 const emergencyOptions = [
-  { icon: Utensils, label: "Pode ser fome?", variant: "hunger" as const, context: "hunger" },
-  { icon: Moon, label: "Pode ser sono?", variant: "sleep" as const, context: "sleep" },
-  { icon: Thermometer, label: "Pode ser desconforto?", variant: "discomfort" as const, context: "discomfort" },
-  { icon: Baby, label: "Choro inconsolável", variant: "cry" as const, context: "inconsolable" },
-  { icon: Clock, label: "Acordou de madrugada", variant: "night" as const, context: "night-waking" },
+  { icon: Utensils, label: "Could it be hunger?", variant: "hunger" as const, context: "hunger" },
+  { icon: Moon, label: "Could it be sleep?", variant: "sleep" as const, context: "sleep" },
+  { icon: Thermometer, label: "Could it be discomfort?", variant: "discomfort" as const, context: "discomfort" },
+  { icon: Baby, label: "Inconsolable crying", variant: "cry" as const, context: "inconsolable" },
+  { icon: Clock, label: "Woke up at night", variant: "night" as const, context: "night-waking" },
 ];
 
 export default function Home() {
@@ -29,7 +29,7 @@ export default function Home() {
       {/* Header */}
       <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-sm border-b border-border">
         <div className="flex items-center justify-between px-4 py-3 max-w-lg mx-auto">
-          <img src={logo} alt="Doutor Soneca" className="h-12" />
+          <img src={logo} alt="Dr. Sleepy" className="h-12" />
           <ThemeToggle />
         </div>
       </header>
@@ -39,9 +39,9 @@ export default function Home() {
         {/* Avatar Section */}
         <div className="flex flex-col items-center mb-8">
           <AvatarAI size="xl" state="idle" />
-          <h2 className="mt-4 text-2xl font-bold text-foreground">Modo Emergência</h2>
+          <h2 className="mt-4 text-2xl font-bold text-foreground">Emergency Mode</h2>
           <p className="text-muted-foreground text-center mt-2">
-            Seu bebê está chorando? Escolha a opção que melhor descreve a situação.
+            Is your baby crying? Choose the option that best describes the situation.
           </p>
         </div>
 
@@ -79,9 +79,9 @@ export default function Home() {
                 <MessageCircle className="w-7 h-7 text-white" />
               </div>
               <div className="flex-1">
-                <h3 className="font-bold text-foreground">Conversar com o Doutor</h3>
+                <h3 className="font-bold text-foreground">Chat with the Doctor</h3>
                 <p className="text-sm text-muted-foreground">
-                  Tire suas dúvidas sobre sono, alimentação e cuidados
+                  Ask about sleep, feeding, and baby care
                 </p>
               </div>
             </div>
@@ -99,9 +99,9 @@ export default function Home() {
                 <Music className="w-7 h-7 text-white" />
               </div>
               <div className="flex-1">
-                <h3 className="font-bold text-foreground">Hora de Ninar</h3>
+                <h3 className="font-bold text-foreground">Lullaby Time</h3>
                 <p className="text-sm text-muted-foreground">
-                  Músicas de ninar para ajudar seu bebê a dormir
+                  Lullabies to help your baby fall asleep
                 </p>
               </div>
               <div className="flex flex-col items-center gap-1">
@@ -123,9 +123,9 @@ export default function Home() {
                 <BookOpen className="w-7 h-7 text-white" />
               </div>
               <div className="flex-1">
-                <h3 className="font-bold text-foreground">Biblioteca de Conteúdos</h3>
+                <h3 className="font-bold text-foreground">Content Library</h3>
                 <p className="text-sm text-muted-foreground">
-                  Artigos sobre sono, alimentação e rotina do bebê
+                  Articles about sleep, feeding, and baby routines
                 </p>
               </div>
               <ArrowRight className="w-5 h-5 text-muted-foreground" />
@@ -145,10 +145,10 @@ export default function Home() {
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-foreground">
-                  Deixe o Doutor Soneca mais inteligente! 🧠
+                  Make Dr. Sleepy smarter! 🧠
                 </p>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  Registre a rotina do bebê para receber orientações mais precisas e personalizadas.
+                  Log your baby's routine to receive more precise and personalized guidance.
                 </p>
               </div>
               <ArrowRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
