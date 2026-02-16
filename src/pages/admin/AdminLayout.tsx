@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAdminRole } from "@/hooks/useAdminRole";
 import { useAuthContext } from "@/contexts/AuthContext";
-import { Shield, Home, LogOut } from "lucide-react";
+import { Shield, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function AdminLayout() {
@@ -14,7 +14,7 @@ export default function AdminLayout() {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="animate-pulse text-2xl mb-2">🔒</div>
-          <p className="text-muted-foreground">Verificando permissões...</p>
+          <p className="text-muted-foreground">Checking permissions...</p>
         </div>
       </div>
     );
@@ -25,11 +25,11 @@ export default function AdminLayout() {
       <div className="min-h-screen bg-background flex items-center justify-center px-4">
         <div className="text-center space-y-4">
           <Shield className="w-16 h-16 text-destructive mx-auto" />
-          <h1 className="text-xl font-bold text-foreground">Acesso Negado</h1>
-          <p className="text-muted-foreground">Você não tem permissão para acessar esta página.</p>
+          <h1 className="text-xl font-bold text-foreground">Access Denied</h1>
+          <p className="text-muted-foreground">You do not have permission to access this page.</p>
           <Button onClick={() => navigate("/")} variant="outline">
             <Home className="w-4 h-4 mr-2" />
-            Voltar ao início
+            Back to Home
           </Button>
         </div>
       </div>

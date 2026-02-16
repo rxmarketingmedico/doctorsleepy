@@ -19,7 +19,6 @@ export default function Auth() {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // Detect password recovery event from Supabase
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
       if (event === "PASSWORD_RECOVERY") {
@@ -36,16 +35,16 @@ export default function Auth() {
     try {
       if (mode === "reset") {
         if (password !== confirmPassword) {
-          throw new Error("As senhas não coincidem.");
+          throw new Error("Passwords do not match.");
         }
         if (password.length < 6) {
-          throw new Error("A senha deve ter no mínimo 6 caracteres.");
+          throw new Error("Password must be at least 6 characters.");
         }
         const { error } = await supabase.auth.updateUser({ password });
         if (error) throw error;
         toast({
-          title: "Senha atualizada! ✅",
-          description: "Sua nova senha foi salva com sucesso.",
+          title: "Password updated! ✅",
+          description: "Your new password has been saved successfully.",
         });
         navigate("/");
       } else if (mode === "forgot") {
@@ -54,8 +53,8 @@ export default function Auth() {
         });
         if (error) throw error;
         toast({
-          title: "Email enviado! 📧",
-          description: "Verifique sua caixa de entrada para redefinir sua senha.",
+          title: "Email sent! 📧",
+          description: "Check your inbox to reset your password.",
         });
         setMode("login");
       } else {
@@ -65,8 +64,8 @@ export default function Auth() {
       }
     } catch (error: any) {
       toast({
-        title: "Erro",
-        description: error.message || "Ocorreu um erro. Tente novamente.",
+        title: "Error",
+        description: error.message || "An error occurred. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -76,42 +75,40 @@ export default function Auth() {
 
   const getTitle = () => {
     switch (mode) {
-      case "login": return "Entrar";
-      case "forgot": return "Recuperar senha";
-      case "reset": return "Nova senha";
+      case "login": return "Sign In";
+      case "forgot": return "Reset Password";
+      case "reset": return "New Password";
     }
   };
 
   const getDescription = () => {
     switch (mode) {
-      case "login": return "Entre com seu email e senha";
-      case "forgot": return "Informe seu email para receber um link de redefinição";
-      case "reset": return "Digite sua nova senha abaixo";
+      case "login": return "Enter your email and password";
+      case "forgot": return "Enter your email to receive a reset link";
+      case "reset": return "Enter your new password below";
     }
   };
 
   const getButtonLabel = () => {
-    if (loading) return "Carregando...";
+    if (loading) return "Loading...";
     switch (mode) {
-      case "login": return "Entrar";
-      case "forgot": return "Enviar link de recuperação";
-      case "reset": return "Salvar nova senha";
+      case "login": return "Sign In";
+      case "forgot": return "Send reset link";
+      case "reset": return "Save new password";
     }
   };
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-8">
       <div className="w-full max-w-md">
-        {/* Avatar and Title */}
         <div className="flex flex-col items-center mb-8">
           <Avatar size="lg" state="idle" />
-          <h1 className="mt-4 text-3xl font-bold text-foreground">Doutor Soneca</h1>
+          <h1 className="mt-4 text-3xl font-bold text-foreground">Dr. Sleepy</h1>
           <p className="text-muted-foreground text-center mt-2">
-            Seu assistente para noites tranquilas
+            Your assistant for peaceful nights
           </p>
         </div>
 
-        {/* Auth Card */}
         <Card className="border-2">
           <CardHeader className="text-center">
             <CardTitle>{getTitle()}</CardTitle>
@@ -119,14 +116,13 @@ export default function Auth() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Email field - shown for login, signup, forgot */}
               {mode !== "reset" && (
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="seu@email.com"
+                    placeholder="your@email.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -135,11 +131,10 @@ export default function Auth() {
                 </div>
               )}
 
-              {/* Password field - shown for login, signup, reset */}
               {(mode === "login" || mode === "reset") && (
                 <div className="space-y-2">
                   <Label htmlFor="password">
-                    {mode === "reset" ? "Nova senha" : "Senha"}
+                    {mode === "reset" ? "New password" : "Password"}
                   </Label>
                   <Input
                     id="password"
@@ -154,10 +149,9 @@ export default function Auth() {
                 </div>
               )}
 
-              {/* Confirm password - only for reset */}
               {mode === "reset" && (
                 <div className="space-y-2">
-                  <Label htmlFor="confirmPassword">Confirmar nova senha</Label>
+                  <Label htmlFor="confirmPassword">Confirm new password</Label>
                   <Input
                     id="confirmPassword"
                     type="password"
@@ -187,7 +181,7 @@ export default function Auth() {
                   onClick={() => setMode("forgot")}
                   className="text-primary hover:underline text-sm font-medium"
                 >
-                  Esqueci minha senha
+                  Forgot my password
                 </button>
               </div>
             )}
@@ -199,7 +193,7 @@ export default function Auth() {
                   onClick={() => setMode("login")}
                   className="text-primary hover:underline text-sm"
                 >
-                  Voltar para o login
+                  Back to login
                 </button>
               </div>
             )}
@@ -207,14 +201,14 @@ export default function Auth() {
             {mode === "login" && (
               <div className="mt-6 p-3 rounded-xl bg-muted/50 text-center">
                 <p className="text-xs text-muted-foreground">
-                  Ainda não tem conta? Assine um plano para ter acesso.
+                  Don't have an account yet? Subscribe to a plan to get access.
                 </p>
                 <button
                   type="button"
                   onClick={() => navigate("/vendas")}
                   className="text-primary hover:underline text-sm font-medium mt-1"
                 >
-                  Ver planos disponíveis
+                  View available plans
                 </button>
               </div>
             )}

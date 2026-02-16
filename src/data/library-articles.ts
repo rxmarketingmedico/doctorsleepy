@@ -12,1069 +12,478 @@ export interface Article {
 export const articles: Article[] = [
   {
     id: "1",
-    title: "Janelas de sono por idade",
-    description: "Entenda quanto tempo seu bebê deve ficar acordado",
+    title: "Sleep windows by age",
+    description: "Understand how long your baby should stay awake",
     type: "article",
     duration: "3 min",
-    category: "Sono",
-    ageRange: "0-3 meses",
-    content: `## O que são janelas de sono?
+    category: "Sleep",
+    ageRange: "0-3 months",
+    content: `## What are sleep windows?
 
-Janelas de sono são os períodos em que o bebê fica acordado entre um cochilo e outro. Respeitar essas janelas é essencial para evitar que o bebê fique **cansado demais** — o que, ironicamente, dificulta o sono.
+Sleep windows are the periods when the baby stays awake between one nap and another. Respecting these windows is essential to prevent the baby from getting **overtired** — which, ironically, makes sleep difficult.
 
-### Por idade
+### By age
 
-**0 a 1 mês:** 45 minutos a 1 hora
-O recém-nascido tem muito pouco tempo de vigília. Se ele estiver acordado há mais de 1 hora, provavelmente já está pronto para dormir novamente.
+**0 to 1 month:** 45 minutes to 1 hour
+The newborn has very little awake time. If they have been awake for more than 1 hour, they are probably ready to sleep again.
 
-**1 a 2 meses:** 1 hora a 1h30
-Comece a observar os sinais de cansaço: esfregar os olhos, bocejar, olhar fixo.
+**1 to 2 months:** 1 hour to 1h30
+Start observing signs of tiredness: rubbing eyes, yawning, staring.
 
-**2 a 3 meses:** 1h15 a 1h45
-Nessa fase, o bebê começa a ter um padrão mais previsível. Aproveite para criar uma mini rotina antes dos cochilos.
+**2 to 3 months:** 1h15 to 1h45
+At this stage, the baby begins to have a more predictable pattern. Take the opportunity to create a mini routine before naps.
 
-### Sinais de que a janela passou
+### Signs the window has passed
 
-- Bebê fica irritado ou choroso sem motivo aparente
-- Dificuldade para pegar no sono mesmo estando cansado
-- Cochilos muito curtos (menos de 30 minutos)
+- Baby gets irritated or tearful for no apparent reason
+- Difficulty falling asleep even when tired
+- Very short naps (less than 30 minutes)
 
-### Dica prática
+### Practical tip
 
-Use um timer no celular para monitorar o tempo acordado. Com o tempo, você vai perceber os sinais naturalmente, mas no começo o timer é um grande aliado.
+Use a timer on your phone to monitor awake time. Over time, you will notice the signs naturally, but in the beginning, the timer is a great ally.
 
-> **Lembre-se:** cada bebê é único. Esses tempos são referências, não regras rígidas. Observe sempre o seu bebê.`,
+> **Remember:** every baby is unique. These times are references, not rigid rules. Always observe your baby.`,
   },
   {
     id: "2",
-    title: "Ruído branco: benefícios e cuidados",
-    description: "Como usar sons para acalmar o bebê",
+    title: "White noise: benefits and care",
+    description: "How to use sounds to calm the baby",
     type: "article",
     duration: "5 min",
-    category: "Sono",
-    ageRange: "0-6 meses",
-    content: `## Por que o ruído branco funciona?
+    category: "Sleep",
+    ageRange: "0-6 months",
+    content: `## Why does white noise work?
 
-Dentro do útero, o bebê ouve sons constantes — o fluxo do sangue, a batida do coração e os ruídos do corpo da mãe. Esse som contínuo é **reconfortante** e familiar.
+Inside the womb, the baby hears constant sounds — blood flow, heartbeat, and the mother's body noises. This continuous sound is **comforting** and familiar.
 
-O ruído branco imita esse ambiente e ajuda o bebê a:
+White noise mimics this environment and helps the baby to:
 
-- **Adormecer mais rápido**
-- **Manter o sono** por mais tempo
-- **Bloquear ruídos** do ambiente (TV, conversas, cachorro)
+- **Fall asleep faster**
+- **Stay asleep** longer
+- **Block out noises** from the environment (TV, conversations, dog)
 
-### Como usar corretamente
+### How to use correctly
 
-**Volume:** Nunca ultrapasse 50-60 dB (mais ou menos o volume de um chuveiro). Sons muito altos podem prejudicar a audição do bebê.
+**Volume:** Never exceed 50-60 dB (about the volume of a shower). Very loud sounds can damage the baby's hearing.
 
-**Distância:** Mantenha a fonte de som a pelo menos 1 metro do berço.
+**Distance:** Keep the sound source at least 1 meter away from the crib.
 
-**Tipo:** Prefira sons contínuos e monótonos (chuva, ventilador, estática). Evite sons com variações bruscas.
+**Type:** Prefer continuous and monotonous sounds (rain, fan, static). Avoid sounds with sudden variations.
 
-**Duração:** Pode usar durante todo o período de sono, mas tente reduzir gradualmente após os 6 meses.
+**Duration:** Can be used during the entire sleep period, but try to gradually reduce after 6 months.
 
-### Cuidados importantes
+### Important precautions
 
-⚠️ **Não use fones de ouvido** no bebê — jamais.
+⚠️ **Do not use headphones** on the baby — ever.
 
-⚠️ **Não deixe o celular dentro do berço** como fonte de som.
+⚠️ **Do not leave the phone inside the crib** as a sound source.
 
-⚠️ Após os 12 meses, comece a diminuir o uso para que o bebê aprenda a dormir sem ele.
+⚠️ After 12 months, start decreasing usage so the baby learns to sleep without it.
 
-### Alternativas ao ruído branco
+### Alternatives to white noise
 
-- Ventilador ligado no quarto (direcionado para longe do bebê)
-- Músicas de caixinha de música em volume baixo
-- Sons da natureza (chuva, ondas do mar)
+- Fan on in the room (directed away from the baby)
+- Music box songs at low volume
+- Nature sounds (rain, ocean waves)
 
-> **Dica:** Na seção de Biblioteca de Áudios do Doutor Soneca você encontra canções de ninar perfeitas para o sono do bebê.`,
+> **Tip:** In Dr. Sleepy's Audio Library section you find lullabies perfect for baby sleep.`,
   },
   {
     id: "3",
-    title: "Sinais de fome vs cansaço",
-    description: "Aprenda a diferenciar os sinais do seu bebê",
+    title: "Signs of hunger vs tiredness",
+    description: "Learn to differentiate your baby's signs",
     type: "article",
     duration: "4 min",
-    category: "Alimentação",
-    ageRange: "0-12 meses",
-    content: `## A confusão mais comum dos pais
+    category: "Feeding",
+    ageRange: "0-12 months",
+    content: `## The most common confusion for parents
 
-Um dos maiores desafios dos primeiros meses é saber **por que** o bebê está chorando. Muitas vezes, os sinais de fome e cansaço se parecem — e confundi-los pode dificultar tanto a alimentação quanto o sono.
+One of the biggest challenges of the first months is knowing **why** the baby is crying. Often, signs of hunger and tiredness look alike — and confusing them can make both feeding and sleep difficult.
 
-### Sinais de FOME
+### Signs of HUNGER
 
-**Iniciais (hora de alimentar):**
-- Virar a cabeça para os lados (reflexo de busca)
-- Levar as mãos à boca
-- Fazer movimentos de sucção com os lábios
-- Ficar inquieto e se mexer bastante
+**Early (time to feed):**
+- Turning head to sides (rooting reflex)
+- Bringing hands to mouth
+- Making sucking movements with lips
+- Getting restless and moving a lot
 
-**Tardios (já está com muita fome):**
-- Choro intenso e agitação
-- Corpo tenso e rígido
-- Difícil de acalmar
+**Late (already very hungry):**
+- Intense crying and agitation
+- Tense and rigid body
+- Difficult to calm down
 
-### Sinais de CANSAÇO
+### Signs of TIREDNESS
 
-**Iniciais (hora de dormir):**
-- Esfregar os olhos ou as orelhas
-- Bocejar
-- Olhar fixo ou "vidrado"
-- Diminuir a atividade
+**Early (time to sleep):**
+- Rubbing eyes or ears
+- Yawning
+- Staring or "glazed" look
+- Decreasing activity
 
-**Tardios (já passou da hora):**
-- Choro sem motivo aparente
-- Arquear as costas
-- Irritabilidade extrema
-- Resistir ao colo
+**Late (overtired):**
+- Crying for no apparent reason
+- Arching back
+- Extreme irritability
+- Resisting being held
 
-### Como diferenciar na prática
+### How to differentiate in practice
 
-| Sinal | Fome | Cansaço |
+| Sign | Hunger | Tiredness |
 |-------|------|---------|
-| Mãos na boca | ✅ Frequente | ❌ Raro |
-| Bocejos | ❌ Raro | ✅ Frequente |
-| Busca o peito/mamadeira | ✅ Sim | ❌ Não |
-| Olhos pesados | ❌ Não | ✅ Sim |
-| Acalma ao mamar | ✅ Sim | ⚠️ Temporário |
+| Hands in mouth | ✅ Frequent | ❌ Rare |
+| Yawning | ❌ Rare | ✅ Frequent |
+| Seeks breast/bottle | ✅ Yes | ❌ No |
+| Heavy eyes | ❌ No | ✅ Yes |
+| Calms when nursing | ✅ Yes | ⚠️ Temporary |
 
-### Dica de ouro
+### Golden tip
 
-Anote os horários de alimentação e sono na aba **Rotina** do Doutor Soneca. Com poucos dias de registro, fica muito mais fácil prever se é hora de comer ou dormir.
+Note feeding and sleep times in the **Routine** tab of Dr. Sleepy. With a few days of logging, it becomes much easier to predict if it's time to eat or sleep.
 
-> **Importante:** Se o bebê mamou recentemente (há menos de 1-2 horas), é mais provável que o choro seja de cansaço, desconforto ou outra necessidade.`,
+> **Important:** If the baby fed recently (less than 1-2 hours ago), it is more likely that the crying is from tiredness, discomfort, or another need.`,
   },
   {
     id: "4",
-    title: "Rotina de sono noturno",
-    description: "Passo a passo para criar uma rotina eficaz",
+    title: "Night sleep routine",
+    description: "Step by step to create an effective routine",
     type: "article",
     duration: "6 min",
-    category: "Rotina",
-    ageRange: "3-6 meses",
-    content: `## Por que a rotina importa tanto?
+    category: "Routine",
+    ageRange: "3-6 months",
+    content: `## Why does routine matter so much?
 
-Bebês não sabem ler o relógio, mas reconhecem **padrões**. Quando você repete as mesmas ações antes de dormir, o cérebro do bebê começa a associar essas atividades ao sono. É como dar um aviso: "ei, está chegando a hora de descansar."
+Babies can't read clocks, but they recognize **patterns**. When you repeat the same actions before sleep, the baby's brain begins to associate these activities with sleep. It's like giving a warning: "hey, it's getting time to rest."
 
-### A rotina ideal (30-45 minutos antes de dormir)
+### The ideal routine (30-45 minutes before sleep)
 
-**Passo 1 — Banho morno** 🛁
-Um banho relaxante ajuda a baixar a temperatura corporal, sinalizando ao corpo que é hora de descansar. Não precisa ser longo — 5 a 10 minutos bastam.
+**Step 1 — Warm bath** 🛁
+A relaxing bath helps lower body temperature, signaling to the body that it's time to rest. It doesn't need to be long — 5 to 10 minutes is enough.
 
-**Passo 2 — Massagem suave** ✋
-Após o banho, faça uma massagem leve com óleo ou hidratante. Movimentos circulares na barriguinha e nas perninhas. Isso reduz o cortisol (hormônio do estresse).
+**Step 2 — Gentle massage** ✋
+After the bath, give a light massage with oil or moisturizer. Circular movements on the tummy and legs. This reduces cortisol (stress hormone).
 
-**Passo 3 — Trocar a roupa e preparar o ambiente** 🌙
-Vista o pijama, escureça o quarto, ligue o ruído branco (se usar) e diminua os estímulos.
+**Step 3 — Change clothes and prepare the environment** 🌙
+Put on pajamas, darken the room, turn on white noise (if using), and reduce stimuli.
 
-**Passo 4 — Alimentação calma** 🍼
-A última mamada do dia deve ser tranquila. Evite brincadeiras ou estímulos visuais durante a mamada.
+**Step 4 — Calm feeding** 🍼
+The last feeding of the day should be quiet. Avoid play or visual stimuli during feeding.
 
-**Passo 5 — Canção de ninar ou história** 📖
-Pode ser uma música suave, uma história curta ou simplesmente conversar baixinho. O importante é que seja sempre o mesmo ritual.
+**Step 5 — Lullaby or story** 📖
+It can be a soft song, a short story, or simply talking quietly. The important thing is that it's always the same ritual.
 
-**Passo 6 — Colocar no berço sonolento, mas acordado** 😴
-Esse é o passo mais desafiador, mas também o mais importante a longo prazo. O bebê que aprende a adormecer no berço terá mais facilidade para voltar a dormir quando acordar à noite.
+**Step 6 — Place in crib drowsy, but awake** 😴
+This is the most challenging step, but also the most important in the long run. The baby who learns to fall asleep in the crib will have an easier time falling back asleep when waking up at night.
 
-### Erros comuns
+### Common mistakes
 
-❌ Variar a rotina todo dia
-❌ Fazer atividades estimulantes perto da hora de dormir
-❌ Esperar o bebê ficar exausto para iniciar a rotina
-❌ Pular etapas quando está cansado (consistência é tudo!)
+❌ Varying the routine every day
+❌ Doing stimulating activities near bedtime
+❌ Waiting for the baby to be exhausted to start the routine
+❌ Skipping steps when tired (consistency is key!)
 
-### Quanto tempo leva para funcionar?
+### How long does it take to work?
 
-A maioria dos bebês responde à rotina em **1 a 3 semanas**. Seja paciente e consistente — os resultados virão.
+Most babies respond to routine in **1 to 3 weeks**. Be patient and consistent — the results will come.
 
-> **Use o Doutor Soneca:** Registre na aba Rotina o horário que inicia o ritual todas as noites. Isso ajuda a IA a dar orientações cada vez mais personalizadas.`,
+> **Use Dr. Sleepy:** Log in the Routine tab the time you start the ritual every night. This helps the AI give increasingly personalized guidance.`,
   },
   {
     id: "5",
-    title: "Meditação para pais cansados",
-    description: "5 minutos de relaxamento guiado",
+    title: "Meditation for tired parents",
+    description: "5 minutes of guided relaxation",
     type: "article",
     duration: "5 min",
-    category: "Bem-estar",
-    ageRange: "Todos",
-    content: `## Você também precisa descansar
+    category: "Wellness",
+    ageRange: "All",
+    content: `## You need to rest too
 
-Cuidar de um bebê é exaustivo — física e emocionalmente. Muitos pais se esquecem de cuidar de si mesmos enquanto tentam dar o melhor para o filho. Mas a verdade é: **um pai descansado cuida melhor**.
+Caring for a baby is exhausting — physically and emotionally. Many parents forget to take care of themselves while trying to give the best for their child. But the truth is: **a rested parent cares better**.
 
-### Exercício de respiração 4-7-8
+### 4-7-8 breathing exercise
 
-Essa técnica simples ativa o sistema nervoso parassimpático, ajudando o corpo a relaxar:
+This simple technique activates the parasympathetic nervous system, helping the body relax:
 
-1. **Inspire** pelo nariz contando até **4**
-2. **Segure** a respiração contando até **7**
-3. **Expire** pela boca contando até **8**
+1. **Inhale** through your nose counting to **4**
+2. **Hold** your breath counting to **7**
+3. **Exhale** through your mouth counting to **8**
 
-Repita 4 vezes. Pode fazer sentado, deitado ou até mesmo em pé com o bebê no colo.
+Repeat 4 times. You can do it sitting, lying down, or even standing with the baby in your arms.
 
-### Escaneamento corporal (3 minutos)
+### Body scan (3 minutes)
 
-Feche os olhos e mentalmente "escaneie" cada parte do corpo:
+Close your eyes and mentally "scan" each part of your body:
 
-1. Comece pelos **pés** — perceba qualquer tensão e solte
-2. Suba para as **pernas** — relaxe conscientemente
-3. **Barriga** — respire fundo e solte
-4. **Ombros e pescoço** — onde a maioria dos pais acumula tensão
-5. **Rosto** — solte a testa, o maxilar, os olhos
+1. Start with your **feet** — notice any tension and release
+2. Move up to your **legs** — consciously relax
+3. **Belly** — breathe deep and release
+4. **Shoulders and neck** — where most parents accumulate tension
+5. **Face** — relax forehead, jaw, eyes
 
-### Afirmações para o momento difícil
+### Affirmations for the difficult moment
 
-Quando estiver no limite, repita para si mesmo:
+When you are at your limit, repeat to yourself:
 
-- *"Eu estou fazendo o melhor que posso, e isso é suficiente."*
-- *"Essa fase é temporária. Vai passar."*
-- *"Pedir ajuda não é fraqueza, é sabedoria."*
-- *"Meu bebê não precisa de um pai perfeito, precisa de um pai presente."*
+- *"I am doing the best I can, and that is enough."*
+- *"This phase is temporary. It will pass."*
+- *"Asking for help is not weakness, it is wisdom."*
+- *"My baby doesn't need a perfect parent, they need a present parent."*
 
-### Quando procurar mais ajuda
+### When to seek more help
 
-Se você sentir:
-- Tristeza profunda que não passa
-- Raiva descontrolada
-- Vontade de se afastar do bebê
-- Pensamentos assustadores
+If you feel:
+- Deep sadness that doesn't go away
+- Uncontrollable anger
+- Desire to distance yourself from the baby
+- Scary thoughts
 
-**Procure ajuda profissional.** Depressão pós-parto afeta tanto mães quanto pais e tem tratamento. Você não está sozinho(a).
-
-> **Ligue para o CVV (188)** — disponível 24 horas, todos os dias.`,
+**Seek professional help.** Postpartum depression affects both mothers and fathers and is treatable. You are not alone.`,
   },
   {
     id: "6",
-    title: "Regressão de sono: o que esperar",
-    description: "Por que o sono pode piorar temporariamente",
+    title: "Sleep regression: what to expect",
+    description: "Why sleep might get worse temporarily",
     type: "article",
     duration: "5 min",
-    category: "Sono",
-    ageRange: "4-6 meses",
-    content: `## O que é a regressão de sono?
+    category: "Sleep",
+    ageRange: "4-6 months",
+    content: `## What is sleep regression?
 
-Tudo estava indo bem — o bebê dormia longas horas, os cochilos eram previsíveis, e então... de repente, tudo muda. Ele acorda várias vezes à noite, recusa os cochilos e parece ter desaprendido a dormir.
+Everything was going well — the baby slept long hours, naps were predictable, and then... suddenly, everything changes. They wake up several times at night, refuse naps, and seem to have unlearned how to sleep.
 
-Calma. Isso é uma **regressão de sono** e é completamente **normal**.
+Calm down. This is a **sleep regression** and it is completely **normal**.
 
-### Por que acontece?
+### Why does it happen?
 
-As regressões acontecem quando o cérebro do bebê está passando por grandes mudanças no desenvolvimento:
+Regressions happen when the baby's brain is going through major developmental changes:
 
-**4 meses** — A mais famosa. O padrão de sono do bebê amadurece e passa a ter ciclos como os de um adulto. É uma mudança permanente (e positiva!), mas o período de adaptação pode ser difícil.
+**4 months** — The most famous one. The baby's sleep pattern matures and starts having cycles like an adult's. It's a permanent change (and a positive one!), but the adaptation period can be tough.
 
-**6 meses** — Coincide com o início da alimentação complementar e, em alguns bebês, com o nascimento dos primeiros dentes.
+**6 months** — Coincides with the start of complementary feeding and, in some babies, the eruption of first teeth.
 
-**8-10 meses** — Período de marcos motores (sentar, engatinhar, ficar em pé). O cérebro quer "praticar" essas habilidades novas — inclusive à noite.
+**8-10 months** — Period of motor milestones (sitting, crawling, standing). The brain wants to "practice" these new skills — even at night.
 
-**12 meses** — Transição de 2 para 1 cochilo. Pode causar confusão na rotina.
+**12 months** — Transition from 2 to 1 nap. Can cause confusion in the routine.
 
-**18 meses** — Ansiedade de separação no auge + desenvolvimento da linguagem.
+**18 months** — Separation anxiety at its peak + language development.
 
-### O que fazer durante uma regressão
+### What to do during a regression
 
-✅ **Mantenha a rotina** — Não mude tudo por causa da regressão
-✅ **Ofereça conforto** — O bebê precisa de segurança nesse momento
-✅ **Seja paciente** — A maioria das regressões dura 2 a 4 semanas
-✅ **Cuide de você** — Reveze com o parceiro se possível
+✅ **Stick to the routine** — Don't change everything because of the regression
+✅ **Offer comfort** — The baby needs security at this moment
+✅ **Be patient** — Most regressions last 2 to 4 weeks
+✅ **Take care of yourself** — Take turns with your partner if possible
 
-### O que NÃO fazer
+### What NOT to do
 
-❌ Criar novos hábitos que não quer manter (ex: trazer para a cama dos pais se não era o plano)
-❌ Eliminar cochilos diurnos achando que vai melhorar a noite
-❌ Se desesperar — isso vai passar!
+❌ Create new habits you don't want to keep (e.g., bringing to parents' bed if that wasn't the plan)
+❌ Eliminate daytime naps thinking it will improve the night
+❌ Despair — this will pass!
 
-### Quando se preocupar
+### When to worry
 
-Se a regressão durar mais de 6 semanas ou vier acompanhada de febre persistente, perda de peso ou outros sintomas, consulte o pediatra.
+If the regression lasts more than 6 weeks or is accompanied by persistent fever, weight loss, or other symptoms, consult the pediatrician.
 
-> **Dica:** Use o chat do Doutor Soneca para relatar o que está acontecendo. Com base nos logs da rotina, a IA pode ajudar a identificar se é regressão ou outro fator.`,
+> **Tip:** Use Dr. Sleepy's chat to report what is happening. Based on routine logs, the AI can help identify if it is regression or another factor.`,
   },
   {
     id: "7",
-    title: "Cólicas: como aliviar",
-    description: "Entenda as cólicas e técnicas para acalmar o bebê",
+    title: "Colic: how to relieve",
+    description: "Understand colic and techniques to calm the baby",
     type: "article",
     duration: "5 min",
-    category: "Bem-estar",
-    ageRange: "0-3 meses",
-    content: `## O que são as cólicas?
+    category: "Wellness",
+    ageRange: "0-3 months",
+    content: `## What is colic?
 
-As cólicas são episódios de choro intenso, sem causa aparente, que geralmente acontecem no final da tarde ou à noite. Elas afetam cerca de **20-25% dos bebês** e costumam começar por volta das 2 semanas de vida, com pico aos 6 semanas.
+Colic is episodes of intense crying, without apparent cause, that usually happen in the late afternoon or evening. It affects about **20-25% of babies** and usually starts around 2 weeks of life, peaking at 6 weeks.
 
-### A regra dos 3
+### The rule of 3
 
-Pediatras definem cólica pela "regra dos 3":
-- Choro por mais de **3 horas** por dia
-- Em mais de **3 dias** por semana
-- Por mais de **3 semanas** seguidas
+Pediatricians define colic by the "rule of 3":
+- Crying for more than **3 hours** a day
+- On more than **3 days** a week
+- For more than **3 weeks** straight
 
-### Técnicas de alívio
+### Relief techniques
 
-**Posição de avião** ✈️
-Coloque o bebê de bruços sobre o seu antebraço, com a cabeça apoiada na sua mão. A pressão na barriguinha ajuda a aliviar os gases.
+**Airplane position** ✈️
+Place the baby face down on your forearm, with their head resting on your hand. The pressure on the tummy helps relieve gas.
 
-**Massagem na barriga** 🤲
-Movimentos circulares no sentido horário ao redor do umbigo. Use óleo de amêndoas morno para tornar mais confortável.
+**Tummy massage** 🤲
+Circular movements clockwise around the belly button. Use warm almond oil to make it more comfortable.
 
-**Bicicletinha** 🚲
-Com o bebê deitado de costas, mova as perninhas como se estivesse pedalando. Isso ajuda a liberar gases presos.
+**Bicycle legs** 🚲
+With the baby lying on their back, move their little legs as if they were pedaling. This helps release trapped gas.
 
-**Banho morno** 🛁
-A água morna relaxa a musculatura abdominal e ajuda a aliviar a dor.
+**Warm bath** 🛁
+Warm water relaxes the abdominal muscles and helps relieve pain.
 
-**Ruído branco** 🔊
-O som contínuo (aspirador, secador, app de ruído branco) ajuda a distrair e acalmar o bebê durante as crises.
+**White noise** 🔊
+Continuous sound (vacuum cleaner, hair dryer, white noise app) helps distract and calm the baby during crises.
 
-### O que evitar
+### What to avoid
 
-❌ Balançar o bebê com força (risco de síndrome do bebê sacudido)
-❌ Trocar de leite/fórmula sem orientação pediátrica
-❌ Se culpar — cólica NÃO é culpa dos pais
+❌ Shaking the baby forcefully (risk of shaken baby syndrome)
+❌ Changing milk/formula without pediatric guidance
+❌ Blaming yourself — colic is NOT the parents' fault
 
-### Quando passa?
+### When does it pass?
 
-A boa notícia: as cólicas desaparecem espontaneamente entre os **3 e 4 meses** de vida. Até lá, paciência e revezamento entre os cuidadores são essenciais.
+The good news: colic disappears spontaneously between **3 and 4 months** of life. Until then, patience and taking turns between caregivers are essential.
 
-> **Importante:** Se o choro vier acompanhado de febre, vômitos ou recusa alimentar, procure o pediatra.`,
+> **Important:** If the crying is accompanied by fever, vomiting, or feeding refusal, seek the pediatrician.`,
   },
   {
     id: "8",
-    title: "Dentição e sono: o que muda",
-    description: "Como os dentes afetam o sono do bebê",
+    title: "Teething and sleep: what changes",
+    description: "How teeth affect baby sleep",
     type: "article",
     duration: "4 min",
-    category: "Sono",
-    ageRange: "6-12 meses",
-    content: `## Quando os dentes começam a nascer?
+    category: "Sleep",
+    ageRange: "6-12 months",
+    content: `## When do teeth start coming in?
 
-Os primeiros dentes geralmente aparecem entre os **6 e 10 meses**, mas podem surgir antes ou depois. O processo completo dura até os 2-3 anos.
+The first teeth usually appear between **6 and 10 months**, but can appear earlier or later. The complete process lasts until 2-3 years.
 
-### Sinais de dentição
+### Signs of teething
 
-- Gengivas inchadas e vermelhas
-- Salivação excessiva (babando muito)
-- Morder tudo que encontra
-- Irritabilidade e choro
-- Febre baixa (até 37,5°C)
-- Alterações no sono
+- Swollen and red gums
+- Excessive salivation (drooling a lot)
+- Biting everything they find
+- Irritability and crying
+- Low fever (up to 37.5°C / 99.5°F)
+- Sleep disturbances
 
-### Como a dentição afeta o sono
+### How teething affects sleep
 
-O desconforto da dentição é **mais intenso à noite** porque há menos distrações. O bebê pode:
+Teething discomfort is **more intense at night** because there are fewer distractions. The baby may:
 
-- Acordar mais vezes durante a noite
-- Ter dificuldade para adormecer
-- Fazer cochilos mais curtos
-- Recusar o peito/mamadeira por dor na gengiva
+- Wake up more times during the night
+- Have difficulty falling asleep
+- Take shorter naps
+- Refuse breast/bottle due to gum pain
 
-### O que fazer
+### What to do
 
-**Mordedores gelados** 🧊
-Coloque o mordedor na geladeira (não no freezer). O frio alivia a inflamação na gengiva.
+**Cold teethers** 🧊
+Put the teether in the fridge (not the freezer). The cold relieves gum inflammation.
 
-**Massagem na gengiva** 🤲
-Com o dedo limpo, massageie suavemente a gengiva do bebê. A pressão ajuda a aliviar a dor.
+**Gum massage** 🤲
+With a clean finger, gently massage the baby's gum. The pressure helps relieve pain.
 
-**Paracetamol ou ibuprofeno** 💊
-Apenas com orientação do pediatra e na dose correta para o peso do bebê. Nunca medique por conta própria.
+**Paracetamol or ibuprofen** 💊
+Only with pediatrician's guidance and in the correct dose for the baby's weight. Never medicate on your own.
 
-**Mantenha a rotina** 🌙
-A tentação é mudar tudo, mas manter a rotina de sono ajuda o bebê a se sentir seguro durante esse período.
+**Maintain routine** 🌙
+The temptation is to change everything, but keeping the sleep routine helps the baby feel safe during this period.
 
-### O que NÃO usar
+### What NOT to use
 
-⚠️ **Géis anestésicos** — podem ser perigosos para bebês
-⚠️ **Colares de âmbar** — risco de estrangulamento e engasgo, sem comprovação científica
-⚠️ **Mel na gengiva** — proibido para menores de 1 ano (risco de botulismo)
+⚠️ **Anesthetic gels** — can be dangerous for babies
+⚠️ **Amber necklaces** — risk of strangulation and choking, without scientific proof
+⚠️ **Honey on gums** — prohibited for under 1 year (risk of botulism)
 
-> **Dica:** Registre na Rotina do Doutor Soneca os períodos de dentição para que a IA considere esse fator nas orientações de sono.`,
+> **Tip:** Log in Dr. Sleepy's Routine the teething periods so the AI considers this factor in sleep guidance.`,
   },
   {
     id: "9",
-    title: "Ambiente ideal para o sono",
-    description: "Como preparar o quarto perfeito para o bebê dormir",
+    title: "Ideal sleep environment",
+    description: "How to prepare the perfect room for baby to sleep",
     type: "article",
     duration: "4 min",
-    category: "Sono",
-    ageRange: "0-12 meses",
-    content: `## O quarto do bebê importa (muito!)
+    category: "Sleep",
+    ageRange: "0-12 months",
+    content: `## The baby's room matters (a lot!)
 
-O ambiente em que o bebê dorme influencia diretamente a **qualidade e duração** do sono. Pequenos ajustes podem fazer uma grande diferença.
+The environment where the baby sleeps directly influences the **quality and duration** of sleep. Small adjustments can make a big difference.
 
-### Temperatura ideal
+### Ideal temperature
 
-O quarto deve estar entre **20°C e 22°C**. Bebês dormem melhor em ambientes ligeiramente frescos.
+The room should be between **20°C and 22°C** (68°F - 72°F). Babies sleep better in slightly cool environments.
 
-**Como saber se o bebê está confortável:**
-- Toque a nuca ou o peito — devem estar mornos, não quentes
-- Mãos e pés frios são normais e NÃO indicam que está com frio
-- Se estiver suando, está quente demais
+**How to know if baby is comfortable:**
+- Touch the nape or chest — should be warm, not hot
+- Cold hands and feet are normal and do NOT indicate they are cold
+- If sweating, it is too hot
 
-### Escuridão
+### Darkness
 
-A melatonina (hormônio do sono) é produzida no escuro. Para o sono noturno:
+Melatonin (sleep hormone) is produced in the dark. For night sleep:
 
-- Use **cortinas blackout** — investimento que vale cada centavo
-- Cubra luzes de aparelhos eletrônicos
-- Use luz vermelha ou âmbar se precisar enxergar durante a noite (nunca branca ou azul)
+- Use **blackout curtains** — investment worth every penny
+- Cover electronic device lights
+- Use red or amber light if you need to see during the night (never white or blue)
 
-### Ruído
+### Noise
 
-- **Silêncio total** pode ser contraproducente — qualquer barulho acorda o bebê
-- **Ruído branco constante** mascara sons do ambiente e ajuda a manter o sono
-- Mantenha o volume abaixo de 50-60 dB
+- **Total silence** can be counterproductive — any noise wakes the baby
+- **Constant white noise** masks environmental sounds and helps maintain sleep
+- Keep volume below 50-60 dB
 
-### O berço seguro
+### The safe crib
 
-- Colchão **firme** e do tamanho exato do berço
-- Sem travesseiros, cobertores soltos, bichos de pelúcia ou protetores
-- Bebê sempre **de barriga para cima**
-- Sem espaços entre o colchão e as laterais
+- **Firm** mattress and exact size of the crib
+- No pillows, loose blankets, stuffed animals, or bumpers
+- Baby always **on their back**
+- No spaces between mattress and sides
 
-### Checklist do quarto
+### Room checklist
 
-- [ ] Temperatura entre 20-22°C
-- [ ] Escuro (cortina blackout)
-- [ ] Ruído branco ligado
-- [ ] Berço sem objetos soltos
-- [ ] Roupa de dormir adequada à temperatura
-- [ ] Umidificador se o ar estiver seco
+- [ ] Temperature between 20-22°C
+- [ ] Dark (blackout curtain)
+- [ ] White noise on
+- [ ] Crib free of loose objects
+- [ ] Sleepwear suitable for temperature
+- [ ] Humidifier if air is dry
 
-> **Importante:** A Sociedade Brasileira de Pediatria recomenda que o bebê durma no quarto dos pais (mas no próprio berço) até os 6 meses de vida.`,
+> **Important:** Pediatric Societies recommend the baby sleeps in parents' room (but in their own crib) until 6 months of age.`,
   },
   {
     id: "10",
-    title: "Introdução alimentar e sono",
-    description: "Como a alimentação complementar influencia o sono",
+    title: "Introduction to solids and sleep",
+    description: "How complementary feeding influences sleep",
     type: "article",
     duration: "5 min",
-    category: "Alimentação",
-    ageRange: "6-12 meses",
-    content: `## A partir dos 6 meses tudo muda
+    category: "Feeding",
+    ageRange: "6-12 months",
+    content: `## Everything changes from 6 months on
 
-A introdução alimentar é um marco importante que pode afetar o sono do bebê — para melhor ou pior. Entender essa relação ajuda a navegar essa fase com mais tranquilidade.
+Introduction to solids is an important milestone that can affect baby sleep — for better or worse. Understanding this relationship helps navigate this phase more peacefully.
 
-### O mito do "come mais, dorme mais"
+### The myth of "eat more, sleep more"
 
-Muitos avós dizem: "dá papinha que ele dorme a noite toda." Isso é um **mito parcial**. A introdução alimentar pode melhorar o sono, mas não é mágica e depende de vários fatores.
+Many parents believe that introducing solids will make the baby sleep through the night immediately. **This is a myth.** In fact, digestion of new foods can cause gases or discomfort initially, temporarily disrupting sleep.
 
-### Como a alimentação pode MELHORAR o sono
+### How to organize dinner
 
-- Alimentos ricos em **triptofano** (banana, aveia, batata-doce) ajudam na produção de melatonina
-- Um bebê bem alimentado durante o dia tende a acordar menos à noite por fome
-- A saciedade proporcionada por alimentos sólidos pode prolongar o sono noturno
+To favor sleep, dinner should happen **1h30 to 2 hours before bedtime**.
 
-### Como pode ATRAPALHAR o sono
+**Why?**
+- Allows time for digestion
+- Avoids sleeping with a very full stomach
+- Gives time for the bedtime milk (which continues being important!)
 
-- **Alergias alimentares** podem causar desconforto e despertar
-- **Gases e cólicas** por alimentos novos
-- **Constipação** ao introduzir novos alimentos
-- Oferecer alimentos muito perto da hora de dormir
+### Foods that help sleep (Tryptophan rich)
 
-### Horários ideais para as refeições
+- Banana
+- Oats
+- Avocado
+- Sweet potato
+- Chicken
+- Egg
 
-| Refeição | Horário sugerido |
-|----------|-----------------|
-| Almoço | 11h-12h |
-| Lanche | 14h-15h |
-| Jantar | 17h-18h |
+### Foods to avoid at night
 
-**Regra de ouro:** A última refeição sólida deve ser pelo menos **1-2 horas antes** de dormir.
+- Foods with caffeine (chocolate)
+- Very sugary foods (cause energy spikes)
+- New foods (offer at lunch to observe allergies)
 
-### Alimentos aliados do sono
+### The role of milk
 
-🍌 **Banana** — rica em magnésio e triptofano
-🍠 **Batata-doce** — carboidrato complexo que dá saciedade
-🥑 **Abacate** — gordura boa que sustenta por mais tempo
-🥣 **Aveia** — libera energia lentamente durante a noite
+Until 1 year, milk (breast or formula) is still the main source of nutrition. Do not replace night feedings with water or tea abruptly.
 
-### Alimentos para evitar à noite
-
-❌ Frutas cítricas (podem causar refluxo)
-❌ Alimentos muito doces
-❌ Alimentos que o bebê ainda não testou (teste sempre pela manhã)
-
-> **Dica:** Se o bebê começou a acordar mais após um alimento novo, anote no chat do Doutor Soneca. A IA pode ajudar a identificar possíveis correlações.`,
-  },
-  {
-    id: "11",
-    title: "Sono do bebê prematuro",
-    description: "Particularidades do sono de prematuros",
-    type: "article",
-    duration: "5 min",
-    category: "Sono",
-    ageRange: "0-6 meses",
-    content: `## Prematuros dormem diferente?
-
-Sim. Bebês prematuros têm padrões de sono diferentes dos bebês a termo, e isso é completamente **normal**. Entender essas diferenças evita preocupações desnecessárias.
-
-### Idade corrigida vs idade cronológica
-
-Para avaliar o sono do prematuro, use sempre a **idade corrigida**:
-
-*Idade corrigida = Idade cronológica - Semanas de prematuridade*
-
-Exemplo: um bebê de 4 meses que nasceu 2 meses antes tem idade corrigida de **2 meses**. Espere o comportamento de sono de um bebê de 2 meses.
-
-### Diferenças no sono do prematuro
-
-- **Mais sono REM** — O prematuro passa mais tempo em sono leve, o que é importante para o desenvolvimento cerebral
-- **Despertares frequentes** — Totalmente esperado e, na verdade, é um mecanismo de proteção
-- **Janelas de sono mais curtas** — Use a idade corrigida como referência
-- **Desenvolvimento mais lento** da consolidação do sono noturno
-
-### Marcos de sono por idade corrigida
-
-**0-2 meses corrigidos:** Sono fragmentado, sem padrão definido. Normal.
-
-**3-4 meses corrigidos:** Começam a surgir padrões. O sono noturno pode começar a se alongar.
-
-**6 meses corrigidos:** A maioria dos prematuros começa a consolidar o sono noturno.
-
-### Cuidados especiais
-
-✅ Ambiente ainda mais controlado (temperatura, luz, ruído)
-✅ Alimentação mais frequente pode ser necessária
-✅ Paciência extra com marcos de sono
-✅ Acompanhamento pediátrico mais frequente
-
-### Quando se preocupar
-
-Converse com o pediatra se:
-- O bebê tem apneias (pausas na respiração) durante o sono
-- Não ganha peso adequadamente
-- Está excessivamente sonolento e difícil de acordar para mamar
-
-> **Lembre-se:** Cada prematuro tem seu ritmo. Comparar com bebês a termo só gera ansiedade desnecessária. Confie no processo e no acompanhamento médico.`,
-  },
-  {
-    id: "12",
-    title: "Co-sleeping: prós, contras e segurança",
-    description: "Compartilhar a cama com o bebê de forma segura",
-    type: "article",
-    duration: "6 min",
-    category: "Sono",
-    ageRange: "0-12 meses",
-    content: `## O que é co-sleeping?
-
-Co-sleeping significa dormir no mesmo ambiente que o bebê. Existem duas formas:
-
-- **Room-sharing (compartilhar o quarto):** Bebê dorme no próprio berço, no quarto dos pais. **Recomendado** pela SBP até os 6 meses.
-- **Bed-sharing (compartilhar a cama):** Bebê dorme na cama dos pais. **Controverso** — tem riscos, mas é praticado por muitas famílias.
-
-### Benefícios do room-sharing
-
-- Facilita a amamentação noturna
-- Pais percebem rapidamente se algo está errado
-- Reduz o risco de SMSL (Síndrome da Morte Súbita do Lactente) em até 50%
-- Bebê se sente mais seguro com a proximidade
-
-### Riscos do bed-sharing
-
-⚠️ Risco de sufocamento com travesseiros e cobertores
-⚠️ Risco de o bebê cair da cama
-⚠️ Risco de sobreaquecimento
-⚠️ Pode criar dependência difícil de quebrar
-
-### Se você DECIDIR compartilhar a cama
-
-Algumas famílias optam pelo bed-sharing por questões culturais, práticas ou de amamentação. Se for o caso, siga as regras de segurança:
-
-**Regras essenciais:**
-- Colchão firme e plano (nunca sofá, poltrona ou rede)
-- Sem travesseiros ou cobertores perto do bebê
-- Bebê sempre de barriga para cima
-- Sem espaços onde o bebê possa ficar preso
-- Cabelo longo dos pais preso
-
-**NUNCA compartilhe a cama se:**
-- ❌ Você fumou (mesmo que não fume no quarto)
-- ❌ Consumiu álcool ou drogas
-- ❌ Tomou medicamentos que causam sonolência
-- ❌ Está extremamente cansado(a)
-- ❌ O bebê nasceu prematuro ou com baixo peso
-
-### Alternativa segura: berço acoplado (sidecar)
-
-O berço acoplado à cama dos pais oferece o melhor dos dois mundos: proximidade para amamentar com facilidade e espaço seguro e separado para o bebê dormir.
-
-> **O Doutor Soneca não julga sua escolha.** Cada família é única. O importante é que a decisão seja informada e segura.`,
-  },
-  {
-    id: "13",
-    title: "Autocuidado para pais de recém-nascidos",
-    description: "Estratégias práticas para sobreviver aos primeiros meses",
-    type: "article",
-    duration: "4 min",
-    category: "Bem-estar",
-    ageRange: "Todos",
-    content: `## Você não pode cuidar do bebê se não cuidar de você
-
-Isso não é egoísmo — é **sobrevivência**. Os primeiros meses com um recém-nascido são os mais intensos da vida de muitos pais. Aqui estão estratégias práticas e realistas.
-
-### Sono dos pais
-
-**"Durma quando o bebê dormir"** — o conselho mais repetido e mais difícil de seguir. Mas tente ao menos uma vez ao dia.
-
-- Aceite que a casa vai ficar bagunçada
-- Peça para alguém cuidar do bebê por 1-2 horas para você cochilar
-- Reveze com o parceiro(a) em turnos à noite
-
-### Alimentação
-
-Quando se está privado de sono, o corpo pede açúcar e cafeína. Tente equilibrar:
-
-- Prepare refeições simples em lotes (arroz, frango, legumes)
-- Tenha frutas e nuts sempre à mão
-- Hidrate-se muito (especialmente se estiver amamentando)
-- Cafeína com moderação: até 200mg/dia se amamentando
-
-### Rede de apoio
-
-**Não tenha vergonha de pedir ajuda.** Pessoas querem ajudar, mas muitas vezes não sabem como.
-
-Seja específica(o):
-- "Pode trazer um almoço amanhã?"
-- "Pode ficar com o bebê 1 hora para eu tomar banho?"
-- "Pode me ajudar com a roupa suja?"
-
-### Saúde mental
-
-Os "baby blues" (tristeza pós-parto) afetam até 80% das mães nos primeiros 15 dias. É diferente da **depressão pós-parto**, que é mais intensa e duradoura.
-
-**Sinais de alerta para depressão pós-parto:**
-- Tristeza que não melhora após 2 semanas
-- Desinteresse pelo bebê
-- Pensamentos de se machucar ou machucar o bebê
-- Ansiedade extrema
-- Insônia mesmo quando o bebê dorme
-
-👉 **Procure ajuda profissional se identificar esses sinais.**
-
-### O mínimo para o dia
-
-Nos dias mais difíceis, a meta é:
-1. ✅ Todo mundo comeu
-2. ✅ Todo mundo está limpo (mais ou menos)
-3. ✅ Todo mundo está seguro
-
-Se conseguiu isso, o dia foi um **sucesso**. O resto é bônus.
-
-> **Lembre-se:** Essa fase passa. Parece eterna quando você está vivendo, mas um dia você vai olhar para trás e mal vai lembrar.`,
-  },
-  {
-    id: "14",
-    title: "Transição do berço para a cama",
-    description: "Quando e como fazer essa mudança com tranquilidade",
-    type: "article",
-    duration: "4 min",
-    category: "Rotina",
-    ageRange: "0-3 meses",
-    content: `## Quando é a hora certa?
-
-Não existe uma idade exata, mas a maioria das crianças faz a transição entre **18 meses e 3 anos**. Os sinais de que está na hora:
-
-- A criança escala ou tenta pular o berço (questão de **segurança**)
-- Demonstra interesse em camas "de gente grande"
-- É grande demais para o berço
-- Um novo irmão precisa do berço
-
-### Como preparar a transição
-
-**Semana 1-2: Preparação**
-- Converse sobre a mudança de forma positiva e empolgante
-- Leve a criança para escolher lençóis ou almofada (senso de pertencimento)
-- Leia livros sobre dormir na cama grande
-
-**Semana 3: A mudança**
-- Monte a cama nova no mesmo lugar do berço (se possível)
-- Use grades de proteção lateral
-- Mantenha **toda a rotina de sono igual** — só o berço muda
-- Coloque um colchão ou tapete ao lado da cama nos primeiros dias
-
-**Semana 4+: Ajuste**
-- É normal que a criança saia da cama algumas vezes
-- Reconduza com calma, sem brigas, sem recompensas exageradas
-- Consistência é a chave
-
-### Erros comuns
-
-❌ Fazer a transição junto com outra mudança grande (novo irmão, mudança de casa, tirar a chupeta)
-❌ Voltar ao berço depois de começar — gera confusão
-❌ Fazer a transição cedo demais só porque "já está na hora"
-❌ Transformar em drama — seja natural e positivo
-
-### Se não estiver funcionando
-
-Se após 2-3 semanas a criança está claramente sofrendo, **voltar ao berço é ok**. Tente novamente em 1-2 meses. Não há pressa.
-
-### Segurança da cama
-
-- Grade de proteção em ambos os lados
-- Cama baixa (ou colchão no chão no estilo Montessori)
-- Quarto à prova de criança: tomadas protegidas, móveis presos, sem objetos perigosos ao alcance
-- Porta do quarto com proteção se necessário
-
-> **Dica:** Registre na Rotina do Doutor Soneca como está sendo o sono na cama nova. A IA pode ajudar com orientações específicas para essa fase.`,
-  },
-  {
-    id: "15",
-    title: "Marcos de desenvolvimento e sono",
-    description: "Como cada fase do crescimento impacta o sono",
-    type: "article",
-    duration: "6 min",
-    category: "Sono",
-    ageRange: "0-12 meses",
-    content: `## O cérebro não desliga à noite
-
-Quando o bebê está aprendendo algo novo — rolar, sentar, engatinhar, andar — o cérebro continua "praticando" durante o sono. Isso causa despertares e pode parecer uma regressão.
-
-### Marcos por idade e impacto no sono
-
-**1-2 meses: Sorriso social**
-- Impacto leve no sono
-- Bebê pode ficar mais alerta e demorar a dormir
-
-**3-4 meses: Rolar**
-- O bebê pode rolar no berço e acordar assustado
-- Se rola de costas para a barriga e não consegue voltar, pode chorar
-
-**5-6 meses: Sentar**
-- Pode sentar no berço em vez de dormir
-- Às vezes senta dormindo e acorda confuso
-
-**7-9 meses: Engatinhar e ficar em pé**
-- Fase desafiadora! O bebê fica em pé no berço e não sabe descer
-- Pratica engatinhar no berço durante a noite
-- Ansiedade de separação começa forte
-
-**10-12 meses: Primeiros passos**
-- Muita energia cerebral dedicada ao aprendizado motor
-- Sono pode ficar fragmentado por 2-4 semanas
-
-**12-18 meses: Linguagem**
-- O cérebro processa as palavras novas durante o sono
-- Pode falar ou balbuciar durante a noite
-
-### O que fazer durante marcos
-
-✅ **Pratique a nova habilidade durante o dia** — Se o bebê quer ficar em pé, ajude-o a praticar (e a descer!) durante o dia para que não precise praticar à noite.
-
-✅ **Mantenha a rotina** — A consistência é reconfortante em meio a tanta mudança.
-
-✅ **Ofereça mais conforto** — Marcos são exaustivos. Um pouco mais de colo e carinho ajudam.
-
-✅ **Seja paciente** — A maioria dos impactos no sono dura **1 a 3 semanas**.
-
-### Tabela rápida
-
-| Idade | Marco | Duração do impacto |
-|-------|-------|-------------------|
-| 3-4m | Rolar | 1-2 semanas |
-| 5-6m | Sentar | 1-2 semanas |
-| 7-9m | Engatinhar/ficar em pé | 2-4 semanas |
-| 10-12m | Andar | 2-3 semanas |
-| 12-18m | Falar | 1-2 semanas |
-
-> **Use o Doutor Soneca:** Quando perceber um marco novo, mencione no chat. A IA vai adaptar as orientações de sono considerando essa fase do desenvolvimento.`,
-  },
-  {
-    id: "16",
-    title: "Chupeta: usar ou não usar?",
-    description: "Prós, contras e orientações sobre o uso da chupeta",
-    type: "article",
-    duration: "5 min",
-    category: "Bem-estar",
-    ageRange: "0-12 meses",
-    content: `## O eterno debate da chupeta
-
-Poucos assuntos dividem tanto os pais quanto a chupeta. A verdade é que **não existe resposta certa universal** — depende do bebê, da família e do contexto.
-
-### Benefícios comprovados
-
-**Redução do risco de SMSI (Síndrome da Morte Súbita Infantil)** 🛡️
-Estudos mostram que o uso da chupeta durante o sono está associado a uma diminuição significativa do risco de SMSI, especialmente nos primeiros 6 meses.
-
-**Efeito calmante** 😌
-A sucção não nutritiva é um reflexo natural do bebê que traz conforto e ajuda na autorregulação emocional.
-
-**Auxílio no sono** 🌙
-A chupeta pode ajudar o bebê a adormecer e a transitar entre ciclos de sono com mais facilidade.
-
-### Possíveis desvantagens
-
-**Interferência na amamentação** 🤱
-A Sociedade Brasileira de Pediatria recomenda evitar a chupeta nas primeiras 3-4 semanas de vida para não atrapalhar a pega no peito.
-
-**Dependência** 🔄
-O bebê pode acordar chorando toda vez que a chupeta cai — o que significa mais despertares para os pais.
-
-**Problemas ortodônticos** 🦷
-O uso prolongado (além dos 2-3 anos) pode afetar a formação da arcada dentária e o palato.
-
-**Otites** 👂
-O uso contínuo pode aumentar levemente o risco de infecções de ouvido.
-
-### Se decidir usar
-
-- **Espere** a amamentação estar bem estabelecida (3-4 semanas)
-- **Não force** — ofereça, mas respeite se o bebê recusar
-- **Nunca** mergulhe em açúcar, mel ou qualquer substância
-- **Esterilize** regularmente nos primeiros 6 meses
-- **Planeje a retirada** gradual entre 1 e 2 anos
-
-### Se decidir não usar
-
-- Ofereça outras formas de sucção não nutritiva (dedo, mordedor)
-- Use técnicas de conforto alternativas (embalar, ruído branco, shushing)
-- Não se sinta culpado(a) — é uma decisão válida
-
-### Retirando a chupeta
-
-**Antes de 1 ano:** Reduza gradualmente o uso e ofereça apenas para dormir.
-
-**Após 1 ano:** Estratégias como a "fada da chupeta", troca por um presente ou reduzir progressivamente o tempo de uso podem ajudar.
-
-> **Dica:** Se a chupeta está causando despertares noturnos, converse com o Doutor Soneca no chat. A IA pode sugerir estratégias personalizadas para reduzir a dependência sem sofrimento.`,
-  },
-  {
-    id: "17",
-    title: "Amamentação noturna: guia completo",
-    description: "Quando alimentar à noite e quando começar a reduzir",
-    type: "article",
-    duration: "6 min",
-    category: "Alimentação",
-    ageRange: "0-12 meses",
-    content: `## Amamentar à noite é normal
-
-Nos primeiros meses, o bebê **precisa** mamar à noite. O estômago pequeno, o crescimento acelerado e a produção de leite dependem dessas mamadas noturnas. Não é um problema — é biologia.
-
-### Frequência esperada por idade
-
-| Idade | Mamadas noturnas esperadas |
-|-------|---------------------------|
-| 0-1 mês | 3-4 vezes (a cada 2-3h) |
-| 1-3 meses | 2-3 vezes |
-| 3-6 meses | 1-2 vezes |
-| 6-9 meses | 0-1 vez |
-| 9-12 meses | Geralmente desnecessária |
-
-*Valores aproximados — cada bebê tem seu próprio ritmo.*
-
-### Mamada noturna vs. mamada de conforto
-
-É importante distinguir:
-
-**Mamada de fome** 🍼
-- Bebê mama ativamente por 10-20 minutos
-- Suga com ritmo forte e constante
-- Volta a dormir após mamar
-- Fralda está molhada na manhã seguinte
-
-**Mamada de conforto** 😴
-- Suga por 2-5 minutos e para
-- Ritmo lento, mais "chupetando"
-- Acorda novamente pouco tempo depois
-- Usa o peito como chupeta para adormecer
-
-### Dicas para mamadas noturnas mais tranquilas
-
-**Mantenha o ambiente escuro** 🌑
-Use apenas uma luz noturna vermelha ou âmbar. Não acenda luzes brancas — isso inibe a melatonina.
-
-**Minimize a interação** 🤫
-Não fale, não brinque, não troque a fralda (a menos que esteja suja). O objetivo é manter o bebê no "modo sono".
-
-**Posição confortável** 🛋️
-Tenha uma poltrona ou almofada de amamentação pronta. Você também precisa de conforto às 3h da manhã.
-
-**Reveze com o parceiro** 🤝
-Se usar mamadeira ou leite ordenhado, o parceiro pode assumir uma das mamadas para você descansar.
-
-### Quando e como reduzir
-
-**A partir dos 6 meses** (com orientação pediátrica):
-1. Elimine uma mamada por vez, começando pela que o bebê menos precisa
-2. Aumente gradualmente o intervalo entre as mamadas
-3. Ofereça água em vez de leite (após 6 meses)
-4. Peça ao parceiro que acalme o bebê sem oferecer o peito
-
-**Importante:** Nunca elimine mamadas abruptamente se estiver amamentando — isso pode causar ingurgitamento e mastite.
-
-> **Lembre-se:** A OMS recomenda amamentação exclusiva até os 6 meses e complementar até os 2 anos ou mais. Respeite o seu ritmo e o do seu bebê.`,
-  },
-  {
-    id: "18",
-    title: "Sono compartilhado: riscos e alternativas",
-    description: "Entenda o cama compartilhada e como dormir perto do bebê com segurança",
-    type: "article",
-    duration: "6 min",
-    category: "Sono",
-    ageRange: "0-12 meses",
-    content: `## O que é o sono compartilhado?
-
-Sono compartilhado pode significar coisas diferentes:
-
-**Cama compartilhada (bed-sharing):** Bebê dorme na mesma cama que os pais.
-
-**Quarto compartilhado (room-sharing):** Bebê dorme no próprio berço, mas no quarto dos pais.
-
-A Sociedade Brasileira de Pediatria e a Academia Americana de Pediatria **recomendam o quarto compartilhado** e **não recomendam a cama compartilhada** nos primeiros 12 meses.
-
-### Riscos da cama compartilhada
-
-A cama compartilhada está associada a riscos aumentados de:
-
-- **Sufocamento** por travesseiros, cobertores ou corpo do adulto
-- **Queda** da cama
-- **Superaquecimento**
-- **SMSI** (Síndrome da Morte Súbita Infantil)
-
-### Fatores que aumentam o risco
-
-⚠️ Pais fumantes (mesmo que não fumem no quarto)
-⚠️ Uso de álcool, drogas ou medicamentos sedativos
-⚠️ Bebê prematuro ou com baixo peso
-⚠️ Superfície macia (sofá, poltrona, cama d'água)
-⚠️ Cobertores pesados ou muitos travesseiros
-
-### Alternativas seguras
-
-**Berço acoplado (side-car)** 🛏️
-O berço fica junto à cama dos pais, com uma lateral aberta. O bebê está perto, mas em superfície própria e segura. É a melhor alternativa para quem quer proximidade.
-
-**Moisés ou berço no quarto** 🌙
-Coloque o berço ao lado da sua cama. Você ouve o bebê respirar, pode acalmar com a mão e amamentar facilmente.
-
-**Mini-berço portátil** 🧳
-Prático para viagens ou quartos pequenos. Certifique-se de que atende às normas de segurança do INMETRO.
-
-### Se mesmo assim optar pela cama compartilhada
-
-Embora não seja recomendado, se você optar por essa prática:
-
-- Use colchão **firme** e reto (nunca sofá ou poltrona)
-- Remova **todos** os travesseiros e cobertores pesados
-- Bebê deve dormir de **barriga para cima**
-- Cabelo comprido deve ser **preso**
-- Nenhum outro filho ou animal na cama
-- Nunca se o adulto estiver sob efeito de álcool, drogas ou medicamentos
-
-### O quarto compartilhado funciona
-
-Estudos mostram que o quarto compartilhado (sem cama compartilhada) reduz o risco de SMSI em até **50%** e facilita a amamentação noturna.
-
-> **Recomendação:** A SBP recomenda que o bebê durma no quarto dos pais, em berço próprio, pelo menos até os 6 meses — idealmente até 1 ano.`,
-  },
-  {
-    id: "19",
-    title: "Desmame noturno: quando e como",
-    description: "Guia prático para eliminar mamadas da madrugada",
-    type: "article",
-    duration: "5 min",
-    category: "Alimentação",
-    ageRange: "6-12 meses",
-    content: `## O bebê realmente precisa mamar à noite?
-
-A partir dos **6 meses**, a maioria dos bebês saudáveis e com ganho de peso adequado consegue passar a noite sem mamar. Mas isso não significa que todos estejam prontos — e tudo bem.
-
-### Sinais de que o bebê está pronto
-
-- Tem mais de 6 meses e bom ganho de peso
-- Come bem durante o dia (leite + alimentação complementar)
-- As mamadas noturnas são curtas e mais por hábito que por fome
-- Consegue se acalmar sem o peito em outras situações
-
-### Quando NÃO fazer o desmame noturno
-
-❌ Bebê com menos de 6 meses
-❌ Bebê prematuro ou com baixo ganho de peso
-❌ Durante uma regressão de sono ou doença
-❌ Em momentos de grande mudança (mudança de casa, volta ao trabalho)
-❌ Sem orientação do pediatra
-
-### Método gradual (recomendado)
-
-**Semana 1-2: Reduza o tempo**
-Se o bebê mama por 15 minutos, reduza para 12, depois 10, depois 8... até chegar a 3-4 minutos.
-
-**Semana 2-3: Aumente o intervalo**
-Se o bebê acorda às 1h, 3h e 5h, comece eliminando a mamada do meio. Quando acordar, ofereça conforto sem o peito.
-
-**Semana 3-4: Substitua o conforto**
-No lugar do peito, ofereça:
-- Água no copinho
-- Carinho e shushing
-- Tapinhas no bumbum
-- Presença calma ao lado do berço
-
-### Método do parceiro
-
-Uma estratégia eficaz: por uma semana, o **parceiro** assume os despertares noturnos. Sem o cheiro do leite, o bebê tende a parar de pedir mais rapidamente.
-
-### O que esperar
-
-- **Dias 1-3:** Pode haver protesto. É normal.
-- **Dias 4-7:** O bebê começa a se adaptar.
-- **Dias 7-14:** A nova rotina se estabelece.
-
-Nem todas as noites serão lineares. Pode haver retrocessos, especialmente se o bebê ficar doente. Seja flexível, mas mantenha a direção.
-
-### Cuidados com a mãe
-
-Se estiver amamentando, a redução das mamadas noturnas pode causar:
-- Ingurgitamento nos primeiros dias (ordenhe o suficiente para aliviar)
-- Possível redução da produção de leite
-- Emoções intensas — é normal sentir culpa ou saudade
-
-> **Dica:** Registre o progresso na Rotina do Doutor Soneca. Ver a evolução em dados concretos ajuda a manter a motivação nos dias difíceis.`,
-  },
-  {
-    id: "20",
-    title: "Rituais de ninar pelo mundo",
-    description: "Como diferentes culturas colocam os bebês para dormir",
-    type: "article",
-    duration: "4 min",
-    category: "Rotina",
-    ageRange: "Todos",
-    content: `## Cada cultura tem sua sabedoria
-
-Não existe uma única forma "certa" de colocar um bebê para dormir. Ao redor do mundo, famílias usam rituais diferentes — e todos funcionam dentro do seu contexto. Conhecer essas tradições pode trazer novas ideias e, principalmente, **alívio** para quem acha que está fazendo errado.
-
-### Japão: o sono coletivo 🇯🇵
-
-No Japão, é comum a prática do **"kawanoji"** — a família inteira dorme junta no futón, no chão. O bebê fica entre os pais, formando o ideograma de "rio" (川). Dormir junto é visto como parte do vínculo familiar, e as crianças costumam dormir com os pais até os 6-7 anos.
-
-### Escandinávia: sono ao ar livre 🇸🇪🇳🇴🇫🇮
-
-Na Suécia, Noruega e Finlândia, os pais deixam os bebês cochilarem **ao ar livre** no carrinho, mesmo no inverno (com agasalho adequado). Acredita-se que o ar fresco melhora a qualidade do sono e fortalece o sistema imunológico. Os cochilos ao ar livre podem durar de 1 a 3 horas.
-
-### Bali: sem tocar o chão 🇮🇩
-
-Na cultura balinesa, o bebê **não toca o chão** nos primeiros 105 dias de vida. Ele é carregado o tempo todo — por pais, avós, tios. Dorme no colo, na tipoia, sempre em contato humano. A cerimônia de "tocar o chão" marca um rito de passagem importante.
-
-### Quênia: cantar e embalar 🇰🇪
-
-Em muitas comunidades do Quênia, as mães cantam canções específicas para ninar, passadas de geração em geração. O ritmo da canção é lento e repetitivo, similar a uma batida cardíaca. O bebê é embalado no colo ou nas costas com um tecido chamado **kanga**.
-
-### Brasil: a rede de dormir 🇧🇷
-
-No Norte e Nordeste do Brasil, a **rede** é o berço natural. O balanço suave e o "abraço" do tecido simulam a sensação do útero. Muitas mães relatam que o bebê dorme mais rápido e por mais tempo na rede do que no berço convencional.
-
-### O que podemos aprender
-
-| Cultura | Lição para nós |
-|---------|---------------|
-| Japão | Proximidade gera segurança |
-| Escandinávia | Ar fresco e natureza ajudam |
-| Bali | Contato humano é essencial |
-| Quênia | A voz da mãe/pai acalma |
-| Brasil | O balanço imita o útero |
-
-### O ponto em comum
-
-Apesar das diferenças enormes, **todos os rituais compartilham algo**: presença, repetição e afeto. Não importa se é no futón, na rede ou no berço — o que embala o bebê para dormir é o amor.
-
-> **Reflexão:** Não existe método perfeito. O melhor ritual é aquele que funciona para a **sua** família. Se precisar de ajuda para encontrar o seu, converse com o Doutor Soneca.`,
-  },
+> **Tip:** If the baby starts waking up more after starting solids, check if dinner is too close to bedtime or if any specific food caused discomfort.`,
+  }
 ];

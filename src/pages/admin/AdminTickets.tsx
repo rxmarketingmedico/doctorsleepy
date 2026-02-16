@@ -10,9 +10,9 @@ import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
 const statusConfig: Record<string, { label: string; icon: typeof Clock; variant: "default" | "secondary" | "outline" | "destructive" }> = {
-  open: { label: "Aberto", icon: AlertCircle, variant: "destructive" },
-  in_progress: { label: "Em andamento", icon: Clock, variant: "default" },
-  resolved: { label: "Resolvido", icon: CheckCircle2, variant: "secondary" },
+  open: { label: "Open", icon: AlertCircle, variant: "destructive" },
+  in_progress: { label: "In progress", icon: Clock, variant: "default" },
+  resolved: { label: "Resolved", icon: CheckCircle2, variant: "secondary" },
 };
 
 export default function AdminTickets() {
@@ -31,7 +31,6 @@ export default function AdminTickets() {
         .select("*")
         .order("updated_at", { ascending: false });
       if (error) throw error;
-      // fetch user emails
       const userIds = [...new Set(data.map(t => t.user_id))];
       const emailMap: Record<string, string> = {};
       for (const uid of userIds) {
@@ -61,7 +60,6 @@ export default function AdminTickets() {
     enabled: !!selectedTicket,
   });
 
-  // Realtime
   useEffect(() => {
     const channel = supabase
       .channel("admin-tickets-realtime")
@@ -87,7 +85,6 @@ export default function AdminTickets() {
         .insert({ ticket_id: selectedTicket, sender_id: user.id, content: reply.trim(), is_admin: true });
       if (error) throw error;
 
-      // Update ticket status to in_progress if it was open
       const ticket = tickets?.find(t => t.id === selectedTicket);
       if (ticket?.status === "open") {
         await supabase.from("support_tickets").update({ status: "in_progress" }).eq("id", selectedTicket);
@@ -97,7 +94,7 @@ export default function AdminTickets() {
       setReply("");
       refetchMessages();
     } catch (e: any) {
-      toast({ title: "Erro", description: e.message, variant: "destructive" });
+      toast({ title: "Error", description: e.message, variant: "destructive" });
     } finally {
       setSending(false);
     }
@@ -114,7 +111,7 @@ export default function AdminTickets() {
     <div className="space-y-4">
       <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
         <MessageCircle className="w-5 h-5 text-primary" />
-        Tickets de Suporte
+        Support Tickets
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 min-h-[500px]">
@@ -145,13 +142,13 @@ export default function AdminTickets() {
                     </Badge>
                   </div>
                   <p className="text-[10px] text-muted-foreground mt-1">
-                    {new Date(ticket.updated_at).toLocaleDateString("pt-BR")}
+                    {new Date(ticket.updated_at).toLocaleDateString("en-US")}
                   </p>
                 </button>
               );
             })}
             {(!tickets || tickets.length === 0) && (
-              <p className="text-sm text-muted-foreground text-center py-8">Nenhum ticket</p>
+              <p className="text-sm text-muted-foreground text-center py-8">No tickets found</p>
             )}
           </div>
         </div>
@@ -168,12 +165,12 @@ export default function AdminTickets() {
                 <div className="flex gap-1">
                   {selectedTicketData.status !== "resolved" && (
                     <Button size="sm" variant="outline" onClick={() => handleStatusChange(selectedTicket, "resolved")} className="text-xs gap-1">
-                      <CheckCircle2 className="w-3 h-3" /> Resolver
+                      <CheckCircle2 className="w-3 h-3" /> Resolve
                     </Button>
                   )}
                   {selectedTicketData.status === "resolved" && (
                     <Button size="sm" variant="outline" onClick={() => handleStatusChange(selectedTicket, "open")} className="text-xs">
-                      Reabrir
+                      Reopen
                     </Button>
                   )}
                 </div>
@@ -188,11 +185,11 @@ export default function AdminTickets() {
                         ? "bg-primary text-primary-foreground rounded-br-md"
                         : "bg-muted text-foreground rounded-bl-md"
                     )}>
-                      {!msg.is_admin && <p className="text-xs font-semibold mb-1 opacity-70">Usuário</p>}
-                      {msg.is_admin && <p className="text-xs font-semibold mb-1 opacity-70">Você (Admin)</p>}
+                      {!msg.is_admin && <p className="text-xs font-semibold mb-1 opacity-70">User</p>}
+                      {msg.is_admin && <p className="text-xs font-semibold mb-1 opacity-70">You (Admin)</p>}
                       <p className="whitespace-pre-wrap">{msg.content}</p>
                       <p className={cn("text-[10px] mt-1", msg.is_admin ? "text-primary-foreground/70" : "text-muted-foreground")}>
-                        {new Date(msg.created_at).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}
+                        {new Date(msg.created_at).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}
                       </p>
                     </div>
                   </div>
@@ -204,7 +201,7 @@ export default function AdminTickets() {
                 <Textarea
                   value={reply}
                   onChange={(e) => setReply(e.target.value)}
-                  placeholder="Responder..."
+                  placeholder="Reply..."
                   className="min-h-[44px] max-h-[100px] resize-none"
                   rows={1}
                   maxLength={1000}
@@ -222,7 +219,7 @@ export default function AdminTickets() {
             </>
           ) : (
             <div className="flex-1 flex items-center justify-center text-muted-foreground text-sm">
-              Selecione um ticket para visualizar
+              Select a ticket to view
             </div>
           )}
         </div>

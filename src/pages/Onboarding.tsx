@@ -36,64 +36,64 @@ interface OnboardingData {
 const totalSteps = 14;
 
 const benefits = [
-  { icon: Brain, title: "IA Especializada", description: "Orientações personalizadas baseadas na idade e hábitos do seu bebê" },
-  { icon: Moon, title: "Tradutor de Choro", description: "Entenda o que seu bebê está tentando comunicar" },
-  { icon: Clock, title: "Rotina Inteligente", description: "Acompanhe padrões de sono e receba previsões" },
-  { icon: Star, title: "Modo Emergência", description: "Ajuda rápida quando você mais precisa, 24h" },
+  { icon: Brain, title: "Specialized AI", description: "Personalized guidance based on your baby's age and habits" },
+  { icon: Moon, title: "Cry Translator", description: "Understand what your baby is trying to communicate" },
+  { icon: Clock, title: "Smart Routine", description: "Track sleep patterns and receive predictions" },
+  { icon: Star, title: "Emergency Mode", description: "Quick help when you need it most, 24/7" },
 ];
 
 const experienceOptions = [
-  { value: "none", label: "Nenhuma experiência", description: "É minha primeira vez cuidando de um bebê" },
-  { value: "some", label: "Alguma experiência", description: "Já ajudei com sobrinhos, afilhados ou trabalho" },
-  { value: "experienced", label: "Experiência com outros filhos", description: "Já tenho outros filhos" },
+  { value: "none", label: "No experience", description: "It's my first time caring for a baby" },
+  { value: "some", label: "Some experience", description: "I've helped with nephews, godchildren, or work" },
+  { value: "experienced", label: "Experienced with other children", description: "I already have other children" },
 ];
 
 const concernOptions = [
-  { value: "sleep", label: "Sono do bebê" },
-  { value: "feeding", label: "Alimentação" },
-  { value: "crying", label: "Choro excessivo" },
-  { value: "development", label: "Desenvolvimento" },
-  { value: "routine", label: "Criar rotina" },
-  { value: "health", label: "Saúde geral" },
+  { value: "sleep", label: "Baby sleep" },
+  { value: "feeding", label: "Feeding" },
+  { value: "crying", label: "Excessive crying" },
+  { value: "development", label: "Development" },
+  { value: "routine", label: "Creating a routine" },
+  { value: "health", label: "General health" },
 ];
 
 const sleepLocations = [
-  { value: "crib", label: "Berço no quarto dos pais" },
-  { value: "own-room", label: "Berço no próprio quarto" },
-  { value: "co-sleep", label: "Cama compartilhada" },
-  { value: "bassinet", label: "Moisés" },
+  { value: "crib", label: "Crib in parents' room" },
+  { value: "own-room", label: "Crib in own room" },
+  { value: "co-sleep", label: "Co-sleeping" },
+  { value: "bassinet", label: "Bassinet" },
 ];
 
 const nightFeedingOptions = [
-  { value: "0", label: "Nenhuma" },
-  { value: "1-2", label: "1 a 2 vezes" },
-  { value: "3-4", label: "3 a 4 vezes" },
-  { value: "5+", label: "5 ou mais vezes" },
+  { value: "0", label: "None" },
+  { value: "1-2", label: "1 to 2 times" },
+  { value: "3-4", label: "3 to 4 times" },
+  { value: "5+", label: "5 or more times" },
 ];
 
 const feedingTypeOptions = [
-  { value: "breastfeeding", label: "Amamentação exclusiva", description: "Apenas leite materno" },
-  { value: "formula", label: "Fórmula", description: "Apenas fórmula infantil" },
-  { value: "mixed", label: "Misto", description: "Leite materno + fórmula" },
-  { value: "solids", label: "Já come sólidos", description: "Introdução alimentar iniciada" },
+  { value: "breastfeeding", label: "Exclusive breastfeeding", description: "Only breast milk" },
+  { value: "formula", label: "Formula", description: "Infant formula only" },
+  { value: "mixed", label: "Mixed", description: "Breast milk + formula" },
+  { value: "solids", label: "Solids introduced", description: "Already started solid foods" },
 ];
 
 const bedtimeOptions = [
-  { value: "before-19", label: "Antes das 19h" },
-  { value: "19-20", label: "Entre 19h e 20h" },
-  { value: "20-21", label: "Entre 20h e 21h" },
-  { value: "21-22", label: "Entre 21h e 22h" },
-  { value: "after-22", label: "Depois das 22h" },
-  { value: "irregular", label: "Não tem horário fixo" },
+  { value: "before-19", label: "Before 7 PM" },
+  { value: "19-20", label: "Between 7 PM and 8 PM" },
+  { value: "20-21", label: "Between 8 PM and 9 PM" },
+  { value: "21-22", label: "Between 9 PM and 10 PM" },
+  { value: "after-22", label: "After 10 PM" },
+  { value: "irregular", label: "No fixed schedule" },
 ];
 
 const specialConditionOptions = [
-  { value: "reflux", label: "Refluxo" },
-  { value: "colic", label: "Cólicas intensas" },
-  { value: "premature", label: "Prematuro" },
-  { value: "allergy", label: "Alergia alimentar" },
-  { value: "dermatitis", label: "Dermatite" },
-  { value: "none", label: "Nenhuma" },
+  { value: "reflux", label: "Reflux" },
+  { value: "colic", label: "Severe colic" },
+  { value: "premature", label: "Premature" },
+  { value: "allergy", label: "Food allergy" },
+  { value: "dermatitis", label: "Dermatitis" },
+  { value: "none", label: "None" },
 ];
 
 export default function Onboarding() {
@@ -134,8 +134,6 @@ export default function Onboarding() {
     }
   };
 
-
-
   const toggleItems = (field: 'mainConcerns' | 'specialConditions', value: string) => {
     setData(prev => ({
       ...prev,
@@ -175,14 +173,14 @@ export default function Onboarding() {
       if (error) throw error;
 
       toast({
-        title: "Bem-vindo ao Doutor Soneca! 🌙",
-        description: "Sua jornada para noites mais tranquilas começa agora.",
+        title: "Welcome to Dr. Sleepy! 🌙",
+        description: "Your journey to peaceful nights starts now.",
       });
       navigate("/");
     } catch (error: any) {
       toast({
-        title: "Erro",
-        description: error.message || "Ocorreu um erro. Tente novamente.",
+        title: "Error",
+        description: error.message || "An error occurred. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -192,58 +190,58 @@ export default function Onboarding() {
 
   const isStepValid = () => {
     switch (currentStep) {
-      case 1: return true; // Boas-vindas
-      case 2: return true; // Benefícios
+      case 1: return true;
+      case 2: return true;
       case 3: return data.parentName.trim().length > 0;
       case 4: return data.isFirstChild !== "";
       case 5: return data.parentExperience !== "";
       case 6: return data.babyName.trim().length > 0;
-      case 7: return true; // Data de nascimento (opcional)
-      case 8: return data.feedingType !== ""; // Tipo de alimentação
+      case 7: return true;
+      case 8: return data.feedingType !== "";
       case 9: return data.sleepLocation !== "";
       case 10: return data.usesPacifier !== "";
       case 11: return data.nightFeedings !== "";
-      case 12: return data.usualBedtime !== ""; // Horário de dormir
-      case 13: return true; // Desafio principal (opcional)
-      case 14: return data.acceptedTerms; // Condições especiais + Termos
+      case 12: return data.usualBedtime !== "";
+      case 13: return true;
+      case 14: return data.acceptedTerms;
       default: return false;
     }
   };
 
   const renderStep = () => {
     switch (currentStep) {
-      // Step 1: Boas-vindas
+      // Step 1: Welcome
       case 1:
         return (
           <div className="flex flex-col items-center text-center space-y-6">
             <Avatar size="xl" state="idle" />
             <div className="space-y-3">
               <h1 className="text-3xl font-bold text-foreground">
-                Olá! Eu sou o<br />Doutor Soneca 🌙
+                Hello! I am<br />Dr. Sleepy 🌙
               </h1>
               <p className="text-lg text-muted-foreground">
-                Seu assistente de sono infantil com inteligência artificial.
+                Your AI-powered baby sleep assistant.
               </p>
             </div>
             <div className="bg-secondary/50 rounded-2xl p-6 max-w-sm">
               <p className="text-foreground">
-                Vou te ajudar a entender o choro do seu bebê, criar rotinas de sono 
-                e ter noites mais tranquilas para toda a família.
+                I'll help you understand your baby's cry, create sleep routines, 
+                and have more peaceful nights for the whole family.
               </p>
             </div>
           </div>
         );
 
-      // Step 2: Benefícios
+      // Step 2: Benefits
       case 2:
         return (
           <div className="space-y-6">
             <div className="text-center">
               <h2 className="text-2xl font-bold text-foreground">
-                O que você vai ter acesso
+                What you'll get access to
               </h2>
               <p className="text-muted-foreground mt-2">
-                Tudo que você precisa para noites mais tranquilas
+                Everything you need for peaceful nights
               </p>
             </div>
             <div className="grid gap-4">
@@ -264,7 +262,7 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 3: Nome do responsável
+      // Step 3: Parent Name
       case 3:
         return (
           <div className="space-y-6">
@@ -273,17 +271,17 @@ export default function Onboarding() {
                 <Users className="w-8 h-8 text-primary" />
               </div>
               <h2 className="text-2xl font-bold text-foreground">
-                Vamos nos conhecer melhor
+                Let's get to know each other better
               </h2>
               <p className="text-muted-foreground mt-2">
-                Como posso te chamar?
+                What should I call you?
               </p>
             </div>
             <div className="space-y-4">
-              <Label htmlFor="parentName" className="text-lg">Seu nome</Label>
+              <Label htmlFor="parentName" className="text-lg">Your name</Label>
               <Input
                 id="parentName"
-                placeholder="Ex: Maria, João..."
+                placeholder="E.g.: Mary, John..."
                 value={data.parentName}
                 onChange={(e) => setData({ ...data, parentName: e.target.value })}
                 className="h-14 rounded-2xl text-lg"
@@ -292,7 +290,7 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 4: Primeiro filho
+      // Step 4: First Child
       case 4:
         return (
           <div className="space-y-6">
@@ -301,10 +299,10 @@ export default function Onboarding() {
                 <Baby className="w-8 h-8 text-primary" />
               </div>
               <h2 className="text-2xl font-bold text-foreground">
-                {data.parentName ? `${data.parentName}, ` : ""}Este é seu primeiro filho(a)?
+                {data.parentName ? `${data.parentName}, ` : ""}Is this your first child?
               </h2>
               <p className="text-muted-foreground mt-2">
-                Isso me ajuda a personalizar as orientações
+                This helps me personalize the guidance
               </p>
             </div>
             <RadioGroup
@@ -318,7 +316,7 @@ export default function Onboarding() {
               >
                 <RadioGroupItem value="yes" id="first-yes" />
                 <Label htmlFor="first-yes" className="text-base cursor-pointer flex-1">
-                  Sim, é meu primeiro filho(a)
+                  Yes, it's my first child
                 </Label>
               </div>
               <div
@@ -327,23 +325,23 @@ export default function Onboarding() {
               >
                 <RadioGroupItem value="no" id="first-no" />
                 <Label htmlFor="first-no" className="text-base cursor-pointer flex-1">
-                  Não, já tenho outros filhos
+                  No, I have other children
                 </Label>
               </div>
             </RadioGroup>
           </div>
         );
 
-      // Step 5: Experiência
+      // Step 5: Experience
       case 5:
         return (
           <div className="space-y-6">
             <div className="text-center">
               <h2 className="text-2xl font-bold text-foreground">
-                Qual sua experiência com bebês?
+                What is your experience with babies?
               </h2>
               <p className="text-muted-foreground mt-2">
-                Assim posso adaptar a linguagem das orientações
+                So I can adapt the guidance language
               </p>
             </div>
             <RadioGroup
@@ -368,10 +366,10 @@ export default function Onboarding() {
               ))}
             </RadioGroup>
 
-            {/* Rede de apoio */}
+            {/* Support Network */}
             <div className="pt-4 border-t border-border">
               <p className="text-base font-medium text-foreground mb-3">
-                Você tem uma rede de apoio?
+                Do you have a support network?
               </p>
               <RadioGroup
                 value={data.hasSupportNetwork}
@@ -383,25 +381,25 @@ export default function Onboarding() {
                   onClick={() => setData({ ...data, hasSupportNetwork: "yes" })}
                 >
                   <RadioGroupItem value="yes" id="support-yes" />
-                  <Label htmlFor="support-yes" className="cursor-pointer">Sim</Label>
+                  <Label htmlFor="support-yes" className="cursor-pointer">Yes</Label>
                 </div>
                 <div
                   className="flex-1 flex items-center justify-center space-x-2 p-3 rounded-xl border-2 border-border hover:border-primary transition-colors cursor-pointer"
                   onClick={() => setData({ ...data, hasSupportNetwork: "no" })}
                 >
                   <RadioGroupItem value="no" id="support-no" />
-                  <Label htmlFor="support-no" className="cursor-pointer">Não</Label>
+                  <Label htmlFor="support-no" className="cursor-pointer">No</Label>
                 </div>
               </RadioGroup>
               <p className="text-xs text-muted-foreground mt-2 text-center">
-                Família, amigos ou profissionais que ajudam nos cuidados
+                Family, friends, or professionals who help with care
               </p>
             </div>
 
-            {/* Principais preocupações */}
+            {/* Main Concerns */}
             <div className="pt-4 border-t border-border">
               <p className="text-base font-medium text-foreground mb-3">
-                Quais suas principais preocupações? (opcional)
+                What are your main concerns? (optional)
               </p>
               <div className="flex flex-wrap gap-2">
                 {concernOptions.map((concern) => (
@@ -423,23 +421,23 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 6: Nome do bebê
+      // Step 6: Baby Name
       case 6:
         return (
           <div className="space-y-6">
             <div className="text-center">
               <h2 className="text-2xl font-bold text-foreground">
-                Agora me conta sobre seu bebê
+                Now tell me about your baby
               </h2>
               <p className="text-muted-foreground mt-2">
-                Como você chama seu pequeno?
+                What do you call your little one?
               </p>
             </div>
             <div className="space-y-4">
-              <Label htmlFor="babyName" className="text-lg">Nome do bebê</Label>
+              <Label htmlFor="babyName" className="text-lg">Baby's name</Label>
               <Input
                 id="babyName"
-                placeholder="Ex: Maria, João..."
+                placeholder="E.g.: Mary, John..."
                 value={data.babyName}
                 onChange={(e) => setData({ ...data, babyName: e.target.value })}
                 className="h-14 rounded-2xl text-lg"
@@ -448,20 +446,20 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 7: Data de nascimento
+      // Step 7: Birth Date
       case 7:
         return (
           <div className="space-y-6">
             <div className="text-center">
               <h2 className="text-2xl font-bold text-foreground">
-                Quando {data.babyName || "o bebê"} nasceu?
+                When was {data.babyName || "the baby"} born?
               </h2>
               <p className="text-muted-foreground mt-2">
-                Isso me ajuda a dar orientações específicas para a idade
+                This helps me give age-specific advice
               </p>
             </div>
             <div className="space-y-4">
-              <Label htmlFor="birthDate" className="text-lg">Data de nascimento</Label>
+              <Label htmlFor="birthDate" className="text-lg">Date of birth</Label>
               <Input
                 id="birthDate"
                 type="date"
@@ -470,22 +468,22 @@ export default function Onboarding() {
                 className="h-14 rounded-2xl text-lg"
               />
               <p className="text-sm text-muted-foreground text-center">
-                Este campo é opcional
+                This field is optional
               </p>
             </div>
           </div>
         );
 
-      // Step 8: Tipo de alimentação (NEW)
+      // Step 8: Feeding Type
       case 8:
         return (
           <div className="space-y-6">
             <div className="text-center">
               <h2 className="text-2xl font-bold text-foreground">
-                Como {data.babyName || "o bebê"} se alimenta?
+                How does {data.babyName || "the baby"} feed?
               </h2>
               <p className="text-muted-foreground mt-2">
-                O tipo de alimentação influencia o sono e as orientações
+                Feeding type influences sleep and advice
               </p>
             </div>
             <RadioGroup
@@ -512,16 +510,16 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 9: Local de sono
+      // Step 9: Sleep Location
       case 9:
         return (
           <div className="space-y-6">
             <div className="text-center">
               <h2 className="text-2xl font-bold text-foreground">
-                Onde {data.babyName || "o bebê"} dorme?
+                Where does {data.babyName || "the baby"} sleep?
               </h2>
               <p className="text-muted-foreground mt-2">
-                Cada ambiente tem suas particularidades
+                Each environment has its particularities
               </p>
             </div>
             <RadioGroup
@@ -545,16 +543,16 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 10: Chupeta
+      // Step 10: Pacifier
       case 10:
         return (
           <div className="space-y-6">
             <div className="text-center">
               <h2 className="text-2xl font-bold text-foreground">
-                {data.babyName || "O bebê"} usa chupeta?
+                Does {data.babyName || "the baby"} use a pacifier?
               </h2>
               <p className="text-muted-foreground mt-2">
-                A chupeta pode influenciar no sono
+                The pacifier can influence sleep
               </p>
             </div>
             <RadioGroup
@@ -568,7 +566,7 @@ export default function Onboarding() {
               >
                 <RadioGroupItem value="yes" id="pacifier-yes" />
                 <Label htmlFor="pacifier-yes" className="text-base cursor-pointer flex-1">
-                  Sim, usa chupeta
+                  Yes, uses a pacifier
                 </Label>
               </div>
               <div
@@ -577,23 +575,23 @@ export default function Onboarding() {
               >
                 <RadioGroupItem value="no" id="pacifier-no" />
                 <Label htmlFor="pacifier-no" className="text-base cursor-pointer flex-1">
-                  Não usa chupeta
+                  No, does not use a pacifier
                 </Label>
               </div>
             </RadioGroup>
           </div>
         );
 
-      // Step 11: Mamadas noturnas
+      // Step 11: Night Feedings
       case 11:
         return (
           <div className="space-y-6">
             <div className="text-center">
               <h2 className="text-2xl font-bold text-foreground">
-                Mamadas noturnas
+                Night feedings
               </h2>
               <p className="text-muted-foreground mt-2">
-                Quantas vezes {data.babyName || "o bebê"} mama à noite?
+                How many times does {data.babyName || "the baby"} feed at night?
               </p>
             </div>
             <RadioGroup
@@ -617,7 +615,7 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 12: Horário habitual de dormir (NEW)
+      // Step 12: Usual Bedtime
       case 12:
         return (
           <div className="space-y-6">
@@ -626,10 +624,10 @@ export default function Onboarding() {
                 <Clock className="w-8 h-8 text-primary" />
               </div>
               <h2 className="text-2xl font-bold text-foreground">
-                A que horas {data.babyName || "o bebê"} costuma dormir?
+                What time does {data.babyName || "the baby"} usually go to sleep?
               </h2>
               <p className="text-muted-foreground mt-2">
-                Saber o horário me ajuda a calibrar as janelas de sono
+                Knowing the time helps me calibrate wake windows
               </p>
             </div>
             <RadioGroup
@@ -653,7 +651,7 @@ export default function Onboarding() {
           </div>
         );
 
-      // Step 13: Principal desafio atual (NEW)
+      // Step 13: Main Challenge
       case 13:
         return (
           <div className="space-y-6">
@@ -662,37 +660,37 @@ export default function Onboarding() {
                 <Heart className="w-8 h-8 text-primary" />
               </div>
               <h2 className="text-2xl font-bold text-foreground">
-                Qual o maior desafio hoje?
+                What is the biggest challenge today?
               </h2>
               <p className="text-muted-foreground mt-2">
-                Descreva em poucas palavras para eu priorizar o que é mais urgente
+                Describe in a few words so I can prioritize what is most urgent
               </p>
             </div>
             <div className="space-y-4">
               <Input
                 id="mainChallenge"
-                placeholder="Ex: demora pra dormir, acorda 5x por noite..."
+                placeholder="E.g.: takes long to fall asleep, wakes 5x per night..."
                 value={data.mainChallenge}
                 onChange={(e) => setData({ ...data, mainChallenge: e.target.value })}
                 className="h-14 rounded-2xl text-lg"
               />
               <p className="text-sm text-muted-foreground text-center">
-                Este campo é opcional
+                This field is optional
               </p>
             </div>
           </div>
         );
 
-      // Step 14: Condições especiais + Termos (NEW)
+      // Step 14: Special Conditions + Terms
       case 14:
         return (
           <div className="space-y-6">
             <div className="text-center">
               <h2 className="text-2xl font-bold text-foreground">
-                {data.babyName || "O bebê"} tem alguma condição especial?
+                Does {data.babyName || "the baby"} have any special condition?
               </h2>
               <p className="text-muted-foreground mt-2">
-                Isso muda as recomendações de sono e alimentação
+                This changes sleep and feeding recommendations
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -722,7 +720,7 @@ export default function Onboarding() {
               ))}
             </div>
 
-            {/* Termos de uso */}
+            {/* Terms of use */}
             <div className="pt-4 border-t border-border">
               <div className="flex items-start space-x-3 p-4 rounded-2xl bg-muted/50">
                 <Checkbox
@@ -734,9 +732,9 @@ export default function Onboarding() {
                   className="mt-1"
                 />
                 <Label htmlFor="terms" className="text-sm cursor-pointer leading-relaxed">
-                  Entendo que o Doutor Soneca oferece <strong>orientações gerais</strong> e 
-                  <strong> não substitui aconselhamento médico</strong>. Em caso de dúvidas 
-                  sobre a saúde do meu bebê, devo consultar um profissional de saúde.
+                  I understand that Dr. Sleepy offers <strong>general guidance</strong> and 
+                  <strong> does not replace medical advice</strong>. In case of doubts 
+                  about my baby's health, I should consult a health professional.
                 </Label>
               </div>
             </div>
@@ -749,8 +747,8 @@ export default function Onboarding() {
   };
 
   const getButtonLabel = () => {
-    if (currentStep === totalSteps) return loading ? "Salvando..." : "Começar a usar";
-    return "Próximo";
+    if (currentStep === totalSteps) return loading ? "Saving..." : "Start using";
+    return "Next";
   };
 
   return (
@@ -759,7 +757,7 @@ export default function Onboarding() {
       <header className="px-4 py-4">
         <Progress value={progress} className="h-2 rounded-full" />
         <p className="text-sm text-muted-foreground text-center mt-2">
-          Passo {currentStep} de {totalSteps}
+          Step {currentStep} of {totalSteps}
         </p>
       </header>
 
@@ -777,7 +775,7 @@ export default function Onboarding() {
               className="flex-1 h-14 rounded-2xl text-lg"
             >
               <ChevronLeft className="w-5 h-5 mr-2" />
-              Voltar
+              Back
             </Button>
           )}
           {currentStep < totalSteps ? (

@@ -73,14 +73,14 @@ export default function AdminUsers() {
     try {
       if (currentRole === "admin") {
         await supabase.from("user_roles").delete().eq("user_id", userId).eq("role", "admin");
-        toast({ title: "Admin removido", description: "Permissão de administrador removida." });
+        toast({ title: "Admin removed", description: "Administrator permission removed." });
       } else {
         await supabase.from("user_roles").insert({ user_id: userId, role: "admin" as any });
-        toast({ title: "Admin adicionado", description: "Permissão de administrador concedida." });
+        toast({ title: "Admin added", description: "Administrator permission granted." });
       }
       fetchData();
     } catch (error: any) {
-      toast({ title: "Erro", description: error.message, variant: "destructive" });
+      toast({ title: "Error", description: error.message, variant: "destructive" });
     }
   };
 
@@ -93,24 +93,23 @@ export default function AdminUsers() {
         .eq("user_id", userId);
       if (error) throw error;
       toast({
-        title: newStatus === "blocked" ? "Acesso bloqueado" : "Acesso liberado",
-        description: newStatus === "blocked" ? "Usuário bloqueado com sucesso." : "Acesso do usuário liberado.",
+        title: newStatus === "blocked" ? "Access blocked" : "Access granted",
+        description: newStatus === "blocked" ? "User blocked successfully." : "User access granted.",
       });
       fetchData();
     } catch (error: any) {
-      toast({ title: "Erro", description: error.message, variant: "destructive" });
+      toast({ title: "Error", description: error.message, variant: "destructive" });
     }
   };
 
   const deleteUser = async (userId: string) => {
     try {
-      // Delete profile (cascade will handle related data)
       const { error } = await supabase.from("profiles").delete().eq("user_id", userId);
       if (error) throw error;
-      toast({ title: "Usuário removido", description: "Perfil do usuário removido com sucesso." });
+      toast({ title: "User removed", description: "User profile removed successfully." });
       fetchData();
     } catch (error: any) {
-      toast({ title: "Erro", description: error.message, variant: "destructive" });
+      toast({ title: "Error", description: error.message, variant: "destructive" });
     }
   };
 
@@ -130,15 +129,15 @@ export default function AdminUsers() {
           <ArrowLeft className="w-5 h-5" />
         </Button>
         <div>
-          <h1 className="text-xl font-bold text-foreground">Usuários</h1>
-          <p className="text-sm text-muted-foreground">{users.length} cadastrados</p>
+          <h1 className="text-xl font-bold text-foreground">Users</h1>
+          <p className="text-sm text-muted-foreground">{users.length} registered</p>
         </div>
       </div>
 
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
         <Input
-          placeholder="Buscar por nome..."
+          placeholder="Search by name..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="pl-10 rounded-xl"
@@ -146,7 +145,7 @@ export default function AdminUsers() {
       </div>
 
       {loading ? (
-        <p className="text-center text-muted-foreground py-8">Carregando...</p>
+        <p className="text-center text-muted-foreground py-8">Loading...</p>
       ) : (
         <div className="space-y-3">
           {filtered.map((user) => {
@@ -160,7 +159,7 @@ export default function AdminUsers() {
                       <div className="flex items-center gap-3 min-w-0">
                         <div className="text-left min-w-0">
                           <p className="font-semibold text-foreground truncate">
-                            {user.parent_name || "Sem nome"}
+                            {user.parent_name || "No name"}
                           </p>
                           <span className="text-xs text-muted-foreground">{user.baby_name || "—"}</span>
                         </div>
@@ -168,7 +167,7 @@ export default function AdminUsers() {
                       <div className="flex items-center gap-2 shrink-0">
                         {role === "admin" && <Badge variant="default" className="text-[10px]">Admin</Badge>}
                         <Badge variant={isBlocked ? "destructive" : user.subscription_status === "active" ? "default" : "secondary"} className="text-[10px]">
-                          {isBlocked ? "Bloqueado" : user.subscription_status === "active" ? "Ativo" : user.subscription_status === "expired" ? "Expirado" : "Pendente"}
+                          {isBlocked ? "Blocked" : user.subscription_status === "active" ? "Active" : user.subscription_status === "expired" ? "Expired" : "Pending"}
                         </Badge>
                         {user.last_access_at ? (
                           <CircleDot className="w-3 h-3 text-green-500" />
@@ -187,7 +186,7 @@ export default function AdminUsers() {
                         <span>{user.baby_name || "—"}</span>
                         {user.baby_birth_date && (
                           <span className="text-xs">
-                            ({new Date(user.baby_birth_date).toLocaleDateString("pt-BR")})
+                            ({new Date(user.baby_birth_date).toLocaleDateString("en-US")})
                           </span>
                         )}
                       </div>
@@ -195,34 +194,34 @@ export default function AdminUsers() {
                       <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-muted-foreground">
                         <div className="flex items-center gap-1">
                           <CreditCard className="w-3 h-3" />
-                          <span>Plano: <span className="text-foreground font-medium">{user.subscription_plan ? user.subscription_plan.charAt(0).toUpperCase() + user.subscription_plan.slice(1) : "—"}</span></span>
+                          <span>Plan: <span className="text-foreground font-medium">{user.subscription_plan ? user.subscription_plan.charAt(0).toUpperCase() + user.subscription_plan.slice(1) : "—"}</span></span>
                         </div>
                         <div className="flex items-center gap-1">
                           <Calendar className="w-3 h-3" />
-                          <span>Cadastro: <span className="text-foreground font-medium">{new Date(user.created_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" })}</span></span>
+                          <span>Registered: <span className="text-foreground font-medium">{new Date(user.created_at).toLocaleDateString("en-US", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" })}</span></span>
                         </div>
                         {user.subscription_expires_at && (
                           <div className="flex items-center gap-1 col-span-2">
                             <Calendar className="w-3 h-3" />
-                            <span>Expira: <span className="text-foreground font-medium">{new Date(user.subscription_expires_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" })}</span></span>
+                            <span>Expires: <span className="text-foreground font-medium">{new Date(user.subscription_expires_at).toLocaleDateString("en-US", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" })}</span></span>
                           </div>
                         )}
                         {user.buyer_phone && (
                           <div className="flex items-center gap-1 col-span-2">
                             <Phone className="w-3 h-3" />
-                            <span>Telefone: <span className="text-foreground font-medium">{user.buyer_phone}</span></span>
+                            <span>Phone: <span className="text-foreground font-medium">{user.buyer_phone}</span></span>
                           </div>
                         )}
                         {user.last_access_at && (
                           <div className="flex items-center gap-1 col-span-2">
                             <LogIn className="w-3 h-3" />
-                            <span>Último acesso: <span className="text-foreground font-medium">{new Date(user.last_access_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" })}</span></span>
+                            <span>Last access: <span className="text-foreground font-medium">{new Date(user.last_access_at).toLocaleDateString("en-US", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" })}</span></span>
                           </div>
                         )}
                         {user.hotmart_transaction_id && (
                           <div className="flex items-center gap-1 col-span-2">
                             <CreditCard className="w-3 h-3" />
-                            <span>Transação: <span className="text-foreground font-medium text-[10px]">{user.hotmart_transaction_id}</span></span>
+                            <span>Transaction: <span className="text-foreground font-medium text-[10px]">{user.hotmart_transaction_id}</span></span>
                           </div>
                         )}
                       </div>
@@ -235,7 +234,7 @@ export default function AdminUsers() {
                           className="text-xs"
                         >
                           {role === "admin" ? <ShieldOff className="w-3 h-3 mr-1" /> : <Shield className="w-3 h-3 mr-1" />}
-                          {role === "admin" ? "Remover Admin" : "Tornar Admin"}
+                          {role === "admin" ? "Remove Admin" : "Make Admin"}
                         </Button>
 
                         <Button
@@ -245,27 +244,27 @@ export default function AdminUsers() {
                           className="text-xs"
                         >
                           {isBlocked ? <UserCheck className="w-3 h-3 mr-1" /> : <UserX className="w-3 h-3 mr-1" />}
-                          {isBlocked ? "Liberar" : "Bloquear"}
+                          {isBlocked ? "Unblock" : "Block"}
                         </Button>
 
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
                             <Button size="sm" variant="destructive" className="text-xs">
                               <Trash2 className="w-3 h-3 mr-1" />
-                              Excluir
+                              Delete
                             </Button>
                           </AlertDialogTrigger>
                           <AlertDialogContent>
                             <AlertDialogHeader>
-                              <AlertDialogTitle>Excluir usuário?</AlertDialogTitle>
+                              <AlertDialogTitle>Delete user?</AlertDialogTitle>
                               <AlertDialogDescription>
-                                Esta ação não pode ser desfeita. O perfil do usuário será removido permanentemente.
+                                This action cannot be undone. The user's profile will be permanently removed.
                               </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
-                              <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                              <AlertDialogCancel>Cancel</AlertDialogCancel>
                               <AlertDialogAction onClick={() => deleteUser(user.user_id)}>
-                                Excluir
+                                Delete
                               </AlertDialogAction>
                             </AlertDialogFooter>
                           </AlertDialogContent>

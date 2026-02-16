@@ -56,7 +56,7 @@ export default function AdminAudios() {
 
   const handleAdd = async () => {
     if (!form.title || !form.audio_url) {
-      toast({ title: "Erro", description: "Título e URL são obrigatórios.", variant: "destructive" });
+      toast({ title: "Error", description: "Title and URL are required.", variant: "destructive" });
       return;
     }
 
@@ -70,12 +70,12 @@ export default function AdminAudios() {
         is_premium: form.is_premium,
       });
       if (error) throw error;
-      toast({ title: "Áudio adicionado!" });
+      toast({ title: "Audio added!" });
       setDialogOpen(false);
       setForm({ title: "", category: "lullaby", author: "", audio_url: "", duration_seconds: "", is_premium: false });
       fetchAudios();
     } catch (error: any) {
-      toast({ title: "Erro", description: error.message, variant: "destructive" });
+      toast({ title: "Error", description: error.message, variant: "destructive" });
     }
   };
 
@@ -83,19 +83,19 @@ export default function AdminAudios() {
     try {
       const { error } = await supabase.from("audio_library").delete().eq("id", id);
       if (error) throw error;
-      toast({ title: "Áudio removido!" });
+      toast({ title: "Audio removed!" });
       fetchAudios();
     } catch (error: any) {
-      toast({ title: "Erro", description: error.message, variant: "destructive" });
+      toast({ title: "Error", description: error.message, variant: "destructive" });
     }
   };
 
   const categoryLabels: Record<string, string> = {
-    lullaby: "Canção de Ninar",
-    story: "História",
-    white_noise: "Ruído Branco",
-    nature: "Natureza",
-    meditation: "Meditação",
+    lullaby: "Lullaby",
+    story: "Story",
+    white_noise: "White Noise",
+    nature: "Nature",
+    meditation: "Meditation",
   };
 
   return (
@@ -106,8 +106,8 @@ export default function AdminAudios() {
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <div>
-            <h1 className="text-xl font-bold text-foreground">Áudios</h1>
-            <p className="text-sm text-muted-foreground">{audios.length} no catálogo</p>
+            <h1 className="text-xl font-bold text-foreground">Audio Library</h1>
+            <p className="text-sm text-muted-foreground">{audios.length} items</p>
           </div>
         </div>
 
@@ -115,51 +115,51 @@ export default function AdminAudios() {
           <DialogTrigger asChild>
             <Button size="sm">
               <Plus className="w-4 h-4 mr-1" />
-              Adicionar
+              Add
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Adicionar Áudio</DialogTitle>
+              <DialogTitle>Add Audio</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label>Título *</Label>
+                <Label>Title *</Label>
                 <Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
               </div>
               <div className="space-y-2">
-                <Label>Categoria</Label>
+                <Label>Category</Label>
                 <Select value={form.category} onValueChange={(v) => setForm({ ...form, category: v })}>
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="lullaby">Canção de Ninar</SelectItem>
-                    <SelectItem value="story">História</SelectItem>
-                    <SelectItem value="white_noise">Ruído Branco</SelectItem>
-                    <SelectItem value="nature">Natureza</SelectItem>
-                    <SelectItem value="meditation">Meditação</SelectItem>
+                    <SelectItem value="lullaby">Lullaby</SelectItem>
+                    <SelectItem value="story">Story</SelectItem>
+                    <SelectItem value="white_noise">White Noise</SelectItem>
+                    <SelectItem value="nature">Nature</SelectItem>
+                    <SelectItem value="meditation">Meditation</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label>Autor</Label>
+                <Label>Author</Label>
                 <Input value={form.author} onChange={(e) => setForm({ ...form, author: e.target.value })} />
               </div>
               <div className="space-y-2">
-                <Label>URL do Áudio *</Label>
+                <Label>Audio URL *</Label>
                 <Input value={form.audio_url} onChange={(e) => setForm({ ...form, audio_url: e.target.value })} />
               </div>
               <div className="space-y-2">
-                <Label>Duração (segundos)</Label>
+                <Label>Duration (seconds)</Label>
                 <Input type="number" value={form.duration_seconds} onChange={(e) => setForm({ ...form, duration_seconds: e.target.value })} />
               </div>
-              <Button onClick={handleAdd} className="w-full">Salvar</Button>
+              <Button onClick={handleAdd} className="w-full">Save</Button>
             </div>
           </DialogContent>
         </Dialog>
       </div>
 
       {loading ? (
-        <p className="text-center text-muted-foreground py-8">Carregando...</p>
+        <p className="text-center text-muted-foreground py-8">Loading...</p>
       ) : (
         <div className="space-y-3">
           {audios.map((audio) => (
@@ -178,7 +178,7 @@ export default function AdminAudios() {
                         {audio.duration_seconds && ` • ${Math.floor(audio.duration_seconds / 60)}min`}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        {audio.play_count || 0} reproduções
+                        {audio.play_count || 0} plays
                       </p>
                     </div>
                   </div>
@@ -190,14 +190,14 @@ export default function AdminAudios() {
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
-                        <AlertDialogTitle>Excluir áudio?</AlertDialogTitle>
+                        <AlertDialogTitle>Delete audio?</AlertDialogTitle>
                         <AlertDialogDescription>
-                          "{audio.title}" será removido permanentemente.
+                          "{audio.title}" will be permanently removed.
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
-                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                        <AlertDialogAction onClick={() => handleDelete(audio.id)}>Excluir</AlertDialogAction>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => handleDelete(audio.id)}>Delete</AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>
@@ -206,7 +206,7 @@ export default function AdminAudios() {
             </Card>
           ))}
           {audios.length === 0 && (
-            <p className="text-center text-muted-foreground py-8">Nenhum áudio cadastrado.</p>
+            <p className="text-center text-muted-foreground py-8">No audio found.</p>
           )}
         </div>
       )}

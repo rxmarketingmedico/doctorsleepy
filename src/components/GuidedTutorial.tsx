@@ -14,51 +14,34 @@ interface TutorialStep {
 
 const steps: TutorialStep[] = [
   {
-    title: "Bem-vindo ao Doutor Soneca! 👋",
-    description: "Vou te mostrar rapidinho como usar o app para cuidar do sono do seu bebê. São só 6 passos!",
-    icon: Sparkles,
-    position: "center",
-    color: "from-primary to-primary/80",
+    title: "Welcome to Dr. Sleepy! 👋",
+    description: "Let me quickly show you how to use the app to care for your baby's sleep. Just 6 steps!",
+    icon: Sparkles, position: "center", color: "from-primary to-primary/80",
   },
   {
-    title: "Modo Emergência 🚨",
-    description: "Na tela inicial, toque no botão que descreve a situação do seu bebê para receber orientação imediata da IA.",
-    icon: Home,
-    position: "bottom-nav",
-    navIndex: 0,
-    color: "from-blue-500 to-blue-600",
+    title: "Emergency Mode 🚨",
+    description: "On the home screen, tap the button that describes your baby's situation to receive immediate AI guidance.",
+    icon: Home, position: "bottom-nav", navIndex: 0, color: "from-blue-500 to-blue-600",
   },
   {
-    title: "Rotina do Bebê 📋",
-    description: "Registre sono, mamadas e trocas de fralda. A IA analisa os padrões e sugere melhorias na rotina.",
-    icon: Calendar,
-    position: "bottom-nav",
-    navIndex: 1,
-    color: "from-indigo-500 to-indigo-600",
+    title: "Baby's Routine 📋",
+    description: "Log sleep, feedings, and diaper changes. The AI analyzes patterns and suggests improvements.",
+    icon: Calendar, position: "bottom-nav", navIndex: 1, color: "from-indigo-500 to-indigo-600",
   },
   {
-    title: "Tradutor de Choro 🎤",
-    description: "Grave o choro do bebê e a IA identifica o possível motivo: fome, sono, desconforto ou cólica.",
-    icon: Mic,
-    position: "bottom-nav",
-    navIndex: 2,
-    color: "from-violet-500 to-violet-600",
+    title: "Cry Translator 🎤",
+    description: "Record the baby's cry and the AI identifies the possible reason: hunger, sleep, discomfort, or colic.",
+    icon: Mic, position: "bottom-nav", navIndex: 2, color: "from-violet-500 to-violet-600",
   },
   {
-    title: "Central de Ajuda 💬",
-    description: "Abra tickets de suporte e converse diretamente com nossa equipe quando precisar de ajuda extra.",
-    icon: HelpCircle,
-    position: "bottom-nav",
-    navIndex: 3,
-    color: "from-emerald-500 to-emerald-600",
+    title: "Help Center 💬",
+    description: "Open support tickets and chat directly with our team when you need extra help.",
+    icon: HelpCircle, position: "bottom-nav", navIndex: 3, color: "from-emerald-500 to-emerald-600",
   },
   {
-    title: "Seu Perfil ⚙️",
-    description: "Gerencie seu plano, edite dados do bebê e ajuste as configurações do app.",
-    icon: User,
-    position: "bottom-nav",
-    navIndex: 4,
-    color: "from-amber-500 to-amber-600",
+    title: "Your Profile ⚙️",
+    description: "Manage your plan, edit baby info, and adjust app settings.",
+    icon: User, position: "bottom-nav", navIndex: 4, color: "from-amber-500 to-amber-600",
   },
 ];
 
@@ -79,23 +62,11 @@ export function GuidedTutorial() {
 
   const completeTutorial = useCallback(() => {
     setExiting(true);
-    setTimeout(() => {
-      localStorage.setItem(TUTORIAL_KEY, "true");
-      setVisible(false);
-    }, 300);
+    setTimeout(() => { localStorage.setItem(TUTORIAL_KEY, "true"); setVisible(false); }, 300);
   }, []);
 
-  const next = () => {
-    if (currentStep < steps.length - 1) {
-      setCurrentStep((s) => s + 1);
-    } else {
-      completeTutorial();
-    }
-  };
-
-  const prev = () => {
-    if (currentStep > 0) setCurrentStep((s) => s - 1);
-  };
+  const next = () => { if (currentStep < steps.length - 1) setCurrentStep((s) => s + 1); else completeTutorial(); };
+  const prev = () => { if (currentStep > 0) setCurrentStep((s) => s - 1); };
 
   if (!visible) return null;
 
@@ -105,29 +76,19 @@ export function GuidedTutorial() {
   const isFirst = currentStep === 0;
 
   return (
-    <div
-      className={cn(
-        "fixed inset-0 z-[100] flex flex-col items-center justify-end transition-opacity duration-300",
-        exiting ? "opacity-0" : "opacity-100"
-      )}
-    >
-      {/* Backdrop */}
+    <div className={cn("fixed inset-0 z-[100] flex flex-col items-center justify-end transition-opacity duration-300", exiting ? "opacity-0" : "opacity-100")}>
       <div className="absolute inset-0 bg-black/60" onClick={completeTutorial} />
 
-      {/* Bottom nav highlight */}
       {step.position === "bottom-nav" && step.navIndex !== undefined && (
         <div className="absolute bottom-0 left-0 right-0 z-[101] safe-area-bottom">
           <div className="max-w-lg mx-auto h-16 flex justify-around items-center px-2 bg-card border-t border-border">
             {[Home, Calendar, Mic, HelpCircle, User].map((NavIcon, i) => {
-              const labels = ["Início", "Rotina", "Tradutor", "Ajuda", "Perfil"];
+              const labels = ["Home", "Routine", "Translator", "Help", "Profile"];
               const isHighlighted = i === step.navIndex;
               return (
                 <div key={i} className="flex flex-col items-center justify-center gap-1 py-2 px-3">
-                  <div className={cn(
-                    "flex flex-col items-center justify-center gap-1 rounded-xl px-3 py-2 transition-all",
-                    isHighlighted 
-                      ? "text-primary bg-primary/15 ring-2 ring-primary ring-offset-2 ring-offset-card scale-110 animate-[soft-bounce_1.5s_ease-in-out_infinite]" 
-                      : "text-muted-foreground/40"
+                  <div className={cn("flex flex-col items-center justify-center gap-1 rounded-xl px-3 py-2 transition-all",
+                    isHighlighted ? "text-primary bg-primary/15 ring-2 ring-primary ring-offset-2 ring-offset-card scale-110 animate-[soft-bounce_1.5s_ease-in-out_infinite]" : "text-muted-foreground/40"
                   )}>
                     <NavIcon className="w-5 h-5" />
                     <span className="text-xs font-medium">{labels[i]}</span>
@@ -139,58 +100,22 @@ export function GuidedTutorial() {
         </div>
       )}
 
-      {/* Card */}
-      <div
-        className={cn(
-          "relative z-[102] w-full max-w-sm mx-4 mb-24 rounded-3xl bg-card border border-border shadow-2xl overflow-hidden transition-all duration-300",
-          exiting ? "translate-y-8 scale-95" : "translate-y-0 scale-100"
-        )}
-      >
-        {/* Skip button */}
-        <button
-          onClick={completeTutorial}
-          className="absolute top-3 right-3 p-1.5 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors z-10"
-        >
-          <X className="w-4 h-4" />
-        </button>
-
-        {/* Icon header */}
+      <div className={cn("relative z-[102] w-full max-w-sm mx-4 mb-24 rounded-3xl bg-card border border-border shadow-2xl overflow-hidden transition-all duration-300", exiting ? "translate-y-8 scale-95" : "translate-y-0 scale-100")}>
+        <button onClick={completeTutorial} className="absolute top-3 right-3 p-1.5 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors z-10"><X className="w-4 h-4" /></button>
         <div className={cn("flex justify-center pt-6 pb-2")}>
-          <div className={cn("w-16 h-16 rounded-2xl bg-gradient-to-br flex items-center justify-center shadow-lg", step.color)}>
-            <Icon className="w-8 h-8 text-white" />
-          </div>
+          <div className={cn("w-16 h-16 rounded-2xl bg-gradient-to-br flex items-center justify-center shadow-lg", step.color)}><Icon className="w-8 h-8 text-white" /></div>
         </div>
-
-        {/* Content */}
         <div className="px-6 pb-2 text-center">
           <h3 className="text-lg font-bold text-foreground mb-2">{step.title}</h3>
           <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
         </div>
-
-        {/* Progress dots */}
         <div className="flex justify-center gap-1.5 py-3">
-          {steps.map((_, i) => (
-            <div
-              key={i}
-              className={cn(
-                "h-1.5 rounded-full transition-all duration-300",
-                i === currentStep ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/30"
-              )}
-            />
-          ))}
+          {steps.map((_, i) => (<div key={i} className={cn("h-1.5 rounded-full transition-all duration-300", i === currentStep ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/30")} />))}
         </div>
-
-        {/* Actions */}
         <div className="flex items-center gap-2 px-6 pb-6">
-          {!isFirst && (
-            <Button variant="ghost" size="sm" onClick={prev} className="rounded-xl">
-              <ChevronLeft className="w-4 h-4 mr-1" />
-              Voltar
-            </Button>
-          )}
+          {!isFirst && (<Button variant="ghost" size="sm" onClick={prev} className="rounded-xl"><ChevronLeft className="w-4 h-4 mr-1" />Back</Button>)}
           <Button className="flex-1 rounded-xl" onClick={next}>
-            {isLast ? "Começar a usar!" : "Próximo"}
-            {!isLast && <ChevronRight className="w-4 h-4 ml-1" />}
+            {isLast ? "Start using!" : "Next"}{!isLast && <ChevronRight className="w-4 h-4 ml-1" />}
           </Button>
         </div>
       </div>
