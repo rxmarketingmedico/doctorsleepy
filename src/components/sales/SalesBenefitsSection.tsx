@@ -2,11 +2,11 @@ import { Check } from "lucide-react";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const benefits = [
-  "Menos noites em pânico, sem saber o que fazer",
-  "Mais confiança nas suas decisões como mãe/pai",
-  "Respostas imediatas, sem esperar pelo consultório",
-  "Um companheiro calmo nas horas mais difíceis",
-  "Mais sono para você — e para o seu bebê",
+  "Fewer panicked nights, not knowing what to do",
+  "More confidence in your decisions as a parent",
+  "Immediate answers, no waiting for an appointment",
+  "A calm companion in the hardest moments",
+  "More sleep for you — and for your baby",
 ];
 
 export default function SalesBenefitsSection() {
@@ -15,7 +15,7 @@ export default function SalesBenefitsSection() {
       <div className="max-w-2xl mx-auto text-center">
         <ScrollReveal>
           <h2 className="text-2xl md:text-3xl font-bold mb-10 text-foreground">
-            O que muda na sua vida
+            What changes in your life
           </h2>
         </ScrollReveal>
         <div className="space-y-4">

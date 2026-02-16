@@ -11,7 +11,7 @@ export default function SalesReliefSection() {
           <div className="rounded-3xl overflow-hidden shadow-2xl shadow-black/10">
               <img
                 src={peacefulImg}
-                alt="Mãe sorrindo com bebê dormindo nos braços"
+                alt="Smiling mom with baby sleeping in her arms"
                 className="w-full h-auto object-cover aspect-square"
                 loading="lazy"
                 decoding="async"
@@ -24,11 +24,11 @@ export default function SalesReliefSection() {
               <Shield className="w-7 h-7 text-secondary-foreground" />
             </div>
             <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
-              Você não precisa resolver tudo sozinha(o).
+              You don't have to figure it all out alone.
             </h2>
             <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-              Imagina ter alguém disponível 24 horas, que não julga, não cobra e te orienta com calma —
-              exatamente no momento em que você mais precisa.
+              Imagine having someone available 24 hours a day, who doesn't judge, doesn't pressure you, and guides you calmly —
+              exactly when you need it most.
             </p>
           </div>
         </div>

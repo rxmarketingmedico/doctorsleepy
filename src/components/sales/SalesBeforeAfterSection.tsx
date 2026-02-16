@@ -2,19 +2,19 @@ import { X, Check } from "lucide-react";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const beforeItems = [
-  "Noites sem dormir, sem saber o motivo",
-  "Google com respostas contraditórias",
-  "Culpa por não conseguir resolver",
-  "Esperar dias por uma consulta",
-  "Solidão na madrugada",
+  "Sleepless nights with no idea why",
+  "Google with contradictory answers",
+  "Guilt for not being able to fix it",
+  "Waiting days for an appointment",
+  "Loneliness in the middle of the night",
 ];
 
 const afterItems = [
-  "Orientações claras na hora que precisa",
-  "Respostas baseadas em evidências",
-  "Confiança nas suas decisões",
-  "Ajuda imediata, 24 horas por dia",
-  "Um companheiro calmo ao seu lado",
+  "Clear guidance when you need it",
+  "Evidence-based answers",
+  "Confidence in your decisions",
+  "Immediate help, 24 hours a day",
+  "A calm companion by your side",
 ];
 
 export default function SalesBeforeAfterSection() {
@@ -23,7 +23,7 @@ export default function SalesBeforeAfterSection() {
       <div className="max-w-4xl mx-auto">
         <ScrollReveal>
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 text-foreground">
-            A diferença de ter o Doutor Soneca
+            The difference of having Dr. Sleepy
           </h2>
         </ScrollReveal>
 
@@ -34,7 +34,7 @@ export default function SalesBeforeAfterSection() {
                 <div className="w-8 h-8 rounded-full bg-destructive/10 flex items-center justify-center">
                   <X className="w-4 h-4 text-destructive" />
                 </div>
-                <h3 className="font-bold text-foreground">Sem o Doutor Soneca</h3>
+                <h3 className="font-bold text-foreground">Without Dr. Sleepy</h3>
               </div>
               <div className="space-y-3">
                 {beforeItems.map((item, i) => (
@@ -53,7 +53,7 @@ export default function SalesBeforeAfterSection() {
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                   <Check className="w-4 h-4 text-primary" />
                 </div>
-                <h3 className="font-bold text-foreground">Com o Doutor Soneca</h3>
+                <h3 className="font-bold text-foreground">With Dr. Sleepy</h3>
               </div>
               <div className="space-y-3">
                 {afterItems.map((item, i) => (

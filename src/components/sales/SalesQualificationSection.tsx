@@ -2,10 +2,10 @@ import { Check } from "lucide-react";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const qualifications = [
-  "Seu bebê tem entre 0 e 3 anos",
-  "Você quer orientações baseadas em evidências",
-  "Prefere resolver dúvidas na hora, sem filas",
-  "Valoriza ajuda sem julgamento e sem cobrança",
+  "Your baby is between 0 and 3 years old",
+  "You want evidence-based guidance",
+  "You prefer solving questions on the spot, no waiting",
+  "You value help without judgment or pressure",
 ];
 
 export default function SalesQualificationSection() {
@@ -14,7 +14,7 @@ export default function SalesQualificationSection() {
       <div className="max-w-2xl mx-auto text-center">
         <ScrollReveal>
           <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
-            O Doutor Soneca é para você se…
+            Dr. Sleepy is for you if…
           </h2>
         </ScrollReveal>
         <div className="space-y-3 mt-8">

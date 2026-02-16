@@ -9,17 +9,17 @@ export default function SalesCTASection() {
         <div className="max-w-2xl mx-auto text-center">
           <Moon className="w-10 h-10 text-primary mx-auto mb-4" />
           <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
-            Hoje pode ser a última noite ruim.
+            Tonight could be the last bad night.
           </h2>
           <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-md mx-auto mb-8">
-            Você já tentou de tudo. Agora tente ter alguém ao seu lado.
+            You've tried everything. Now try having someone by your side.
           </p>
           <Button
             size="lg"
             className="rounded-2xl px-8 py-6 text-base font-bold shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all"
             onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
           >
-            Começar agora
+            Get started now
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
         </div>
@@ -27,13 +27,13 @@ export default function SalesCTASection() {
 
       <footer className="px-4 py-8 border-t border-border/40">
         <div className="max-w-2xl mx-auto text-center">
-          <img src={logo} alt="Doutor Soneca" className="h-12 mx-auto mb-4 object-contain" />
+          <img src={logo} alt="Dr. Sleepy" className="h-12 mx-auto mb-4 object-contain" />
           <p className="text-xs text-muted-foreground leading-relaxed max-w-sm mx-auto">
-            O Doutor Soneca é um assistente educacional e não substitui acompanhamento médico.
-            Em caso de emergência, procure o pediatra do seu bebê.
+            Dr. Sleepy is an educational assistant and does not replace medical care.
+            In case of emergency, contact your baby's pediatrician.
           </p>
           <p className="text-xs text-muted-foreground mt-4">
-            © {new Date().getFullYear()} Doutor Soneca. Todos os direitos reservados.
+            © {new Date().getFullYear()} Dr. Sleepy. All rights reserved.
           </p>
         </div>
       </footer>

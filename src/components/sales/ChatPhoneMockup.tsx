@@ -9,12 +9,12 @@ interface ChatMessage {
 }
 
 const conversation: ChatMessage[] = [
-  { role: "parent", text: "Dr., meu bebê de 4 meses não dorme mais que 2h seguidas... estou exausta 😢", delay: 0 },
-  { role: "doctor", text: "Entendo como isso é difícil. Vamos investigar juntos. Ele mama antes de dormir?", delay: 2000 },
-  { role: "parent", text: "Sim, ele só dorme mamando...", delay: 4500 },
-  { role: "doctor", text: "Isso é muito comum nessa idade! Ele associou o peito ao sono. Posso te ajudar a criar uma rotina gentil para ele aprender a adormecer de outras formas. 💙", delay: 6500 },
-  { role: "parent", text: "Seria incrível! Por onde começo?", delay: 9500 },
-  { role: "doctor", text: "Primeiro, vamos estabelecer uma rotina noturna: banho → massagem → mamada → música → berço. Em 5-7 dias você já vai notar diferença! ✨", delay: 11000 },
+  { role: "parent", text: "Dr., my 4-month-old won't sleep more than 2 hours straight... I'm exhausted 😢", delay: 0 },
+  { role: "doctor", text: "I understand how tough that is. Let's figure this out together. Does he nurse before sleeping?", delay: 2000 },
+  { role: "parent", text: "Yes, he only falls asleep while nursing...", delay: 4500 },
+  { role: "doctor", text: "That's very common at this age! He's associated nursing with sleep. I can help you create a gentle routine so he learns to fall asleep other ways. 💙", delay: 6500 },
+  { role: "parent", text: "That would be amazing! Where do I start?", delay: 9500 },
+  { role: "doctor", text: "First, let's establish a bedtime routine: bath → massage → nursing → music → crib. In 5-7 days you'll already notice a difference! ✨", delay: 11000 },
 ];
 
 const TYPING_DURATION = 1200;
@@ -36,13 +36,11 @@ export function ChatPhoneMockup() {
       setIsTyping(null);
 
       conversation.forEach((msg, index) => {
-        // Show typing indicator
         const typingTimeout = setTimeout(() => {
           setIsTyping(msg.role);
         }, msg.delay);
         timeoutsRef.current.push(typingTimeout);
 
-        // Show message
         const msgTimeout = setTimeout(() => {
           setIsTyping(null);
           setVisibleMessages(index + 1);
@@ -50,7 +48,6 @@ export function ChatPhoneMockup() {
         timeoutsRef.current.push(msgTimeout);
       });
 
-      // Restart loop
       const lastDelay = conversation[conversation.length - 1].delay + TYPING_DURATION;
       const restartTimeout = setTimeout(() => {
         runConversation();
@@ -74,9 +71,7 @@ export function ChatPhoneMockup() {
 
   return (
     <div className="relative mx-auto w-72 md:w-80">
-      {/* Phone frame */}
       <div className="rounded-[2.5rem] border-[6px] border-foreground/20 bg-background shadow-2xl shadow-primary/10 overflow-hidden">
-        {/* Status bar */}
         <div className="bg-primary/10 px-5 pt-2 pb-1 flex items-center justify-between">
           <span className="text-[10px] text-muted-foreground font-medium">21:47</span>
           <div className="flex gap-1">
@@ -85,14 +80,13 @@ export function ChatPhoneMockup() {
           </div>
         </div>
 
-        {/* Chat header */}
         <div className="bg-primary/10 px-4 pb-3 flex items-center gap-3 border-b border-border/40">
           <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-primary/30 flex-shrink-0">
-            <img src={doctorAvatar} alt="Dr. Soneca" className="w-full h-full object-cover" />
+            <img src={doctorAvatar} alt="Dr. Sleepy" className="w-full h-full object-cover" />
           </div>
           <div>
-            <p className="text-sm font-bold text-foreground leading-tight">Dr. Soneca</p>
-            <p className="text-[10px] text-primary font-medium">Online agora</p>
+            <p className="text-sm font-bold text-foreground leading-tight">Dr. Sleepy</p>
+            <p className="text-[10px] text-primary font-medium">Online now</p>
           </div>
         </div>
 
@@ -118,7 +112,6 @@ export function ChatPhoneMockup() {
             </div>
           ))}
 
-          {/* Typing indicator */}
           {isTyping && (
             <div
               className={cn(
@@ -142,14 +135,11 @@ export function ChatPhoneMockup() {
               </div>
             </div>
           )}
-
-          
         </div>
 
-        {/* Input bar */}
         <div className="bg-muted/50 border-t border-border/40 px-3 py-2.5 flex items-center gap-2">
           <div className="flex-1 bg-background rounded-full px-3 py-1.5 text-[10px] text-muted-foreground border border-border/60">
-            Digite sua mensagem...
+            Type your message...
           </div>
           <div className="w-7 h-7 rounded-full bg-primary flex items-center justify-center">
             <svg className="w-3.5 h-3.5 text-primary-foreground" fill="currentColor" viewBox="0 0 24 24">
@@ -158,7 +148,6 @@ export function ChatPhoneMockup() {
           </div>
         </div>
 
-        {/* Home indicator */}
         <div className="bg-background flex justify-center py-2">
           <div className="w-24 h-1 rounded-full bg-foreground/20" />
         </div>

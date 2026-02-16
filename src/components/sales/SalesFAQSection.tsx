@@ -3,28 +3,28 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 
 const faqs = [
   {
-    q: "O Doutor Soneca substitui o pediatra?",
-    a: "Não. O Doutor Soneca é um assistente educacional que oferece orientações baseadas em evidências sobre sono infantil. Ele não faz diagnósticos e não substitui acompanhamento médico.",
+    q: "Does Dr. Sleepy replace a pediatrician?",
+    a: "No. Dr. Sleepy is an educational assistant that offers evidence-based guidance on infant sleep. It does not diagnose and does not replace medical care.",
   },
   {
-    q: "A partir de qual idade posso usar?",
-    a: "O app é pensado para pais de bebês de 0 a 3 anos. As orientações se adaptam à idade do seu bebê.",
+    q: "What age range is it for?",
+    a: "The app is designed for parents of babies aged 0 to 3 years. Guidance adapts to your baby's age.",
   },
   {
-    q: "Como funciona o Tradutor de Choro?",
-    a: "Você grava o choro do bebê e a inteligência artificial analisa padrões sonoros para sugerir possíveis causas: fome, sono, desconforto ou dor. É uma ferramenta de apoio, não um diagnóstico.",
+    q: "How does the Cry Translator work?",
+    a: "You record your baby's cry and the AI analyzes sound patterns to suggest possible causes: hunger, sleep, discomfort, or pain. It's a support tool, not a diagnosis.",
   },
   {
-    q: "Posso cancelar quando quiser?",
-    a: "Sim. Sem burocracia, sem multa. Você cancela direto pela Hotmart a qualquer momento.",
+    q: "Can I cancel anytime?",
+    a: "Yes. No hassle, no penalties. You can cancel directly through Hotmart at any time.",
   },
   {
-    q: "O pagamento é seguro?",
-    a: "Sim. O pagamento é processado pela Hotmart, a maior plataforma de produtos digitais da América Latina, com criptografia de ponta.",
+    q: "Is the payment secure?",
+    a: "Yes. Payment is processed by Hotmart, the largest digital products platform in Latin America, with state-of-the-art encryption.",
   },
   {
-    q: "Como acesso o app depois de pagar?",
-    a: "Após o pagamento, você cria sua conta com o mesmo e-mail usado na compra. O acesso é liberado automaticamente.",
+    q: "How do I access the app after paying?",
+    a: "After payment, you create your account with the same email used for the purchase. Access is granted automatically.",
   },
 ];
 
@@ -57,7 +57,7 @@ export default function SalesFAQSection() {
     <section className="px-4 py-16 md:py-20">
       <div className="max-w-2xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 text-foreground">
-          Perguntas frequentes
+          Frequently Asked Questions
         </h2>
         <div className="space-y-3">
           {faqs.map((faq, i) => (
