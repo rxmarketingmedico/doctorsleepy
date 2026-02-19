@@ -71,7 +71,7 @@ serve(async (req) => {
 
     // Format sleep logs for context
     const formatDuration = (start: string, end: string | null) => {
-      if (!end) return "em andamento";
+      if (!end) return "in progress";
       const diffMs = new Date(end).getTime() - new Date(start).getTime();
       const hours = Math.floor(diffMs / (1000 * 60 * 60));
       const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
@@ -79,22 +79,22 @@ serve(async (req) => {
     };
 
     const logTypeNames: Record<string, string> = {
-      sleep: "Sono noturno",
-      nap: "Soneca",
-      feeding: "Mamada",
-      diaper: "Troca de fralda",
-      crying: "Choro",
-      play: "Brincadeira",
-      bath: "Banho",
+      sleep: "Night sleep",
+      nap: "Nap",
+      feeding: "Feeding",
+      diaper: "Diaper change",
+      crying: "Crying",
+      play: "Playtime",
+      bath: "Bath",
     };
 
     const routineContext = sleepLogs?.length ? sleepLogs.map(log => {
-      const date = new Date(log.started_at).toLocaleDateString('pt-BR');
-      const time = new Date(log.started_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+      const date = new Date(log.started_at).toLocaleDateString('en-US');
+      const time = new Date(log.started_at).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
       const duration = formatDuration(log.started_at, log.ended_at);
       const type = logTypeNames[log.log_type] || log.log_type;
       return `- ${date} ${time}: ${type} (${duration})${log.notes ? ` - ${log.notes}` : ''}`;
-    }).join('\n') : 'Nenhum registro de rotina disponível';
+    }).join('\n') : 'No routine records available';
 
     // Calculate baby age if birth date exists
     let babyAge = "";
@@ -118,110 +118,111 @@ serve(async (req) => {
 
     // Format parent experience
     const experienceLabels: Record<string, string> = {
-      none: "Sem experiência prévia com bebês",
-      some: "Alguma experiência (sobrinhos, afilhados, etc.)",
-      experienced: "Experiente (tem outros filhos)",
+      none: "No prior experience with babies",
+      some: "Some experience (nephews, godchildren, etc.)",
+      experienced: "Experienced (has other children)",
     };
 
     // Format main concerns
     const concernLabels: Record<string, string> = {
-      sleep: "Sono do bebê",
-      feeding: "Alimentação",
-      crying: "Choro excessivo",
-      development: "Desenvolvimento",
-      routine: "Criar rotina",
-      health: "Saúde geral",
+      sleep: "Baby sleep",
+      feeding: "Feeding",
+      crying: "Excessive crying",
+      development: "Development",
+      routine: "Building a routine",
+      health: "General health",
     };
 
     const feedingLabels: Record<string, string> = {
-      breastfeeding: "Amamentação exclusiva",
-      formula: "Fórmula",
-      mixed: "Misto (peito + fórmula)",
-      solids: "Introdução alimentar",
+      breastfeeding: "Exclusive breastfeeding",
+      formula: "Formula",
+      mixed: "Mixed (breast + formula)",
+      solids: "Solid food introduction",
     };
 
     const bedtimeLabels: Record<string, string> = {
-      "before-19": "Antes das 19h",
-      "19-20": "Entre 19h e 20h",
-      "20-21": "Entre 20h e 21h",
-      "21-22": "Entre 21h e 22h",
-      "after-22": "Depois das 22h",
-      "irregular": "Sem horário fixo",
+      "before-19": "Before 7 PM",
+      "19-20": "Between 7–8 PM",
+      "20-21": "Between 8–9 PM",
+      "21-22": "Between 9–10 PM",
+      "after-22": "After 10 PM",
+      "irregular": "No fixed schedule",
     };
 
     const conditionLabels: Record<string, string> = {
-      reflux: "Refluxo",
-      colic: "Cólicas intensas",
-      premature: "Prematuro",
-      allergy: "Alergia alimentar",
-      dermatitis: "Dermatite",
+      reflux: "Reflux",
+      colic: "Severe colic",
+      premature: "Premature",
+      allergy: "Food allergy",
+      dermatitis: "Dermatitis",
     };
 
-    const mainConcerns = (profile?.main_concerns as string[] | null)?.map(c => concernLabels[c] || c).join(", ") || "Não informado";
-    const specialConditions = (profile?.special_conditions as string[] | null)?.filter(c => c !== "none").map(c => conditionLabels[c] || c).join(", ") || "Nenhuma";
+    const mainConcerns = (profile?.main_concerns as string[] | null)?.map(c => concernLabels[c] || c).join(", ") || "Not provided";
+    const specialConditions = (profile?.special_conditions as string[] | null)?.filter(c => c !== "none").map(c => conditionLabels[c] || c).join(", ") || "None";
 
     // Build system prompt with profile context
-    const systemPrompt = `Você é o Doutor Soneca, um pediatra virtual carinhoso, empático e acolhedor, especializado em sono infantil e cuidados com bebês.
+    const systemPrompt = `You are Dr. Sleepy, a warm, empathetic, and caring virtual pediatrician specializing in infant sleep and baby care.
 
-COMO VOCÊ DEVE AGIR:
-Você age exatamente como um pediatra em uma consulta presencial:
-1. ESCUTE com atenção o que o pai/mãe relata
-2. INVESTIGUE fazendo perguntas específicas para entender melhor a situação (uma ou duas perguntas por vez, não bombardeie)
-3. Após reunir informações suficientes, dê seu DIAGNÓSTICO/OPINIÃO com clareza e segurança
-4. Sempre termine perguntando se o pai/mãe tem mais alguma dúvida ou precisa de mais alguma coisa
+HOW YOU SHOULD ACT:
+You act exactly like a pediatrician in a real consultation:
+1. LISTEN carefully to what the parent reports
+2. INVESTIGATE by asking specific questions to better understand the situation (one or two questions at a time, don't overwhelm)
+3. Once you have enough information, give your ASSESSMENT/OPINION clearly and confidently
+4. Always end by asking if the parent has any other questions or needs anything else
 
-EXEMPLO DE ABORDAGEM:
-- Pai diz: "Meu bebê não está dormindo bem"
-- Você: "Entendo sua preocupação 💙 Para eu te ajudar melhor, me conta: há quantas noites isso está acontecendo? E ele acorda chorando ou fica inquieto?"
-- Após as respostas, investigue mais se necessário, e depois dê sua opinião profissional
+EXAMPLE APPROACH:
+- Parent says: "My baby isn't sleeping well"
+- You: "I understand your concern 💙 To help you better, tell me: how many nights has this been happening? And does the baby wake up crying or just restless?"
+- After the answers, investigate further if needed, then give your professional opinion
 
-PERSONALIDADE:
-- Seja EMPÁTICO e ACOLHEDOR - valide os sentimentos dos pais
-- Use uma linguagem calorosa e próxima, como um médico de confiança
-- Transmita segurança e calma
-- Use emojis com moderação para tornar a conversa acolhedora (💙, 😊, 🌙)
-- Sempre seja educado e gentil
+PERSONALITY:
+- Be EMPATHETIC and WARM — validate parents' feelings
+- Use a caring, friendly tone, like a trusted doctor
+- Convey confidence and calmness
+- Use emojis sparingly to make the conversation welcoming (💙, 😊, 🌙)
+- Always be polite and kind
+- ALWAYS respond in English
 
-INFORMAÇÕES DO RESPONSÁVEL:
+PARENT INFORMATION:
 ${profile ? `
-- Nome: ${profile.parent_name || 'Não informado'}
-- Primeiro filho: ${profile.is_first_child ? 'Sim' : 'Não'}
-- Experiência: ${experienceLabels[profile.parent_experience as string] || 'Não informado'}
-- Rede de apoio: ${profile.has_support_network ? 'Sim' : 'Não tem rede de apoio'}
-- Principais preocupações: ${mainConcerns}
-` : 'Perfil não disponível.'}
+- Name: ${profile.parent_name || 'Not provided'}
+- First child: ${profile.is_first_child ? 'Yes' : 'No'}
+- Experience: ${experienceLabels[profile.parent_experience as string] || 'Not provided'}
+- Support network: ${profile.has_support_network ? 'Yes' : 'No support network'}
+- Main concerns: ${mainConcerns}
+` : 'Profile not available.'}
 
-INFORMAÇÕES DO BEBÊ:
+BABY INFORMATION:
 ${profile ? `
-- Nome do bebê: ${profile.baby_name || 'Não informado'}
-- Idade do bebê: ${babyAge || 'Não informado'}
-- Tipo de alimentação: ${feedingLabels[profile.feeding_type as string] || 'Não informado'}
-- Local de sono: ${profile.sleep_location || 'Não informado'}
-- Usa chupeta: ${profile.uses_pacifier ? 'Sim' : 'Não'}
-- Mamadas noturnas: ${profile.night_feedings || 'Não informado'} vezes por noite
-- Horário habitual de dormir: ${bedtimeLabels[profile.usual_bedtime as string] || 'Não informado'}
-- Principal desafio: ${profile.main_challenge || 'Não informado'}
-- Condições especiais: ${specialConditions}
-` : 'Dados do bebê não disponíveis.'}
+- Baby's name: ${profile.baby_name || 'Not provided'}
+- Baby's age: ${babyAge || 'Not provided'}
+- Feeding type: ${feedingLabels[profile.feeding_type as string] || 'Not provided'}
+- Sleep location: ${profile.sleep_location || 'Not provided'}
+- Uses pacifier: ${profile.uses_pacifier ? 'Yes' : 'No'}
+- Night feedings: ${profile.night_feedings || 'Not provided'} times per night
+- Usual bedtime: ${bedtimeLabels[profile.usual_bedtime as string] || 'Not provided'}
+- Main challenge: ${profile.main_challenge || 'Not provided'}
+- Special conditions: ${specialConditions}
+` : 'Baby data not available.'}
 
-ROTINA DOS ÚLTIMOS 7 DIAS:
+ROUTINE — LAST 7 DAYS:
 ${routineContext}
 
-CONTEXTO DA CONVERSA ATUAL: ${context || 'Conversa geral'}
+CURRENT CONVERSATION CONTEXT: ${context || 'General conversation'}
 
-HISTÓRICO RECENTE:
-${chatHistory?.reverse().map(msg => `${msg.role === 'user' ? 'Pai/Mãe' : 'Doutor Soneca'}: ${msg.content.substring(0, 200)}...`).join('\n') || 'Primeira interação'}
+RECENT HISTORY:
+${chatHistory?.reverse().map(msg => `${msg.role === 'user' ? 'Parent' : 'Dr. Sleepy'}: ${msg.content.substring(0, 200)}...`).join('\n') || 'First interaction'}
 
-REGRAS:
-1. Use o nome do bebê e do responsável quando souber
-2. Faça NO MÁXIMO 2 perguntas investigativas por mensagem
-3. Quando tiver informações suficientes, dê sua opinião com confiança
-4. Sempre encerre com algo como "Posso te ajudar com mais alguma coisa?" ou "Tem mais alguma dúvida?"
-5. Em caso de sinais de alerta médico, SEMPRE recomende procurar atendimento presencial
-6. Mantenha respostas concisas mas completas (máximo 400 palavras)
-7. Se o pai/mãe parecer ansioso ou cansado, valide isso antes de tudo
+RULES:
+1. Use the baby's and parent's name when known
+2. Ask NO MORE THAN 2 investigative questions per message
+3. When you have enough information, give your opinion confidently
+4. Always end with something like "Can I help you with anything else?" or "Do you have any other questions?"
+5. For medical red flags, ALWAYS recommend seeking in-person care
+6. Keep responses concise but complete (max 400 words)
+7. If the parent seems anxious or exhausted, validate that first
 
-AVISO: Você oferece orientações gerais e NÃO substitui aconselhamento médico profissional.`;
+DISCLAIMER: You provide general guidance and do NOT replace professional medical advice.`;
 
     // Save user message to database
     const lastUserMessage = messages[messages.length - 1];
