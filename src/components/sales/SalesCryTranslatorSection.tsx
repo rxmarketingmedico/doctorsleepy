@@ -4,17 +4,17 @@ import { Mic, Square, Check } from "lucide-react";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const categoryData = [
-  { label: "Fome", value: 72, color: "bg-amber-500" },
-  { label: "Sono", value: 15, color: "bg-blue-500" },
-  { label: "Cólica", value: 8, color: "bg-orange-500" },
-  { label: "Desconforto", value: 3, color: "bg-rose-500" },
-  { label: "Emocional", value: 2, color: "bg-purple-500" },
+  { label: "Hunger", value: 72, color: "bg-amber-500" },
+  { label: "Sleepiness", value: 15, color: "bg-blue-500" },
+  { label: "Colic", value: 8, color: "bg-orange-500" },
+  { label: "Discomfort", value: 3, color: "bg-rose-500" },
+  { label: "Emotional", value: 2, color: "bg-purple-500" },
 ];
 
 const soothingTips = [
-  "Ofereça o peito ou mamadeira em ambiente calmo",
-  "Verifique se a última mamada foi há mais de 2h",
-  "Observe sinais de sucção nas mãos",
+  "Offer the breast or bottle in a calm environment",
+  "Check if the last feeding was more than 2 hours ago",
+  "Watch for sucking signs on hands",
 ];
 
 type Phase = "idle" | "recording" | "selecting" | "analyzing" | "result";
@@ -55,7 +55,6 @@ export default function SalesCryTranslatorSection() {
 
       let elapsed = PHASE_TIMINGS.idle;
 
-      // Recording phase
       timeoutsRef.current.push(setTimeout(() => {
         setPhase("recording");
         const interval = setInterval(() => setRecordTime((p) => p + 1), 1000);
@@ -64,11 +63,9 @@ export default function SalesCryTranslatorSection() {
 
       elapsed += PHASE_TIMINGS.recording;
 
-      // Selecting characteristics
       timeoutsRef.current.push(setTimeout(() => {
         intervalsRef.current.forEach(clearInterval);
         setPhase("selecting");
-        // Animate selections
         for (let i = 0; i < 3; i++) {
           timeoutsRef.current.push(setTimeout(() => setSelectedChars(i + 1), i * 500));
         }
@@ -76,14 +73,12 @@ export default function SalesCryTranslatorSection() {
 
       elapsed += PHASE_TIMINGS.selecting;
 
-      // Analyzing
       timeoutsRef.current.push(setTimeout(() => {
         setPhase("analyzing");
       }, elapsed));
 
       elapsed += PHASE_TIMINGS.analyzing;
 
-      // Result
       timeoutsRef.current.push(setTimeout(() => {
         setPhase("result");
         categoryData.forEach((_, i) => {
@@ -96,7 +91,6 @@ export default function SalesCryTranslatorSection() {
 
       elapsed += PHASE_TIMINGS.result;
 
-      // Restart
       timeoutsRef.current.push(setTimeout(runAnimation, elapsed));
     };
 
@@ -111,9 +105,9 @@ export default function SalesCryTranslatorSection() {
   }, [visibleBars, visibleTips, phase]);
 
   const characteristics = [
-    { label: "Intensidade", value: "Alta" },
-    { label: "Padrão", value: "Rítmico" },
-    { label: "Tom", value: "Médio" },
+    { label: "Intensity", value: "High" },
+    { label: "Pattern", value: "Rhythmic" },
+    { label: "Tone", value: "Medium" },
   ];
 
   return (
@@ -122,10 +116,10 @@ export default function SalesCryTranslatorSection() {
         <ScrollReveal>
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
-              <span className="text-primary">Tradutor de Choro</span> — entenda seu bebê
+              <span className="text-primary">Cry Translator</span> — understand your baby
             </h2>
             <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-lg mx-auto">
-              Grave o choro, descreva o que observa e a IA analisa as possíveis causas com dicas práticas para acalmar.
+              Record the cry, describe what you observe and the AI analyzes the possible causes with practical tips to soothe.
             </p>
           </div>
         </ScrollReveal>
@@ -139,9 +133,9 @@ export default function SalesCryTranslatorSection() {
                   <span className="text-lg">🎙️</span>
                 </div>
                 <div>
-                  <h3 className="font-bold text-foreground text-sm">Grave o choro</h3>
+                  <h3 className="font-bold text-foreground text-sm">Record the cry</h3>
                   <p className="text-muted-foreground text-xs leading-relaxed mt-1">
-                    Basta aproximar o celular do bebê e gravar por alguns segundos.
+                    Just hold the phone near your baby and record for a few seconds.
                   </p>
                 </div>
               </div>
@@ -150,9 +144,9 @@ export default function SalesCryTranslatorSection() {
                   <span className="text-lg">📋</span>
                 </div>
                 <div>
-                  <h3 className="font-bold text-foreground text-sm">Descreva o que observa</h3>
+                  <h3 className="font-bold text-foreground text-sm">Describe what you observe</h3>
                   <p className="text-muted-foreground text-xs leading-relaxed mt-1">
-                    Selecione intensidade, padrão e tom — a IA cruza tudo para dar o melhor resultado.
+                    Select intensity, pattern and tone — the AI cross-references everything for the best result.
                   </p>
                 </div>
               </div>
@@ -161,9 +155,9 @@ export default function SalesCryTranslatorSection() {
                   <span className="text-lg">🧠</span>
                 </div>
                 <div>
-                  <h3 className="font-bold text-foreground text-sm">Receba a análise da IA</h3>
+                  <h3 className="font-bold text-foreground text-sm">Receive the AI analysis</h3>
                   <p className="text-muted-foreground text-xs leading-relaxed mt-1">
-                    Probabilidades de cada causa e dicas personalizadas para a idade do seu bebê.
+                    Probabilities for each cause and personalized tips based on your baby's age.
                   </p>
                 </div>
               </div>
@@ -191,8 +185,8 @@ export default function SalesCryTranslatorSection() {
                         <Mic className="w-3.5 h-3.5 text-primary" />
                       </div>
                       <div>
-                        <p className="text-sm font-bold text-foreground leading-tight">Tradutor de Choro</p>
-                        <p className="text-[10px] text-primary font-medium">Análise com IA</p>
+                        <p className="text-sm font-bold text-foreground leading-tight">Cry Translator</p>
+                        <p className="text-[10px] text-primary font-medium">AI Analysis</p>
                       </div>
                     </div>
                   </div>
@@ -203,7 +197,7 @@ export default function SalesCryTranslatorSection() {
                     {(phase === "idle" || phase === "recording") && (
                       <div className="flex flex-col items-center justify-center h-full gap-4 animate-fade-in">
                         <p className="text-xs text-muted-foreground">
-                          {phase === "idle" ? "Pressione para gravar" : `Gravando... 0:0${recordTime}`}
+                          {phase === "idle" ? "Press to record" : `Recording... 0:0${recordTime}`}
                         </p>
                         <div
                           className={cn(
@@ -240,7 +234,7 @@ export default function SalesCryTranslatorSection() {
                     {phase === "selecting" && (
                       <div className="space-y-3 animate-fade-in">
                         <p className="text-xs text-muted-foreground text-center mb-2">
-                          Descreva o choro
+                          Describe the cry
                         </p>
                         {characteristics.map((c, i) => (
                           <div
@@ -266,7 +260,7 @@ export default function SalesCryTranslatorSection() {
                     {phase === "analyzing" && (
                       <div className="flex flex-col items-center justify-center h-full gap-3 animate-fade-in">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
-                        <p className="text-xs text-muted-foreground">Analisando com IA...</p>
+                        <p className="text-xs text-muted-foreground">Analyzing with AI...</p>
                       </div>
                     )}
 
@@ -274,8 +268,8 @@ export default function SalesCryTranslatorSection() {
                     {phase === "result" && (
                       <div className="space-y-3 animate-fade-in">
                         <div className="text-center bg-primary/5 rounded-xl p-2.5">
-                          <p className="text-[10px] text-muted-foreground">Causa mais provável</p>
-                          <p className="text-sm font-bold text-primary">Fome</p>
+                          <p className="text-[10px] text-muted-foreground">Most likely cause</p>
+                          <p className="text-sm font-bold text-primary">Hunger</p>
                         </div>
 
                         <div className="space-y-1.5">
@@ -297,7 +291,7 @@ export default function SalesCryTranslatorSection() {
 
                         {visibleTips > 0 && (
                           <div className="space-y-1.5 mt-2">
-                            <p className="text-[10px] font-semibold text-foreground">💡 Dicas:</p>
+                            <p className="text-[10px] font-semibold text-foreground">💡 Tips:</p>
                             {soothingTips.slice(0, visibleTips).map((tip, i) => (
                               <div key={i} className="flex items-start gap-1.5 animate-fade-in">
                                 <Check className="w-3 h-3 text-primary flex-shrink-0 mt-0.5" />

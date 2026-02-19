@@ -1,17 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
-import { Moon, Sun, Baby, Droplets, Sparkles, TrendingUp, Brain } from "lucide-react";
+import { Moon, Sun, Baby, Droplets, Sparkles, TrendingUp } from "lucide-react";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const routineEntries = [
-  { type: "sleep", label: "Sono noturno", time: "20:30", end: "06:15", icon: Moon, color: "bg-indigo-500/15 text-indigo-600" },
-  { type: "feeding", label: "Mamada", time: "06:20", end: null, icon: Baby, color: "bg-pink-500/15 text-pink-600" },
-  { type: "nap", label: "Soneca", time: "09:00", end: "10:30", icon: Sun, color: "bg-amber-500/15 text-amber-600" },
-  { type: "diaper", label: "Troca de fralda", time: "10:35", end: null, icon: Droplets, color: "bg-cyan-500/15 text-cyan-600" },
-  { type: "feeding", label: "Mamada", time: "11:00", end: null, icon: Baby, color: "bg-pink-500/15 text-pink-600" },
+  { type: "sleep", label: "Night sleep", time: "20:30", end: "06:15", icon: Moon, color: "bg-indigo-500/15 text-indigo-600" },
+  { type: "feeding", label: "Feeding", time: "06:20", end: null, icon: Baby, color: "bg-pink-500/15 text-pink-600" },
+  { type: "nap", label: "Nap", time: "09:00", end: "10:30", icon: Sun, color: "bg-amber-500/15 text-amber-600" },
+  { type: "diaper", label: "Diaper change", time: "10:35", end: null, icon: Droplets, color: "bg-cyan-500/15 text-cyan-600" },
+  { type: "feeding", label: "Feeding", time: "11:00", end: null, icon: Baby, color: "bg-pink-500/15 text-pink-600" },
 ];
 
-const aiInsight = "📊 Padrão detectado: Seu bebê dorme melhor quando a última soneca termina antes das 16h. Considere antecipar a rotina da tarde em 30 minutos.";
+const aiInsight = "📊 Pattern detected: Your baby sleeps better when the last nap ends before 4pm. Consider moving the afternoon routine 30 minutes earlier.";
 
 const LOOP_RESTART = 4000;
 
@@ -54,11 +54,11 @@ export default function SalesRoutineSection() {
         <ScrollReveal>
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
-              Rotina <span className="text-primary">Inteligente</span> — o app aprende com você
+              <span className="text-primary">Smart Routine</span> — the app learns with you
             </h2>
             <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-lg mx-auto">
-              Registre sono, mamadas e trocas com um toque. O Doutor Soneca analisa os padrões
-              e te dá orientações cada vez mais precisas.
+              Log sleep, feedings and diaper changes with one tap. Dr. Sleepy analyzes the patterns
+              and gives you increasingly precise guidance.
             </p>
           </div>
         </ScrollReveal>
@@ -85,8 +85,8 @@ export default function SalesRoutineSection() {
                         <TrendingUp className="w-3.5 h-3.5 text-primary" />
                       </div>
                       <div>
-                        <p className="text-sm font-bold text-foreground leading-tight">Rotina do Bebê</p>
-                        <p className="text-[10px] text-primary font-medium">Hoje — 5 registros</p>
+                        <p className="text-sm font-bold text-foreground leading-tight">Baby Routine</p>
+                        <p className="text-[10px] text-primary font-medium">Today — 5 entries</p>
                       </div>
                     </div>
                   </div>
@@ -96,15 +96,15 @@ export default function SalesRoutineSection() {
                     {/* Stats row */}
                     <div className="grid grid-cols-3 gap-2 mb-3">
                       <div className="bg-muted/50 rounded-lg p-2 text-center">
-                        <p className="text-[10px] text-muted-foreground">Sono</p>
+                        <p className="text-[10px] text-muted-foreground">Sleep</p>
                         <p className="text-sm font-bold text-foreground">9h 45min</p>
                       </div>
                       <div className="bg-muted/50 rounded-lg p-2 text-center">
-                        <p className="text-[10px] text-muted-foreground">Mamadas</p>
+                        <p className="text-[10px] text-muted-foreground">Feedings</p>
                         <p className="text-sm font-bold text-foreground">2</p>
                       </div>
                       <div className="bg-muted/50 rounded-lg p-2 text-center">
-                        <p className="text-[10px] text-muted-foreground">Trocas</p>
+                        <p className="text-[10px] text-muted-foreground">Diapers</p>
                         <p className="text-sm font-bold text-foreground">1</p>
                       </div>
                     </div>
@@ -137,7 +137,7 @@ export default function SalesRoutineSection() {
                       <div className="mt-3 bg-primary/10 rounded-xl p-2.5 animate-fade-in border border-primary/20">
                         <div className="flex items-center gap-1.5 mb-1">
                           <Sparkles className="w-3 h-3 text-primary" />
-                          <p className="text-[10px] font-bold text-primary">Insight do Doutor Soneca</p>
+                          <p className="text-[10px] font-bold text-primary">Dr. Sleepy Insight</p>
                         </div>
                         <p className="text-[10px] text-foreground leading-relaxed">{aiInsight}</p>
                       </div>
@@ -162,9 +162,9 @@ export default function SalesRoutineSection() {
                     <span className="text-lg">📱</span>
                   </div>
                   <div>
-                    <h3 className="font-bold text-foreground text-sm">Registre em 1 toque</h3>
+                    <h3 className="font-bold text-foreground text-sm">Log in 1 tap</h3>
                     <p className="text-muted-foreground text-xs leading-relaxed mt-1">
-                      Sono, mamada, troca de fralda — tudo registrado em segundos, mesmo de madrugada com uma mão só.
+                      Sleep, feeding, diaper change — all logged in seconds, even at 3am with one hand.
                     </p>
                   </div>
                 </div>
@@ -174,9 +174,9 @@ export default function SalesRoutineSection() {
                     <span className="text-lg">📊</span>
                   </div>
                   <div>
-                    <h3 className="font-bold text-foreground text-sm">Padrões revelados</h3>
+                    <h3 className="font-bold text-foreground text-sm">Patterns revealed</h3>
                     <p className="text-muted-foreground text-xs leading-relaxed mt-1">
-                      O Doutor Soneca analisa os últimos 7 dias e identifica padrões que você não conseguiria ver sozinho(a).
+                      Dr. Sleepy analyzes the last 7 days and identifies patterns you wouldn't spot on your own.
                     </p>
                   </div>
                 </div>
@@ -186,9 +186,9 @@ export default function SalesRoutineSection() {
                     <span className="text-lg">🧠</span>
                   </div>
                   <div>
-                    <h3 className="font-bold text-foreground text-sm">IA que aprende com você</h3>
+                    <h3 className="font-bold text-foreground text-sm">AI that learns with you</h3>
                     <p className="text-muted-foreground text-xs leading-relaxed mt-1">
-                      Quanto mais você registra, mais inteligente o Doutor fica. Cada conselho é baseado na rotina real do seu bebê.
+                      The more you log, the smarter Dr. Sleepy gets. Every tip is based on your baby's real routine.
                     </p>
                   </div>
                 </div>
@@ -198,9 +198,9 @@ export default function SalesRoutineSection() {
                     <span className="text-lg">🌙</span>
                   </div>
                   <div>
-                    <h3 className="font-bold text-foreground text-sm">Melhore o sono gradualmente</h3>
+                    <h3 className="font-bold text-foreground text-sm">Gradually improve sleep</h3>
                     <p className="text-muted-foreground text-xs leading-relaxed mt-1">
-                      Com dados reais, o Doutor sugere ajustes pequenos e práticos na rotina para noites cada vez melhores.
+                      With real data, Dr. Sleepy suggests small, practical adjustments to the routine for better nights.
                     </p>
                   </div>
                 </div>
