@@ -45,17 +45,28 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Extract buyer email
-    const buyerEmail = (data.buyer?.email || data.subscriber?.email)?.toLowerCase();
+    // Extract buyer email — covers buyer, subscriber, and switch_plan structures
+    const buyerEmail = (
+      data.buyer?.email ||
+      data.subscriber?.email ||
+      data.purchase?.buyer?.email ||
+      data.switch_plan?.subscriber?.email
+    )?.toLowerCase();
+
     if (!buyerEmail) {
-      console.error("No buyer/subscriber email in webhook payload");
+      console.error("No buyer/subscriber email in webhook payload", JSON.stringify(data));
       return new Response(JSON.stringify({ error: "No email found" }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    const buyerName = data.buyer?.name || data.subscriber?.name || "";
+    const buyerName =
+      data.buyer?.name ||
+      data.subscriber?.name ||
+      data.purchase?.buyer?.name ||
+      data.switch_plan?.subscriber?.name ||
+      "";
     const buyerPhone = data.buyer?.checkout_phone || data.buyer?.phone || null;
 
     // Determine plan from price
@@ -84,6 +95,7 @@ Deno.serve(async (req) => {
       "PURCHASE_COMPLETE",
       "SUBSCRIPTION_REACTIVATION",
       "SUBSCRIPTION_RENEWAL_CHARGE",
+      "PURCHASE_SWITCH_PLAN",
     ].includes(event);
 
     if (!matchedUser && isPurchaseEvent) {
@@ -179,6 +191,7 @@ Deno.serve(async (req) => {
       case "PURCHASE_APPROVED":
       case "PURCHASE_COMPLETE":
       case "SUBSCRIPTION_REACTIVATION":
+      case "PURCHASE_SWITCH_PLAN":
         subscriptionStatus = "active";
         subscriptionPlan = plan;
         subscriptionExpiresAt = calculateExpiration(plan, event);
