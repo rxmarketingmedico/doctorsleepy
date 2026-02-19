@@ -67,7 +67,7 @@ export function SubscriptionManager() {
             </Button>
           )}
           {(!isActive || isExpired) && (
-            <Button className="w-full rounded-xl" onClick={() => window.open("https://pay.hotmart.com/G104310879F?off=a4i8bvbk&checkoutMode=10", "_blank")}>
+            <Button className="w-full rounded-xl" onClick={() => window.open("https://pay.hotmart.com/F104531830H?off=jihtbtut&checkoutMode=10", "_blank")}>
               {isExpired ? "Renew subscription" : "Subscribe now"}
             </Button>
           )}
