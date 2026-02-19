@@ -9,23 +9,23 @@ interface EmergencyStep {
 }
 
 const emergencyButtons = [
-  { icon: Utensils, label: "Fome", color: "bg-amber-500/15 text-amber-600", desc: "Não quer mamar" },
-  { icon: Moon, label: "Sono", color: "bg-blue-500/15 text-blue-600", desc: "Não consegue dormir" },
-  { icon: Frown, label: "Desconforto", color: "bg-orange-500/15 text-orange-600", desc: "Irritado e inquieto" },
-  { icon: Baby, label: "Choro Intenso", color: "bg-red-500/15 text-red-600", desc: "Choro inconsolável" },
-  { icon: AlertTriangle, label: "Acordou de Noite", color: "bg-purple-500/15 text-purple-600", desc: "Despertar noturno" },
+  { icon: Utensils, label: "Hunger", color: "bg-amber-500/15 text-amber-600", desc: "Won't feed" },
+  { icon: Moon, label: "Sleepiness", color: "bg-blue-500/15 text-blue-600", desc: "Can't fall asleep" },
+  { icon: Frown, label: "Discomfort", color: "bg-orange-500/15 text-orange-600", desc: "Irritable and restless" },
+  { icon: Baby, label: "Intense Crying", color: "bg-red-500/15 text-red-600", desc: "Inconsolable crying" },
+  { icon: AlertTriangle, label: "Woke Up at Night", color: "bg-purple-500/15 text-purple-600", desc: "Night waking" },
 ];
 
 const emergencyResponse = {
-  title: "🌙 Despertar Noturno",
+  title: "🌙 Night Waking",
   steps: [
-    "Mantenha o ambiente escuro e silencioso",
-    "Fale em tom baixo e calmo",
-    "Verifique fralda e temperatura",
-    "Ofereça conforto sem tirar do berço",
-    "Use ruído branco se necessário",
+    "Keep the room dark and quiet",
+    "Speak in a low, calm tone",
+    "Check diaper and temperature",
+    "Offer comfort without taking from the crib",
+    "Use white noise if needed",
   ],
-  tip: "Bebês de 4-6 meses podem ter regressão de sono. É normal e passa em 1-2 semanas. 💙",
+  tip: "Babies aged 4–6 months may have sleep regressions. It's normal and passes in 1–2 weeks. 💙",
 };
 
 const LOOP_RESTART = 4000;
@@ -47,25 +47,21 @@ export default function SalesEmergencySection() {
       setTappedIndex(null);
       setVisibleSteps(0);
 
-      // Show buttons for a moment, then tap one
       timeoutsRef.current.push(setTimeout(() => {
-        setTappedIndex(4); // Tap "Acordou de Noite"
+        setTappedIndex(4);
         setPhase("tapping");
       }, 2000));
 
-      // Show response screen
       timeoutsRef.current.push(setTimeout(() => {
         setPhase("response");
       }, 2800));
 
-      // Reveal steps one by one
       emergencyResponse.steps.forEach((_, i) => {
         timeoutsRef.current.push(setTimeout(() => {
           setVisibleSteps(i + 1);
         }, 3500 + i * 600));
       });
 
-      // Restart
       const totalTime = 3500 + emergencyResponse.steps.length * 600 + LOOP_RESTART;
       timeoutsRef.current.push(setTimeout(runAnimation, totalTime));
     };
@@ -86,11 +82,11 @@ export default function SalesEmergencySection() {
         <ScrollReveal>
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
-              Modo <span className="text-destructive">Emergência</span> — ajuda em segundos
+              <span className="text-destructive">Emergency Mode</span> — help in seconds
             </h2>
             <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-lg mx-auto">
-              3h da manhã. Bebê chorando. Você não precisa pensar — basta tocar no botão
-              e receber orientação imediata.
+              3am. Baby crying. You don't have to think — just tap the button
+              and get immediate guidance.
             </p>
           </div>
         </ScrollReveal>
@@ -117,8 +113,8 @@ export default function SalesEmergencySection() {
                         <AlertTriangle className="w-3.5 h-3.5 text-destructive" />
                       </div>
                       <div>
-                        <p className="text-sm font-bold text-foreground leading-tight">Modo Emergência</p>
-                        <p className="text-[10px] text-destructive font-medium">Ajuda rápida</p>
+                        <p className="text-sm font-bold text-foreground leading-tight">Emergency Mode</p>
+                        <p className="text-[10px] text-destructive font-medium">Quick help</p>
                       </div>
                     </div>
                   </div>
@@ -128,7 +124,7 @@ export default function SalesEmergencySection() {
                     {phase === "buttons" || phase === "tapping" ? (
                       <div className="space-y-2">
                         <p className="text-xs text-muted-foreground text-center mb-3">
-                          O que está acontecendo?
+                          What's happening?
                         </p>
                         {emergencyButtons.map((btn, i) => (
                           <button
@@ -156,7 +152,7 @@ export default function SalesEmergencySection() {
                       <div className="space-y-3 animate-fade-in">
                         <div className="text-center">
                           <p className="text-sm font-bold text-foreground">{emergencyResponse.title}</p>
-                          <p className="text-[10px] text-muted-foreground mt-1">Siga estes passos:</p>
+                          <p className="text-[10px] text-muted-foreground mt-1">Follow these steps:</p>
                         </div>
 
                         <div className="space-y-2">
@@ -200,9 +196,9 @@ export default function SalesEmergencySection() {
                     <span className="text-lg">⚡</span>
                   </div>
                   <div>
-                    <h3 className="font-bold text-foreground text-sm">Resposta em 3 segundos</h3>
+                    <h3 className="font-bold text-foreground text-sm">Response in 3 seconds</h3>
                     <p className="text-muted-foreground text-xs leading-relaxed mt-1">
-                      Toque no problema e receba orientação imediata. Sem digitar, sem esperar.
+                      Tap the problem and get immediate guidance. No typing, no waiting.
                     </p>
                   </div>
                 </div>
@@ -212,9 +208,9 @@ export default function SalesEmergencySection() {
                     <span className="text-lg">🌙</span>
                   </div>
                   <div>
-                    <h3 className="font-bold text-foreground text-sm">Feito para a madrugada</h3>
+                    <h3 className="font-bold text-foreground text-sm">Built for the middle of the night</h3>
                     <p className="text-muted-foreground text-xs leading-relaxed mt-1">
-                      Interface escura automática, botões grandes e linguagem simples para quando você está exausto(a).
+                      Auto dark interface, large buttons and simple language for when you're exhausted.
                     </p>
                   </div>
                 </div>
@@ -224,9 +220,9 @@ export default function SalesEmergencySection() {
                     <span className="text-lg">🧠</span>
                   </div>
                   <div>
-                    <h3 className="font-bold text-foreground text-sm">Passos claros e objetivos</h3>
+                    <h3 className="font-bold text-foreground text-sm">Clear, actionable steps</h3>
                     <p className="text-muted-foreground text-xs leading-relaxed mt-1">
-                      Cada orientação é um passo prático que você pode seguir imediatamente, na ordem certa.
+                      Each piece of guidance is a practical step you can follow immediately, in the right order.
                     </p>
                   </div>
                 </div>
