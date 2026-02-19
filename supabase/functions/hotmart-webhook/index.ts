@@ -166,6 +166,7 @@ Deno.serve(async (req) => {
           : `${supabaseUrl}/auth/v1/verify?token_hash=${linkData.properties?.hashed_token}&type=magiclink&redirect_to=${encodeURIComponent('https://doctorsleepy.lovable.app')}`;
 
         await sendWelcomeEmail(buyerEmail, buyerName, magicLinkUrl, defaultPassword);
+        await sendAdminNotificationEmail(buyerEmail, buyerName, plan, event, true);
       }
 
       return new Response(
@@ -252,6 +253,11 @@ Deno.serve(async (req) => {
     // Send renewal confirmation email
     if (sendRenewalEmail) {
       await sendRenewalConfirmationEmail(buyerEmail, buyerName, subscriptionExpiresAt!);
+    }
+
+    // Send admin notification for all purchase/activation events
+    if (["PURCHASE_APPROVED", "PURCHASE_COMPLETE", "SUBSCRIPTION_REACTIVATION", "SWITCH_PLAN", "SUBSCRIPTION_RENEWAL_CHARGE"].includes(event)) {
+      await sendAdminNotificationEmail(buyerEmail, buyerName, subscriptionPlan || plan, event, false);
     }
 
     console.log(`Profile updated for ${buyerEmail}: ${subscriptionStatus} (${subscriptionPlan}) expires: ${subscriptionExpiresAt}`);
@@ -514,5 +520,87 @@ async function sendRenewalConfirmationEmail(email: string, name: string, expires
     }
   } catch (err) {
     console.error("Failed to send renewal email:", err);
+  }
+}
+
+async function sendAdminNotificationEmail(
+  buyerEmail: string,
+  buyerName: string,
+  plan: string,
+  event: string,
+  isNewUser: boolean
+) {
+  try {
+    const resendApiKey = Deno.env.get("RESEND_API_KEY");
+    if (!resendApiKey) return;
+
+    const resend = new Resend(resendApiKey);
+
+    const eventLabels: Record<string, string> = {
+      PURCHASE_APPROVED: "✅ Nova Compra",
+      PURCHASE_COMPLETE: "✅ Compra Concluída",
+      SUBSCRIPTION_REACTIVATION: "🔄 Reativação",
+      SWITCH_PLAN: "🔀 Troca de Plano",
+      SUBSCRIPTION_RENEWAL_CHARGE: "🔁 Renovação",
+    };
+
+    const planLabels: Record<string, string> = {
+      mensal: "Mensal",
+      semestral: "Semestral",
+      anual: "Anual",
+    };
+
+    const eventLabel = eventLabels[event] || event;
+    const planLabel = planLabels[plan] || plan;
+    const userStatus = isNewUser ? "🆕 Novo usuário criado" : "👤 Usuário existente atualizado";
+
+    await resend.emails.send({
+      from: "Dr. Sleepy <noreply@doutorsoneca.com>",
+      to: ["agenciadbsdigital@gmail.com"],
+      subject: `${eventLabel} — ${buyerName || buyerEmail}`,
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <head><meta charset="utf-8"></head>
+        <body style="margin:0;padding:0;background:#f8f4ff;font-family:'Segoe UI',sans-serif;">
+          <div style="max-width:500px;margin:0 auto;padding:30px 20px;">
+            <div style="background:white;border-radius:12px;padding:30px;box-shadow:0 4px 15px rgba(0,0,0,0.08);">
+              <div style="text-align:center;margin-bottom:20px;">
+                <img src="https://ytucoisaanzxgnjkfggg.supabase.co/storage/v1/object/public/email-assets/logo-dr-sleepy.png" alt="Dr. Sleepy" style="height:60px;width:auto;" />
+              </div>
+              <h2 style="color:#6c3fa0;font-size:20px;margin:0 0 20px 0;text-align:center;">${eventLabel}</h2>
+              <table style="width:100%;border-collapse:collapse;">
+                <tr style="border-bottom:1px solid #f0f0f0;">
+                  <td style="color:#888;font-size:14px;padding:10px 0;">Nome</td>
+                  <td style="color:#333;font-size:14px;font-weight:bold;padding:10px 0;">${buyerName || "—"}</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f0f0f0;">
+                  <td style="color:#888;font-size:14px;padding:10px 0;">Email</td>
+                  <td style="color:#333;font-size:14px;padding:10px 0;">${buyerEmail}</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f0f0f0;">
+                  <td style="color:#888;font-size:14px;padding:10px 0;">Plano</td>
+                  <td style="color:#333;font-size:14px;font-weight:bold;padding:10px 0;">${planLabel}</td>
+                </tr>
+                <tr>
+                  <td style="color:#888;font-size:14px;padding:10px 0;">Status</td>
+                  <td style="color:#333;font-size:14px;padding:10px 0;">${userStatus}</td>
+                </tr>
+              </table>
+              <div style="text-align:center;margin-top:25px;">
+                <a href="https://doctorsleepy.lovable.app/admin" style="display:inline-block;background:#6c3fa0;color:white;text-decoration:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:bold;">
+                  Ver no Painel Admin →
+                </a>
+              </div>
+            </div>
+          </div>
+        </body>
+        </html>
+      `,
+    });
+
+    console.log(`Admin notification sent for ${buyerEmail} — ${event}`);
+  } catch (err) {
+    console.error("Failed to send admin notification email:", err);
   }
 }
