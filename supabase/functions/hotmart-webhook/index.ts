@@ -25,7 +25,7 @@ Deno.serve(async (req) => {
     // Validate Hotmart token
     const receivedToken = req.headers.get("x-hotmart-hottok");
     if (receivedToken !== hottok) {
-      console.error("Invalid hottok received");
+      console.error("Invalid hottok received:", receivedToken);
       return new Response(JSON.stringify({ error: "Unauthorized" }), {
         status: 401,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -75,46 +75,32 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    // Find user by email
-    const { data: users, error: listError } =
-      await supabaseAdmin.auth.admin.listUsers();
-    if (listError) {
-      console.error("Error listing users:", listError);
-      return new Response(JSON.stringify({ error: "Internal error" }), {
-        status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-
-    const matchedUser = users.users.find(
-      (u) => u.email?.toLowerCase() === buyerEmail
-    );
+    // Find user by email — paginate to avoid the 1000-user limit
+    const matchedUser = await findUserByEmail(supabaseAdmin, buyerEmail);
 
     // Handle purchase events — create user if not found
     const isPurchaseEvent = [
       "PURCHASE_APPROVED",
       "PURCHASE_COMPLETE",
       "SUBSCRIPTION_REACTIVATION",
+      "SUBSCRIPTION_RENEWAL_CHARGE",
     ].includes(event);
 
     if (!matchedUser && isPurchaseEvent) {
       console.log(`No user found for ${buyerEmail}. Creating account automatically...`);
 
-      // Generate a unique random password for this account
       const defaultPassword = generateSecurePassword();
 
-      // Create user via admin API
       const { data: newUserData, error: createError } =
         await supabaseAdmin.auth.admin.createUser({
           email: buyerEmail,
           password: defaultPassword,
-          email_confirm: true, // auto-confirm email
+          email_confirm: true,
           user_metadata: { full_name: buyerName },
         });
 
       if (createError) {
         console.error("Error creating user:", createError);
-        // Save as pending activation as fallback
         await savePendingActivation(supabaseAdmin, buyerEmail, event, plan, transactionId, body);
         return new Response(
           JSON.stringify({ status: "pending", message: "User creation failed, saved for later" }),
@@ -125,10 +111,8 @@ Deno.serve(async (req) => {
       const newUserId = newUserData.user.id;
       console.log(`User created: ${newUserId}`);
 
-      // Calculate expiration
-      const expiresAt = calculateExpiration(plan);
+      const expiresAt = calculateExpiration(plan, event);
 
-      // Update the profile (created by trigger) with subscription data
       // Small delay to allow the trigger to create the profile
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -149,34 +133,29 @@ Deno.serve(async (req) => {
         console.error("Error updating new user profile:", updateError);
       }
 
-      // Generate magic link and send email via Resend
+      // Generate magic link and send welcome email
       const { data: linkData, error: linkError } =
         await supabaseAdmin.auth.admin.generateLink({
           type: "magiclink",
           email: buyerEmail,
           options: {
-            redirectTo: "https://doutorsoneca.lovable.app",
+            redirectTo: "https://doctorsleepy.lovable.app",
           },
         });
 
       if (linkError) {
         console.error("Error generating magic link:", linkError);
       } else {
-        // Use the action_link provided by generateLink which contains the full verified URL
         const actionLink = linkData.properties?.action_link;
-        console.log("Generated action_link:", actionLink);
-        
-        // Replace the redirect in the action_link to point to our app
         const magicLinkUrl = actionLink
-          ? actionLink.replace(/redirect_to=[^&]*/, 'redirect_to=' + encodeURIComponent('https://doutorsoneca.lovable.app'))
-          : `${supabaseUrl}/auth/v1/verify?token_hash=${linkData.properties?.hashed_token}&type=magiclink&redirect_to=${encodeURIComponent('https://doutorsoneca.lovable.app')}`;
+          ? actionLink.replace(/redirect_to=[^&]*/, 'redirect_to=' + encodeURIComponent('https://doctorsleepy.lovable.app'))
+          : `${supabaseUrl}/auth/v1/verify?token_hash=${linkData.properties?.hashed_token}&type=magiclink&redirect_to=${encodeURIComponent('https://doctorsleepy.lovable.app')}`;
 
-        // Send email via Resend with login credentials
-        await sendMagicLinkEmail(buyerEmail, buyerName, magicLinkUrl, defaultPassword);
+        await sendWelcomeEmail(buyerEmail, buyerName, magicLinkUrl, defaultPassword);
       }
 
       return new Response(
-        JSON.stringify({ status: "ok", message: "User created and magic link sent", subscription_status: "active" }),
+        JSON.stringify({ status: "ok", message: "User created and welcome email sent", subscription_status: "active" }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -194,6 +173,7 @@ Deno.serve(async (req) => {
     let subscriptionStatus = "pending";
     let subscriptionPlan: string | null = null;
     let subscriptionExpiresAt: string | null = null;
+    let sendRenewalEmail = false;
 
     switch (event) {
       case "PURCHASE_APPROVED":
@@ -201,18 +181,32 @@ Deno.serve(async (req) => {
       case "SUBSCRIPTION_REACTIVATION":
         subscriptionStatus = "active";
         subscriptionPlan = plan;
-        subscriptionExpiresAt = calculateExpiration(plan);
+        subscriptionExpiresAt = calculateExpiration(plan, event);
         break;
 
+      // ✅ Renewal: extend the subscription period
+      case "SUBSCRIPTION_RENEWAL_CHARGE":
+        subscriptionStatus = "active";
+        subscriptionPlan = plan;
+        subscriptionExpiresAt = calculateExpiration(plan, event);
+        sendRenewalEmail = true;
+        console.log(`Subscription renewal for ${buyerEmail} — new expiry: ${subscriptionExpiresAt}`);
+        break;
+
+      // ❌ Cancellations
       case "PURCHASE_REFUNDED":
       case "PURCHASE_CHARGEBACK":
       case "SUBSCRIPTION_CANCELLATION":
       case "PURCHASE_CANCELED":
         subscriptionStatus = "cancelled";
+        subscriptionPlan = null;
+        subscriptionExpiresAt = null;
         break;
 
+      // ⏳ Pending / failed payments
       case "PURCHASE_DELAYED":
       case "PURCHASE_PROTEST":
+      case "PURCHASE_EXPIRED":
         subscriptionStatus = "pending";
         break;
 
@@ -240,7 +234,12 @@ Deno.serve(async (req) => {
       });
     }
 
-    console.log(`Profile updated for ${buyerEmail}: ${subscriptionStatus} (${subscriptionPlan})`);
+    // Send renewal confirmation email
+    if (sendRenewalEmail) {
+      await sendRenewalConfirmationEmail(buyerEmail, buyerName, subscriptionExpiresAt!);
+    }
+
+    console.log(`Profile updated for ${buyerEmail}: ${subscriptionStatus} (${subscriptionPlan}) expires: ${subscriptionExpiresAt}`);
 
     return new Response(
       JSON.stringify({ status: "ok", subscription_status: subscriptionStatus }),
@@ -255,15 +254,44 @@ Deno.serve(async (req) => {
   }
 });
 
+// ─── Helpers ────────────────────────────────────────────────────────────────
+
+/** Paginate through all users to find by email (avoids 1000-user limit) */
+async function findUserByEmail(supabaseAdmin: ReturnType<typeof createClient>, email: string) {
+  let page = 1;
+  const perPage = 1000;
+
+  while (true) {
+    const { data: users, error } = await supabaseAdmin.auth.admin.listUsers({
+      page,
+      perPage,
+    });
+
+    if (error) {
+      console.error("Error listing users:", error);
+      return null;
+    }
+
+    const match = users.users.find((u) => u.email?.toLowerCase() === email);
+    if (match) return match;
+
+    // If fewer users were returned than requested, we've reached the end
+    if (users.users.length < perPage) break;
+    page++;
+  }
+
+  return null;
+}
+
 function generateSecurePassword(length = 20): string {
-  // Only use characters that are safe in HTML emails (no &, <, >, ", ')
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_+=!@#$';
   const array = new Uint8Array(length);
   crypto.getRandomValues(array);
   return Array.from(array, byte => chars[byte % chars.length]).join('');
 }
 
-function calculateExpiration(plan: string): string {
+/** Calculate expiration. For renewals, add from NOW regardless of current expiry. */
+function calculateExpiration(plan: string, event?: string): string {
   const now = new Date();
   if (plan === "anual") now.setFullYear(now.getFullYear() + 1);
   else if (plan === "semestral") now.setMonth(now.getMonth() + 6);
@@ -272,14 +300,19 @@ function calculateExpiration(plan: string): string {
 }
 
 async function savePendingActivation(
-  supabaseAdmin: any,
+  supabaseAdmin: ReturnType<typeof createClient>,
   email: string,
   event: string,
   plan: string,
   transactionId: string | null,
-  rawPayload: any
+  rawPayload: unknown
 ) {
-  const isPurchase = ["PURCHASE_APPROVED", "PURCHASE_COMPLETE", "SUBSCRIPTION_REACTIVATION"].includes(event);
+  const isPurchase = [
+    "PURCHASE_APPROVED",
+    "PURCHASE_COMPLETE",
+    "SUBSCRIPTION_REACTIVATION",
+    "SUBSCRIPTION_RENEWAL_CHARGE",
+  ].includes(event);
 
   const { error } = await supabaseAdmin.from("pending_activations").insert({
     email,
@@ -296,7 +329,7 @@ async function savePendingActivation(
   }
 }
 
-async function sendMagicLinkEmail(email: string, name: string, magicLinkUrl: string, password: string) {
+async function sendWelcomeEmail(email: string, name: string, magicLinkUrl: string, password: string) {
   try {
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
     if (!resendApiKey) {
@@ -306,9 +339,11 @@ async function sendMagicLinkEmail(email: string, name: string, magicLinkUrl: str
 
     const resend = new Resend(resendApiKey);
     const firstName = name ? name.split(" ")[0] : "there";
-    
-    // HTML-encode the password to prevent character corruption
-    const safePassword = password.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    const safePassword = password
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
 
     const { error } = await resend.emails.send({
       from: "Dr. Sleepy <noreply@doutorsoneca.com>",
@@ -393,11 +428,78 @@ async function sendMagicLinkEmail(email: string, name: string, magicLinkUrl: str
     });
 
     if (error) {
-      console.error("Error sending magic link email:", error);
+      console.error("Error sending welcome email:", error);
     } else {
-      console.log(`Magic link email sent to ${email}`);
+      console.log(`Welcome email sent to ${email}`);
     }
   } catch (err) {
     console.error("Failed to send email:", err);
+  }
+}
+
+async function sendRenewalConfirmationEmail(email: string, name: string, expiresAt: string) {
+  try {
+    const resendApiKey = Deno.env.get("RESEND_API_KEY");
+    if (!resendApiKey) return;
+
+    const resend = new Resend(resendApiKey);
+    const firstName = name ? name.split(" ")[0] : "there";
+    const expiryDate = new Date(expiresAt).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+
+    const { error } = await resend.emails.send({
+      from: "Dr. Sleepy <noreply@doutorsoneca.com>",
+      to: [email],
+      subject: "🌙 Your Dr. Sleepy subscription has been renewed!",
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+        <body style="margin:0;padding:0;background-color:#f8f4ff;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
+          <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
+            <div style="background:white;border-radius:16px;padding:40px;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+              <div style="text-align:center;margin-bottom:30px;">
+                <div style="font-size:48px;margin-bottom:10px;">🌙</div>
+                <h1 style="color:#6c3fa0;font-size:24px;margin:0;">Dr. Sleepy</h1>
+              </div>
+              
+              <p style="color:#333;font-size:16px;line-height:1.6;">Hi, <strong>${firstName}</strong>! 👋</p>
+              
+              <p style="color:#333;font-size:16px;line-height:1.6;">
+                Your subscription has been renewed successfully! ✅
+              </p>
+
+              <div style="background:#f0fdf4;border-radius:12px;padding:20px;margin:25px 0;border:1px solid #86efac;">
+                <p style="color:#16a34a;font-size:16px;font-weight:bold;margin:0 0 8px 0;">✅ Renewal confirmed</p>
+                <p style="color:#333;font-size:14px;margin:0;">
+                  Your access is guaranteed until: <strong>${expiryDate}</strong>
+                </p>
+              </div>
+              
+              <div style="text-align:center;margin:30px 0;">
+                <a href="https://doctorsleepy.lovable.app" style="display:inline-block;background:linear-gradient(135deg,#6c3fa0,#9b59b6);color:white;text-decoration:none;padding:16px 40px;border-radius:12px;font-size:18px;font-weight:bold;">
+                  Open Dr. Sleepy →
+                </a>
+              </div>
+              
+              <hr style="border:none;border-top:1px solid #eee;margin:30px 0;">
+              <p style="color:#888;font-size:12px;text-align:center;">Dr. Sleepy — Peaceful nights for the whole family 🌙</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `,
+    });
+
+    if (error) {
+      console.error("Error sending renewal email:", error);
+    } else {
+      console.log(`Renewal email sent to ${email}`);
+    }
+  } catch (err) {
+    console.error("Failed to send renewal email:", err);
   }
 }
