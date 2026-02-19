@@ -373,8 +373,7 @@ async function sendWelcomeEmail(email: string, name: string, magicLinkUrl: strin
           <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
             <div style="background:white;border-radius:16px;padding:40px;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
               <div style="text-align:center;margin-bottom:30px;">
-                <div style="font-size:48px;margin-bottom:10px;">🌙</div>
-                <h1 style="color:#6c3fa0;font-size:24px;margin:0;">Dr. Sleepy</h1>
+                <img src="https://ytucoisaanzxgnjkfggg.supabase.co/storage/v1/object/public/email-assets/logo-dr-sleepy.png" alt="Dr. Sleepy" style="height:80px;width:auto;margin-bottom:8px;" />
               </div>
               
               <p style="color:#333;font-size:16px;line-height:1.6;">
@@ -475,8 +474,7 @@ async function sendRenewalConfirmationEmail(email: string, name: string, expires
           <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
             <div style="background:white;border-radius:16px;padding:40px;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
               <div style="text-align:center;margin-bottom:30px;">
-                <div style="font-size:48px;margin-bottom:10px;">🌙</div>
-                <h1 style="color:#6c3fa0;font-size:24px;margin:0;">Dr. Sleepy</h1>
+                <img src="https://ytucoisaanzxgnjkfggg.supabase.co/storage/v1/object/public/email-assets/logo-dr-sleepy.png" alt="Dr. Sleepy" style="height:80px;width:auto;margin-bottom:8px;" />
               </div>
               
               <p style="color:#333;font-size:16px;line-height:1.6;">Hi, <strong>${firstName}</strong>! 👋</p>
