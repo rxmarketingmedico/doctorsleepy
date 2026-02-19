@@ -14,7 +14,7 @@ const features = [
 const plans = [
   {
     name: "Monthly",
-    price: "47",
+    price: "9.90",
     period: "/mo",
     url: "https://pay.hotmart.com/F104531830H?off=jihtbtut&checkoutMode=10",
     icon: Star,
@@ -25,10 +25,10 @@ const plans = [
   },
   {
     name: "Semi-Annual",
-    price: "127",
+    price: "19.90",
     period: "/6 months",
-    pricePerMonth: "$21/mo",
-    savings: "55% OFF",
+    pricePerMonth: "$3.32/mo",
+    savings: "66% OFF",
     url: "https://pay.hotmart.com/F104531830H?off=xx41msm5&checkoutMode=10",
     icon: Crown,
     highlight: true,
@@ -36,10 +36,10 @@ const plans = [
   },
   {
     name: "Annual",
-    price: "197",
+    price: "29.90",
     period: "/year",
-    pricePerMonth: "$16/mo",
-    savings: "65% OFF",
+    pricePerMonth: "$2.49/mo",
+    savings: "75% OFF",
     url: "https://pay.hotmart.com/F104531830H?off=qxba319z&checkoutMode=10",
     icon: Sparkles,
     highlight: false,
