@@ -45,12 +45,13 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Extract buyer email — covers buyer, subscriber, and switch_plan structures
+    // Extract buyer email — covers buyer, subscriber, switch_plan (SWITCH_PLAN uses subscription.user.email)
     const buyerEmail = (
       data.buyer?.email ||
       data.subscriber?.email ||
       data.purchase?.buyer?.email ||
-      data.switch_plan?.subscriber?.email
+      data.switch_plan?.subscriber?.email ||
+      data.subscription?.user?.email
     )?.toLowerCase();
 
     if (!buyerEmail) {
@@ -66,6 +67,7 @@ Deno.serve(async (req) => {
       data.subscriber?.name ||
       data.purchase?.buyer?.name ||
       data.switch_plan?.subscriber?.name ||
+      data.subscription?.user?.name ||
       "";
     const buyerPhone = data.buyer?.checkout_phone || data.buyer?.phone || null;
 
@@ -95,7 +97,7 @@ Deno.serve(async (req) => {
       "PURCHASE_COMPLETE",
       "SUBSCRIPTION_REACTIVATION",
       "SUBSCRIPTION_RENEWAL_CHARGE",
-      "PURCHASE_SWITCH_PLAN",
+      "SWITCH_PLAN",
     ].includes(event);
 
     if (!matchedUser && isPurchaseEvent) {
@@ -191,7 +193,7 @@ Deno.serve(async (req) => {
       case "PURCHASE_APPROVED":
       case "PURCHASE_COMPLETE":
       case "SUBSCRIPTION_REACTIVATION":
-      case "PURCHASE_SWITCH_PLAN":
+      case "SWITCH_PLAN":
         subscriptionStatus = "active";
         subscriptionPlan = plan;
         subscriptionExpiresAt = calculateExpiration(plan, event);
