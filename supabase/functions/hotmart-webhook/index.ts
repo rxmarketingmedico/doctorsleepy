@@ -148,12 +148,13 @@ Deno.serve(async (req) => {
       }
 
       // Generate magic link and send welcome email
+      const redirectUrl = "https://doctorsleepy.com/";
       const { data: linkData, error: linkError } =
         await supabaseAdmin.auth.admin.generateLink({
           type: "magiclink",
           email: buyerEmail,
           options: {
-            redirectTo: "https://doctorsleepy.com/home",
+            redirectTo: redirectUrl,
           },
         });
 
@@ -162,8 +163,8 @@ Deno.serve(async (req) => {
       } else {
         const actionLink = linkData.properties?.action_link;
         const magicLinkUrl = actionLink
-          ? actionLink.replace(/redirect_to=[^&]*/, 'redirect_to=' + encodeURIComponent('https://doctorsleepy.com/home'))
-          : `${supabaseUrl}/auth/v1/verify?token_hash=${linkData.properties?.hashed_token}&type=magiclink&redirect_to=${encodeURIComponent('https://doctorsleepy.com/home')}`;
+          ? actionLink.replace(/redirect_to=[^&]*/, 'redirect_to=' + encodeURIComponent(redirectUrl))
+          : `${supabaseUrl}/auth/v1/verify?token_hash=${linkData.properties?.hashed_token}&type=magiclink&redirect_to=${encodeURIComponent(redirectUrl)}`;
 
         await sendWelcomeEmail(buyerEmail, buyerName, magicLinkUrl, defaultPassword);
         await sendAdminNotificationEmail(buyerEmail, buyerName, plan, event, true);

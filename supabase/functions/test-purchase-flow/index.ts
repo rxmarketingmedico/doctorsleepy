@@ -45,15 +45,16 @@ Deno.serve(async (req) => {
     }
 
     // Generate magic link
+    const redirectUrl = "https://doctorsleepy.com/";
     const { data: linkData, error: linkErr } = await supabaseAdmin.auth.admin.generateLink({
       type: "magiclink",
       email,
-      options: { redirectTo: "https://doctorsleepy.com/home" },
+      options: { redirectTo: redirectUrl },
     });
 
     const actionLink = linkData?.properties?.action_link;
     const magicLinkUrl = actionLink
-      ? actionLink.replace(/redirect_to=[^&]*/, 'redirect_to=' + encodeURIComponent('https://doctorsleepy.com/home'))
+      ? actionLink.replace(/redirect_to=[^&]*/, 'redirect_to=' + encodeURIComponent(redirectUrl))
       : "https://doctorsleepy.com/auth";
 
     // Send email
