@@ -162,8 +162,8 @@ Deno.serve(async (req) => {
       } else {
         const actionLink = linkData.properties?.action_link;
         const magicLinkUrl = actionLink
-          ? actionLink.replace(/redirect_to=[^&]*/, 'redirect_to=' + encodeURIComponent('https://doctorsleepy.lovable.app'))
-          : `${supabaseUrl}/auth/v1/verify?token_hash=${linkData.properties?.hashed_token}&type=magiclink&redirect_to=${encodeURIComponent('https://doctorsleepy.lovable.app')}`;
+          ? actionLink.replace(/redirect_to=[^&]*/, 'redirect_to=' + encodeURIComponent('https://doctorsleepy.com/home'))
+          : `${supabaseUrl}/auth/v1/verify?token_hash=${linkData.properties?.hashed_token}&type=magiclink&redirect_to=${encodeURIComponent('https://doctorsleepy.com/home')}`;
 
         await sendWelcomeEmail(buyerEmail, buyerName, magicLinkUrl, defaultPassword);
         await sendAdminNotificationEmail(buyerEmail, buyerName, plan, event, true);
