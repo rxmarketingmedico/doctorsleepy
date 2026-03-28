@@ -425,7 +425,7 @@ async function sendWelcomeEmail(email: string, name: string, magicLinkUrl: strin
                   If the button above or the temporary password don't work, use the <strong>"Forgot my password"</strong> option on the login screen to create a new password.
                 </p>
                 <div style="text-align:center;margin-top:12px;">
-                  <a href="https://doctorsleepy.lovable.app/auth" style="display:inline-block;background:#6c3fa0;color:white;text-decoration:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:bold;">
+                  <a href="https://doctorsleepy.com/auth" style="display:inline-block;background:#6c3fa0;color:white;text-decoration:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:bold;">
                     Go to Login
                   </a>
                 </div>
