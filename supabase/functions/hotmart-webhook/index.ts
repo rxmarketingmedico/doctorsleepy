@@ -588,7 +588,7 @@ async function sendAdminNotificationEmail(
                 </tr>
               </table>
               <div style="text-align:center;margin-top:25px;">
-                <a href="https://doctorsleepy.lovable.app/admin" style="display:inline-block;background:#6c3fa0;color:white;text-decoration:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:bold;">
+                <a href="https://doctorsleepy.com/admin" style="display:inline-block;background:#6c3fa0;color:white;text-decoration:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:bold;">
                   View in Admin Panel →
                 </a>
               </div>
