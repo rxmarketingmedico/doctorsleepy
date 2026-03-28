@@ -48,7 +48,7 @@ Deno.serve(async (req) => {
     const { data: linkData, error: linkErr } = await supabaseAdmin.auth.admin.generateLink({
       type: "magiclink",
       email,
-      options: { redirectTo: "https://doutorsoneca.lovable.app" },
+      options: { redirectTo: "https://doctorsleepy.com/home" },
     });
 
     const actionLink = linkData?.properties?.action_link;
