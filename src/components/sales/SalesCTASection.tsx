@@ -1,6 +1,6 @@
 import { Moon, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo-dr-sleepy.png";
+import logo from "@/assets/logo-dr-sleepy.webp";
 
 export default function SalesCTASection() {
   return (
