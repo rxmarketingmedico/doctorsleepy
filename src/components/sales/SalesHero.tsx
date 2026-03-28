@@ -1,7 +1,7 @@
 import { Moon, ArrowRight, Users, Shield, LogIn } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo-dr-sleepy.png";
+import logo from "@/assets/logo-dr-sleepy.webp";
 const heroImg = "/images/hero-sleeping-baby.webp";
 
 export default function SalesHero() {

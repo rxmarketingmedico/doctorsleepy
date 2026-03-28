@@ -27,7 +27,7 @@ export default function SalesCTASection() {
 
       <footer className="px-4 py-8 border-t border-border/40">
         <div className="max-w-2xl mx-auto text-center">
-          <img src={logo} alt="Dr. Sleepy" className="h-12 mx-auto mb-4 object-contain" />
+          <img src={logo} alt="Dr. Sleepy" className="h-12 mx-auto mb-4 object-contain" width={160} height={48} />
           <p className="text-xs text-muted-foreground leading-relaxed max-w-sm mx-auto">
             Dr. Sleepy is an educational assistant and does not replace medical care.
             In case of emergency, contact your baby's pediatrician.
