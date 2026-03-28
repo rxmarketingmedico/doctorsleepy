@@ -22,13 +22,6 @@ export default function SalesHero() {
               <LogIn className="w-4 h-4 mr-1.5" />
               Sign In
             </Button>
-            <Button
-              size="sm"
-              className="rounded-xl font-bold"
-              onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              Subscribe
-            </Button>
           </div>
         </div>
       </header>
