@@ -53,8 +53,8 @@ Deno.serve(async (req) => {
 
     const actionLink = linkData?.properties?.action_link;
     const magicLinkUrl = actionLink
-      ? actionLink.replace(/redirect_to=[^&]*/, 'redirect_to=' + encodeURIComponent('https://doutorsoneca.lovable.app'))
-      : "https://doutorsoneca.lovable.app/auth";
+      ? actionLink.replace(/redirect_to=[^&]*/, 'redirect_to=' + encodeURIComponent('https://doctorsleepy.com/home'))
+      : "https://doctorsleepy.com/auth";
 
     // Send email
     const safePassword = password.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
