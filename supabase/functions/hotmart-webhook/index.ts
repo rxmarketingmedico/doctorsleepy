@@ -499,7 +499,7 @@ async function sendRenewalConfirmationEmail(email: string, name: string, expires
               </div>
               
               <div style="text-align:center;margin:30px 0;">
-                <a href="https://doctorsleepy.lovable.app" style="display:inline-block;background:linear-gradient(135deg,#6c3fa0,#9b59b6);color:white;text-decoration:none;padding:16px 40px;border-radius:12px;font-size:18px;font-weight:bold;">
+                <a href="https://doctorsleepy.com/home" style="display:inline-block;background:linear-gradient(135deg,#6c3fa0,#9b59b6);color:white;text-decoration:none;padding:16px 40px;border-radius:12px;font-size:18px;font-weight:bold;">
                   Open Dr. Sleepy →
                 </a>
               </div>
