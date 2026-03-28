@@ -111,6 +111,7 @@ function AppRoutes() {
 
         {/* Protected routes */}
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
         <Route path="/routine" element={<ProtectedRoute><Routine /></ProtectedRoute>} />
         <Route path="/cry-translator" element={<ProtectedRoute><CryTranslator /></ProtectedRoute>} />
