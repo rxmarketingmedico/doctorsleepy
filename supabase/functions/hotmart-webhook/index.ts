@@ -153,7 +153,7 @@ Deno.serve(async (req) => {
           type: "magiclink",
           email: buyerEmail,
           options: {
-            redirectTo: "https://doctorsleepy.lovable.app",
+            redirectTo: "https://doctorsleepy.com/home",
           },
         });
 
@@ -162,8 +162,8 @@ Deno.serve(async (req) => {
       } else {
         const actionLink = linkData.properties?.action_link;
         const magicLinkUrl = actionLink
-          ? actionLink.replace(/redirect_to=[^&]*/, 'redirect_to=' + encodeURIComponent('https://doctorsleepy.lovable.app'))
-          : `${supabaseUrl}/auth/v1/verify?token_hash=${linkData.properties?.hashed_token}&type=magiclink&redirect_to=${encodeURIComponent('https://doctorsleepy.lovable.app')}`;
+          ? actionLink.replace(/redirect_to=[^&]*/, 'redirect_to=' + encodeURIComponent('https://doctorsleepy.com/home'))
+          : `${supabaseUrl}/auth/v1/verify?token_hash=${linkData.properties?.hashed_token}&type=magiclink&redirect_to=${encodeURIComponent('https://doctorsleepy.com/home')}`;
 
         await sendWelcomeEmail(buyerEmail, buyerName, magicLinkUrl, defaultPassword);
         await sendAdminNotificationEmail(buyerEmail, buyerName, plan, event, true);
@@ -425,7 +425,7 @@ async function sendWelcomeEmail(email: string, name: string, magicLinkUrl: strin
                   If the button above or the temporary password don't work, use the <strong>"Forgot my password"</strong> option on the login screen to create a new password.
                 </p>
                 <div style="text-align:center;margin-top:12px;">
-                  <a href="https://doctorsleepy.lovable.app/auth" style="display:inline-block;background:#6c3fa0;color:white;text-decoration:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:bold;">
+                  <a href="https://doctorsleepy.com/auth" style="display:inline-block;background:#6c3fa0;color:white;text-decoration:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:bold;">
                     Go to Login
                   </a>
                 </div>
@@ -499,7 +499,7 @@ async function sendRenewalConfirmationEmail(email: string, name: string, expires
               </div>
               
               <div style="text-align:center;margin:30px 0;">
-                <a href="https://doctorsleepy.lovable.app" style="display:inline-block;background:linear-gradient(135deg,#6c3fa0,#9b59b6);color:white;text-decoration:none;padding:16px 40px;border-radius:12px;font-size:18px;font-weight:bold;">
+                <a href="https://doctorsleepy.com/home" style="display:inline-block;background:linear-gradient(135deg,#6c3fa0,#9b59b6);color:white;text-decoration:none;padding:16px 40px;border-radius:12px;font-size:18px;font-weight:bold;">
                   Open Dr. Sleepy →
                 </a>
               </div>
@@ -588,7 +588,7 @@ async function sendAdminNotificationEmail(
                 </tr>
               </table>
               <div style="text-align:center;margin-top:25px;">
-                <a href="https://doctorsleepy.lovable.app/admin" style="display:inline-block;background:#6c3fa0;color:white;text-decoration:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:bold;">
+                <a href="https://doctorsleepy.com/admin" style="display:inline-block;background:#6c3fa0;color:white;text-decoration:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:bold;">
                   View in Admin Panel →
                 </a>
               </div>

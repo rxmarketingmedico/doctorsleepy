@@ -48,13 +48,13 @@ Deno.serve(async (req) => {
     const { data: linkData, error: linkErr } = await supabaseAdmin.auth.admin.generateLink({
       type: "magiclink",
       email,
-      options: { redirectTo: "https://doutorsoneca.lovable.app" },
+      options: { redirectTo: "https://doctorsleepy.com/home" },
     });
 
     const actionLink = linkData?.properties?.action_link;
     const magicLinkUrl = actionLink
-      ? actionLink.replace(/redirect_to=[^&]*/, 'redirect_to=' + encodeURIComponent('https://doutorsoneca.lovable.app'))
-      : "https://doutorsoneca.lovable.app/auth";
+      ? actionLink.replace(/redirect_to=[^&]*/, 'redirect_to=' + encodeURIComponent('https://doctorsleepy.com/home'))
+      : "https://doctorsleepy.com/auth";
 
     // Send email
     const safePassword = password.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -93,7 +93,7 @@ Deno.serve(async (req) => {
                 <p style="color:#856404;font-size:13px;font-weight:bold;margin:0 0 8px 0;">⚠️ Having trouble accessing?</p>
                 <p style="color:#856404;font-size:13px;line-height:1.5;margin:0;">If the button above or the temporary password don't work, use the <strong>"Forgot my password"</strong> option on the login screen to create a new password.</p>
                 <div style="text-align:center;margin-top:12px;">
-                  <a href="https://doctorsleepy.lovable.app/auth" style="display:inline-block;background:#6c3fa0;color:white;text-decoration:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:bold;">Go to Login</a>
+                  <a href="https://doctorsleepy.com/auth" style="display:inline-block;background:#6c3fa0;color:white;text-decoration:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:bold;">Go to Login</a>
                 </div>
               </div>
               <p style="color:#888;font-size:13px;text-align:center;line-height:1.5;">The quick-access link expires in 24 hours.</p>
