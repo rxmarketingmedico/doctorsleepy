@@ -153,7 +153,7 @@ Deno.serve(async (req) => {
           type: "magiclink",
           email: buyerEmail,
           options: {
-            redirectTo: "https://doctorsleepy.lovable.app",
+            redirectTo: "https://doctorsleepy.com/home",
           },
         });
 
