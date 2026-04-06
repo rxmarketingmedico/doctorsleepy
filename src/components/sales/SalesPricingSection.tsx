@@ -100,7 +100,7 @@ function PricingCard({ plan }: { plan: (typeof plans)[0] }) {
 
         <div className="mb-6">
           <div className="flex items-baseline gap-1">
-            <span className="text-sm text-muted-foreground font-medium">$</span>
+            <span className="text-sm text-muted-foreground font-medium">US$</span>
             <span className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
               {plan.price}
             </span>
