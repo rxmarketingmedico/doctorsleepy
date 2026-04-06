@@ -6,22 +6,22 @@ import anaImg from "@/assets/sales/testimonial-ana.webp";
 
 const testimonials = [
   {
-    name: "Camila R.",
-    role: "Mom of Bernardo, 8 months",
+    name: "Jessica R.",
+    role: "Mom of Ethan, 8 months",
     text: "I thought I'd never sleep again. Dr. Sleepy helped me understand my baby's cues and within 2 weeks we were sleeping much better.",
     stars: 5,
     avatar: camilaImg,
   },
   {
-    name: "Lucas M.",
-    role: "Dad of Valentina, 1 year",
+    name: "Michael T.",
+    role: "Dad of Olivia, 1 year",
     text: "The cry translator is amazing. It didn't always get it right, but it gave me direction when I was lost at 3am. It became my right hand.",
     stars: 5,
     avatar: lucasImg,
   },
   {
-    name: "Ana Paula S.",
-    role: "Mom of Sofia, 4 months",
+    name: "Sarah W.",
+    role: "Mom of Emma, 4 months",
     text: "Finally something that doesn't judge me. I asked the same questions multiple times and it answered patiently. It was like having a pediatrician friend 24/7.",
     stars: 5,
     avatar: anaImg,
