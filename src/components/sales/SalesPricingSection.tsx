@@ -36,7 +36,7 @@ const plans = [
   },
   {
     name: "Annual",
-    price: "19.90",
+    price: "14.90",
     period: "/year",
     pricePerMonth: "$1.66/mo",
     savings: "75% OFF",
