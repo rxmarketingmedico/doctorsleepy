@@ -9,9 +9,9 @@ interface SubscriptionGateProps {
 }
 
 const plans = [
-  { name: "Monthly", price: "$9.90", period: "/month", url: "https://pay.hotmart.com/F104531830H?off=jihtbtut&checkoutMode=10", icon: Star, highlight: false },
-  { name: "Semi-annual", price: "$19.90", period: "/6 months", savings: "Save 66%", url: "https://pay.hotmart.com/F104531830H?off=xx41msm5&checkoutMode=10", icon: Crown, highlight: true },
-  { name: "Annual", price: "$29.90", period: "/year", savings: "Save 75%", url: "https://pay.hotmart.com/F104531830H?off=qxba319z&checkoutMode=10", icon: Sparkles, highlight: false },
+  { name: "Monthly", price: "$4.90", period: "/month", url: "https://pay.hotmart.com/F104531830H?off=zxiyhb0c&checkoutMode=10", icon: Star, highlight: false },
+  { name: "Six-Month", price: "$9.90", period: "/6 months", savings: "Save 66%", url: "https://pay.hotmart.com/F104531830H?off=ldqo5g2n&checkoutMode=10", icon: Crown, highlight: true },
+  { name: "Annual", price: "$19.90", period: "/year", savings: "Save 75%", url: "https://pay.hotmart.com/F104531830H?off=5t7tiay5&checkoutMode=10", icon: Sparkles, highlight: false },
 ];
 
 export function SubscriptionGate({ children, fallback }: SubscriptionGateProps) {
