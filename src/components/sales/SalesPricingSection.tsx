@@ -1,4 +1,5 @@
 import { Star, Crown, Sparkles, Shield, Clock, Heart, ArrowRight, Check } from "lucide-react";
+import securePaymentBadge from "@/assets/secure-payment-badge.png";
 import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 
@@ -180,16 +181,19 @@ export default function SalesPricingSection() {
         </div>
 
         <ScrollReveal>
-          <div className="flex flex-wrap items-center justify-center gap-5 mt-10 text-xs text-muted-foreground">
-            <span className="flex items-center gap-1.5 bg-card/80 backdrop-blur-sm rounded-full px-4 py-2 border border-border/40 shadow-sm">
-              <Shield className="w-3.5 h-3.5 text-primary" /> Secure payment via Hotmart
-            </span>
-            <span className="flex items-center gap-1.5 bg-card/80 backdrop-blur-sm rounded-full px-4 py-2 border border-border/40 shadow-sm">
-              <Clock className="w-3.5 h-3.5 text-primary" /> Instant access
-            </span>
-            <span className="flex items-center gap-1.5 bg-card/80 backdrop-blur-sm rounded-full px-4 py-2 border border-border/40 shadow-sm">
-              <Heart className="w-3.5 h-3.5 text-primary" /> 7-day guarantee
-            </span>
+          <div className="flex flex-col items-center gap-5 mt-10">
+            <img src={securePaymentBadge} alt="Secure Payment" loading="lazy" width={80} height={80} className="opacity-90" />
+            <div className="flex flex-wrap items-center justify-center gap-5 text-xs text-muted-foreground">
+              <span className="flex items-center gap-1.5 bg-card/80 backdrop-blur-sm rounded-full px-4 py-2 border border-border/40 shadow-sm">
+                <Shield className="w-3.5 h-3.5 text-primary" /> Secure payment via Hotmart
+              </span>
+              <span className="flex items-center gap-1.5 bg-card/80 backdrop-blur-sm rounded-full px-4 py-2 border border-border/40 shadow-sm">
+                <Clock className="w-3.5 h-3.5 text-primary" /> Instant access
+              </span>
+              <span className="flex items-center gap-1.5 bg-card/80 backdrop-blur-sm rounded-full px-4 py-2 border border-border/40 shadow-sm">
+                <Heart className="w-3.5 h-3.5 text-primary" /> 7-day guarantee
+              </span>
+            </div>
           </div>
         </ScrollReveal>
       </div>
