@@ -1,4 +1,5 @@
 import { Star, Crown, Sparkles, Shield, Clock, Heart, ArrowRight, Check } from "lucide-react";
+import securePaymentBadge from "@/assets/secure-payment-badge.png";
 import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 
