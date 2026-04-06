@@ -1,18 +1,20 @@
 import { Home, Calendar, Mic, HelpCircle, User } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
-
-const navItems = [
-  { icon: Home, label: "Home", path: "/" },
-  { icon: Calendar, label: "Routine", path: "/routine" },
-  { icon: Mic, label: "Translator", path: "/cry-translator" },
-  { icon: HelpCircle, label: "Help", path: "/help" },
-  { icon: User, label: "Profile", path: "/profile" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function BottomNav() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useLanguage();
+
+  const navItems = [
+    { icon: Home, label: t("nav_home"), path: "/" },
+    { icon: Calendar, label: t("nav_routine"), path: "/routine" },
+    { icon: Mic, label: t("nav_translator"), path: "/cry-translator" },
+    { icon: HelpCircle, label: t("nav_help"), path: "/help" },
+    { icon: User, label: t("nav_profile"), path: "/profile" },
+  ];
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border safe-area-bottom">

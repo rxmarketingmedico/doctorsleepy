@@ -1,19 +1,22 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Baby, Mail, LogOut, Bell, ChevronRight, Shield, HelpCircle, Lock, Eye, EyeOff } from "lucide-react";
+import { Baby, Mail, LogOut, Bell, ChevronRight, Shield, HelpCircle, Lock, Eye, EyeOff, Globe } from "lucide-react";
 import { useAdminRole } from "@/hooks/useAdminRole";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { BottomNav } from "@/components/BottomNav";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Avatar } from "@/components/Avatar";
 import { SubscriptionManager } from "@/components/SubscriptionManager";
 import { useAuthContext } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { Language, languageLabels } from "@/i18n/translations";
 
 interface ProfileData {
   baby_name: string | null;
@@ -33,6 +36,7 @@ export default function Profile() {
   const { user, signOut } = useAuthContext();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t, language, setLanguage } = useLanguage();
   const [profile, setProfile] = useState<ProfileData | null>(null);
   const [loading, setLoading] = useState(true);
   const [newPassword, setNewPassword] = useState("");
@@ -72,18 +76,18 @@ export default function Profile() {
 
   const handleChangePassword = async () => {
     if (!newPassword || newPassword.length < 6) {
-      toast({ title: "Password too short", description: "Password must be at least 6 characters.", variant: "destructive" });
+      toast({ title: t("password_too_short"), description: t("password_too_short_desc"), variant: "destructive" });
       return;
     }
     if (newPassword !== confirmPassword) {
-      toast({ title: "Passwords don't match", description: "Password confirmation doesn't match.", variant: "destructive" });
+      toast({ title: t("passwords_dont_match"), description: t("passwords_dont_match_desc"), variant: "destructive" });
       return;
     }
     setChangingPassword(true);
     try {
       const { error } = await supabase.auth.updateUser({ password: newPassword });
       if (error) throw error;
-      toast({ title: "Password changed!", description: "Your password has been updated successfully." });
+      toast({ title: t("password_changed"), description: t("password_changed_desc") });
       setNewPassword("");
       setConfirmPassword("");
     } catch (error: any) {
@@ -99,23 +103,54 @@ export default function Profile() {
     const months = (now.getFullYear() - birth.getFullYear()) * 12 + now.getMonth() - birth.getMonth();
     if (months < 1) {
       const days = Math.floor((now.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
-      return `${days} days`;
+      return `${days} ${t("age_days")}`;
     } else if (months < 12) {
-      return `${months} ${months === 1 ? "month" : "months"}`;
+      return `${months} ${months === 1 ? t("age_month") : t("age_months")}`;
     } else {
       const years = Math.floor(months / 12);
       const remainingMonths = months % 12;
-      return remainingMonths > 0 
-        ? `${years} ${years === 1 ? "year" : "years"} and ${remainingMonths} ${remainingMonths === 1 ? "month" : "months"}`
-        : `${years} ${years === 1 ? "year" : "years"}`;
+      return remainingMonths > 0
+        ? `${years} ${years === 1 ? t("age_year") : t("age_years")} ${t("age_and")} ${remainingMonths} ${remainingMonths === 1 ? t("age_month") : t("age_months")}`
+        : `${years} ${years === 1 ? t("age_year") : t("age_years")}`;
     }
+  };
+
+  const sleepLocationMap: Record<string, string> = {
+    crib: t("loc_crib"),
+    "parents-room": t("loc_parents_room"),
+    "co-sleeping": t("loc_co_sleeping"),
+    bassinet: t("loc_bassinet"),
+  };
+
+  const feedingMap: Record<string, string> = {
+    breastfeeding: t("feed_breastfeeding"),
+    formula: t("feed_formula"),
+    mixed: t("feed_mixed"),
+    solids: t("feed_solids"),
+  };
+
+  const bedtimeMap: Record<string, string> = {
+    "before-19": t("bed_before_19"),
+    "19-20": t("bed_19_20"),
+    "20-21": t("bed_20_21"),
+    "21-22": t("bed_21_22"),
+    "after-22": t("bed_after_22"),
+    irregular: t("bed_irregular"),
+  };
+
+  const conditionLabels: Record<string, string> = {
+    reflux: t("cond_reflux"),
+    colic: t("cond_colic"),
+    premature: t("cond_premature"),
+    allergy: t("cond_allergy"),
+    dermatitis: t("cond_dermatitis"),
   };
 
   return (
     <div className="min-h-screen bg-background pb-20">
       <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-sm border-b border-border">
         <div className="flex items-center justify-between px-4 py-3 max-w-lg mx-auto">
-          <h1 className="text-xl font-bold text-foreground">Profile</h1>
+          <h1 className="text-xl font-bold text-foreground">{t("profile_title")}</h1>
           <ThemeToggle />
         </div>
       </header>
@@ -123,7 +158,7 @@ export default function Profile() {
       <main className="px-4 py-6 max-w-lg mx-auto space-y-6">
         <div className="flex flex-col items-center">
           <Avatar size="xl" state="idle" />
-          <h2 className="mt-4 text-xl font-bold text-foreground">{profile?.baby_name || "Your baby"}</h2>
+          <h2 className="mt-4 text-xl font-bold text-foreground">{profile?.baby_name || t("profile_your_baby")}</h2>
           {profile?.baby_birth_date && (
             <p className="text-muted-foreground">{calculateAge(profile.baby_birth_date)}</p>
           )}
@@ -131,88 +166,68 @@ export default function Profile() {
 
         <Card className="card-soft">
           <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2"><Baby className="w-5 h-5" />Baby info</CardTitle>
+            <CardTitle className="text-lg flex items-center gap-2"><Baby className="w-5 h-5" />{t("profile_baby_info")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {profile?.parent_name && (
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Parent</span>
+                <span className="text-muted-foreground">{t("profile_parent")}</span>
                 <span className="text-foreground">{profile.parent_name}</span>
               </div>
             )}
             {profile?.sleep_location && (
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Sleep location</span>
-                <span className="text-foreground">
-                  {profile.sleep_location === "crib" && "Own crib"}
-                  {profile.sleep_location === "parents-room" && "Parents' room"}
-                  {profile.sleep_location === "co-sleeping" && "Co-sleeping"}
-                  {profile.sleep_location === "bassinet" && "Bassinet"}
-                </span>
+                <span className="text-muted-foreground">{t("profile_sleep_location")}</span>
+                <span className="text-foreground">{sleepLocationMap[profile.sleep_location] || profile.sleep_location}</span>
               </div>
             )}
             {profile?.feeding_type && (
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Feeding</span>
-                <span className="text-foreground">
-                  {profile.feeding_type === "breastfeeding" && "Exclusive breastfeeding"}
-                  {profile.feeding_type === "formula" && "Formula"}
-                  {profile.feeding_type === "mixed" && "Mixed"}
-                  {profile.feeding_type === "solids" && "Solids introduced"}
-                </span>
+                <span className="text-muted-foreground">{t("profile_feeding")}</span>
+                <span className="text-foreground">{feedingMap[profile.feeding_type] || profile.feeding_type}</span>
               </div>
             )}
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Uses pacifier</span>
-              <span className="text-foreground">{profile?.uses_pacifier ? "Yes" : "No"}</span>
+              <span className="text-muted-foreground">{t("profile_uses_pacifier")}</span>
+              <span className="text-foreground">{profile?.uses_pacifier ? t("yes") : t("no")}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Night feedings</span>
-              <span className="text-foreground">{profile?.night_feedings || 0}x per night</span>
+              <span className="text-muted-foreground">{t("profile_night_feedings")}</span>
+              <span className="text-foreground">{profile?.night_feedings || 0}x {t("per_night")}</span>
             </div>
             {profile?.usual_bedtime && (
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Usual bedtime</span>
-                <span className="text-foreground">
-                  {profile.usual_bedtime === "before-19" && "Before 7 PM"}
-                  {profile.usual_bedtime === "19-20" && "7–8 PM"}
-                  {profile.usual_bedtime === "20-21" && "8–9 PM"}
-                  {profile.usual_bedtime === "21-22" && "9–10 PM"}
-                  {profile.usual_bedtime === "after-22" && "After 10 PM"}
-                  {profile.usual_bedtime === "irregular" && "No fixed schedule"}
-                </span>
+                <span className="text-muted-foreground">{t("profile_usual_bedtime")}</span>
+                <span className="text-foreground">{bedtimeMap[profile.usual_bedtime] || profile.usual_bedtime}</span>
               </div>
             )}
             {profile?.main_challenge && (
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Main challenge</span>
+                <span className="text-muted-foreground">{t("profile_main_challenge")}</span>
                 <span className="text-foreground">{profile.main_challenge}</span>
               </div>
             )}
             {profile?.special_conditions && profile.special_conditions.length > 0 && (
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Special conditions</span>
+                <span className="text-muted-foreground">{t("profile_special_conditions")}</span>
                 <span className="text-foreground">
-                  {profile.special_conditions.map(c => {
-                    const labels: Record<string, string> = { reflux: "Reflux", colic: "Colic", premature: "Premature", allergy: "Food allergy", dermatitis: "Dermatitis" };
-                    return labels[c] || c;
-                  }).join(", ")}
+                  {profile.special_conditions.map(c => conditionLabels[c] || c).join(", ")}
                 </span>
               </div>
             )}
             <Button variant="outline" className="w-full mt-4 rounded-xl" onClick={() => navigate("/profile/edit")}>
-              Edit information
+              {t("profile_edit_info")}
             </Button>
           </CardContent>
         </Card>
 
         <Card className="card-soft">
           <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2"><Mail className="w-5 h-5" />Account</CardTitle>
+            <CardTitle className="text-lg flex items-center gap-2"><Mail className="w-5 h-5" />{t("profile_account")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="flex items-center justify-between py-3">
-              <span className="text-muted-foreground">Email</span>
+              <span className="text-muted-foreground">{t("profile_email")}</span>
               <span className="text-foreground">{user?.email}</span>
             </div>
           </CardContent>
@@ -220,24 +235,24 @@ export default function Profile() {
 
         <Card className="card-soft">
           <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2"><Lock className="w-5 h-5" />Change Password</CardTitle>
+            <CardTitle className="text-lg flex items-center gap-2"><Lock className="w-5 h-5" />{t("profile_change_password")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="new-password">New password</Label>
+              <Label htmlFor="new-password">{t("profile_new_password")}</Label>
               <div className="relative">
-                <Input id="new-password" type={showPassword ? "text" : "password"} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="Minimum 6 characters" className="h-12 rounded-xl pr-10" />
+                <Input id="new-password" type={showPassword ? "text" : "password"} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder={t("profile_min_chars")} className="h-12 rounded-xl pr-10" />
                 <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8" onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </Button>
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="confirm-password">Confirm new password</Label>
-              <Input id="confirm-password" type={showPassword ? "text" : "password"} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Repeat new password" className="h-12 rounded-xl" />
+              <Label htmlFor="confirm-password">{t("profile_confirm_password")}</Label>
+              <Input id="confirm-password" type={showPassword ? "text" : "password"} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder={t("profile_repeat_password")} className="h-12 rounded-xl" />
             </div>
             <Button onClick={handleChangePassword} disabled={changingPassword || !newPassword || !confirmPassword} className="w-full h-12 rounded-xl">
-              {changingPassword ? "Changing..." : "Change password"}
+              {changingPassword ? t("profile_changing") : t("profile_change_btn")}
             </Button>
           </CardContent>
         </Card>
@@ -246,20 +261,36 @@ export default function Profile() {
 
         <Card className="card-soft">
           <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2"><Bell className="w-5 h-5" />Settings</CardTitle>
+            <CardTitle className="text-lg flex items-center gap-2"><Bell className="w-5 h-5" />{t("profile_settings")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-medium text-foreground">Notifications</p>
-                <p className="text-sm text-muted-foreground">Receive reminders</p>
+                <p className="font-medium text-foreground">{t("profile_language")}</p>
+                <p className="text-sm text-muted-foreground">{t("profile_select_language")}</p>
+              </div>
+              <Select value={language} onValueChange={(val) => setLanguage(val as Language)}>
+                <SelectTrigger className="w-[160px] h-10 rounded-xl">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {(Object.entries(languageLabels) as [Language, string][]).map(([code, label]) => (
+                    <SelectItem key={code} value={code}>{label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium text-foreground">{t("profile_notifications")}</p>
+                <p className="text-sm text-muted-foreground">{t("profile_receive_reminders")}</p>
               </div>
               <Switch />
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-medium text-foreground">Night mode</p>
-                <p className="text-sm text-muted-foreground">Activate automatically</p>
+                <p className="font-medium text-foreground">{t("profile_night_mode")}</p>
+                <p className="text-sm text-muted-foreground">{t("profile_auto_activate")}</p>
               </div>
               <Switch />
             </div>
@@ -267,17 +298,17 @@ export default function Profile() {
         </Card>
 
         <Button variant="outline" className="w-full h-14 rounded-2xl text-lg" onClick={() => navigate("/help")}>
-          <HelpCircle className="w-5 h-5 mr-2" />Help Center
+          <HelpCircle className="w-5 h-5 mr-2" />{t("profile_help_center")}
         </Button>
 
         {isAdmin && (
           <Button variant="outline" className="w-full h-14 rounded-2xl text-lg" onClick={() => navigate("/admin")}>
-            <Shield className="w-5 h-5 mr-2" />Admin Panel
+            <Shield className="w-5 h-5 mr-2" />{t("profile_admin_panel")}
           </Button>
         )}
 
         <Button variant="outline" className="w-full h-14 rounded-2xl text-lg text-destructive hover:text-destructive hover:bg-destructive/10" onClick={handleSignOut}>
-          <LogOut className="w-5 h-5 mr-2" />Sign out
+          <LogOut className="w-5 h-5 mr-2" />{t("profile_sign_out")}
         </Button>
       </main>
 
