@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, forwardRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(threshold = 0.15) {
   const ref = useRef<T>(null);
@@ -25,14 +25,15 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(threshol
   return { ref, isVisible };
 }
 
-export const ScrollReveal = forwardRef<
-  HTMLDivElement,
-  {
-    children: React.ReactNode;
-    className?: string;
-    delay?: number;
-  }
->(function ScrollReveal({ children, className = "", delay = 0 }, _forwardedRef) {
+export function ScrollReveal({
+  children,
+  className = "",
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}) {
   const { ref, isVisible } = useScrollReveal();
 
   return (
@@ -48,4 +49,4 @@ export const ScrollReveal = forwardRef<
       {children}
     </div>
   );
-});
+}
