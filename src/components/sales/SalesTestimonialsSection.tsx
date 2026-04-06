@@ -6,8 +6,8 @@ import anaImg from "@/assets/sales/testimonial-ana.webp";
 
 const testimonials = [
   {
-    name: "Camila R.",
-    role: "Mom of Bernardo, 8 months",
+    name: "Jessica R.",
+    role: "Mom of Ethan, 8 months",
     text: "I thought I'd never sleep again. Dr. Sleepy helped me understand my baby's cues and within 2 weeks we were sleeping much better.",
     stars: 5,
     avatar: camilaImg,
