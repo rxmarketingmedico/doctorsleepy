@@ -99,9 +99,11 @@ export default function SalesCryTranslatorSection() {
   }, []);
 
   useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.scrollTop = containerRef.current.scrollHeight;
-    }
+    requestAnimationFrame(() => {
+      if (containerRef.current) {
+        containerRef.current.scrollTop = containerRef.current.scrollHeight;
+      }
+    });
   }, [visibleBars, visibleTips, phase]);
 
   const characteristics = [

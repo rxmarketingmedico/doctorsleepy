@@ -82,7 +82,7 @@ export function ChatPhoneMockup() {
 
         <div className="bg-primary/10 px-4 pb-3 flex items-center gap-3 border-b border-border/40">
           <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-primary/30 flex-shrink-0">
-            <img src={doctorAvatar} alt="Dr. Sleepy" className="w-full h-full object-cover" />
+            <img src={doctorAvatar} alt="Dr. Sleepy" className="w-full h-full object-cover" width={36} height={36} loading="lazy" decoding="async" />
           </div>
           <div>
             <p className="text-sm font-bold text-foreground leading-tight">Dr. Sleepy</p>
