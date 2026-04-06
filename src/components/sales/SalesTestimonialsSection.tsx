@@ -13,8 +13,8 @@ const testimonials = [
     avatar: camilaImg,
   },
   {
-    name: "Lucas M.",
-    role: "Dad of Valentina, 1 year",
+    name: "Michael T.",
+    role: "Dad of Olivia, 1 year",
     text: "The cry translator is amazing. It didn't always get it right, but it gave me direction when I was lost at 3am. It became my right hand.",
     stars: 5,
     avatar: lucasImg,
