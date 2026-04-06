@@ -20,8 +20,8 @@ const testimonials = [
     avatar: lucasImg,
   },
   {
-    name: "Ana Paula S.",
-    role: "Mom of Sofia, 4 months",
+    name: "Sarah W.",
+    role: "Mom of Emma, 4 months",
     text: "Finally something that doesn't judge me. I asked the same questions multiple times and it answered patiently. It was like having a pediatrician friend 24/7.",
     stars: 5,
     avatar: anaImg,
