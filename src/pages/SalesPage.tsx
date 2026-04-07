@@ -1,4 +1,6 @@
 import { Suspense, lazy } from "react";
+import { SalesLanguageProvider } from "@/contexts/SalesLanguageContext";
+import type { SalesLang } from "@/i18n/sales-translations";
 import SalesHero from "@/components/sales/SalesHero";
 import SalesNotifications from "@/components/sales/SalesNotifications";
 
@@ -28,32 +30,32 @@ function SectionsFallback() {
   );
 }
 
-export default function SalesPage() {
+export default function SalesPage({ lang = "en" }: { lang?: SalesLang }) {
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      {/* Hero loads immediately for fast first paint */}
-      <SalesHero />
-      <SalesNotifications />
+    <SalesLanguageProvider lang={lang}>
+      <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+        <SalesHero />
+        <SalesNotifications />
 
-      {/* Below-the-fold sections load lazily */}
-      <Suspense fallback={<SectionsFallback />}>
-        <SalesPainSection />
-        <SalesReliefSection />
-        <SalesSolutionSection />
-        <SalesEmergencySection />
-        <SalesCryTranslatorSection />
-        <SalesRoutineSection />
-        <SalesBeforeAfterSection />
-        <SalesTrustSection />
-        <SalesTestimonialsSection />
-        <SalesWhatsAppTestimonial />
-        <SalesBenefitsSection />
-        <SalesQualificationSection />
-        <SalesPricingSection />
-        <SalesGuaranteeSection />
-        <SalesFAQSection />
-        <SalesCTASection />
-      </Suspense>
-    </div>
+        <Suspense fallback={<SectionsFallback />}>
+          <SalesPainSection />
+          <SalesReliefSection />
+          <SalesSolutionSection />
+          <SalesEmergencySection />
+          <SalesCryTranslatorSection />
+          <SalesRoutineSection />
+          <SalesBeforeAfterSection />
+          <SalesTrustSection />
+          <SalesTestimonialsSection />
+          <SalesWhatsAppTestimonial />
+          <SalesBenefitsSection />
+          <SalesQualificationSection />
+          <SalesPricingSection />
+          <SalesGuaranteeSection />
+          <SalesFAQSection />
+          <SalesCTASection />
+        </Suspense>
+      </div>
+    </SalesLanguageProvider>
   );
 }

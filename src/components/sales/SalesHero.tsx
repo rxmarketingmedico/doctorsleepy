@@ -1,11 +1,13 @@
 import { Moon, ArrowRight, Users, Shield, LogIn } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useSalesT } from "@/contexts/SalesLanguageContext";
 import logo from "@/assets/logo-dr-sleepy.webp";
 const heroImg = "/images/hero-sleeping-baby.webp";
 
 export default function SalesHero() {
   const navigate = useNavigate();
+  const { t } = useSalesT();
 
   return (
     <>
@@ -20,7 +22,7 @@ export default function SalesHero() {
               onClick={() => navigate("/auth")}
             >
               <LogIn className="w-4 h-4 mr-1.5" />
-              Sign In
+              {t("hero.signin")}
             </Button>
           </div>
         </div>
@@ -35,34 +37,34 @@ export default function SalesHero() {
           <div className="max-w-2xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-primary/15 backdrop-blur-sm text-primary rounded-full px-4 py-1.5 text-sm font-medium mb-6">
               <Moon className="w-4 h-4" />
-              +2,300 families already sleep better
+              {t("hero.badge")}
             </div>
             <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4 text-foreground drop-shadow-sm">
-              Your baby wakes up <span className="text-primary">5x per night</span> and you're looking for more peaceful sleep?
+              {t("hero.title.1")}<span className="text-primary">{t("hero.title.highlight")}</span>{t("hero.title.2")}
             </h1>
             <p className="text-base md:text-lg text-foreground/80 font-semibold mb-2">
-              This app helped +2,300 moms get their babies sleeping through the night.
+              {t("hero.subtitle")}
             </p>
             <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-lg mx-auto mb-8">
-              AI sleep assistant available 24/7, cry translator, and personalized routines by age. No cry-it-out, no magic formulas.
+              {t("hero.desc")}
             </p>
             <Button
               size="lg"
               className="rounded-2xl px-8 py-6 text-base font-bold shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all"
               onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
             >
-              I want better nights
+              {t("hero.cta")}
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
 
             <div className="flex flex-wrap items-center justify-center gap-4 mt-10 text-xs text-muted-foreground">
               <span className="inline-flex items-center gap-1.5 bg-card/60 backdrop-blur-sm rounded-full px-3 py-1.5 border border-border/30">
                 <Users className="w-3.5 h-3.5 text-primary" />
-                +2,300 families trust us
+                {t("hero.trust1")}
               </span>
               <span className="inline-flex items-center gap-1.5 bg-card/60 backdrop-blur-sm rounded-full px-3 py-1.5 border border-border/30">
                 <Shield className="w-3.5 h-3.5 text-primary" />
-                Evidence-based
+                {t("hero.trust2")}
               </span>
             </div>
           </div>
