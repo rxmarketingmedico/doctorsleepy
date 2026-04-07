@@ -3,13 +3,22 @@ import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 import { useSalesT } from "@/contexts/SalesLanguageContext";
 
-const plans = [
-  { nameKey: "pricing.monthly", price: "4.90", period: "/mo", url: "https://pay.hotmart.com/F104531830H?off=zxiyhb0c&checkoutMode=10", icon: Star, highlight: false, badge: null, savings: null, pricePerMonth: null },
-  { nameKey: "pricing.sixMonth", price: "9.90", period: "/6 months", pricePerMonth: "$1.65/mo", savings: "66% OFF", url: "https://pay.hotmart.com/F104531830H?off=ldqo5g2n&checkoutMode=10", icon: Crown, highlight: true, badge: "pricing.mostPopular" },
-  { nameKey: "pricing.annual", price: "14.90", period: "/year", pricePerMonth: "$1.66/mo", savings: "75% OFF", url: "https://pay.hotmart.com/F104531830H?off=5t7tiay5&checkoutMode=10", icon: Sparkles, highlight: false, badge: "pricing.bestValue" },
-];
+const plansByLang = {
+  en: [
+    { nameKey: "pricing.monthly", price: "4.90", period: "/mo", url: "https://pay.hotmart.com/F104531830H?off=zxiyhb0c&checkoutMode=10", icon: Star, highlight: false, badge: null, savings: null, pricePerMonth: null },
+    { nameKey: "pricing.sixMonth", price: "9.90", period: "/6 months", pricePerMonth: "$1.65/mo", savings: "66% OFF", url: "https://pay.hotmart.com/F104531830H?off=ldqo5g2n&checkoutMode=10", icon: Crown, highlight: true, badge: "pricing.mostPopular" },
+    { nameKey: "pricing.annual", price: "14.90", period: "/year", pricePerMonth: "$1.66/mo", savings: "75% OFF", url: "https://pay.hotmart.com/F104531830H?off=5t7tiay5&checkoutMode=10", icon: Sparkles, highlight: false, badge: "pricing.bestValue" },
+  ],
+  es: [
+    { nameKey: "pricing.monthly", price: "4.90", period: "/mo", url: "https://pay.hotmart.com/F104531830H?off=1yjez09n&checkoutMode=10", icon: Star, highlight: false, badge: null, savings: null, pricePerMonth: null },
+    { nameKey: "pricing.sixMonth", price: "9.90", period: "/6 months", pricePerMonth: "$1.65/mo", savings: "66% OFF", url: "https://pay.hotmart.com/F104531830H?off=rsqo5mh3&checkoutMode=10", icon: Crown, highlight: true, badge: "pricing.mostPopular" },
+    { nameKey: "pricing.annual", price: "14.90", period: "/year", pricePerMonth: "$1.66/mo", savings: "75% OFF", url: "https://pay.hotmart.com/F104531830H?off=nfv0txgb&checkoutMode=10", icon: Sparkles, highlight: false, badge: "pricing.bestValue" },
+  ],
+};
 
-function PricingCard({ plan, t, features }: { plan: (typeof plans)[0]; t: (k: string) => string; features: string[] }) {
+type PlanItem = (typeof plansByLang)["en"][0];
+
+function PricingCard({ plan, t, features }: { plan: PlanItem; t: (k: string) => string; features: string[] }) {
   const isHighlight = plan.highlight;
 
   return (
@@ -63,8 +72,8 @@ function PricingCard({ plan, t, features }: { plan: (typeof plans)[0]; t: (k: st
 }
 
 export default function SalesPricingSection() {
-  const { t } = useSalesT();
-
+  const { t, lang } = useSalesT();
+  const plans = plansByLang[lang] || plansByLang.en;
   const features = [
     t("pricing.features.chat"), t("pricing.features.cry"), t("pricing.features.routine"),
     t("pricing.features.library"), t("pricing.features.emergency"), t("pricing.features.night"),
