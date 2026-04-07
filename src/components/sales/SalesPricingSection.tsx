@@ -16,7 +16,9 @@ const plansByLang = {
   ],
 };
 
-function PricingCard({ plan, t, features }: { plan: (typeof plans)[0]; t: (k: string) => string; features: string[] }) {
+type PlanItem = (typeof plansByLang)["en"][0];
+
+function PricingCard({ plan, t, features }: { plan: PlanItem; t: (k: string) => string; features: string[] }) {
   const isHighlight = plan.highlight;
 
   return (
