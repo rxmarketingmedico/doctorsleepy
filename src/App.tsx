@@ -105,6 +105,7 @@ function AppRoutes() {
       <Routes>
         {/* Public routes */}
         <Route path="/vendas" element={<SalesPage />} />
+        <Route path="/es" element={<SalesPage lang="es" />} />
         <Route path="/auth" element={<PublicRoute><Auth /></PublicRoute>} />
 
         {/* Onboarding route */}
