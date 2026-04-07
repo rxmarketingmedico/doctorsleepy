@@ -72,8 +72,8 @@ function PricingCard({ plan, t, features }: { plan: PlanItem; t: (k: string) => 
 }
 
 export default function SalesPricingSection() {
-  const { t } = useSalesT();
-
+  const { t, lang } = useSalesT();
+  const plans = plansByLang[lang] || plansByLang.en;
   const features = [
     t("pricing.features.chat"), t("pricing.features.cry"), t("pricing.features.routine"),
     t("pricing.features.library"), t("pricing.features.emergency"), t("pricing.features.night"),
