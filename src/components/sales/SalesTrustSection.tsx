@@ -27,6 +27,7 @@ export default function SalesTrustSection() {
             </div>
           ))}
         </div>
+        <p className="text-center text-sm text-muted-foreground mt-8 font-medium">{t("trust.endorsement")}</p>
       </div>
     </section>
   );
