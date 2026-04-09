@@ -15,7 +15,7 @@ export function SalesLanguageProvider({ lang, children }: { lang: SalesLang; chi
   const t = useCallback(
     (key: string): string => {
       const dict = salesTranslations[lang] as Record<string, string>;
-      return dict[key] || key;
+      return key in dict ? dict[key] : key;
     },
     [lang]
   );
