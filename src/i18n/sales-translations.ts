@@ -199,6 +199,17 @@ const salesTranslations: Record<SalesLang, Record<string, string>> = {
     "qualification.3": "You prefer solving questions on the spot, no waiting",
     "qualification.4": "You value help without judgment or pressure",
 
+    // Price Anchor
+    "priceAnchor.line1": "A private sleep consultant costs $300+.",
+    "priceAnchor.highlight": "Dr. Sleepy gives you 24/7 guidance for less than a cup of coffee.",
+
+    // Testimonials rating
+    "testimonials.rating": "4.9/5",
+    "testimonials.reviewCount": "Based on 2,300+ parent reviews",
+
+    // Hero video
+    "hero.videoPlaceholder": "▶ Watch Dr. Sleepy in action (30s)",
+
     // Pricing
     "pricing.badge": "Full access",
     "pricing.title": "Choose your plan",
@@ -471,6 +482,17 @@ const salesTranslations: Record<SalesLang, Record<string, string>> = {
     "qualification.2": "Quieres orientación basada en evidencia",
     "qualification.3": "Prefieres resolver dudas al instante, sin esperar",
     "qualification.4": "Valoras la ayuda sin juicio ni presión",
+
+    // Price Anchor
+    "priceAnchor.line1": "Un consultor privado de sueño cuesta $300+.",
+    "priceAnchor.highlight": "Dr. Sleepy te da orientación 24/7 por menos que un café.",
+
+    // Testimonials rating
+    "testimonials.rating": "4.9/5",
+    "testimonials.reviewCount": "Basado en +2,300 opiniones de padres",
+
+    // Hero video
+    "hero.videoPlaceholder": "▶ Mira Dr. Sleepy en acción (30s)",
 
     // Pricing
     "pricing.badge": "Acceso completo",
