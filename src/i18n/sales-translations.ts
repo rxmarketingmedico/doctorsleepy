@@ -9,7 +9,7 @@ const salesTranslations: Record<SalesLang, Record<string, string>> = {
     "hero.title.2": "",
     "hero.subtitle": "AI-powered guidance trusted by 2,300+ families.",
     "hero.desc": "No cry-it-out. No waiting for appointments. Just answers — at 3AM or anytime.",
-    "hero.cta": "I want better nights",
+    "hero.cta": "Start sleeping tonight",
     "hero.trust1": "+2,300 families trust us",
     "hero.trust2": "Evidence-based",
     "hero.signin": "Sign In",
