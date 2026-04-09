@@ -199,6 +199,17 @@ const salesTranslations: Record<SalesLang, Record<string, string>> = {
     "qualification.3": "You prefer solving questions on the spot, no waiting",
     "qualification.4": "You value help without judgment or pressure",
 
+    // Price Anchor
+    "priceAnchor.line1": "A private sleep consultant costs $300+.",
+    "priceAnchor.highlight": "Dr. Sleepy gives you 24/7 guidance for less than a cup of coffee.",
+
+    // Testimonials rating
+    "testimonials.rating": "4.9/5",
+    "testimonials.reviewCount": "Based on 2,300+ parent reviews",
+
+    // Hero video
+    "hero.videoPlaceholder": "▶ Watch Dr. Sleepy in action (30s)",
+
     // Pricing
     "pricing.badge": "Full access",
     "pricing.title": "Choose your plan",

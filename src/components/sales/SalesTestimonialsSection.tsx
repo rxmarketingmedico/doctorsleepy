@@ -23,6 +23,16 @@ export default function SalesTestimonialsSection() {
               <Users className="w-4 h-4" />{t("testimonials.badge")}
             </div>
             <h2 className="text-2xl md:text-3xl font-bold text-foreground">{t("testimonials.title")}</h2>
+            {/* Rating summary */}
+            <div className="flex items-center justify-center gap-2 mt-4">
+              <div className="flex gap-0.5">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="w-5 h-5 fill-primary text-primary" />
+                ))}
+              </div>
+              <span className="font-bold text-foreground text-lg">{t("testimonials.rating")}</span>
+            </div>
+            <p className="text-sm text-muted-foreground mt-1">{t("testimonials.reviewCount")}</p>
           </div>
         </ScrollReveal>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
