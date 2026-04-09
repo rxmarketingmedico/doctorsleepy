@@ -277,11 +277,11 @@ const salesTranslations: Record<SalesLang, Record<string, string>> = {
   es: {
     // Hero
     "hero.badge": "+2,300 familias ya duermen mejor",
-    "hero.title.1": "Tu bebé se despierta ",
-    "hero.title.highlight": "5 veces por noche",
-    "hero.title.2": " y buscas un sueño más tranquilo?",
-    "hero.subtitle": "Esta app ayudó a +2,300 mamás a que sus bebés durmieran toda la noche.",
-    "hero.desc": "Asistente de sueño con IA disponible 24/7, traductor de llanto y rutinas personalizadas por edad. Sin dejarlo llorar, sin fórmulas mágicas.",
+    "hero.title.1": "Tu bebé duerme toda la noche. ",
+    "hero.title.highlight": "Desde esta noche.",
+    "hero.title.2": "",
+    "hero.subtitle": "Guía impulsada por IA en la que confían más de 2,300 familias.",
+    "hero.desc": "Sin dejarlo llorar. Sin esperar citas. Solo respuestas — a las 3AM o cuando sea.",
     "hero.cta": "Quiero mejores noches",
     "hero.trust1": "+2,300 familias confían en nosotros",
     "hero.trust2": "Basado en evidencia",
