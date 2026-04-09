@@ -10,10 +10,10 @@ import {
 type Screen = "home" | "chat" | "cry" | "cta";
 
 const SCREEN_DURATIONS: Record<Screen, number> = {
-  home: 4000,
-  chat: 7000,
-  cry: 7000,
-  cta: 5000,
+  home: 3000,
+  chat: 8000,
+  cry: 6000,
+  cta: 3000,
 };
 
 const SCREENS: Screen[] = ["home", "chat", "cry", "cta"];
