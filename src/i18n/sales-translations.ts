@@ -156,6 +156,7 @@ const salesTranslations: Record<SalesLang, Record<string, string>> = {
     "trust.item2.desc": "Always ready when you need it most.",
     "trust.item3.title": "No judgment",
     "trust.item3.desc": "A safe space to ask your questions.",
+    "trust.endorsement": "✅ Aligned with AAP (American Academy of Pediatrics) safe sleep guidelines",
 
     // Testimonials
     "testimonials.badge": "+2,300 families already use it",
@@ -172,11 +173,11 @@ const salesTranslations: Record<SalesLang, Record<string, string>> = {
 
     // WhatsApp testimonial
     "wa.title": "Real testimonial from a mom 💬",
-    "wa.subtitle": "Conversation between our team and Camila, mom of 8-month-old Bernardo",
-    "wa.contact": "Camila R. 🩵",
-    "wa.msg1": "Hi Camila! This is the Dr. Sleepy team 😊 Hope you're well! We'd love to know how your experience with the app has been!",
+    "wa.subtitle": "Conversation between our team and Emily, mom of 8-month-old Noah",
+    "wa.contact": "Emily S. 🩵",
+    "wa.msg1": "Hi Emily! This is the Dr. Sleepy team 😊 Hope you're well! We'd love to know how your experience with the web app has been!",
     "wa.msg2": "Hi! Oh wow, so glad you asked! 💙",
-    "wa.msg3": "Honestly, it changed my life. Bernardo was waking up 5x a night and I was at my limit",
+    "wa.msg3": "Honestly, it changed my life. Noah was waking up 5x a night and I was at my limit",
     "wa.msg4": "I can imagine! And how is he doing now after using the app?",
     "wa.msg5": "In 2 weeks he was already sleeping 6 hours straight! Dr. Sleepy explained his sleep window and built the perfect routine",
     "wa.msg6": "And the cry translator?? Unreal! At 3am I couldn't tell if it was hunger or colic and it was always right 😭🙌",
@@ -244,7 +245,7 @@ const salesTranslations: Record<SalesLang, Record<string, string>> = {
     "faq.5.q": "Is the payment secure?",
     "faq.5.a": "Yes. Payment is processed by Hotmart, the largest digital products platform in Latin America, with state-of-the-art encryption.",
     "faq.6.q": "How do I access the app after paying?",
-    "faq.6.a": "After payment, you create your account with the same email used for the purchase. Access is granted automatically.",
+    "faq.6.a": "Dr. Sleepy is a web app — no download needed. After payment, you create your account with the same email used for the purchase and access instantly from any browser on your phone, tablet, or computer.",
 
     // CTA
     "cta.title": "Tonight could be the last bad night.",
@@ -428,6 +429,7 @@ const salesTranslations: Record<SalesLang, Record<string, string>> = {
     "trust.item2.desc": "Siempre listo cuando más lo necesitas.",
     "trust.item3.title": "Sin juicios",
     "trust.item3.desc": "Un espacio seguro para hacer tus preguntas.",
+    "trust.endorsement": "✅ Alineado con las guías de sueño seguro de la AAP (Academia Americana de Pediatría)",
 
     // Testimonials
     "testimonials.badge": "+2,300 familias ya lo usan",
@@ -444,11 +446,11 @@ const salesTranslations: Record<SalesLang, Record<string, string>> = {
 
     // WhatsApp testimonial
     "wa.title": "Testimonio real de una mamá 💬",
-    "wa.subtitle": "Conversación entre nuestro equipo y Camila, mamá de Bernardo de 8 meses",
-    "wa.contact": "Camila R. 🩵",
-    "wa.msg1": "¡Hola Camila! Somos del equipo Dr. Sleepy 😊 ¡Esperamos que estés bien! ¡Nos encantaría saber cómo ha sido tu experiencia con la app!",
+    "wa.subtitle": "Conversación entre nuestro equipo y Emily, mamá de Noah de 8 meses",
+    "wa.contact": "Emily S. 🩵",
+    "wa.msg1": "¡Hola Emily! Somos del equipo Dr. Sleepy 😊 ¡Esperamos que estés bien! ¡Nos encantaría saber cómo ha sido tu experiencia con la app!",
     "wa.msg2": "¡Hola! ¡Ay qué bueno que preguntan! 💙",
-    "wa.msg3": "Honestamente, me cambió la vida. Bernardo se despertaba 5 veces por noche y yo estaba al límite",
+    "wa.msg3": "Honestamente, me cambió la vida. Noah se despertaba 5 veces por noche y yo estaba al límite",
     "wa.msg4": "¡Me lo imagino! ¿Y cómo está ahora después de usar la app?",
     "wa.msg5": "¡En 2 semanas ya dormía 6 horas seguidas! Dr. Sleepy me explicó su ventana de sueño y armó la rutina perfecta",
     "wa.msg6": "¿Y el traductor de llanto?? ¡Increíble! A las 3am no sabía si era hambre o cólico y siempre acertaba 😭🙌",
@@ -516,7 +518,7 @@ const salesTranslations: Record<SalesLang, Record<string, string>> = {
     "faq.5.q": "¿El pago es seguro?",
     "faq.5.a": "Sí. El pago es procesado por Hotmart, la mayor plataforma de productos digitales de Latinoamérica, con encriptación de última generación.",
     "faq.6.q": "¿Cómo accedo a la app después de pagar?",
-    "faq.6.a": "Después del pago, creas tu cuenta con el mismo email usado para la compra. El acceso se otorga automáticamente.",
+    "faq.6.a": "Dr. Sleepy es una web app — no necesitas descargar nada. Después del pago, creas tu cuenta con el mismo email de la compra y accedes al instante desde cualquier navegador en tu celular, tablet u ordenador.",
 
     // CTA
     "cta.title": "Esta noche podría ser la última mala noche.",
