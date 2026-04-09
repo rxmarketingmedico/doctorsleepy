@@ -57,18 +57,9 @@ export default function SalesHero() {
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
 
-            {/* Demo Video */}
-            <div className="mt-8 max-w-md mx-auto rounded-2xl overflow-hidden shadow-2xl shadow-primary/10 border border-border/30">
-              <video
-                src="/videos/dr-sleepy-demo.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                controls
-                className="w-full"
-                poster={heroImg}
-              />
+            {/* Interactive Demo Mockup */}
+            <div className="mt-10">
+              <HeroDemoMockup />
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-4 mt-10 text-xs text-muted-foreground">
