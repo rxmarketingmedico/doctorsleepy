@@ -48,10 +48,11 @@ export default function SalesPage({ lang = "en" }: { lang?: SalesLang }) {
           <SalesRoutineSection />
           <SalesBeforeAfterSection />
           <SalesTrustSection />
-          <SalesTestimonialsSection />
           <SalesWhatsAppTestimonial />
+          <SalesTestimonialsSection />
           <SalesBenefitsSection />
           <SalesQualificationSection />
+          <SalesPriceAnchor />
           <SalesPricingSection />
           <SalesGuaranteeSection />
           <SalesFAQSection />
