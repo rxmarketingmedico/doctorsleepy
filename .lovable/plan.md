@@ -1,106 +1,37 @@
 
 
-# Doutor Soneca - Plano de Implementação
+## Vídeo Demo do App — Screencast Simulado com Remotion
 
-## Visão Geral
-Aplicativo completo de assistência ao sono infantil para pais de primeira viagem, com IA real, avatar animado Lottie, e backend completo com autenticação e persistência de dados. **Modelo 100% pago (R$ 49/mês)** com acesso completo a todos os recursos.
+Sim, conseguimos criar isso internamente usando **Remotion** — uma biblioteca que renderiza vídeos em MP4 direto no servidor, sem precisar gravar tela de celular real.
 
----
+### Como funciona
 
-## 🎨 Design System
-- **Paleta**: Tons pastel suaves (azuis claros, verdes menta, lavanda)
-- **Tipografia**: Amigável e legível (Inter/Nunito)
-- **Componentes**: Cantos arredondados, botões grandes, espaçamento generoso
-- **Acessibilidade**: Contraste adequado, textos alternativos, suporte a leitores de tela
-- **Dark Mode**: Suporte completo para uso noturno
+Em vez de gravar a tela de um celular de verdade, vamos **recriar as telas do app como componentes animados** dentro de um frame de celular (iPhone mockup). As interações (toques, digitação, respostas aparecendo) são todas **animadas frame a frame**, simulando um screencast real.
 
----
+### Fluxo do vídeo (30-45 segundos)
 
-## 1. Onboarding
-- Tela de boas-vindas com apresentação do app
-- Apresentação dos benefícios e valor do app
-- Tela de pagamento/assinatura (R$ 49/mês)
-- Após pagamento: perguntas passo a passo (idade do bebê, local de sono, uso de chupeta, mamadas noturnas)
-- Termo de consentimento claro
-- Progress indicator visual
-- Botões grandes para fácil navegação
+1. **Cena 1 (0-5s)** — Celular aparece na tela. App abre na Home com o Emergency Mode visível
+2. **Cena 2 (5-12s)** — "Dedo" toca em "Could it be sleep?" → transição para o Chat
+3. **Cena 3 (12-22s)** — Mensagem do Dr. Sleepy aparece com efeito de digitação. Resposta do usuário aparece. Nova resposta da IA com dicas
+4. **Cena 4 (22-35s)** — Transição para o Cry Translator. Animação do botão de gravação pulsando → resultado aparecendo com percentuais e dicas
+5. **Cena 5 (35-40s)** — Logo do Dr. Sleepy + tagline "Your baby sleeps tonight"
 
-## 2. Home - Modo Emergência
-- Título "Modo Emergência" com visual calmo
-- 5 botões grandes e coloridos:
-  - "Pode ser fome?"
-  - "Pode ser sono?"
-  - "Pode ser desconforto?"
-  - "Choro inconsolável"
-  - "Acordou de madrugada"
-- Navegação inferior: Rotina, Tradutor de Choro, Biblioteca, Perfil
-- Avatar animado presente na tela
+### O que será criado
 
-## 3. Chat de Orientação (IA Real)
-- Chat com balões de fala estilizados
-- Avatar animado com feedback visual
-- Disclaimer médico no topo
-- Perguntas contextuais com IA (Lovable AI)
-- Sugestões rápidas de resposta
-- Botão de áudio para ouvir orientações
-- Acesso ilimitado para todos os assinantes
+- Projeto Remotion em `remotion/` com 5 cenas
+- Mockup de iPhone como frame visual
+- Recriação simplificada das telas reais do app (Home, Chat, Cry Translator) usando os mesmos cores e layout do app
+- Animações de toque, digitação, e transições entre telas
+- Output: MP4 em 1080x1920 (vertical) ou 1920x1080 (horizontal) — ideal para embed na hero section
+- Geração de fotos realistas dos testemunhos via Gemini Pro (do plano anterior)
 
-## 4. Avatar Animado (Lottie)
-- Personagem com fisionomia neutra e tranquila
-- Animações suaves de feedback:
-  - Pensando, respondendo, ouvindo
-  - Expressões contextuais
-- Presente em todas as seções
-- Voz sintetizada disponível para todos
+### Limitações
 
-## 5. Rotina Inteligente
-- Dashboard completo com cards visuais
-- Gráficos de janelas de sono
-- Contador de despertares e mamadas
-- Botão "Registrar sono/mamada"
-- Alertas inteligentes com previsões
-- Histórico visual da semana
+- Não é uma gravação real — é uma **simulação animada** das telas
+- Visualmente muito próximo do app real, mas simplificado
+- Sem áudio (pode adicionar música depois se quiser)
 
-## 6. Tradutor de Choro
-- Botão grande para gravar áudio
-- Visualização de gravação em andamento
-- Barras de probabilidade: fome, fralda, emocional, dor
-- Explicação de cada categoria
-- Sugestões de ação
-- Traduções ilimitadas
-- Aviso médico obrigatório
+### Formato
 
-## 7. Biblioteca de Conteúdos
-- Grade de cards com textos e áudios curtos
-- Título, tempo de leitura/escuta, ícone
-- Filtro por idade do bebê
-- Busca por palavra-chave
-- Marcação de favoritos
-- Acesso completo a todo conteúdo
-
-## 8. Perfil e Configurações
-- Dados do bebê editáveis
-- Configurações de notificações e alertas personalizados
-- Gestão de assinatura (cancelar, atualizar pagamento)
-- Histórico de uso
-
----
-
-## 🔧 Infraestrutura Técnica
-
-### Backend (Lovable Cloud + Supabase)
-- Autenticação de usuários
-- Banco de dados para perfis, registros de sono, histórico
-- Edge functions para integração com IA
-- Armazenamento de áudios do tradutor de choro
-
-### Pagamentos (Stripe)
-- Assinatura mensal de R$ 49/mês
-- Gestão de pagamentos e cancelamentos
-- Período de trial (se desejado)
-
-### Integrações
-- **Lovable AI**: Chat inteligente e análise contextual
-- **Animações Lottie**: Avatar em todas as telas
-- **Text-to-Speech**: Voz do avatar
+O vídeo será renderizado como MP4 e pode ser embedado diretamente na hero section da landing page, ou usado como creative para Meta Ads.
 
