@@ -57,6 +57,20 @@ export default function SalesHero() {
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
 
+            {/* Demo Video */}
+            <div className="mt-8 max-w-md mx-auto rounded-2xl overflow-hidden shadow-2xl shadow-primary/10 border border-border/30">
+              <video
+                src="/videos/dr-sleepy-demo.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls
+                className="w-full"
+                poster={heroImg}
+              />
+            </div>
+
             <div className="flex flex-wrap items-center justify-center gap-4 mt-10 text-xs text-muted-foreground">
               <span className="inline-flex items-center gap-1.5 bg-card/60 backdrop-blur-sm rounded-full px-3 py-1.5 border border-border/30">
                 <Users className="w-3.5 h-3.5 text-primary" />
