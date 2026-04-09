@@ -1,37 +1,40 @@
 
 
-## Vídeo Demo do App — Screencast Simulado com Remotion
+## Plano: Mockup Animado Interativo na Hero (sem vídeo)
 
-Sim, conseguimos criar isso internamente usando **Remotion** — uma biblioteca que renderiza vídeos em MP4 direto no servidor, sem precisar gravar tela de celular real.
+Substituir o `<video>` atual na hero por um **componente React animado** — um mockup de celular que cicla automaticamente pelas funcionalidades principais do app, com textos explicativos ao lado e CTA no final.
 
-### Como funciona
+### Conceito
 
-Em vez de gravar a tela de um celular de verdade, vamos **recriar as telas do app como componentes animados** dentro de um frame de celular (iPhone mockup). As interações (toques, digitação, respostas aparecendo) são todas **animadas frame a frame**, simulando um screencast real.
+Um mockup de iPhone (mesmo estilo dos que já existem na página — `ChatPhoneMockup`, `SalesEmergencySection`, `SalesCryTranslatorSection`) que **troca de tela automaticamente** em loop, simulando alguém usando o app. Ao lado (ou abaixo em mobile), textos curtos explicam o que está acontecendo.
 
-### Fluxo do vídeo (30-45 segundos)
+### Fluxo da animação (4 telas, ~20s loop)
 
-1. **Cena 1 (0-5s)** — Celular aparece na tela. App abre na Home com o Emergency Mode visível
-2. **Cena 2 (5-12s)** — "Dedo" toca em "Could it be sleep?" → transição para o Chat
-3. **Cena 3 (12-22s)** — Mensagem do Dr. Sleepy aparece com efeito de digitação. Resposta do usuário aparece. Nova resposta da IA com dicas
-4. **Cena 4 (22-35s)** — Transição para o Cry Translator. Animação do botão de gravação pulsando → resultado aparecendo com percentuais e dicas
-5. **Cena 5 (35-40s)** — Logo do Dr. Sleepy + tagline "Your baby sleeps tonight"
+1. **Home Screen** (4s) — Tela inicial do app com Emergency Mode visível, botões de navegação. Texto: "24/7 AI guidance at your fingertips"
+2. **Chat com Dr. Sleepy** (6s) — Mensagens aparecendo com efeito de digitação (reusa padrão do `ChatPhoneMockup`). Texto: "Ask anything — get expert answers instantly"
+3. **Cry Translator** (6s) — Botão de gravação pulsando → resultado com barras de análise. Texto: "Decode your baby's cry in seconds"
+4. **CTA Final** (4s) — Tela com logo, "Your baby sleeps tonight." + "Starting at $1.65/mo — Try free for 7 days" + botão "Start now" estilizado
 
-### O que será criado
+Depois do CTA, volta para a tela 1 em loop infinito.
 
-- Projeto Remotion em `remotion/` com 5 cenas
-- Mockup de iPhone como frame visual
-- Recriação simplificada das telas reais do app (Home, Chat, Cry Translator) usando os mesmos cores e layout do app
-- Animações de toque, digitação, e transições entre telas
-- Output: MP4 em 1080x1920 (vertical) ou 1920x1080 (horizontal) — ideal para embed na hero section
-- Geração de fotos realistas dos testemunhos via Gemini Pro (do plano anterior)
+### Layout
 
-### Limitações
+- **Desktop**: Mockup à esquerda, texto explicativo + indicadores de progresso à direita
+- **Mobile**: Mockup centralizado, texto abaixo
 
-- Não é uma gravação real — é uma **simulação animada** das telas
-- Visualmente muito próximo do app real, mas simplificado
-- Sem áudio (pode adicionar música depois se quiser)
+### O que muda
 
-### Formato
+- **Criar**: `src/components/sales/HeroDemoMockup.tsx` — componente com o mockup animado multi-tela + textos laterais + dots de progresso + CTA final
+- **Editar**: `src/components/sales/SalesHero.tsx` — remover o bloco `<video>` e importar o novo `HeroDemoMockup`
+- **Editar**: `src/i18n/sales-translations.ts` — adicionar chaves para os textos de cada tela do mockup
+- **Remover**: Referência ao `/videos/dr-sleepy-demo.mp4` (pode manter o arquivo para uso futuro)
 
-O vídeo será renderizado como MP4 e pode ser embedado diretamente na hero section da landing page, ou usado como creative para Meta Ads.
+### Detalhes técnicos
+
+- Usa o mesmo padrão visual dos mockups existentes (rounded-[2.5rem], border-[6px], status bar, home indicator)
+- Transições entre telas com `animate-fade-in` do Tailwind já configurado
+- Indicadores de progresso (dots) mostram qual tela está ativa
+- Textos ao lado mudam junto com a tela do mockup
+- Tela do CTA final inclui botão funcional que scrolla até o pricing
+- Tudo em CSS/React — zero dependências externas, zero vídeo
 
