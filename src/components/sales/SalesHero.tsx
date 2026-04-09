@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useSalesT } from "@/contexts/SalesLanguageContext";
 import logo from "@/assets/logo-dr-sleepy.webp";
+import HeroDemoMockup from "@/components/sales/HeroDemoMockup";
 const heroImg = "/images/hero-sleeping-baby.webp";
 
 export default function SalesHero() {
