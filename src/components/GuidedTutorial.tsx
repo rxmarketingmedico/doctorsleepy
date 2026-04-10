@@ -45,7 +45,7 @@ const steps: TutorialStep[] = [
   },
 ];
 
-const TUTORIAL_KEY = "doutor_soneca_tutorial_completed";
+const TUTORIAL_KEY = "dr_sleepy_tutorial_completed";
 
 export function GuidedTutorial() {
   const [currentStep, setCurrentStep] = useState(0);

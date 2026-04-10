@@ -37,7 +37,7 @@ export function AvatarAI({ size = "md", className, state = "idle" }: AvatarAIPro
       )}>
         <img 
           src={doctorAvatar} 
-          alt="Doutor Soneca"
+          alt="Dr. Sleepy"
           className="w-full h-full object-cover"
         />
       </div>

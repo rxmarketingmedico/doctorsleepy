@@ -39,7 +39,7 @@ function LoadingScreen() {
     <div className="min-h-screen bg-background flex items-center justify-center">
       <div className="text-center">
         <div className="animate-pulse text-2xl mb-2">🌙</div>
-        <p className="text-muted-foreground">Carregando...</p>
+        <p className="text-muted-foreground">Loading...</p>
       </div>
     </div>
   );
