@@ -96,12 +96,22 @@ export default function AudioLibrary() {
     if (audioRef.current) audioRef.current.volume = volume;
   }, [volume]);
 
-  const playTrack = async (track: AudioItem) => {
+  const playTrack = (track: AudioItem) => {
     if (currentTrack?.id === track.id) { togglePlayPause(); return; }
-    setCurrentTrack(track); setIsPlaying(true); setCurrentTime(0);
-    if (audioRef.current) { audioRef.current.src = track.audio_url; audioRef.current.play(); }
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session) { await supabase.from("audio_plays").insert({ user_id: session.user.id, audio_id: track.id }); }
+    setCurrentTrack(track); setCurrentTime(0);
+    if (audioRef.current) {
+      audioRef.current.src = track.audio_url;
+      audioRef.current.play()
+        .then(() => setIsPlaying(true))
+        .catch((err) => {
+          console.error("Playback failed:", err);
+          setIsPlaying(false);
+        });
+    }
+    // Log play asynchronously without blocking
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) { supabase.from("audio_plays").insert({ user_id: session.user.id, audio_id: track.id }); }
+    });
   };
 
   const togglePlayPause = () => {
