@@ -33,7 +33,7 @@ Deno.serve(async (req) => {
 
     if (!existing) {
       return new Response(
-        JSON.stringify({ success: false, not_found: true, message: "Este email não possui uma conta ativa. Assine um plano para ter acesso." }),
+        JSON.stringify({ success: false, not_found: true, message: "This email does not have an active account. Subscribe to a plan to get access." }),
         { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }

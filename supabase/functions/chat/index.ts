@@ -106,13 +106,13 @@ serve(async (req) => {
       const diffDays = Math.floor((now.getTime() - birthDate.getTime()) / (1000 * 60 * 60 * 24));
       
       if (diffMonths < 1) {
-        babyAge = `${diffDays} dias`;
+        babyAge = `${diffDays} days`;
       } else if (diffMonths < 12) {
-        babyAge = `${diffMonths} ${diffMonths === 1 ? 'mês' : 'meses'}`;
+        babyAge = `${diffMonths} ${diffMonths === 1 ? 'month' : 'months'}`;
       } else {
         const years = Math.floor(diffMonths / 12);
         const months = diffMonths % 12;
-        babyAge = `${years} ${years === 1 ? 'ano' : 'anos'}${months > 0 ? ` e ${months} ${months === 1 ? 'mês' : 'meses'}` : ''}`;
+        babyAge = `${years} ${years === 1 ? 'year' : 'years'}${months > 0 ? ` and ${months} ${months === 1 ? 'month' : 'months'}` : ''}`;
       }
     }
 
@@ -253,20 +253,20 @@ DISCLAIMER: You provide general guidance and do NOT replace professional medical
 
     if (!response.ok) {
       if (response.status === 429) {
-        return new Response(JSON.stringify({ error: "Limite de requisições excedido. Tente novamente em alguns segundos." }), {
+        return new Response(JSON.stringify({ error: "Rate limit exceeded. Please try again in a few seconds." }), {
           status: 429,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
       }
       if (response.status === 402) {
-        return new Response(JSON.stringify({ error: "Créditos de IA esgotados. Entre em contato com o suporte." }), {
+        return new Response(JSON.stringify({ error: "AI credits exhausted. Please contact support." }), {
           status: 402,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
       }
       const errorText = await response.text();
       console.error("AI gateway error:", response.status, errorText);
-      return new Response(JSON.stringify({ error: "Erro ao processar sua mensagem" }), {
+      return new Response(JSON.stringify({ error: "Error processing your message" }), {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
@@ -277,7 +277,7 @@ DISCLAIMER: You provide general guidance and do NOT replace professional medical
     });
   } catch (error) {
     console.error("Chat error:", error);
-    return new Response(JSON.stringify({ error: error instanceof Error ? error.message : "Erro desconhecido" }), {
+    return new Response(JSON.stringify({ error: error instanceof Error ? error.message : "Unknown error" }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
