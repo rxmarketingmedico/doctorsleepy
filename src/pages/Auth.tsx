@@ -30,16 +30,16 @@ export default function Auth() {
         });
         if (data?.not_found) {
           toast({
-            title: "Email não encontrado 😕",
-            description: "Este email não possui uma conta ativa. Assine um plano para ter acesso ao Dr. Sleepy.",
+            title: "Email not found 😕",
+            description: "This email doesn't have an active account. Subscribe to a plan to get access to Dr. Sleepy.",
             variant: "destructive",
           });
           return;
         }
         if (error) throw error;
         toast({
-          title: "Email enviado! 📧",
-          description: "Verifique sua caixa de entrada para acessar o Dr. Sleepy.",
+          title: "Email sent! 📧",
+          description: "Check your inbox to access Dr. Sleepy.",
         });
         setMode("login");
       } else {
@@ -49,8 +49,8 @@ export default function Auth() {
       }
     } catch (error: any) {
       toast({
-        title: "Erro",
-        description: error.message || "Ocorreu um erro. Tente novamente.",
+        title: "Error",
+        description: error.message || "An error occurred. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -65,19 +65,19 @@ export default function Auth() {
           <Avatar size="lg" state="idle" />
           <h1 className="mt-4 text-3xl font-bold text-foreground">Dr. Sleepy</h1>
           <p className="text-muted-foreground text-center mt-2">
-            Seu assistente para noites tranquilas
+            Your assistant for peaceful nights
           </p>
         </div>
 
         <Card className="border-2">
           <CardHeader className="text-center">
             <CardTitle>
-              {mode === "login" ? "Entrar" : "Reenviar acesso"}
+              {mode === "login" ? "Sign In" : "Resend Access"}
             </CardTitle>
             <CardDescription>
               {mode === "login"
-                ? "Digite seu email e senha"
-                : "Digite seu email para receber um novo link de acesso"}
+                ? "Enter your email and password"
+                : "Enter your email to receive a new access link"}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -87,7 +87,7 @@ export default function Auth() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="seu@email.com"
+                  placeholder="your@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -97,7 +97,7 @@ export default function Auth() {
 
               {mode === "login" && (
                 <div className="space-y-2">
-                  <Label htmlFor="password">Senha</Label>
+                  <Label htmlFor="password">Password</Label>
                   <Input
                     id="password"
                     type="password"
@@ -122,10 +122,10 @@ export default function Auth() {
                   <Mail className="w-5 h-5 mr-2" />
                 ) : null}
                 {loading
-                  ? "Aguarde..."
+                  ? "Loading..."
                   : mode === "login"
-                  ? "Entrar"
-                  : "Enviar acesso por email"}
+                  ? "Sign In"
+                  : "Send access via email"}
               </Button>
             </form>
 
@@ -136,7 +136,7 @@ export default function Auth() {
                   onClick={() => setMode("resend")}
                   className="text-primary hover:underline text-sm font-medium"
                 >
-                  Não consigo entrar? Reenviar acesso por email
+                  Can't sign in? Resend access via email
                 </button>
               </div>
             )}
@@ -148,7 +148,7 @@ export default function Auth() {
                   onClick={() => setMode("login")}
                   className="text-primary hover:underline text-sm"
                 >
-                  Voltar ao login
+                  Back to login
                 </button>
               </div>
             )}
@@ -156,14 +156,14 @@ export default function Auth() {
             {mode === "login" && (
               <div className="mt-6 p-3 rounded-xl bg-muted/50 text-center">
                 <p className="text-xs text-muted-foreground">
-                  Ainda não tem conta? Assine um plano para ter acesso.
+                  Don't have an account yet? Subscribe to a plan to get access.
                 </p>
                 <button
                   type="button"
                   onClick={() => navigate("/vendas")}
                   className="text-primary hover:underline text-sm font-medium mt-1"
                 >
-                  Ver planos disponíveis
+                  View available plans
                 </button>
               </div>
             )}
