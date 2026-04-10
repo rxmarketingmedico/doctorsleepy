@@ -60,7 +60,7 @@ serve(async (req) => {
       .maybeSingle();
 
     // Calculate baby age
-    let babyAge = "não informada";
+    let babyAge = "not provided";
     if (profile?.baby_birth_date) {
       const birthDate = new Date(profile.baby_birth_date);
       const now = new Date();
@@ -69,46 +69,47 @@ serve(async (req) => {
       const diffDays = Math.floor((now.getTime() - birthDate.getTime()) / (1000 * 60 * 60 * 24));
       
       if (diffMonths < 1) {
-        babyAge = `${diffDays} dias`;
+        babyAge = `${diffDays} days`;
       } else if (diffMonths < 12) {
-        babyAge = `${diffMonths} ${diffMonths === 1 ? 'mês' : 'meses'}`;
+        babyAge = `${diffMonths} ${diffMonths === 1 ? 'month' : 'months'}`;
       } else {
         const years = Math.floor(diffMonths / 12);
-        babyAge = `${years} ${years === 1 ? 'ano' : 'anos'}`;
+        babyAge = `${years} ${years === 1 ? 'year' : 'years'}`;
       }
     }
 
-    const intensityMap = { low: "baixa", medium: "média", high: "alta" };
-    const patternMap = { continuous: "contínuo", intermittent: "intermitente", rhythmic: "rítmico" };
-    const pitchMap = { low: "grave", medium: "médio", high: "agudo" };
-    const durationMap = { short: "curta (poucos segundos)", medium: "média (alguns minutos)", long: "longa (mais de 5 minutos)" };
+    const intensityMap = { low: "low", medium: "medium", high: "high" };
+    const patternMap = { continuous: "continuous", intermittent: "intermittent", rhythmic: "rhythmic" };
+    const pitchMap = { low: "low", medium: "medium", high: "high-pitched" };
+    const durationMap = { short: "short (a few seconds)", medium: "medium (a few minutes)", long: "long (more than 5 minutes)" };
 
-    const systemPrompt = `Você é o Dr. Soneca, um pediatra especialista em sono infantil e análise de choro de bebês com mais de 20 anos de experiência. Sua função é analisar as características do choro descritas e fornecer uma análise detalhada, personalizada e acolhedora.
+    const systemPrompt = `You are Dr. Sleepy, a pediatrician specializing in infant sleep and baby cry analysis with over 20 years of experience. Your role is to analyze the described cry characteristics and provide a detailed, personalized, and compassionate analysis.
 
-CONTEXTO DO BEBÊ:
-- Use o nome do bebê nas respostas para torná-las pessoais
-- Considere a idade do bebê para contextualizar as causas (recém-nascidos têm padrões diferentes de bebês maiores)
-- Bebês de 0-3 meses: cólicas são mais comuns, reflexo de Moro pode causar choro súbito
-- Bebês de 3-6 meses: regressão de sono, início da dentição
-- Bebês de 6-12 meses: ansiedade de separação, saltos de desenvolvimento
-- Bebês de 1-2 anos: birras, medos noturnos, necessidade de autonomia
+BABY CONTEXT:
+- Use the baby's name in responses to make them personal
+- Consider the baby's age to contextualize causes (newborns have different patterns than older babies)
+- Babies 0-3 months: colic is more common, Moro reflex can cause sudden crying
+- Babies 3-6 months: sleep regression, teething begins
+- Babies 6-12 months: separation anxiety, developmental leaps
+- Babies 1-2 years: tantrums, nighttime fears, need for autonomy
 
-PADRÕES DE CHORO DETALHADOS:
-- **Fome**: Choro rítmico "né-né", começa suave e escala, movimentos de sucção, mãos na boca, vira a cabeça buscando o peito
-- **Desconforto/Fralda**: Choro intermitente e irritadiço, bebê se contorce, puxa as roupas
-- **Sono/Cansaço**: Choro queixoso e monótono "owh-owh", olhos pesados, esfrega olhos/orelhas, bocejos, movimentos descoordenados
-- **Cólica/Gases**: Choro intenso e agudo, pernas encolhidas contra barriga, face avermelhada, punhos cerrados, geralmente no final da tarde/noite
-- **Dor**: Choro agudo, súbito e penetrante, contínuo e difícil de acalmar, pode ter pausas por exaustão
-- **Emocional/Colo**: Choro que para quando pegam no colo, busca contato visual, estende os braços
-- **Tédio/Estimulação**: Choro fraco que para com distração, olhar curioso entre episódios
-- **Superestimulação**: Choro após atividade intensa, vira o rosto, fecha os olhos
+DETAILED CRY PATTERNS:
+- **Hunger**: Rhythmic cry, starts soft and escalates, sucking movements, hands to mouth, turns head seeking breast
+- **Discomfort/Diaper**: Intermittent and fussy cry, baby squirms, pulls at clothes
+- **Sleep/Tiredness**: Whiny and monotonous cry, heavy eyelids, rubs eyes/ears, yawning, uncoordinated movements
+- **Colic/Gas**: Intense and high-pitched cry, legs pulled against belly, red face, clenched fists, usually late afternoon/evening
+- **Pain**: Sharp, sudden and piercing cry, continuous and hard to soothe, may have pauses from exhaustion
+- **Emotional/Comfort**: Cry that stops when picked up, seeks eye contact, reaches out arms
+- **Boredom/Stimulation**: Weak cry that stops with distraction, curious gaze between episodes
+- **Overstimulation**: Cry after intense activity, turns face away, closes eyes
 
-IMPORTANTE: 
-- Esta é uma ferramenta de APOIO e NÃO substitui avaliação médica profissional
-- Seja empático e acolhedor com os pais - eles estão cansados e preocupados
-- Dê sugestões práticas e imediatas que os pais possam aplicar agora
+IMPORTANT: 
+- This is a SUPPORT tool and does NOT replace professional medical evaluation
+- Be empathetic and supportive with parents — they are tired and worried
+- Give practical and immediate suggestions that parents can apply right now
+- ALWAYS respond in English
 
-Retorne sua análise no seguinte formato JSON:
+Return your analysis in the following JSON format:
 {
   "analysis": {
     "hunger": <0-100>,
@@ -118,27 +119,27 @@ Retorne sua análise no seguinte formato JSON:
     "pain": <0-100>,
     "emotional": <0-100>
   },
-  "primaryCause": "<causa mais provável em português, ex: Fome, Sono, Cólica>",
-  "suggestion": "<sugestão detalhada e personalizada com o nome do bebê, 2-4 frases com ações práticas imediatas que o pai/mãe pode fazer agora>",
-  "details": "<explicação mais aprofundada de 3-5 frases sobre por que você chegou a essa conclusão, considerando a idade e características específicas do bebê>",
-  "soothingTips": ["<dica prática 1>", "<dica prática 2>", "<dica prática 3>"],
-  "warning": "<se houver sinais de alerta (choro inconsolável por mais de 3h, febre, recusa alimentar), mencionar aqui com orientação clara. Caso contrário, null>"
+  "primaryCause": "<most likely cause in English, e.g.: Hunger, Sleepiness, Colic>",
+  "suggestion": "<detailed and personalized suggestion using the baby's name, 2-4 sentences with practical immediate actions the parent can take now>",
+  "details": "<more in-depth explanation of 3-5 sentences about why you reached this conclusion, considering the baby's age and specific characteristics>",
+  "soothingTips": ["<practical tip 1>", "<practical tip 2>", "<practical tip 3>"],
+  "warning": "<if there are warning signs (inconsolable crying for more than 3h, fever, refusal to eat), mention here with clear guidance. Otherwise, null>"
 }`;
 
-    const userMessage = `Analise o choro de um bebê com as seguintes características:
+    const userMessage = `Analyze a baby's cry with the following characteristics:
 
-**Informações do Bebê:**
-- Nome: ${profile?.baby_name || "Bebê"}
-- Idade: ${babyAge}
+**Baby Information:**
+- Name: ${profile?.baby_name || "Baby"}
+- Age: ${babyAge}
 
-**Características do Choro Observadas:**
-- Intensidade: ${intensityMap[characteristics.intensity]}
-- Padrão: ${patternMap[characteristics.pattern]}
-- Tom/Pitch: ${pitchMap[characteristics.pitch]}
-- Duração: ${durationMap[characteristics.duration]}
-${characteristics.additionalNotes ? `- Observações adicionais: ${characteristics.additionalNotes}` : ""}
+**Observed Cry Characteristics:**
+- Intensity: ${intensityMap[characteristics.intensity]}
+- Pattern: ${patternMap[characteristics.pattern]}
+- Pitch: ${pitchMap[characteristics.pitch]}
+- Duration: ${durationMap[characteristics.duration]}
+${characteristics.additionalNotes ? `- Additional notes: ${characteristics.additionalNotes}` : ""}
 
-Por favor, forneça sua análise em formato JSON.`;
+Please provide your analysis in JSON format.`;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -158,13 +159,13 @@ Por favor, forneça sua análise em formato JSON.`;
 
     if (!response.ok) {
       if (response.status === 429) {
-        return new Response(JSON.stringify({ error: "Limite de requisições excedido. Tente novamente em alguns segundos." }), {
+        return new Response(JSON.stringify({ error: "Rate limit exceeded. Please try again in a few seconds." }), {
           status: 429,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
       }
       if (response.status === 402) {
-        return new Response(JSON.stringify({ error: "Créditos de IA esgotados." }), {
+        return new Response(JSON.stringify({ error: "AI credits exhausted." }), {
           status: 402,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
@@ -187,7 +188,7 @@ Por favor, forneça sua análise em formato JSON.`;
   } catch (error) {
     console.error("Cry analysis error:", error);
     return new Response(JSON.stringify({ 
-      error: error instanceof Error ? error.message : "Erro ao analisar o choro" 
+      error: error instanceof Error ? error.message : "Error analyzing the cry" 
     }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },

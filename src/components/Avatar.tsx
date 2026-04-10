@@ -37,7 +37,7 @@ export function Avatar({ size = "md", className, state = "idle" }: AvatarProps) 
       )}>
         <img 
           src={doctorAvatar} 
-          alt="Doutor Soneca"
+          alt="Dr. Sleepy"
           className="w-full h-full object-cover"
         />
       </div>
