@@ -32,10 +32,9 @@ Deno.serve(async (req) => {
     );
 
     if (!existing) {
-      // Don't reveal if user exists or not — always show success
       return new Response(
-        JSON.stringify({ success: true, message: "If this email is registered, access instructions will be sent." }),
-        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        JSON.stringify({ success: false, not_found: true, message: "Este email não possui uma conta ativa. Assine um plano para ter acesso." }),
+        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
