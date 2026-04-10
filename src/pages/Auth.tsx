@@ -28,6 +28,14 @@ export default function Auth() {
         const { data, error } = await supabase.functions.invoke("resend-access", {
           body: { email: email.trim() },
         });
+        if (data?.not_found) {
+          toast({
+            title: "Email não encontrado 😕",
+            description: "Este email não possui uma conta ativa. Assine um plano para ter acesso ao Dr. Sleepy.",
+            variant: "destructive",
+          });
+          return;
+        }
         if (error) throw error;
         toast({
           title: "Email enviado! 📧",
