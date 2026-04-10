@@ -88,7 +88,7 @@ Deno.serve(async (req) => {
     await resend.emails.send({
       from: "Dr. Sleepy <noreply@doutorsoneca.com>",
       to: [email.toLowerCase().trim()],
-      subject: "🌙 Seu acesso ao Dr. Sleepy",
+      subject: "🌙 Your Dr. Sleepy Access",
       html: `
         <!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
         <body style="margin:0;padding:0;background-color:#f8f4ff;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
@@ -97,24 +97,24 @@ Deno.serve(async (req) => {
               <div style="text-align:center;margin-bottom:30px;">
                 <div style="font-size:48px;margin-bottom:10px;">🌙</div>
                 <h1 style="color:#6c3fa0;font-size:24px;margin:0;">Dr. Sleepy</h1>
-                <p style="color:#888;font-size:14px;">Seu acesso foi reenviado!</p>
+                <p style="color:#888;font-size:14px;">Your access has been resent!</p>
               </div>
-              <p style="color:#333;font-size:16px;line-height:1.6;">Olá, <strong>${firstName}</strong>! 👋</p>
-              <p style="color:#333;font-size:16px;line-height:1.6;">Você solicitou um novo acesso ao Dr. Sleepy. Clique no botão abaixo para entrar diretamente:</p>
+              <p style="color:#333;font-size:16px;line-height:1.6;">Hi, <strong>${firstName}</strong>! 👋</p>
+              <p style="color:#333;font-size:16px;line-height:1.6;">You requested new access to Dr. Sleepy. Click the button below to sign in directly:</p>
               <div style="text-align:center;margin:30px 0;">
-                <a href="${magicLinkUrl}" style="display:inline-block;background:linear-gradient(135deg,#6c3fa0,#9b59b6);color:white;text-decoration:none;padding:16px 40px;border-radius:12px;font-size:18px;font-weight:bold;box-shadow:0 4px 15px rgba(108,63,160,0.3);">Acessar Dr. Sleepy →</a>
+                <a href="${magicLinkUrl}" style="display:inline-block;background:linear-gradient(135deg,#6c3fa0,#9b59b6);color:white;text-decoration:none;padding:16px 40px;border-radius:12px;font-size:18px;font-weight:bold;box-shadow:0 4px 15px rgba(108,63,160,0.3);">Access Dr. Sleepy →</a>
               </div>
               <div style="background:#f8f4ff;border-radius:12px;padding:20px;margin:25px 0;">
-                <p style="color:#6c3fa0;font-size:14px;font-weight:bold;margin:0 0 12px 0;">🔐 Seus dados de acesso:</p>
+                <p style="color:#6c3fa0;font-size:14px;font-weight:bold;margin:0 0 12px 0;">🔐 Your login credentials:</p>
                 <table style="width:100%;border-collapse:collapse;">
                   <tr><td style="color:#666;font-size:14px;padding:4px 0;">Email:</td><td style="color:#333;font-size:14px;font-weight:bold;padding:4px 0;">${email}</td></tr>
-                  <tr><td style="color:#666;font-size:14px;padding:4px 0;">Senha temporária:</td><td style="color:#333;font-size:14px;font-weight:bold;padding:4px 0;">${safePassword}</td></tr>
+                  <tr><td style="color:#666;font-size:14px;padding:4px 0;">Temporary password:</td><td style="color:#333;font-size:14px;font-weight:bold;padding:4px 0;">${safePassword}</td></tr>
                 </table>
-                <p style="color:#888;font-size:12px;margin:10px 0 0 0;">⚠️ Recomendamos trocar sua senha após o primeiro acesso, no menu Perfil.</p>
+                <p style="color:#888;font-size:12px;margin:10px 0 0 0;">⚠️ We recommend changing your password after your first login, in the Profile menu.</p>
               </div>
-              <p style="color:#888;font-size:13px;text-align:center;line-height:1.5;">O link de acesso rápido expira em 24 horas.</p>
+              <p style="color:#888;font-size:13px;text-align:center;line-height:1.5;">The quick-access link expires in 24 hours.</p>
               <hr style="border:none;border-top:1px solid #eee;margin:30px 0;">
-              <p style="color:#888;font-size:12px;text-align:center;">Dr. Sleepy — Noites tranquilas para toda a família 🌙</p>
+              <p style="color:#888;font-size:12px;text-align:center;">Dr. Sleepy — Peaceful nights for the whole family 🌙</p>
             </div>
           </div>
         </body></html>
